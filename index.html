@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weekly Market Dashboard - 2026-07-31</title>
 <style>
-  body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:900px;margin:0 auto;padding:16px;line-height:1.5;background:#0d1117;color:#e6edf3;}
+  body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:960px;margin:0 auto;padding:16px;line-height:1.5;background:#0d1117;color:#e6edf3;}
   h1{font-size:1.5rem;margin-bottom:4px;}
   h2{font-size:1.15rem;border-bottom:1px solid #30363d;padding-bottom:6px;margin-top:32px;}
   .banner{background:#3d2b00;border:1px solid #9e6a03;color:#f0d78c;padding:12px 16px;border-radius:8px;font-weight:600;margin:16px 0;}
@@ -13,10 +13,26 @@
   table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:.92rem;}
   th,td{text-align:left;padding:8px 10px;border-bottom:1px solid #21262d;vertical-align:top;}
   th{background:#161b22;color:#c9d1d9;}
+  th.sortable{cursor:pointer;user-select:none;}
+  th.sortable:hover{color:#58a6ff;}
+  th.sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
   .up{color:#3fb950;} .down{color:#f85149;}
   .card{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:14px 16px;margin:12px 0;}
   footer{margin-top:40px;padding-top:16px;border-top:1px solid #21262d;color:#8b949e;font-size:.85rem;}
   a{color:#58a6ff;}
+  .filter-input{width:100%;box-sizing:border-box;padding:8px 10px;margin:8px 0;background:#0d1117;border:1px solid #30363d;color:#e6edf3;border-radius:6px;font-size:.9rem;}
+  .filter-input::placeholder{color:#6e7681;}
+  .tabs{display:flex;gap:4px;border-bottom:1px solid #30363d;margin:20px 0 0;flex-wrap:wrap;}
+  .tab-btn{background:none;border:none;color:#8b949e;padding:10px 16px;cursor:pointer;font-size:.95rem;border-bottom:2px solid transparent;}
+  .tab-btn.active{color:#e6edf3;border-bottom-color:#58a6ff;}
+  .tab-btn:hover{color:#e6edf3;}
+  .tab-panel{display:none;padding-top:8px;}
+  .tab-panel.active{display:block;}
+  #trendChart{width:100%;height:260px;background:#161b22;border:1px solid #21262d;border-radius:8px;}
+  .chart-legend{display:flex;gap:16px;font-size:.85rem;color:#8b949e;margin-top:8px;}
+  .chart-legend span::before{content:"\25CF";margin-right:6px;}
+  .legend-nasdaq::before{color:#58a6ff;}
+  .legend-asx::before{color:#f0d78c;}
 </style>
 </head>
 <body>
@@ -26,8 +42,16 @@
 
 <div class="banner">NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Morningstar) ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.</div>
 
-<h2>Market Review - NASDAQ and ASX</h2>
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="week">This Week</button>
+  <button class="tab-btn" data-tab="watchlists">Watchlists</button>
+  <button class="tab-btn" data-tab="trends">Trends</button>
+  <button class="tab-btn" data-tab="archive">Archive</button>
+</nav>
 
+<div class="tab-panel active" data-tab-panel="week">
+
+<h2>Market Review - NASDAQ and ASX</h2>
 <div class="card">
   <strong>NASDAQ Composite:</strong> 25,122.18 (Thu 7/30 close), <span class="up">+2.8%</span> on the day, ending a six-day losing streak.<br>
   Week-to-date: approx <span class="up">+0.6%</span> (+146 pts, estimate).<br>
@@ -41,14 +65,17 @@
 </div>
 
 <h2>Notable Movers</h2>
-<table>
-<tr><th>Ticker</th><th>Market</th><th>Move</th><th>Note</th></tr>
+<input class="filter-input" type="text" placeholder="Filter movers by ticker or text..." data-filter-target="movers-table">
+<table class="sortable" id="movers-table">
+<thead><tr><th class="sortable">Ticker</th><th class="sortable">Market</th><th class="sortable">Move</th><th class="sortable">Note</th></tr></thead>
+<tbody>
 <tr><td>MSFT</td><td>NASDAQ</td><td class="up">+16% (1-day, record)</td><td>Azure +43% YoY; briefly added ~$450B market cap</td></tr>
 <tr><td>AAPL</td><td>NASDAQ</td><td class="up">+3.5%</td><td>Briefly touched $5T market cap</td></tr>
 <tr><td>AMD</td><td>NASDAQ</td><td class="down">-5%</td><td>Semiconductor weakness</td></tr>
 <tr><td>WTC</td><td>ASX</td><td class="up">+26% (week) / +6.67% (day)</td><td>WiseTech Global</td></tr>
 <tr><td>LTR</td><td>ASX</td><td class="down">-10.86%</td><td>Liontown Resources</td></tr>
 <tr><td>WDS</td><td>ASX</td><td class="up">+3.29%</td><td>Woodside Energy</td></tr>
+</tbody>
 </table>
 
 <h2>Morningstar Cross-Reference Highlights</h2>
@@ -62,46 +89,151 @@
 <strong>AAPL</strong> - up +3.5%; Morningstar's most recent published view (pre-earnings) rated it 2 stars / moderately overvalued. No post-earnings update found - may be stale.
 </div>
 <div class="card">
-<strong>Data quality note:</strong> Morningstar's live pages returned HTTP 403 (paywall/bot-blocking) to direct fetch. All figures reconstructed from public search-result snippets, cross-checked where possible - flagged explicitly wherever confidence was low (LTR: no coverage found; MIN/BHP: conflicting fair-value figures, reported as unresolved).
+<strong>Data quality note:</strong> Morningstar's live pages returned HTTP 403 (paywall/bot-blocking) to direct fetch. All figures reconstructed from public search snippets, cross-checked where possible - flagged explicitly wherever confidence was low (LTR: no coverage found; MIN/BHP: conflicting fair-value figures, reported as unresolved).
 </div>
+
+</div>
+
+<div class="tab-panel" data-tab-panel="watchlists">
 
 <h2>Watchlist - Mid-Term (1-3 years)</h2>
 <div class="meta">Criteria: Morningstar 4-5 star (undervalued) AND Uncertainty Low/Medium AND at least Narrow moat</div>
-<table>
-<tr><th>Ticker</th><th>Rating</th><th>Fair value vs price</th><th>Notes</th></tr>
+<input class="filter-input" type="text" placeholder="Filter by ticker or text..." data-filter-target="midterm-table">
+<table class="sortable" id="midterm-table">
+<thead><tr><th class="sortable">Ticker</th><th class="sortable">Rating</th><th class="sortable">Fair value vs price</th><th class="sortable">Notes</th></tr></thead>
+<tbody>
 <tr><td><strong>MSFT</strong></td><td>5 star - Uncertainty Medium - Wide moat</td><td>FV $600 vs verified price $456.92 (~24% below FV)</td><td>Star rating raised 4 to 5 after Q4 FY26 earnings (Azure +43% YoY)</td></tr>
+</tbody>
 </table>
 
 <h2>Watchlist - Long-Term (3+ years)</h2>
 <div class="meta">Criteria: Morningstar Wide economic moat rating</div>
-<table>
-<tr><th>Ticker</th><th>Moat</th><th>Notes</th></tr>
+<input class="filter-input" type="text" placeholder="Filter by ticker or text..." data-filter-target="longterm-table">
+<table class="sortable" id="longterm-table">
+<thead><tr><th class="sortable">Ticker</th><th class="sortable">Moat</th><th class="sortable">Notes</th></tr></thead>
+<tbody>
 <tr><td><strong>MSFT</strong></td><td>Wide</td><td>Also qualifies for Mid-Term (see above)</td></tr>
 <tr><td><strong>TER</strong> (Teradyne)</td><td>Wide</td><td>No confirmed current star rating; price unresolved (spread across sources) - qualifies on moat alone</td></tr>
 <tr><td><strong>WTC</strong> (WiseTech Global)</td><td>Wide (upgraded ~July 2026)</td><td>Star rating not currently confirmed; moat upgrade sourced to Morningstar only</td></tr>
 <tr><td><strong>AAPL</strong></td><td>Wide</td><td>2 star rating (fails Mid-Term valuation bar); may be stale post-earnings</td></tr>
+</tbody>
 </table>
 
 <h2>Watchlist - Dividends</h2>
 <div class="meta">Criteria: TTM yield above 2% AND consistent/growing payout history</div>
-<table>
-<tr><th>Ticker</th><th>Yield</th><th>Payout history</th><th>Notes</th></tr>
+<input class="filter-input" type="text" placeholder="Filter by ticker or text..." data-filter-target="dividends-table">
+<table class="sortable" id="dividends-table">
+<thead><tr><th class="sortable">Ticker</th><th class="sortable">Yield</th><th class="sortable">Payout history</th><th class="sortable">Notes</th></tr></thead>
+<tbody>
 <tr><td><strong>WDS</strong> (Woodside Energy)</td><td>~5.2-5.7%</td><td>Consistent, no suspension - 5yr growth +24%, 3yr <span class="down">-12%</span></td><td>Cyclical energy payer - trending down from 2022 peak</td></tr>
 <tr><td><strong>BHP</strong> (BHP Group)</td><td>~3.2-3.3%</td><td>Consistent, no suspension - 5yr growth <span class="down">-3%</span>, avg annual <span class="down">-18%</span></td><td>Cyclical iron-ore payer - declining/volatile</td></tr>
+</tbody>
 </table>
 
 <div class="card">
 <strong>Excluded from every list</strong> (with reason, from independent verification): AMD (3 star fairly valued, narrow moat, very high uncertainty, no dividend), MU (no rating found, no moat, ~0.06% yield), MIN and PLS (dividends suspended, unresolved ratings), LTR (no analyst coverage found, price unverifiable - more than 2x spread across sources).
 </div>
 
+</div>
+
+<div class="tab-panel" data-tab-panel="trends">
+<h2>Trends Over Time</h2>
+<p class="meta">Weekly NASDAQ / ASX % change, charted from data.json. Builds up as more weeks are recorded.</p>
+<canvas id="trendChart"></canvas>
+<div class="chart-legend"><span class="legend-nasdaq">NASDAQ weekly %</span><span class="legend-asx">ASX weekly %</span></div>
+<p class="meta" id="trendFallback" style="display:none;">Not enough history yet — check back after a few more weekly runs.</p>
+</div>
+
+<div class="tab-panel" data-tab-panel="archive">
 <h2>Past Weeks</h2>
 <ul>
   <li><a href="archive/2026-07-31.html">Week of 2026-07-31</a> (this week)</li>
 </ul>
+</div>
 
 <footer>
   Generated from the weekly market-review to Morningstar cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). This page is not investment advice.
 </footer>
+
+<script>
+(function(){
+  var btns = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.tab-panel');
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btns.forEach(function(b){ b.classList.remove('active'); });
+      panels.forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelector('[data-tab-panel="' + btn.dataset.tab + '"]').classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('table.sortable').forEach(function(table){
+    var headers = table.querySelectorAll('th.sortable');
+    headers.forEach(function(th, idx){
+      var dir = 1;
+      th.addEventListener('click', function(){
+        var tbody = table.querySelector('tbody');
+        var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+        rows.sort(function(a, b){
+          var av = a.children[idx].innerText.trim();
+          var bv = b.children[idx].innerText.trim();
+          var an = parseFloat(av.replace(/[^0-9.\-]/g, ''));
+          var bn = parseFloat(bv.replace(/[^0-9.\-]/g, ''));
+          var cmp = (!isNaN(an) && !isNaN(bn)) ? (an - bn) : av.localeCompare(bv);
+          return cmp * dir;
+        });
+        rows.forEach(function(r){ tbody.appendChild(r); });
+        dir *= -1;
+      });
+    });
+  });
+
+  document.querySelectorAll('.filter-input').forEach(function(input){
+    input.addEventListener('input', function(){
+      var table = document.getElementById(input.dataset.filterTarget);
+      if (!table) return;
+      var q = input.value.toLowerCase();
+      table.querySelectorAll('tbody tr').forEach(function(row){
+        row.style.display = row.innerText.toLowerCase().indexOf(q) > -1 ? '' : 'none';
+      });
+    });
+  });
+
+  fetch('data.json').then(function(r){ return r.json(); }).catch(function(){ return []; }).then(function(data){
+    var canvas = document.getElementById('trendChart');
+    if (!data || data.length < 2) {
+      canvas.style.display = 'none';
+      document.getElementById('trendFallback').style.display = 'block';
+      return;
+    }
+    var ctx = canvas.getContext('2d');
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    canvas.width = w * devicePixelRatio; canvas.height = h * devicePixelRatio;
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+    var pad = 36;
+    var nasdaq = data.map(function(d){ return d.nasdaq_week_pct; });
+    var asx = data.map(function(d){ return d.asx_week_pct; });
+    var all = nasdaq.concat(asx);
+    var min = Math.min.apply(null, all.concat([0])), max = Math.max.apply(null, all.concat([0]));
+    var range = (max - min) || 1;
+    function x(i){ return pad + (i / (data.length - 1)) * (w - pad * 2); }
+    function y(v){ return h - pad - ((v - min) / range) * (h - pad * 2); }
+    ctx.strokeStyle = '#21262d'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad, y(0)); ctx.lineTo(w - pad, y(0)); ctx.stroke();
+    function drawLine(series, color){
+      ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.beginPath();
+      series.forEach(function(v, i){ i === 0 ? ctx.moveTo(x(i), y(v)) : ctx.lineTo(x(i), y(v)); });
+      ctx.stroke();
+      series.forEach(function(v, i){ ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x(i), y(v), 3, 0, 7); ctx.fill(); });
+    }
+    drawLine(nasdaq, '#58a6ff');
+    drawLine(asx, '#f0d78c');
+    ctx.fillStyle = '#8b949e'; ctx.font = '11px sans-serif';
+    data.forEach(function(d, i){ if (i === 0 || i === data.length - 1 || data.length <= 6) ctx.fillText(d.date, x(i) - 20, h - 8); });
+  });
+})();
+</script>
 
 </body>
 </html>
