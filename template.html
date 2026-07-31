@@ -1,33 +1,81 @@
 <!--
-  DASHBOARD TEMPLATE v2 — read this fully before building index.html each week.
+  DASHBOARD TEMPLATE v3 — read this fully before building index.html each week.
 
-  WHAT CHANGED FROM v1: this version is tabbed (This Week / Watchlists /
-  Trends / Archive), tables are sortable + filterable via the shared JS at
-  the bottom, and a "Trends" tab charts data.json over time. All JS is
-  vanilla, inline, no external CDNs/libraries — keep it that way.
+  WHAT CHANGED FROM v2 (NabTrade-inspired presentation pass, adapted for a
+  public no-login data-only site — not a literal copy of any broker's
+  branding/colors/logo):
+    a. A horizontal auto-scrolling TICKER STRIP now sits above everything,
+       even the tabs. It shows index levels + notable-mover tickers with
+       their % moves. It's pure CSS (@keyframes translateX loop); the JS at
+       the bottom duplicates its content once at load time so the loop is
+       seamless — you only ever write ONE copy of the ticker items between
+       the SECTION:TICKER_STRIP markers, never two.
+    b. The first tab is renamed "This Week" -> "Markets". Its content and
+       behavior are unchanged. The data-tab/data-tab-panel key changed from
+       "week" to "markets" — use "markets" everywhere that key appears.
+    c. Notable Movers is no longer a table. It's a ranked <ol class="movers-list">
+       — rank, ticker (with badge), market, a proportional bar, move %, note.
+       Still filterable via the same .filter-input pattern (now filtering
+       [data-filter-row] elements instead of table rows).
+    d. Every ticker symbol anywhere on the page (movers list, all watchlist
+       tables) gets a small circular CSS badge — <span class="ticker-badge">
+       showing the first 1-2 letters of the ticker, uppercase. Pure CSS,
+       no image assets, no logo fetching.
+    e. The NASDAQ and ASX cards in the Markets tab now each have a tiny
+       ~60x24px canvas sparkline plotting that index's weekly % history
+       from data.json. Same vanilla-canvas approach as the existing trend
+       chart, just smaller and simpler. With 1-2 data points it correctly
+       renders as a dot or a flat line — do not treat that as broken.
+    f. A 4th watchlist section, "Micro-Cap Movers", using the same
+       SECTION:WATCHLIST_...:START/END marker convention, table styling,
+       and filter-input/sortable pattern as the other three. It is
+       INFORMATIONAL, not criteria-based like the other three lists — say
+       so in a one-line .meta div above it. data.json gains a new field
+       for this: microcap_count (see rule 5 below). Older data.json entries
+       written before this list existed won't have the field — that's fine,
+       nothing reads it besides the weekly agent populating the count.
 
   RULES FOR THE AGENT GENERATING index.html:
   1. Copy this file's structure, <style>, and the <script> block at the
      bottom EXACTLY, unmodified. Do not redesign the layout/CSS/JS.
   2. Every content section is marked with a START/END comment. Replace only
      the content BETWEEN those markers with this week's real data. Leave
-     `class="sortable"` and `data-filter-target` attributes on tables as-is
-     — that's what makes sorting/filtering work; don't remove them.
+     `class="sortable"`, `data-filter-target`, and `data-filter-row`
+     attributes on tables/lists as-is — that's what makes sorting/filtering
+     work; don't remove them. For the ticker strip, write only ONE copy of
+     the items — the loop duplication happens in JS, not in your markup.
   3. If a section has nothing to report this week, keep the heading and
      write "None qualified this week." rather than deleting the section —
-     structure must stay identical week to week.
+     structure must stay identical week to week. For Micro-Cap Movers
+     specifically: if the micro-cap pipeline hasn't produced any data at
+     all yet (e.g. its first run hasn't happened), replace the table with
+     "No micro-cap data collected yet — this section will populate
+     starting next run." instead.
   4. index.html lives at the repo root and has all 4 tabs. Each week also
      gets a snapshot saved to archive/<YYYY-MM-DD>.html — that snapshot is
-     SIMPLER: only "This Week" and "Watchlists" content, no tabs, no chart,
+     SIMPLER: only "Markets" and "Watchlists" content, no tabs, no chart,
      just a "Back to latest" link. See the ARCHIVE SNAPSHOT block near the
-     bottom of this file for that structure.
+     bottom of this file for that structure. Archive pages keep ticker
+     badges and the ranked-movers bar styling (pure CSS/HTML) but drop the
+     scrolling ticker strip, sparklines, and all JS interactivity — they're
+     static historical records, not live pages.
   5. data.json lives at the repo root, one JSON array of objects, one object
      per week, oldest first. Each week's agent APPENDS a new object (does
      not overwrite prior ones): {date, nasdaq_level, nasdaq_week_pct,
-     asx_level, asx_week_pct, midterm_count, longterm_count, dividends_count}
-     — pct values are plain numbers (e.g. 2.5 for +2.5%, -1.2 for -1.2%),
-     counts are the number of tickers on each watchlist that week.
-  6. Keep it factual and skimmable — this is a briefing, not an essay.
+     asx_level, asx_week_pct, midterm_count, longterm_count, dividends_count,
+     microcap_count} — pct values are plain numbers (e.g. 2.5 for +2.5%,
+     -1.2 for -1.2%), counts are the number of tickers on each watchlist
+     that week. microcap_count is the count of rows in that week's
+     Micro-Cap Movers table (0 if none found, omit the field entirely if
+     the micro-cap pipeline didn't run that week).
+  6. Ticker badge text = the ticker symbol's first 1-2 letters, uppercase
+     (e.g. MSFT -> "MS", WTC -> "WT"). Just a visual stand-in for a logo,
+     not a lookup against anything.
+  7. Ranked movers list bar width: scale each row's bar to the LARGEST
+     move magnitude in that week's list, max bar width 140px, i.e.
+     width_px = round(abs(this_move_pct) / abs(largest_move_pct) * 140).
+     Rank rows 1..N by magnitude of move, largest first.
+  8. Keep it factual and skimmable — this is a briefing, not an essay.
 -->
 <!doctype html>
 <html lang="en">
@@ -36,6 +84,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weekly Market Dashboard - {{DATE}}</title>
 <style>
+  html{overflow-x:hidden;}
   body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:960px;margin:0 auto;padding:16px;line-height:1.5;background:#0d1117;color:#e6edf3;}
   h1{font-size:1.5rem;margin-bottom:4px;}
   h2{font-size:1.15rem;border-bottom:1px solid #30363d;padding-bottom:6px;margin-top:32px;}
@@ -49,6 +98,7 @@
   th.sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
   .up{color:#3fb950;} .down{color:#f85149;}
   .card{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:14px 16px;margin:12px 0;}
+  .card-head{display:flex;align-items:center;gap:8px;}
   footer{margin-top:40px;padding-top:16px;border-top:1px solid #21262d;color:#8b949e;font-size:.85rem;}
   a{color:#58a6ff;}
   .filter-input{width:100%;box-sizing:border-box;padding:8px 10px;margin:8px 0;background:#0d1117;border:1px solid #30363d;color:#e6edf3;border-radius:6px;font-size:.9rem;}
@@ -64,9 +114,48 @@
   .chart-legend span::before{content:"\25CF";margin-right:6px;}
   .legend-nasdaq::before{color:#58a6ff;}
   .legend-asx::before{color:#f0d78c;}
+
+  /* Ticker strip */
+  .ticker-wrap{position:relative;left:50%;right:50%;width:100vw;margin-left:-50vw;margin-right:-50vw;overflow:hidden;background:#161b22;border-bottom:1px solid #21262d;white-space:nowrap;box-sizing:border-box;}
+  .ticker-track{display:inline-flex;padding:8px 0;animation:ticker-scroll 32s linear infinite;}
+  .ticker-item{display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-size:.85rem;color:#c9d1d9;border-right:1px solid #21262d;flex:0 0 auto;}
+  .ticker-item strong{color:#e6edf3;}
+  @keyframes ticker-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){.ticker-track{animation:none;}}
+
+  /* Ticker badges (stand-in for a logo) */
+  .ticker-badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;min-width:28px;border-radius:50%;background:#21262d;color:#c9d1d9;font-size:.68rem;font-weight:700;margin-right:8px;vertical-align:middle;}
+
+  /* Ranked movers list */
+  .movers-list{list-style:none;margin:4px 0 24px;padding:0;}
+  .mover-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid #21262d;}
+  .mover-row-head{border-bottom:1px solid #30363d;font-weight:600;padding-bottom:8px;}
+  .mover-rank{flex:0 0 22px;color:#8b949e;font-weight:700;text-align:center;}
+  .mover-id{flex:0 0 150px;display:flex;align-items:center;}
+  .mover-market{flex:0 0 70px;color:#8b949e;font-size:.85rem;}
+  .mover-bar-wrap{flex:0 0 140px;height:8px;background:#0d1117;border-radius:4px;overflow:hidden;}
+  .mover-bar{height:8px;border-radius:4px;}
+  .mover-bar.up{background:#3fb950;}
+  .mover-bar.down{background:#f85149;}
+  .mover-move{flex:0 0 130px;font-weight:600;}
+  .mover-note{flex:1 1 220px;color:#8b949e;font-size:.9rem;}
+
+  /* Index card sparklines */
+  .sparkline{width:60px;height:24px;vertical-align:middle;}
 </style>
 </head>
 <body>
+
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack">
+    <!-- SECTION:TICKER_STRIP:START -->
+    <span class="ticker-item">NASDAQ <strong>{{LEVEL}}</strong> <span class="up or down">{{WEEK_CHANGE_PCT}}</span></span>
+    <span class="ticker-item">ASX 200 <strong>{{LEVEL}}</strong> <span class="up or down">{{WEEK_CHANGE_PCT}}</span></span>
+    <span class="ticker-item"><span class="ticker-badge">{{B}}</span>{{TICKER}} <span class="up or down">{{MOVE_PCT}}</span></span>
+    <!-- one item per notable mover, same tickers as the Notable Movers list below; keep the move text short (just the headline %, not the full note) -->
+    <!-- SECTION:TICKER_STRIP:END -->
+  </div>
+</div>
 
 <h1>Weekly Market Dashboard</h1>
 <!-- SECTION:DATE:START -->
@@ -76,18 +165,19 @@
 <div class="banner">NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Morningstar) ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.</div>
 
 <nav class="tabs">
-  <button class="tab-btn active" data-tab="week">This Week</button>
+  <button class="tab-btn active" data-tab="markets">Markets</button>
   <button class="tab-btn" data-tab="watchlists">Watchlists</button>
   <button class="tab-btn" data-tab="trends">Trends</button>
   <button class="tab-btn" data-tab="archive">Archive</button>
 </nav>
 
-<div class="tab-panel active" data-tab-panel="week">
+<div class="tab-panel active" data-tab-panel="markets">
 
 <h2>Market Review - NASDAQ and ASX</h2>
 <!-- SECTION:NASDAQ_CARD:START -->
 <div class="card">
-  <strong>NASDAQ Composite:</strong> {{LEVEL}} ({{AS_OF}}), <span class="up or down">{{DAY_CHANGE}}</span> on the day.<br>
+  <div class="card-head"><strong>NASDAQ Composite:</strong> <canvas class="sparkline" id="sparkNasdaq" width="60" height="24"></canvas></div>
+  {{LEVEL}} ({{AS_OF}}), <span class="up or down">{{DAY_CHANGE}}</span> on the day.<br>
   Week-to-date: <span class="up or down">{{WEEK_CHANGE_PCT}}</span> ({{WEEK_CHANGE_PTS}} pts).<br>
   <span class="meta">Driver: {{DRIVER_SUMMARY}}</span>
 </div>
@@ -95,22 +185,35 @@
 
 <!-- SECTION:ASX_CARD:START -->
 <div class="card">
-  <strong>S&P/ASX 200:</strong> {{LEVEL}} ({{AS_OF}}).<br>
+  <div class="card-head"><strong>S&P/ASX 200:</strong> <canvas class="sparkline" id="sparkAsx" width="60" height="24"></canvas></div>
+  {{LEVEL}} ({{AS_OF}}).<br>
   Week-to-date: <span class="up or down">{{WEEK_CHANGE_PCT}}</span> ({{WEEK_CHANGE_PTS}} pts).<br>
   <span class="meta">Driver: {{DRIVER_SUMMARY}}</span>
 </div>
 <!-- SECTION:ASX_CARD:END -->
 
 <h2>Notable Movers</h2>
-<input class="filter-input" type="text" placeholder="Filter movers by ticker or text..." data-filter-target="movers-table">
+<input class="filter-input" type="text" placeholder="Filter movers by ticker or text..." data-filter-target="movers-list">
+<div class="mover-row mover-row-head meta" aria-hidden="true">
+  <span class="mover-rank">#</span>
+  <span class="mover-id">Ticker</span>
+  <span class="mover-market">Market</span>
+  <span class="mover-bar-wrap"></span>
+  <span class="mover-move">Move</span>
+  <span class="mover-note">Note</span>
+</div>
 <!-- SECTION:MOVERS_TABLE:START -->
-<table class="sortable" id="movers-table">
-<thead><tr><th class="sortable">Ticker</th><th class="sortable">Market</th><th class="sortable">Move</th><th class="sortable">Note</th></tr></thead>
-<tbody>
-<tr><td>{{TICKER}}</td><td>{{NASDAQ or ASX}}</td><td class="up or down">{{MOVE}}</td><td>{{NOTE}}</td></tr>
-<!-- one row per mover, capped at ~6 total per the pipeline's efficiency rule -->
-</tbody>
-</table>
+<ol class="movers-list" id="movers-list">
+<li class="mover-row" data-filter-row>
+  <span class="mover-rank">{{RANK}}</span>
+  <span class="mover-id"><span class="ticker-badge">{{B}}</span>{{TICKER}}</span>
+  <span class="mover-market">{{NASDAQ or ASX}}</span>
+  <span class="mover-bar-wrap"><span class="mover-bar up or down" style="width:{{BAR_PX}}px"></span></span>
+  <span class="mover-move up or down">{{MOVE}}</span>
+  <span class="mover-note">{{NOTE}}</span>
+</li>
+<!-- one <li> per mover, ranked by magnitude of move (largest first), capped at ~6 total per the pipeline's efficiency rule. See rule 7 above for BAR_PX. -->
+</ol>
 <!-- SECTION:MOVERS_TABLE:END -->
 
 <h2>Morningstar Cross-Reference Highlights</h2>
@@ -135,7 +238,7 @@
 <table class="sortable" id="midterm-table">
 <thead><tr><th class="sortable">Ticker</th><th class="sortable">Rating</th><th class="sortable">Fair value vs price</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
-<tr><td><strong>{{TICKER}}</strong></td><td>{{STARS}} - Uncertainty {{LEVEL}} - {{MOAT}} moat</td><td>{{FV_VS_PRICE}}</td><td>{{NOTES}}</td></tr>
+<tr><td><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></td><td>{{STARS}} - Uncertainty {{LEVEL}} - {{MOAT}} moat</td><td>{{FV_VS_PRICE}}</td><td>{{NOTES}}</td></tr>
 </tbody>
 </table>
 <!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
@@ -148,7 +251,7 @@
 <table class="sortable" id="longterm-table">
 <thead><tr><th class="sortable">Ticker</th><th class="sortable">Moat</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
-<tr><td><strong>{{TICKER}}</strong></td><td>Wide</td><td>{{NOTES}}</td></tr>
+<tr><td><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></td><td>Wide</td><td>{{NOTES}}</td></tr>
 </tbody>
 </table>
 <!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
@@ -161,11 +264,28 @@
 <table class="sortable" id="dividends-table">
 <thead><tr><th class="sortable">Ticker</th><th class="sortable">Yield</th><th class="sortable">Payout history</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
-<tr><td><strong>{{TICKER}}</strong></td><td>{{YIELD}}</td><td>{{PAYOUT_HISTORY}}</td><td>{{NOTES}}</td></tr>
+<tr><td><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></td><td>{{YIELD}}</td><td>{{PAYOUT_HISTORY}}</td><td>{{NOTES}}</td></tr>
 </tbody>
 </table>
 <!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
 <!-- SECTION:WATCHLIST_DIVIDENDS:END -->
+
+<h2>Watchlist - Micro-Cap Movers</h2>
+<div class="meta">Informational list: any verified micro-cap mover we spotted this week, not a pass/fail screen like the lists above.</div>
+<input class="filter-input" type="text" placeholder="Filter by ticker or text..." data-filter-target="microcap-table">
+<!-- SECTION:WATCHLIST_MICROCAP:START -->
+<table class="sortable" id="microcap-table">
+<thead><tr><th class="sortable">Ticker</th><th class="sortable">Coverage/Rating</th><th class="sortable">Key metrics</th><th class="sortable">Notes</th></tr></thead>
+<tbody>
+<tr><td><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></td><td>{{RATING or "No analyst coverage found"}}</td><td>{{KEY_METRIC_VALUES}}</td><td>{{NOTES}}</td></tr>
+</tbody>
+</table>
+<!-- if none qualified/were found this week, replace the table with: <p>None qualified this week.</p>
+     if the micro-cap pipeline hasn't produced any data at all yet, replace the table with:
+     <p>No micro-cap data collected yet — this section will populate starting next run.</p>
+     In either no-table case, also remove the filter-input line above (nothing to filter) —
+     put it back once a real table returns. -->
+<!-- SECTION:WATCHLIST_MICROCAP:END -->
 
 <!-- SECTION:EXCLUDED:START -->
 <div class="card">
@@ -200,6 +320,10 @@
 
 <script>
 (function(){
+  // --- Ticker strip: duplicate content once for a seamless CSS loop ---
+  var tickerTrack = document.getElementById('tickerTrack');
+  if (tickerTrack) { tickerTrack.innerHTML += tickerTrack.innerHTML; }
+
   // --- Tabs ---
   var btns = document.querySelectorAll('.tab-btn');
   var panels = document.querySelectorAll('.tab-panel');
@@ -234,22 +358,57 @@
     });
   });
 
-  // --- Filter inputs ---
+  // --- Filter inputs (works against table rows or generic [data-filter-row] items) ---
   document.querySelectorAll('.filter-input').forEach(function(input){
     input.addEventListener('input', function(){
-      var table = document.getElementById(input.dataset.filterTarget);
-      if (!table) return;
+      var target = document.getElementById(input.dataset.filterTarget);
+      if (!target) return;
       var q = input.value.toLowerCase();
-      table.querySelectorAll('tbody tr').forEach(function(row){
+      var rows = target.tagName === 'TABLE' ? target.querySelectorAll('tbody tr') : target.querySelectorAll('[data-filter-row]');
+      rows.forEach(function(row){
         row.style.display = row.innerText.toLowerCase().indexOf(q) > -1 ? '' : 'none';
       });
     });
   });
 
-  // --- Trend chart (vanilla canvas, no libraries) ---
+  // --- Sparkline (vanilla canvas, no libraries) ---
+  function drawSparkline(id, series, color){
+    var canvas = document.getElementById(id);
+    if (!canvas) return;
+    var cssW = 60, cssH = 24;
+    canvas.width = cssW * devicePixelRatio; canvas.height = cssH * devicePixelRatio;
+    var ctx = canvas.getContext('2d');
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+    ctx.clearRect(0, 0, cssW, cssH);
+    if (!series || !series.length) return;
+    var pad = 3;
+    if (series.length === 1) {
+      ctx.fillStyle = color;
+      ctx.beginPath(); ctx.arc(cssW / 2, cssH / 2, 2, 0, 7); ctx.fill();
+      return;
+    }
+    var min = Math.min.apply(null, series), max = Math.max.apply(null, series);
+    var range = (max - min) || 1;
+    function x(i){ return pad + (i / (series.length - 1)) * (cssW - pad * 2); }
+    function y(v){ return cssH - pad - ((v - min) / range) * (cssH - pad * 2); }
+    ctx.strokeStyle = color; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    series.forEach(function(v, i){ i === 0 ? ctx.moveTo(x(i), y(v)) : ctx.lineTo(x(i), y(v)); });
+    ctx.stroke();
+  }
+
+  // --- Trend chart + sparklines (vanilla canvas, no libraries) ---
   fetch('data.json').then(function(r){ return r.json(); }).catch(function(){ return []; }).then(function(data){
+    data = data || [];
+    var nasdaq = data.map(function(d){ return d.nasdaq_week_pct; });
+    var asx = data.map(function(d){ return d.asx_week_pct; });
+
+    drawSparkline('sparkNasdaq', nasdaq, '#58a6ff');
+    drawSparkline('sparkAsx', asx, '#f0d78c');
+
     var canvas = document.getElementById('trendChart');
-    if (!data || data.length < 2) {
+    if (!canvas) return;
+    if (data.length < 2) {
       canvas.style.display = 'none';
       document.getElementById('trendFallback').style.display = 'block';
       return;
@@ -259,8 +418,6 @@
     canvas.width = w * devicePixelRatio; canvas.height = h * devicePixelRatio;
     ctx.scale(devicePixelRatio, devicePixelRatio);
     var pad = 36;
-    var nasdaq = data.map(function(d){ return d.nasdaq_week_pct; });
-    var asx = data.map(function(d){ return d.asx_week_pct; });
     var all = nasdaq.concat(asx);
     var min = Math.min.apply(null, all.concat([0])), max = Math.max.apply(null, all.concat([0]));
     var range = (max - min) || 1;
@@ -299,15 +456,26 @@
   <div class="banner">NOT INVESTMENT ADVICE - ...(same banner text)...</div>
 
   <h2>Market Review - NASDAQ and ASX</h2>
-  ...(same NASDAQ_CARD / ASX_CARD / MOVERS_TABLE / MORNINGSTAR_HIGHLIGHTS
-      content as that week's "This Week" tab, but WITHOUT the filter-input
-      boxes or class="sortable"/data-filter-target attributes — this is a
-      static historical record, it doesn't need interactivity)...
+  ...(same NASDAQ_CARD / ASX_CARD content as that week's Markets tab, but
+      WITHOUT the sparkline canvas or the card-head wrapper — plain
+      <strong>NASDAQ Composite:</strong> ... text, no JS on archive pages)...
 
-  <h2>Watchlist - Mid-Term / Long-Term / Dividends</h2>
-  ...(same as that week's Watchlists tab content, plain tables, no JS)...
+  <h2>Notable Movers</h2>
+  ...(the same ranked <ol class="movers-list"> / <li class="mover-row">
+      markup and inline bar-width styling as that week's Markets tab —
+      badges and bars are plain CSS/HTML so they're fine here — but
+      WITHOUT the filter-input box or data-filter-row attributes, since
+      this is a static historical record with no JS)...
+
+  <h2>Morningstar Cross-Reference Highlights</h2>
+  ...(same as that week's Markets tab content)...
+
+  <h2>Watchlist - Mid-Term / Long-Term / Dividends / Micro-Cap Movers</h2>
+  ...(same as that week's Watchlists tab content, including ticker badges,
+      plain tables, no filter-input boxes, no class="sortable", no JS)...
 
   <footer>...(same footer)...</footer>
 
-  No <script> block needed on archive pages — they're static snapshots.
+  No ticker strip, no <script> block, no sparklines on archive pages —
+  they're static snapshots.
 -->
