@@ -1,0 +1,143 @@
+<!--
+  DASHBOARD TEMPLATE — read this before building index.html each week.
+
+  Rules for the agent generating index.html:
+  1. Copy this file's structure and <style> block EXACTLY. Do not redesign the
+     layout, change colors, or add external CSS/fonts/scripts.
+  2. Every section below is marked with a START/END comment. Replace only the
+     content BETWEEN those markers with this week's real data.
+  3. If a section has nothing to report this week (e.g. no dividend
+     candidates qualified), KEEP the section heading and write a single line
+     such as "None qualified this week." — do not delete the section. The
+     page structure must stay identical week to week.
+  4. index.html lives at the repo root. Each week also gets a full copy
+     saved to archive/<YYYY-MM-DD>.html for history.
+  5. On index.html: the "Past Weeks" list uses paths like
+     archive/2026-07-31.html (relative to root).
+     On an archive/<date>.html page itself: do NOT include the "Past Weeks"
+     list (it would need different relative paths and just adds clutter).
+     Instead replace that section with a single line: <a href="../index.html">← Back to latest</a>
+  6. Keep it factual and skimmable — this is a briefing, not an essay.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly Market Dashboard - {{DATE}}</title>
+<style>
+  body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:900px;margin:0 auto;padding:16px;line-height:1.5;background:#0d1117;color:#e6edf3;}
+  h1{font-size:1.5rem;margin-bottom:4px;}
+  h2{font-size:1.15rem;border-bottom:1px solid #30363d;padding-bottom:6px;margin-top:32px;}
+  .banner{background:#3d2b00;border:1px solid #9e6a03;color:#f0d78c;padding:12px 16px;border-radius:8px;font-weight:600;margin:16px 0;}
+  .meta{color:#8b949e;font-size:.9rem;}
+  table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:.92rem;}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid #21262d;vertical-align:top;}
+  th{background:#161b22;color:#c9d1d9;}
+  .up{color:#3fb950;} .down{color:#f85149;}
+  .card{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:14px 16px;margin:12px 0;}
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid #21262d;color:#8b949e;font-size:.85rem;}
+  a{color:#58a6ff;}
+</style>
+</head>
+<body>
+
+<h1>Weekly Market Dashboard</h1>
+<!-- SECTION:DATE:START -->
+<div class="meta">Data for week ending {{DATE}} - NASDAQ + ASX - Morningstar cross-reference - Investment watchlists</div>
+<!-- SECTION:DATE:END -->
+
+<div class="banner">NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Morningstar) ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.</div>
+
+<h2>Market Review - NASDAQ and ASX</h2>
+
+<!-- SECTION:NASDAQ_CARD:START -->
+<div class="card">
+  <strong>NASDAQ Composite:</strong> {{LEVEL}} ({{AS_OF}}), <span class="up or down">{{DAY_CHANGE}}</span> on the day.<br>
+  Week-to-date: <span class="up or down">{{WEEK_CHANGE_PCT}}</span> ({{WEEK_CHANGE_PTS}} pts).<br>
+  <span class="meta">Driver: {{DRIVER_SUMMARY}}</span>
+</div>
+<!-- SECTION:NASDAQ_CARD:END -->
+
+<!-- SECTION:ASX_CARD:START -->
+<div class="card">
+  <strong>S&P/ASX 200:</strong> {{LEVEL}} ({{AS_OF}}).<br>
+  Week-to-date: <span class="up or down">{{WEEK_CHANGE_PCT}}</span> ({{WEEK_CHANGE_PTS}} pts).<br>
+  <span class="meta">Driver: {{DRIVER_SUMMARY}}</span>
+</div>
+<!-- SECTION:ASX_CARD:END -->
+
+<h2>Notable Movers</h2>
+<!-- SECTION:MOVERS_TABLE:START -->
+<table>
+<tr><th>Ticker</th><th>Market</th><th>Move</th><th>Note</th></tr>
+<tr><td>{{TICKER}}</td><td>{{NASDAQ or ASX}}</td><td class="up or down">{{MOVE}}</td><td>{{NOTE}}</td></tr>
+<!-- one row per mover, capped at ~6 total per the pipeline's efficiency rule -->
+</table>
+<!-- SECTION:MOVERS_TABLE:END -->
+
+<h2>Morningstar Cross-Reference Highlights</h2>
+<!-- SECTION:MORNINGSTAR_HIGHLIGHTS:START -->
+<div class="card">
+<strong>{{TICKER}}</strong> - {{one or two sentences on how this week's price action lines up with or diverges from Morningstar's published rating/fair value}}.
+</div>
+<!-- one card per ticker with a notable divergence or alignment; keep to the most notable 3-5, not every ticker -->
+<div class="card">
+<strong>Data quality note:</strong> {{brief note if Morningstar direct fetch was blocked/paywalled and figures were reconstructed from search snippets, or "All figures confirmed directly." if not}}
+</div>
+<!-- SECTION:MORNINGSTAR_HIGHLIGHTS:END -->
+
+<h2>Watchlist - Mid-Term (1-3 years)</h2>
+<div class="meta">Criteria: Morningstar 4-5 star (undervalued) AND Uncertainty Low/Medium AND at least Narrow moat</div>
+<!-- SECTION:WATCHLIST_MIDTERM:START -->
+<table>
+<tr><th>Ticker</th><th>Rating</th><th>Fair value vs price</th><th>Notes</th></tr>
+<tr><td><strong>{{TICKER}}</strong></td><td>{{STARS}} - Uncertainty {{LEVEL}} - {{MOAT}} moat</td><td>{{FV_VS_PRICE}}</td><td>{{NOTES}}</td></tr>
+</table>
+<!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
+<!-- SECTION:WATCHLIST_MIDTERM:END -->
+
+<h2>Watchlist - Long-Term (3+ years)</h2>
+<div class="meta">Criteria: Morningstar Wide economic moat rating</div>
+<!-- SECTION:WATCHLIST_LONGTERM:START -->
+<table>
+<tr><th>Ticker</th><th>Moat</th><th>Notes</th></tr>
+<tr><td><strong>{{TICKER}}</strong></td><td>Wide</td><td>{{NOTES}}</td></tr>
+</table>
+<!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
+<!-- SECTION:WATCHLIST_LONGTERM:END -->
+
+<h2>Watchlist - Dividends</h2>
+<div class="meta">Criteria: TTM yield above 2% AND consistent/growing payout history</div>
+<!-- SECTION:WATCHLIST_DIVIDENDS:START -->
+<table>
+<tr><th>Ticker</th><th>Yield</th><th>Payout history</th><th>Notes</th></tr>
+<tr><td><strong>{{TICKER}}</strong></td><td>{{YIELD}}</td><td>{{PAYOUT_HISTORY}}</td><td>{{NOTES}}</td></tr>
+</table>
+<!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
+<!-- SECTION:WATCHLIST_DIVIDENDS:END -->
+
+<!-- SECTION:EXCLUDED:START -->
+<div class="card">
+<strong>Excluded from every list</strong> (with reason, from independent verification): {{short list of tickers considered but excluded, each with a one-clause reason}}.
+</div>
+<!-- SECTION:EXCLUDED:END -->
+
+<h2>Past Weeks</h2>
+<!-- SECTION:PAST_WEEKS:START -->
+<!-- index.html ONLY: append this week to the top of this list, keep all prior entries -->
+<ul>
+  <li><a href="archive/{{DATE}}.html">Week of {{DATE}}</a> (this week)</li>
+  <!-- <li><a href="archive/2026-07-24.html">Week of 2026-07-24</a></li> -->
+</ul>
+<!-- archive/<date>.html pages ONLY: replace this whole section with:
+     <p><a href="../index.html">&larr; Back to latest</a></p>
+-->
+<!-- SECTION:PAST_WEEKS:END -->
+
+<footer>
+  Generated from the weekly market-review to Morningstar cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). This page is not investment advice.
+</footer>
+
+</body>
+</html>
