@@ -1,22 +1,32 @@
 <!--
-  DASHBOARD TEMPLATE — read this before building index.html each week.
+  DASHBOARD TEMPLATE v2 — read this fully before building index.html each week.
 
-  Rules for the agent generating index.html:
-  1. Copy this file's structure and <style> block EXACTLY. Do not redesign the
-     layout, change colors, or add external CSS/fonts/scripts.
-  2. Every section below is marked with a START/END comment. Replace only the
-     content BETWEEN those markers with this week's real data.
-  3. If a section has nothing to report this week (e.g. no dividend
-     candidates qualified), KEEP the section heading and write a single line
-     such as "None qualified this week." — do not delete the section. The
-     page structure must stay identical week to week.
-  4. index.html lives at the repo root. Each week also gets a full copy
-     saved to archive/<YYYY-MM-DD>.html for history.
-  5. On index.html: the "Past Weeks" list uses paths like
-     archive/2026-07-31.html (relative to root).
-     On an archive/<date>.html page itself: do NOT include the "Past Weeks"
-     list (it would need different relative paths and just adds clutter).
-     Instead replace that section with a single line: <a href="../index.html">← Back to latest</a>
+  WHAT CHANGED FROM v1: this version is tabbed (This Week / Watchlists /
+  Trends / Archive), tables are sortable + filterable via the shared JS at
+  the bottom, and a "Trends" tab charts data.json over time. All JS is
+  vanilla, inline, no external CDNs/libraries — keep it that way.
+
+  RULES FOR THE AGENT GENERATING index.html:
+  1. Copy this file's structure, <style>, and the <script> block at the
+     bottom EXACTLY, unmodified. Do not redesign the layout/CSS/JS.
+  2. Every content section is marked with a START/END comment. Replace only
+     the content BETWEEN those markers with this week's real data. Leave
+     `class="sortable"` and `data-filter-target` attributes on tables as-is
+     — that's what makes sorting/filtering work; don't remove them.
+  3. If a section has nothing to report this week, keep the heading and
+     write "None qualified this week." rather than deleting the section —
+     structure must stay identical week to week.
+  4. index.html lives at the repo root and has all 4 tabs. Each week also
+     gets a snapshot saved to archive/<YYYY-MM-DD>.html — that snapshot is
+     SIMPLER: only "This Week" and "Watchlists" content, no tabs, no chart,
+     just a "Back to latest" link. See the ARCHIVE SNAPSHOT block near the
+     bottom of this file for that structure.
+  5. data.json lives at the repo root, one JSON array of objects, one object
+     per week, oldest first. Each week's agent APPENDS a new object (does
+     not overwrite prior ones): {date, nasdaq_level, nasdaq_week_pct,
+     asx_level, asx_week_pct, midterm_count, longterm_count, dividends_count}
+     — pct values are plain numbers (e.g. 2.5 for +2.5%, -1.2 for -1.2%),
+     counts are the number of tickers on each watchlist that week.
   6. Keep it factual and skimmable — this is a briefing, not an essay.
 -->
 <!doctype html>
@@ -26,7 +36,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weekly Market Dashboard - {{DATE}}</title>
 <style>
-  body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:900px;margin:0 auto;padding:16px;line-height:1.5;background:#0d1117;color:#e6edf3;}
+  body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:960px;margin:0 auto;padding:16px;line-height:1.5;background:#0d1117;color:#e6edf3;}
   h1{font-size:1.5rem;margin-bottom:4px;}
   h2{font-size:1.15rem;border-bottom:1px solid #30363d;padding-bottom:6px;margin-top:32px;}
   .banner{background:#3d2b00;border:1px solid #9e6a03;color:#f0d78c;padding:12px 16px;border-radius:8px;font-weight:600;margin:16px 0;}
@@ -34,10 +44,26 @@
   table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:.92rem;}
   th,td{text-align:left;padding:8px 10px;border-bottom:1px solid #21262d;vertical-align:top;}
   th{background:#161b22;color:#c9d1d9;}
+  th.sortable{cursor:pointer;user-select:none;}
+  th.sortable:hover{color:#58a6ff;}
+  th.sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
   .up{color:#3fb950;} .down{color:#f85149;}
   .card{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:14px 16px;margin:12px 0;}
   footer{margin-top:40px;padding-top:16px;border-top:1px solid #21262d;color:#8b949e;font-size:.85rem;}
   a{color:#58a6ff;}
+  .filter-input{width:100%;box-sizing:border-box;padding:8px 10px;margin:8px 0;background:#0d1117;border:1px solid #30363d;color:#e6edf3;border-radius:6px;font-size:.9rem;}
+  .filter-input::placeholder{color:#6e7681;}
+  .tabs{display:flex;gap:4px;border-bottom:1px solid #30363d;margin:20px 0 0;flex-wrap:wrap;}
+  .tab-btn{background:none;border:none;color:#8b949e;padding:10px 16px;cursor:pointer;font-size:.95rem;border-bottom:2px solid transparent;}
+  .tab-btn.active{color:#e6edf3;border-bottom-color:#58a6ff;}
+  .tab-btn:hover{color:#e6edf3;}
+  .tab-panel{display:none;padding-top:8px;}
+  .tab-panel.active{display:block;}
+  #trendChart{width:100%;height:260px;background:#161b22;border:1px solid #21262d;border-radius:8px;}
+  .chart-legend{display:flex;gap:16px;font-size:.85rem;color:#8b949e;margin-top:8px;}
+  .chart-legend span::before{content:"\25CF";margin-right:6px;}
+  .legend-nasdaq::before{color:#58a6ff;}
+  .legend-asx::before{color:#f0d78c;}
 </style>
 </head>
 <body>
@@ -49,8 +75,16 @@
 
 <div class="banner">NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Morningstar) ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.</div>
 
-<h2>Market Review - NASDAQ and ASX</h2>
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="week">This Week</button>
+  <button class="tab-btn" data-tab="watchlists">Watchlists</button>
+  <button class="tab-btn" data-tab="trends">Trends</button>
+  <button class="tab-btn" data-tab="archive">Archive</button>
+</nav>
 
+<div class="tab-panel active" data-tab-panel="week">
+
+<h2>Market Review - NASDAQ and ASX</h2>
 <!-- SECTION:NASDAQ_CARD:START -->
 <div class="card">
   <strong>NASDAQ Composite:</strong> {{LEVEL}} ({{AS_OF}}), <span class="up or down">{{DAY_CHANGE}}</span> on the day.<br>
@@ -68,11 +102,14 @@
 <!-- SECTION:ASX_CARD:END -->
 
 <h2>Notable Movers</h2>
+<input class="filter-input" type="text" placeholder="Filter movers by ticker or text..." data-filter-target="movers-table">
 <!-- SECTION:MOVERS_TABLE:START -->
-<table>
-<tr><th>Ticker</th><th>Market</th><th>Move</th><th>Note</th></tr>
+<table class="sortable" id="movers-table">
+<thead><tr><th class="sortable">Ticker</th><th class="sortable">Market</th><th class="sortable">Move</th><th class="sortable">Note</th></tr></thead>
+<tbody>
 <tr><td>{{TICKER}}</td><td>{{NASDAQ or ASX}}</td><td class="up or down">{{MOVE}}</td><td>{{NOTE}}</td></tr>
 <!-- one row per mover, capped at ~6 total per the pipeline's efficiency rule -->
+</tbody>
 </table>
 <!-- SECTION:MOVERS_TABLE:END -->
 
@@ -87,32 +124,45 @@
 </div>
 <!-- SECTION:MORNINGSTAR_HIGHLIGHTS:END -->
 
+</div>
+
+<div class="tab-panel" data-tab-panel="watchlists">
+
 <h2>Watchlist - Mid-Term (1-3 years)</h2>
 <div class="meta">Criteria: Morningstar 4-5 star (undervalued) AND Uncertainty Low/Medium AND at least Narrow moat</div>
+<input class="filter-input" type="text" placeholder="Filter by ticker or text..." data-filter-target="midterm-table">
 <!-- SECTION:WATCHLIST_MIDTERM:START -->
-<table>
-<tr><th>Ticker</th><th>Rating</th><th>Fair value vs price</th><th>Notes</th></tr>
+<table class="sortable" id="midterm-table">
+<thead><tr><th class="sortable">Ticker</th><th class="sortable">Rating</th><th class="sortable">Fair value vs price</th><th class="sortable">Notes</th></tr></thead>
+<tbody>
 <tr><td><strong>{{TICKER}}</strong></td><td>{{STARS}} - Uncertainty {{LEVEL}} - {{MOAT}} moat</td><td>{{FV_VS_PRICE}}</td><td>{{NOTES}}</td></tr>
+</tbody>
 </table>
 <!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
 <!-- SECTION:WATCHLIST_MIDTERM:END -->
 
 <h2>Watchlist - Long-Term (3+ years)</h2>
 <div class="meta">Criteria: Morningstar Wide economic moat rating</div>
+<input class="filter-input" type="text" placeholder="Filter by ticker or text..." data-filter-target="longterm-table">
 <!-- SECTION:WATCHLIST_LONGTERM:START -->
-<table>
-<tr><th>Ticker</th><th>Moat</th><th>Notes</th></tr>
+<table class="sortable" id="longterm-table">
+<thead><tr><th class="sortable">Ticker</th><th class="sortable">Moat</th><th class="sortable">Notes</th></tr></thead>
+<tbody>
 <tr><td><strong>{{TICKER}}</strong></td><td>Wide</td><td>{{NOTES}}</td></tr>
+</tbody>
 </table>
 <!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
 <!-- SECTION:WATCHLIST_LONGTERM:END -->
 
 <h2>Watchlist - Dividends</h2>
 <div class="meta">Criteria: TTM yield above 2% AND consistent/growing payout history</div>
+<input class="filter-input" type="text" placeholder="Filter by ticker or text..." data-filter-target="dividends-table">
 <!-- SECTION:WATCHLIST_DIVIDENDS:START -->
-<table>
-<tr><th>Ticker</th><th>Yield</th><th>Payout history</th><th>Notes</th></tr>
+<table class="sortable" id="dividends-table">
+<thead><tr><th class="sortable">Ticker</th><th class="sortable">Yield</th><th class="sortable">Payout history</th><th class="sortable">Notes</th></tr></thead>
+<tbody>
 <tr><td><strong>{{TICKER}}</strong></td><td>{{YIELD}}</td><td>{{PAYOUT_HISTORY}}</td><td>{{NOTES}}</td></tr>
+</tbody>
 </table>
 <!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
 <!-- SECTION:WATCHLIST_DIVIDENDS:END -->
@@ -123,21 +173,141 @@
 </div>
 <!-- SECTION:EXCLUDED:END -->
 
+</div>
+
+<div class="tab-panel" data-tab-panel="trends">
+<h2>Trends Over Time</h2>
+<p class="meta">Weekly NASDAQ / ASX % change, charted from data.json. Builds up as more weeks are recorded.</p>
+<canvas id="trendChart"></canvas>
+<div class="chart-legend"><span class="legend-nasdaq">NASDAQ weekly %</span><span class="legend-asx">ASX weekly %</span></div>
+<p class="meta" id="trendFallback" style="display:none;">Not enough history yet — check back after a few more weekly runs.</p>
+</div>
+
+<div class="tab-panel" data-tab-panel="archive">
 <h2>Past Weeks</h2>
 <!-- SECTION:PAST_WEEKS:START -->
-<!-- index.html ONLY: append this week to the top of this list, keep all prior entries -->
+<!-- append this week to the TOP of this list, keep all prior entries -->
 <ul>
   <li><a href="archive/{{DATE}}.html">Week of {{DATE}}</a> (this week)</li>
   <!-- <li><a href="archive/2026-07-24.html">Week of 2026-07-24</a></li> -->
 </ul>
-<!-- archive/<date>.html pages ONLY: replace this whole section with:
-     <p><a href="../index.html">&larr; Back to latest</a></p>
--->
 <!-- SECTION:PAST_WEEKS:END -->
+</div>
 
 <footer>
   Generated from the weekly market-review to Morningstar cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). This page is not investment advice.
 </footer>
 
+<script>
+(function(){
+  // --- Tabs ---
+  var btns = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.tab-panel');
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btns.forEach(function(b){ b.classList.remove('active'); });
+      panels.forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelector('[data-tab-panel="' + btn.dataset.tab + '"]').classList.add('active');
+    });
+  });
+
+  // --- Sortable tables ---
+  document.querySelectorAll('table.sortable').forEach(function(table){
+    var headers = table.querySelectorAll('th.sortable');
+    headers.forEach(function(th, idx){
+      var dir = 1;
+      th.addEventListener('click', function(){
+        var tbody = table.querySelector('tbody');
+        var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+        rows.sort(function(a, b){
+          var av = a.children[idx].innerText.trim();
+          var bv = b.children[idx].innerText.trim();
+          var an = parseFloat(av.replace(/[^0-9.\-]/g, ''));
+          var bn = parseFloat(bv.replace(/[^0-9.\-]/g, ''));
+          var cmp = (!isNaN(an) && !isNaN(bn)) ? (an - bn) : av.localeCompare(bv);
+          return cmp * dir;
+        });
+        rows.forEach(function(r){ tbody.appendChild(r); });
+        dir *= -1;
+      });
+    });
+  });
+
+  // --- Filter inputs ---
+  document.querySelectorAll('.filter-input').forEach(function(input){
+    input.addEventListener('input', function(){
+      var table = document.getElementById(input.dataset.filterTarget);
+      if (!table) return;
+      var q = input.value.toLowerCase();
+      table.querySelectorAll('tbody tr').forEach(function(row){
+        row.style.display = row.innerText.toLowerCase().indexOf(q) > -1 ? '' : 'none';
+      });
+    });
+  });
+
+  // --- Trend chart (vanilla canvas, no libraries) ---
+  fetch('data.json').then(function(r){ return r.json(); }).catch(function(){ return []; }).then(function(data){
+    var canvas = document.getElementById('trendChart');
+    if (!data || data.length < 2) {
+      canvas.style.display = 'none';
+      document.getElementById('trendFallback').style.display = 'block';
+      return;
+    }
+    var ctx = canvas.getContext('2d');
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    canvas.width = w * devicePixelRatio; canvas.height = h * devicePixelRatio;
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+    var pad = 36;
+    var nasdaq = data.map(function(d){ return d.nasdaq_week_pct; });
+    var asx = data.map(function(d){ return d.asx_week_pct; });
+    var all = nasdaq.concat(asx);
+    var min = Math.min.apply(null, all.concat([0])), max = Math.max.apply(null, all.concat([0]));
+    var range = (max - min) || 1;
+    function x(i){ return pad + (i / (data.length - 1)) * (w - pad * 2); }
+    function y(v){ return h - pad - ((v - min) / range) * (h - pad * 2); }
+    ctx.strokeStyle = '#21262d'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad, y(0)); ctx.lineTo(w - pad, y(0)); ctx.stroke();
+    function drawLine(series, color){
+      ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.beginPath();
+      series.forEach(function(v, i){ i === 0 ? ctx.moveTo(x(i), y(v)) : ctx.lineTo(x(i), y(v)); });
+      ctx.stroke();
+      series.forEach(function(v, i){ ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x(i), y(v), 3, 0, 7); ctx.fill(); });
+    }
+    drawLine(nasdaq, '#58a6ff');
+    drawLine(asx, '#f0d78c');
+    ctx.fillStyle = '#8b949e'; ctx.font = '11px sans-serif';
+    data.forEach(function(d, i){ if (i === 0 || i === data.length - 1 || data.length <= 6) ctx.fillText(d.date, x(i) - 20, h - 8); });
+  });
+})();
+</script>
+
 </body>
 </html>
+
+<!--
+  ============================================================
+  ARCHIVE SNAPSHOT STRUCTURE — use this for archive/<date>.html
+  instead of the full tabbed page above.
+  ============================================================
+
+  Same <head>/<style> as above, but body is just:
+
+  <h1>Weekly Market Dashboard — Archived</h1>
+  <p><a href="../index.html">&larr; Back to latest dashboard</a></p>
+  <div class="meta">Snapshot of the week ending {{DATE}}</div>
+  <div class="banner">NOT INVESTMENT ADVICE - ...(same banner text)...</div>
+
+  <h2>Market Review - NASDAQ and ASX</h2>
+  ...(same NASDAQ_CARD / ASX_CARD / MOVERS_TABLE / MORNINGSTAR_HIGHLIGHTS
+      content as that week's "This Week" tab, but WITHOUT the filter-input
+      boxes or class="sortable"/data-filter-target attributes — this is a
+      static historical record, it doesn't need interactivity)...
+
+  <h2>Watchlist - Mid-Term / Long-Term / Dividends</h2>
+  ...(same as that week's Watchlists tab content, plain tables, no JS)...
+
+  <footer>...(same footer)...</footer>
+
+  No <script> block needed on archive pages — they're static snapshots.
+-->
