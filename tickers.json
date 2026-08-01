@@ -27,16 +27,19 @@
     "history": [
       {
         "date": "2026-08-01",
-        "price": 333.43,
+        "price": 307.36,
         "currency": "USD",
-        "move_pct": 3.5,
-        "move_label": "week",
-        "rating": "2-star (overvalued) &mdash; Uncertainty Medium &mdash; Wide moat. Fair value $290.",
-        "lists": [
-          "Long-Term"
-        ],
-        "note": "Up +3.5% in the week ending 7/31, briefly touching a $5T market cap. Morningstar's pre-earnings 2-star/overvalued rating predates 7/30 earnings &mdash; no post-earnings update found. Wide moat qualifies it for Long-Term regardless of current valuation.",
-        "source_url": "https://www.morningstar.com/stocks/xnas/aapl/quote"
+        "move_pct": -9.4,
+        "move_label": "day",
+        "rating": "2-star (moderately overvalued) &mdash; Uncertainty/Moat not restated this week. Fair value $290.",
+        "lists": [],
+        "note": "Fell -9.4% Friday 7/31 on an AI-driven chip-shortage supply warning constraining iPhone/Mac supply and margins. Morningstar's 2-star/moderately-overvalued rating predates the warning (unclear if since revised). This week's Morningstar sourcing did not restate a moat rating, so AAPL is not placed on Long-Term this week &mdash; a previously-known Wide-moat rating was not re-confirmed and is not assumed.",
+        "source_url": "https://stockanalysis.com/stocks/aapl/",
+        "market_cap": "$4.54T",
+        "week52_high": 344.57,
+        "week52_low": 201.5,
+        "pe_trailing": 40.91,
+        "dividend_yield": "0.32%"
       }
     ]
   },
@@ -105,14 +108,17 @@
     "history": [
       {
         "date": "2026-08-01",
-        "price": null,
+        "price": 1.9,
         "currency": "AUD",
-        "move_pct": -10.86,
-        "move_label": "week",
+        "move_pct": -10.41,
+        "move_label": "day",
         "rating": "No Morningstar analyst coverage found.",
         "lists": [],
-        "note": "Down -10.86% in the week ending 7/31. No Morningstar analyst rating, fair value, or moat could be found despite multiple searches &mdash; appears to lack full analyst coverage. Price not independently re-verified this run since it isn't a plausible candidate for any watchlist.",
-        "source_url": "https://www.morningstar.com.au/investments/security/ASX/LTR"
+        "note": "Fell -10.41% Friday 7/31. No Morningstar analyst rating, fair value, or moat could be found &mdash; appears to lack full analyst coverage, consistent with prior weeks. Does not pay a dividend.",
+        "source_url": "https://stockanalysis.com/quote/asx/LTR/",
+        "market_cap": "A$3.51B",
+        "week52_high": 2.26,
+        "week52_low": 0.42
       }
     ]
   },
@@ -243,6 +249,95 @@
         ],
         "note": "Market cap ~$39.0M. Found via this week's Nasdaq micro-cap mover search; no Morningstar analyst coverage is expected/normal for a stock this size.",
         "source_url": "https://ir.renovorx.com/stock-data/analyst-coverage"
+      }
+    ]
+  },
+  "AMZN": {
+    "name": "Amazon.com, Inc.",
+    "market": "NASDAQ",
+    "description": "E-commerce and cloud-computing (AWS) company that also operates advertising, devices, and media/entertainment businesses.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 270.87,
+        "currency": "USD",
+        "move_pct": 14.9,
+        "move_label": "day",
+        "rating": "Moat = Wide (Morningstar). Star rating/Uncertainty not restated this week. Fair value $300.",
+        "lists": [
+          "Long-Term"
+        ],
+        "note": "Surged +14.9% Friday 7/31 after Q2 revenue topped $200B for the first time on cloud growth. Morningstar independently raised its fair value to $300 (from $280) on the same earnings; the stock still closed ~9.7% below that fair value. Qualifies for Long-Term on its confirmed Wide moat; not Mid-Term since star rating/Uncertainty weren't restated this week. Does not pay a dividend.",
+        "source_url": "https://stockanalysis.com/stocks/amzn/",
+        "market_cap": "$2.92T",
+        "week52_high": 278.56,
+        "week52_low": 196.0,
+        "pe_trailing": "32.89 (normalized)",
+        "dividend_yield": "0.00%"
+      }
+    ]
+  },
+  "DXCM": {
+    "name": "DexCom, Inc.",
+    "market": "NASDAQ",
+    "description": "Develops and manufactures continuous glucose monitoring (CGM) systems for people with diabetes.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 84.7,
+        "currency": "USD",
+        "move_pct": 11.0,
+        "move_label": "day",
+        "rating": "No Morningstar rating found (Premium-paywalled).",
+        "lists": [],
+        "note": "Rose +11% Friday 7/31 on a Q2 earnings beat. Morningstar's own rating/fair value could not be retrieved (Premium-paywalled); no watchlist comparison possible from this data alone.",
+        "source_url": "https://www.wallstreetzen.com/stocks/us/nasdaq/dxcm",
+        "market_cap": "$28.8B",
+        "week52_high": 84.7,
+        "week52_low": 54.11,
+        "pe_trailing": 31.88,
+        "dividend_yield": "0.00%"
+      }
+    ]
+  },
+  "MP1": {
+    "name": "Megaport Limited",
+    "market": "ASX",
+    "description": "Provides Network as a Service (NaaS) &mdash; on-demand, software-defined connectivity between data centres, cloud providers, and enterprise networks.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 20.43,
+        "currency": "AUD",
+        "move_pct": 11.58,
+        "move_label": "day",
+        "rating": "No moat &mdash; Very High Uncertainty (Morningstar). Fair value A$17.",
+        "lists": [],
+        "note": "Jumped +11.58% Friday 7/31. Morningstar's most recent fair value (~A$17, June 2026) was already below Friday's A$20.43 close before the rally, widening the apparent premium further if the estimate is still current. No moat and Very High uncertainty exclude it from Mid-Term and Long-Term; does not pay a dividend.",
+        "source_url": "https://stockanalysis.com/quote/asx/MP1/",
+        "pe_trailing": "-68.72 (loss-making)",
+        "dividend_yield": "0.00%"
+      }
+    ]
+  },
+  "IPX": {
+    "name": "IperionX Limited",
+    "market": "ASX",
+    "description": "Develops low-cost titanium metal production technology and critical-metals projects, with production assets in the United States.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 3.3,
+        "currency": "AUD",
+        "move_pct": -8.09,
+        "move_label": "day",
+        "rating": "No verifiable Morningstar star rating or fair value found (algorithmic/quantitative coverage only).",
+        "lists": [],
+        "note": "Fell -8.09% Friday 7/31. Morningstar appears to have only algorithmic/quantitative coverage for IPX; no verifiable star rating or fair value figure was found. Does not currently pay a dividend.",
+        "source_url": "https://stockanalysis.com/quote/asx/IPX/",
+        "market_cap": "A$1.280B",
+        "week52_high": 9.2,
+        "week52_low": 3.05
       }
     ]
   }

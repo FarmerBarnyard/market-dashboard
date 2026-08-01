@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LTR &mdash; Liontown Resources Limited | Weekly Market Dashboard</title>
+<title>IPX &mdash; IperionX Limited | Weekly Market Dashboard</title>
 <style>
   html{overflow-x:hidden;}
   body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:960px;margin:0 auto;padding:16px;line-height:1.5;background:#0d1117;color:#e6edf3;}
@@ -73,20 +73,20 @@
 <body>
 
 <p><a href="../index.html">&larr; Back to dashboard</a></p>
-<h1><span class="ticker-badge">LT</span>LTR <span class="meta">Liontown Resources Limited &mdash; ASX</span></h1>
+<h1><span class="ticker-badge">IP</span>IPX <span class="meta">IperionX Limited &mdash; ASX</span></h1>
 <div class="banner">NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Morningstar) ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.</div>
 
 <h2>About</h2>
-<div class="card">Australian lithium mining company developing hard-rock lithium projects (Kathleen Valley) in Western Australia.</div>
+<div class="card">Develops low-cost titanium metal production technology and critical-metals projects, with production assets in the United States.</div>
 
 <h2>This Week</h2>
 <div class="card">
-  Price: A$1.90 (2026-08-01), <span class="down">-10.41%</span> (day).<br>
-  No Morningstar analyst coverage found.<br>
+  Price: A$3.30 (2026-08-01), <span class="down">-8.09%</span> (day).<br>
+  No verifiable Morningstar star rating or fair value found (algorithmic/quantitative coverage only).<br>
   Watchlists: None this week.<br>
-  <span class="meta">Snapshot: Market Cap A$3.51B, 52-Wk A$0.42 to A$2.26. Sourced from the same page already used for price verification &mdash; no extra searches.</span><br>
-  <span class="meta">Fell -10.41% Friday 7/31. No Morningstar analyst rating, fair value, or moat could be found &mdash; appears to lack full analyst coverage, consistent with prior weeks. Does not pay a dividend.</span><br>
-  Source: <a href="https://stockanalysis.com/quote/asx/LTR/">https://stockanalysis.com/quote/asx/LTR/</a>
+  <span class="meta">Snapshot: Market Cap A$1.280B, 52-Wk A$3.05 to A$9.20. Sourced from the same page already used for price verification &mdash; no extra searches.</span><br>
+  <span class="meta">Fell -8.09% Friday 7/31. Morningstar appears to have only algorithmic/quantitative coverage for IPX; no verifiable star rating or fair value figure was found. Does not currently pay a dividend.</span><br>
+  Source: <a href="https://stockanalysis.com/quote/asx/IPX/">https://stockanalysis.com/quote/asx/IPX/</a>
 </div>
 
 <h2>Trend</h2>
@@ -101,7 +101,7 @@
 <script>
 (function(){
   fetch('../tickers.json').then(function(r){ return r.json(); }).catch(function(){ return {}; }).then(function(data){
-    var entry = data['LTR'];
+    var entry = data['IPX'];
     var hist = (entry && entry.history) || [];
     var series = hist.map(function(h){ return h.price; }).filter(function(v){ return typeof v === 'number'; });
     var canvas = document.getElementById('tickerTrendChart');

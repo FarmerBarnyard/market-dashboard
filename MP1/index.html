@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LTR &mdash; Liontown Resources Limited | Weekly Market Dashboard</title>
+<title>MP1 &mdash; Megaport Limited | Weekly Market Dashboard</title>
 <style>
   html{overflow-x:hidden;}
   body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:960px;margin:0 auto;padding:16px;line-height:1.5;background:#0d1117;color:#e6edf3;}
@@ -73,20 +73,20 @@
 <body>
 
 <p><a href="../index.html">&larr; Back to dashboard</a></p>
-<h1><span class="ticker-badge">LT</span>LTR <span class="meta">Liontown Resources Limited &mdash; ASX</span></h1>
+<h1><span class="ticker-badge">MP</span>MP1 <span class="meta">Megaport Limited &mdash; ASX</span></h1>
 <div class="banner">NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Morningstar) ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.</div>
 
 <h2>About</h2>
-<div class="card">Australian lithium mining company developing hard-rock lithium projects (Kathleen Valley) in Western Australia.</div>
+<div class="card">Provides Network as a Service (NaaS) &mdash; on-demand, software-defined connectivity between data centres, cloud providers, and enterprise networks.</div>
 
 <h2>This Week</h2>
 <div class="card">
-  Price: A$1.90 (2026-08-01), <span class="down">-10.41%</span> (day).<br>
-  No Morningstar analyst coverage found.<br>
+  Price: A$20.43 (2026-08-01), <span class="up">+11.58%</span> (day).<br>
+  No moat &mdash; Very High Uncertainty (Morningstar). Fair value A$17.<br>
   Watchlists: None this week.<br>
-  <span class="meta">Snapshot: Market Cap A$3.51B, 52-Wk A$0.42 to A$2.26. Sourced from the same page already used for price verification &mdash; no extra searches.</span><br>
-  <span class="meta">Fell -10.41% Friday 7/31. No Morningstar analyst rating, fair value, or moat could be found &mdash; appears to lack full analyst coverage, consistent with prior weeks. Does not pay a dividend.</span><br>
-  Source: <a href="https://stockanalysis.com/quote/asx/LTR/">https://stockanalysis.com/quote/asx/LTR/</a>
+  <span class="meta">Snapshot: Trailing P/E -68.72 (loss-making), Div Yield 0.00%. Sourced from the same page already used for price verification &mdash; no extra searches.</span><br>
+  <span class="meta">Jumped +11.58% Friday 7/31. Morningstar's most recent fair value (~A$17, June 2026) was already below Friday's A$20.43 close before the rally, widening the apparent premium further if the estimate is still current. No moat and Very High uncertainty exclude it from Mid-Term and Long-Term; does not pay a dividend.</span><br>
+  Source: <a href="https://stockanalysis.com/quote/asx/MP1/">https://stockanalysis.com/quote/asx/MP1/</a>
 </div>
 
 <h2>Trend</h2>
@@ -101,7 +101,7 @@
 <script>
 (function(){
   fetch('../tickers.json').then(function(r){ return r.json(); }).catch(function(){ return {}; }).then(function(data){
-    var entry = data['LTR'];
+    var entry = data['MP1'];
     var hist = (entry && entry.history) || [];
     var series = hist.map(function(h){ return h.price; }).filter(function(v){ return typeof v === 'number'; });
     var canvas = document.getElementById('tickerTrendChart');
