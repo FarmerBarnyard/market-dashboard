@@ -1,5 +1,27 @@
 <!--
-  DASHBOARD TEMPLATE v4 — read this fully before building index.html each week.
+  DASHBOARD TEMPLATE v5 — read this fully before building index.html each week.
+
+  WHAT CHANGED FROM v4 (per-ticker Snapshot block, low-workload):
+    j. Each ticker's "This Week" card on its <TICKER>/index.html page (see
+       TICKER PAGE STRUCTURE below) now also includes a Snapshot line with
+       a handful of basic stats: Market Cap, 52-Week Range, Trailing P/E,
+       Forward P/E, Dividend Yield, Avg Daily Volume. IMPORTANT: this does
+       NOT require any new searches. Capture these from the SAME single
+       verification-source page you already open for that ticker (step 2
+       of the watchlist agent's routine — stockanalysis.com/Yahoo
+       Finance/Google Finance typically show all of these on one page).
+       Omit any individual field from the Snapshot line if it isn't
+       visible on that page — do not search further or guess to fill a
+       gap. This is deliberately NOT an attempt to replicate a full
+       broker-grade research report (proprietary quant scores, historical
+       PE charts, analyst revision tracking, and peer-comparison tables
+       are out of scope — that data isn't available via free web search
+       and isn't worth the added search cost per ticker).
+    k. tickers.json's per-entry history schema gains optional fields for
+       this: market_cap, week52_high, week52_low, pe_trailing, pe_forward,
+       dividend_yield, avg_volume (see schema in rule h below). Omit any
+       field that wasn't visible on the source page rather than writing a
+       guessed or null placeholder value.
 
   WHAT CHANGED FROM v3 (per-ticker pages):
     g. Every ticker mention anywhere on the page (ticker strip, movers list,
@@ -17,7 +39,13 @@
        {"MSFT": {"name": "...", "market": "NASDAQ", "description": "...",
        "history": [{"date": "...", "price": 460.57, "day_move_pct": 2.1,
        "rating": "...", "lists": ["Mid-Term","Long-Term"], "note": "...",
-       "source_url": "..."}, ...]}, ...}. Each week's agent APPENDS one
+       "source_url": "...", "market_cap": "...", "week52_high": "...",
+       "week52_low": "...", "pe_trailing": "...", "pe_forward": "...",
+       "dividend_yield": "...", "avg_volume": "..."}, ...]}, ...}. The
+       market_cap/week52/pe/dividend_yield/avg_volume fields are optional —
+       include whichever of them were visible on the single verification
+       source page already used for that ticker (see rule j/k further
+       below), and simply omit any that weren't shown there. Each week's agent APPENDS one
        history entry per ticker mentioned that week (creating the ticker's
        top-level entry, with name/market/description, the first time it's
        seen) — never overwrites prior history entries. `lists` is the
@@ -565,6 +593,13 @@
     this ticker; omit the line entirely if not.<br>
     Watchlists: {{comma-separated list of "Mid-Term"/"Long-Term"/"Dividends"/
     "Micro-Cap Movers" this ticker qualified for this week, or "None this week"}}.<br>
+    <span class="meta">Snapshot: {{whichever of Market Cap / 52-Wk Range /
+    Trailing P/E / Forward P/E / Dividend Yield / Avg Daily Volume were
+    visible on the verification source page, comma-separated, e.g. "Market
+    Cap $456B - 52-Wk 380.36 to 468.35 - Trailing P/E 27.4 - Div Yield
+    0.81%"}}. Sourced from the same page already used for price
+    verification - no extra searches. Omit this whole Snapshot line if
+    none of these fields were visible.</span><br>
     <span class="meta">{{NOTE}} - the same note/context already written for
     this ticker in the movers list or watchlist tables. Don't re-research
     anything new for this page - reuse what's already verified and sourced
