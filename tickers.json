@@ -1,0 +1,249 @@
+{
+  "MSFT": {
+    "name": "Microsoft Corporation",
+    "market": "NASDAQ",
+    "description": "Develops and sells software, cloud computing services (Azure), and hardware, including Windows, Office, and Xbox gaming products.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 460.57,
+        "currency": "USD",
+        "move_pct": 2.1,
+        "move_label": "day",
+        "rating": "5-star (undervalued) &mdash; Uncertainty Medium &mdash; Wide moat. Fair value $600.",
+        "lists": [
+          "Mid-Term",
+          "Long-Term"
+        ],
+        "note": "Rallied +16% in the week ending 7/31 (record 1-day gain) after Q4 FY26 earnings; Azure +43% YoY. Star rating last confirmed by Morningstar 2026-07-29/30; price has since risen further, narrowing the discount from ~36% to ~23%.",
+        "source_url": "https://www.morningstar.com/stocks/undervalued-by-21-this-stock-own-forever-is-buy"
+      }
+    ]
+  },
+  "AAPL": {
+    "name": "Apple Inc.",
+    "market": "NASDAQ",
+    "description": "Designs and sells consumer electronics (iPhone, Mac, iPad, Watch) and a related software/services ecosystem.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 333.43,
+        "currency": "USD",
+        "move_pct": 3.5,
+        "move_label": "week",
+        "rating": "2-star (overvalued) &mdash; Uncertainty Medium &mdash; Wide moat. Fair value $290.",
+        "lists": [
+          "Long-Term"
+        ],
+        "note": "Up +3.5% in the week ending 7/31, briefly touching a $5T market cap. Morningstar's pre-earnings 2-star/overvalued rating predates 7/30 earnings &mdash; no post-earnings update found. Wide moat qualifies it for Long-Term regardless of current valuation.",
+        "source_url": "https://www.morningstar.com/stocks/xnas/aapl/quote"
+      }
+    ]
+  },
+  "AMD": {
+    "name": "Advanced Micro Devices, Inc.",
+    "market": "NASDAQ",
+    "description": "Designs semiconductors, including CPUs and GPUs, for PCs, servers, and AI/data-center workloads.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 486.99,
+        "currency": "USD",
+        "move_pct": 13.48,
+        "move_label": "day",
+        "rating": "3-star (fairly valued) &mdash; Narrow moat. Fair value $530.",
+        "lists": [],
+        "note": "Down -5% in the week ending 7/31 amid broad semiconductor weakness, though it has since rallied sharply around its Advancing AI event. The 3-star rating and Narrow (not Wide) moat exclude it from both the Mid-Term and Long-Term lists; AMD pays no dividend.",
+        "source_url": "https://www.morningstar.com/stocks/amd-stock-is-bargain"
+      }
+    ]
+  },
+  "TER": {
+    "name": "Teradyne, Inc.",
+    "market": "NASDAQ",
+    "description": "Makes automated test equipment for semiconductors and electronics, plus collaborative robotics (Universal Robots, MiR).",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 377.61,
+        "currency": "USD",
+        "move_pct": 14.43,
+        "move_label": "day",
+        "rating": "Wide moat. Star rating not found/confirmed.",
+        "lists": [
+          "Long-Term"
+        ],
+        "note": "Down -4% in the week ending 7/31 per the original market review, but has since jumped sharply following a strong Q2 2026 earnings beat. Wide moat qualifies it for Long-Term regardless of the unconfirmed star rating.",
+        "source_url": "https://www.morningstar.com/stocks/teradyne-earnings-better-late-than-never-tidal-wave-ai-growth"
+      }
+    ]
+  },
+  "WTC": {
+    "name": "WiseTech Global Limited",
+    "market": "ASX",
+    "description": "Australian software company providing CargoWise, logistics-execution software used by the global freight and supply-chain industry.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 33.9,
+        "currency": "AUD",
+        "move_pct": 26,
+        "move_label": "week",
+        "rating": "Wide moat (upgraded ~July 2026). Star rating not confirmed.",
+        "lists": [
+          "Long-Term"
+        ],
+        "note": "Up +26% in the week ending 7/31 (+6.67% on the day) despite a governance-driven fair-value cut tied to founder Richard White stepping down as executive chair. Price has since fallen back to ~A$34. Wide moat qualifies it for Long-Term.",
+        "source_url": "https://www.morningstar.com.au/stocks/what-next-for-embattled-wisetech"
+      }
+    ]
+  },
+  "LTR": {
+    "name": "Liontown Resources Limited",
+    "market": "ASX",
+    "description": "Australian lithium mining company developing hard-rock lithium projects (Kathleen Valley) in Western Australia.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -10.86,
+        "move_label": "week",
+        "rating": "No Morningstar analyst coverage found.",
+        "lists": [],
+        "note": "Down -10.86% in the week ending 7/31. No Morningstar analyst rating, fair value, or moat could be found despite multiple searches &mdash; appears to lack full analyst coverage. Price not independently re-verified this run since it isn't a plausible candidate for any watchlist.",
+        "source_url": "https://www.morningstar.com.au/investments/security/ASX/LTR"
+      }
+    ]
+  },
+  "WDS": {
+    "name": "Woodside Energy Group Ltd",
+    "market": "ASX",
+    "description": "Australia's largest independent oil and gas producer, operating LNG and offshore production assets.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 28.87,
+        "currency": "AUD",
+        "move_pct": 3.29,
+        "move_label": "week",
+        "rating": "No moat (per Morningstar). Star rating not confirmed.",
+        "lists": [],
+        "note": "Up +3.29% in the week ending 7/31. TTM dividend yield ~5.5% clears the Dividends list's 2% bar, but per-share payout has been cut ~46% since 2022 (A$3.06 to A$1.65) &mdash; fails the consistency test.",
+        "source_url": "https://stocksguide.com/en/dividends/Woodside-Energy-Group-AU0000224040"
+      }
+    ]
+  },
+  "BHP": {
+    "name": "BHP Group Limited",
+    "market": "ASX",
+    "description": "Global diversified mining company and the world's largest iron ore producer, with copper, coal, and nickel operations.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 60.11,
+        "currency": "AUD",
+        "move_pct": null,
+        "move_label": "week",
+        "rating": "No moat (per Morningstar). Star rating not confirmed.",
+        "lists": [],
+        "note": "Under heavy selling pressure in the week ending 7/31 (exact % not confirmed) amid falling commodity/gold prices. TTM dividend yield ~3.3% clears the Dividends list's 2% bar, but per-share payout declined ~35% from FY23 ($1.70) to FY25 ($1.10) &mdash; fails the consistency test.",
+        "source_url": "https://www.bhp.com/investors/shareholder-information/dividends"
+      }
+    ]
+  },
+  "MIN": {
+    "name": "Mineral Resources Limited",
+    "market": "ASX",
+    "description": "Australian mining and mining-services company producing iron ore and lithium.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 58.81,
+        "currency": "AUD",
+        "move_pct": 3.9,
+        "move_label": "week",
+        "rating": "No moat (per Morningstar). Star rating not found.",
+        "lists": [],
+        "note": "Up +3.9% in the week ending 7/31. Does not currently pay a dividend. Morningstar fair-value figures found for MIN were conflicting/unresolved across sources.",
+        "source_url": "https://www.marketindex.com.au/asx/min"
+      }
+    ]
+  },
+  "PLS": {
+    "name": "PLS Group Limited (formerly Pilbara Minerals)",
+    "market": "ASX",
+    "description": "Australian lithium miner operating the Pilgangoora project in Western Australia's Pilbara region.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 4.25,
+        "currency": "AUD",
+        "move_pct": 2.68,
+        "move_label": "week",
+        "rating": "Narrow moat (per Morningstar). Star rating not found.",
+        "lists": [],
+        "note": "Up +2.68% in the week ending 7/31. Dividend currently suspended (TTM yield 0.00%; 5-yr average 1.51%). Narrow &mdash; not Wide &mdash; moat, so it doesn't qualify for Long-Term.",
+        "source_url": "https://companiesmarketcap.com/aud/pilbara-minerals/dividend-yield/"
+      }
+    ]
+  },
+  "MU": {
+    "name": "Micron Technology, Inc.",
+    "market": "NASDAQ",
+    "description": "Designs and manufactures memory and storage semiconductors (DRAM and NAND flash).",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 823.03,
+        "currency": "USD",
+        "move_pct": -5.9,
+        "move_label": "day",
+        "rating": "No moat (per Morningstar). Star rating not found.",
+        "lists": [],
+        "note": "Weekly direction unclear from available sourcing (-8%+ earlier in the week per the market review vs. an ~18% single-day rally reported elsewhere on memory-shortage news). TTM dividend yield ~0.07% &mdash; well below the Dividends list's 2% bar.",
+        "source_url": "https://www.morningstar.com/stocks/micron-earnings-we-raise-our-dram-forecast-valuation-behind-stronger-pricing-assumptions"
+      }
+    ]
+  },
+  "ELUT": {
+    "name": "Elutia Inc.",
+    "market": "NASDAQ",
+    "description": "Medical device / biomaterials company focused on soft-tissue reconstruction and biologic implant products.",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 1.14,
+        "currency": "USD",
+        "move_pct": 3.64,
+        "move_label": "day",
+        "rating": "No Morningstar analyst coverage (quantitative rating only). Other coverage: Cantor Fitzgerald, Overweight.",
+        "lists": [
+          "Micro-Cap Movers"
+        ],
+        "note": "Market cap ~$50.4M. Found via this week's Nasdaq micro-cap mover search; no Morningstar analyst coverage is expected/normal for a stock this size.",
+        "source_url": "https://investors.elutia.com/stock/analyst-coverage/"
+      }
+    ]
+  },
+  "RNXT": {
+    "name": "RenovoRx, Inc.",
+    "market": "NASDAQ",
+    "description": "Clinical-stage biopharmaceutical company developing localized cancer-treatment delivery technology (RenovoCath/RenovoGem).",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 0.865,
+        "currency": "USD",
+        "move_pct": null,
+        "move_label": "week",
+        "rating": "No Morningstar analyst coverage (quantitative rating only). Other coverage: 5 analysts, consensus \"Strong Buy\", avg. target $7.03-$8.13.",
+        "lists": [
+          "Micro-Cap Movers"
+        ],
+        "note": "Market cap ~$39.0M. Found via this week's Nasdaq micro-cap mover search; no Morningstar analyst coverage is expected/normal for a stock this size.",
+        "source_url": "https://ir.renovorx.com/stock-data/analyst-coverage"
+      }
+    ]
+  }
+}

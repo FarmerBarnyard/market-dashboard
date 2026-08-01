@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AAPL &mdash; Apple Inc. | Weekly Market Dashboard</title>
+<style>
+  html{overflow-x:hidden;}
+  body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:960px;margin:0 auto;padding:16px;line-height:1.5;background:#0d1117;color:#e6edf3;}
+  h1{font-size:1.5rem;margin-bottom:4px;}
+  h2{font-size:1.15rem;border-bottom:1px solid #30363d;padding-bottom:6px;margin-top:32px;}
+  .banner{background:#3d2b00;border:1px solid #9e6a03;color:#f0d78c;padding:12px 16px;border-radius:8px;font-weight:600;margin:16px 0;}
+  .meta{color:#8b949e;font-size:.9rem;}
+  table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:.92rem;}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid #21262d;vertical-align:top;}
+  th{background:#161b22;color:#c9d1d9;}
+  th.sortable{cursor:pointer;user-select:none;}
+  th.sortable:hover{color:#58a6ff;}
+  th.sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
+  .up{color:#3fb950;} .down{color:#f85149;}
+  .card{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:14px 16px;margin:12px 0;}
+  .card-head{display:flex;align-items:center;gap:8px;}
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid #21262d;color:#8b949e;font-size:.85rem;}
+  a{color:#58a6ff;}
+  .filter-input{width:100%;box-sizing:border-box;padding:8px 10px;margin:8px 0;background:#0d1117;border:1px solid #30363d;color:#e6edf3;border-radius:6px;font-size:.9rem;}
+  .filter-input::placeholder{color:#6e7681;}
+  .tabs{display:flex;gap:4px;border-bottom:1px solid #30363d;margin:20px 0 0;flex-wrap:wrap;}
+  .tab-btn{background:none;border:none;color:#8b949e;padding:10px 16px;cursor:pointer;font-size:.95rem;border-bottom:2px solid transparent;}
+  .tab-btn.active{color:#e6edf3;border-bottom-color:#58a6ff;}
+  .tab-btn:hover{color:#e6edf3;}
+  .tab-panel{display:none;padding-top:8px;}
+  .tab-panel.active{display:block;}
+  #trendChart{width:100%;height:260px;background:#161b22;border:1px solid #21262d;border-radius:8px;}
+  .chart-legend{display:flex;gap:16px;font-size:.85rem;color:#8b949e;margin-top:8px;}
+  .chart-legend span::before{content:"\25CF";margin-right:6px;}
+  .legend-nasdaq::before{color:#58a6ff;}
+  .legend-asx::before{color:#f0d78c;}
+
+  /* Ticker strip */
+  .ticker-wrap{position:relative;left:50%;right:50%;width:100vw;margin-left:-50vw;margin-right:-50vw;overflow:hidden;background:#161b22;border-bottom:1px solid #21262d;white-space:nowrap;box-sizing:border-box;}
+  .ticker-track{display:inline-flex;padding:8px 0;animation:ticker-scroll 32s linear infinite;}
+  .ticker-item{display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-size:.85rem;color:#c9d1d9;border-right:1px solid #21262d;flex:0 0 auto;}
+  .ticker-item strong{color:#e6edf3;}
+  @keyframes ticker-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){.ticker-track{animation:none;}}
+
+  /* Ticker badges (stand-in for a logo) */
+  .ticker-badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;min-width:28px;border-radius:50%;background:#21262d;color:#c9d1d9;font-size:.68rem;font-weight:700;margin-right:8px;vertical-align:middle;}
+
+  /* Ranked movers list */
+  .movers-list{list-style:none;margin:4px 0 24px;padding:0;}
+  .mover-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid #21262d;}
+  .mover-row-head{border-bottom:1px solid #30363d;font-weight:600;padding-bottom:8px;}
+  .mover-rank{flex:0 0 22px;color:#8b949e;font-weight:700;text-align:center;}
+  .mover-id{flex:0 0 150px;display:flex;align-items:center;}
+  .mover-market{flex:0 0 70px;color:#8b949e;font-size:.85rem;}
+  .mover-bar-wrap{flex:0 0 140px;height:8px;background:#0d1117;border-radius:4px;overflow:hidden;}
+  .mover-bar{height:8px;border-radius:4px;}
+  .mover-bar.up{background:#3fb950;}
+  .mover-bar.down{background:#f85149;}
+  .mover-move{flex:0 0 130px;font-weight:600;}
+  .mover-note{flex:1 1 220px;color:#8b949e;font-size:.9rem;}
+
+  /* Index card sparklines */
+  .sparkline{width:60px;height:24px;vertical-align:middle;}
+</style>
+</head>
+<body>
+
+<p><a href="../index.html">&larr; Back to dashboard</a></p>
+<h1><span class="ticker-badge">AA</span>AAPL <span class="meta">Apple Inc. &mdash; NASDAQ</span></h1>
+<div class="banner">NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Morningstar) ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.</div>
+
+<h2>About</h2>
+<div class="card">Designs and sells consumer electronics (iPhone, Mac, iPad, Watch) and a related software/services ecosystem.</div>
+
+<h2>This Week</h2>
+<div class="card">
+  Price: $333.43 (2026-08-01), <span class="up">+3.5%</span> (week).<br>
+  2-star (overvalued) &mdash; Uncertainty Medium &mdash; Wide moat. Fair value $290.<br>
+  Watchlists: Long-Term.<br>
+  <span class="meta">Up +3.5% in the week ending 7/31, briefly touching a $5T market cap. Morningstar's pre-earnings 2-star/overvalued rating predates 7/30 earnings &mdash; no post-earnings update found. Wide moat qualifies it for Long-Term regardless of current valuation.</span><br>
+  Source: <a href="https://www.morningstar.com/stocks/xnas/aapl/quote">https://www.morningstar.com/stocks/xnas/aapl/quote</a>
+</div>
+
+<h2>Trend</h2>
+<p class="meta">Price history from tickers.json, one point per week this ticker has appeared. Builds up over time &mdash; with 1-2 points it correctly renders as a dot or flat line; don't treat that as broken.</p>
+<canvas id="tickerTrendChart" style="width:100%;height:200px;background:#161b22;border:1px solid #21262d;border-radius:8px;"></canvas>
+<p class="meta" id="tickerTrendFallback" style="display:none;">Not enough history yet for this ticker &mdash; check back after it's appeared in a few more weekly runs.</p>
+
+<footer>
+  Generated from the weekly market-review to Morningstar cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). This page is not investment advice.
+</footer>
+
+<script>
+(function(){
+  fetch('../tickers.json').then(function(r){ return r.json(); }).catch(function(){ return {}; }).then(function(data){
+    var entry = data['AAPL'];
+    var hist = (entry && entry.history) || [];
+    var series = hist.map(function(h){ return h.price; }).filter(function(v){ return typeof v === 'number'; });
+    var canvas = document.getElementById('tickerTrendChart');
+    if (!canvas) return;
+    if (series.length < 2) {
+      canvas.style.display = 'none';
+      document.getElementById('tickerTrendFallback').style.display = 'block';
+      return;
+    }
+    var ctx = canvas.getContext('2d');
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    canvas.width = w * devicePixelRatio; canvas.height = h * devicePixelRatio;
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+    var pad = 36;
+    var min = Math.min.apply(null, series), max = Math.max.apply(null, series);
+    var range = (max - min) || 1;
+    function x(i){ return pad + (i / (series.length - 1)) * (w - pad * 2); }
+    function y(v){ return h - pad - ((v - min) / range) * (h - pad * 2); }
+    ctx.strokeStyle = '#58a6ff'; ctx.lineWidth = 2; ctx.beginPath();
+    series.forEach(function(v, i){ i === 0 ? ctx.moveTo(x(i), y(v)) : ctx.lineTo(x(i), y(v)); });
+    ctx.stroke();
+    series.forEach(function(v, i){ ctx.fillStyle = '#58a6ff'; ctx.beginPath(); ctx.arc(x(i), y(v), 3, 0, 7); ctx.fill(); });
+    ctx.fillStyle = '#8b949e'; ctx.font = '11px sans-serif';
+    hist.forEach(function(d, i){ if (i === 0 || i === hist.length - 1 || hist.length <= 6) ctx.fillText(d.date, x(i) - 20, h - 8); });
+  });
+})();
+</script>
+
+</body>
+</html>
