@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Market Dashboard - 2026-07-31</title>
+<title>Weekly Market Dashboard - 2026-08-01</title>
 <style>
   html{overflow-x:hidden;}
   body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:960px;margin:0 auto;padding:16px;line-height:1.5;background:#0d1117;color:#e6edf3;}
@@ -81,7 +81,7 @@
 </div>
 
 <h1>Weekly Market Dashboard</h1>
-<div class="meta">Data for week ending 2026-07-31 - NASDAQ + ASX - Morningstar cross-reference - Investment watchlists</div>
+<div class="meta">Data for week ending 2026-08-01 - NASDAQ + ASX - Morningstar cross-reference - Investment watchlists</div>
 
 <div class="banner">NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Morningstar) ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.</div>
 
@@ -98,13 +98,13 @@
 <div class="card">
   <div class="card-head"><strong>NASDAQ Composite:</strong> <canvas class="sparkline" id="sparkNasdaq" width="60" height="24"></canvas></div>
   25,122.18 (Thu 7/30 close), <span class="up">+2.8%</span> on the day, ending a six-day losing streak.<br>
-  Week-to-date: approx <span class="up">+0.6%</span> (+146 pts, estimate).<br>
-  <span class="meta">Driver: Choppy week on AI-capex fears and a Fed pause, then a sharp Thursday rebound on strong Big Tech earnings - Microsoft's Azure beat drove a record +16% single-day gain (about $450B added).</span>
+  Week-to-date: approx <span class="up">+0.6%</span> (+146 pts, estimate; exact Fri 7/31 close not confirmed).<br>
+  <span class="meta">Driver: Choppy week on AI-capex fears and a Fed pause, then a sharp Thursday rebound on strong Big Tech earnings - Microsoft's Azure beat drove a record +16% single-day gain (about $450B added), and Apple briefly touched a $5T market cap.</span>
 </div>
 
 <div class="card">
   <div class="card-head"><strong>S&P/ASX 200:</strong> <canvas class="sparkline" id="sparkAsx" width="60" height="24"></canvas></div>
-  ~8,992 (Fri close, approx.), near a 5-month high.<br>
+  ~8,992 (Fri 7/31 close, approx.), near a 5-month high. Thu 7/30 confirmed close: 8,967.70.<br>
   Week-to-date: approx <span class="up">+2.5%</span> (~+218 pts).<br>
   <span class="meta">Driver: Late-week spillover from Wall Street's tech rally. Materials/mining was the most volatile sector - lithium and mining-services names rallied while BHP and gold miners were pressured by falling gold prices.</span>
 </div>
@@ -172,16 +172,16 @@
 
 <h2>Morningstar Cross-Reference Highlights</h2>
 <div class="card">
-<strong>MSFT</strong> - rallied +16% this week; Morningstar independently raised its rating to 5 stars (from 4) after earnings. Fair value $600 vs ~$390 price - still significantly undervalued even after the rally.
+<strong>MSFT</strong> - rallied +16% this week; Morningstar independently raised its rating to 5 stars (from 4) after earnings. Fair value $600 vs ~$390 price at the time of the note - still significantly undervalued even after the rally. Re-verified 2026-08-01: price has since risen further to ~$461, narrowing the discount to ~23%.
 </div>
 <div class="card">
-<strong>WTC</strong> - up +26% this week, yet Morningstar's fair value of A$130 vs ~A$37.89 price implies the stock is still trading at roughly a 70% discount, following a fair-value cut tied to governance/succession concerns.
+<strong>WTC</strong> - up +26% this week, yet Morningstar's fair value of A$130 implies the stock was still trading at a steep discount, following a fair-value cut tied to governance/succession concerns and a separate moat upgrade to Wide. Re-verified 2026-08-01: price has since fallen further to ~A$34.
 </div>
 <div class="card">
-<strong>AAPL</strong> - up +3.5%; Morningstar's most recent published view (pre-earnings) rated it 2 stars / moderately overvalued. No post-earnings update found - may be stale.
+<strong>AAPL</strong> - up +3.5% this week; Morningstar's most recent published view (pre-earnings) rated it 2 stars / moderately overvalued, fair value $290. Re-verified 2026-08-01 directly against Morningstar's own quote page: price ~$333.43, Wide moat, Medium uncertainty - still above fair value, but the Wide moat qualifies it for the Long-Term watchlist regardless of valuation.
 </div>
 <div class="card">
-<strong>Data quality note:</strong> Morningstar's live pages returned HTTP 403 (paywall/bot-blocking) to direct fetch. All figures reconstructed from public search snippets, cross-checked where possible - flagged explicitly wherever confidence was low (LTR: no coverage found; MIN/BHP: conflicting fair-value figures, reported as unresolved).
+<strong>Data quality note:</strong> Morningstar's live pages returned HTTP 403 (paywall/bot-blocking) to direct fetch in the original cross-reference. This week's watchlist build independently re-verified each candidate's price and key metrics against a second source (stockanalysis.com / Yahoo Finance / Google Finance / other named sources, plus targeted Morningstar search snippets for moat/uncertainty) - see `data/watchlists/2026-08-01.md` in the private data repo for full sourcing. LTR: no Morningstar coverage found at all. MIN/BHP: conflicting fair-value figures previously reported as unresolved.
 </div>
 
 </div>
@@ -194,7 +194,7 @@
 <table class="sortable" id="midterm-table">
 <thead><tr><th class="sortable">Ticker</th><th class="sortable">Rating</th><th class="sortable">Fair value vs price</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
-<tr><td><span class="ticker-badge">MS</span><strong>MSFT</strong></td><td>5 star - Uncertainty Medium - Wide moat</td><td>FV $600 vs verified price $456.92 (~24% below FV)</td><td>Star rating raised 4 to 5 after Q4 FY26 earnings (Azure +43% YoY)</td></tr>
+<tr><td><span class="ticker-badge">MS</span><strong>MSFT</strong></td><td>5 star - Uncertainty Medium - Wide moat</td><td>FV $600 vs verified price ~$460.57 (~23% below FV)</td><td>Star rating last confirmed by Morningstar 2026-07-29/30 post-earnings; price has since risen, narrowing the discount from ~36% to ~23% - no fresher star-rating update found at re-verification.</td></tr>
 </tbody>
 </table>
 
@@ -205,29 +205,29 @@
 <thead><tr><th class="sortable">Ticker</th><th class="sortable">Moat</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
 <tr><td><span class="ticker-badge">MS</span><strong>MSFT</strong></td><td>Wide</td><td>Also qualifies for Mid-Term (see above)</td></tr>
-<tr><td><span class="ticker-badge">TE</span><strong>TER</strong> (Teradyne)</td><td>Wide</td><td>No confirmed current star rating; price unresolved (spread across sources) - qualifies on moat alone</td></tr>
-<tr><td><span class="ticker-badge">WT</span><strong>WTC</strong> (WiseTech Global)</td><td>Wide (upgraded ~July 2026)</td><td>Star rating not currently confirmed; moat upgrade sourced to Morningstar only</td></tr>
-<tr><td><span class="ticker-badge">AA</span><strong>AAPL</strong></td><td>Wide</td><td>2 star rating (fails Mid-Term valuation bar); may be stale post-earnings</td></tr>
+<tr><td><span class="ticker-badge">AA</span><strong>AAPL</strong></td><td>Wide</td><td>2-star / overvalued (FV $290 vs price ~$333.43) - fails Mid-Term valuation bar, but Wide moat alone qualifies it here</td></tr>
+<tr><td><span class="ticker-badge">TE</span><strong>TER</strong> (Teradyne)</td><td>Wide</td><td>No confirmed star rating; price $377.61 (verified 2026-08-01) - qualifies on moat alone</td></tr>
+<tr><td><span class="ticker-badge">WT</span><strong>WTC</strong> (WiseTech Global)</td><td>Wide (upgraded ~July 2026)</td><td>Star rating not currently confirmed; price A$33.90-34.00 (verified 2026-08-01) - qualifies on moat alone</td></tr>
 </tbody>
 </table>
 
 <h2>Watchlist - Dividends</h2>
 <div class="meta">Criteria: TTM yield above 2% AND consistent/growing payout history</div>
-<input class="filter-input" type="text" placeholder="Filter by ticker or text..." data-filter-target="dividends-table">
-<table class="sortable" id="dividends-table">
-<thead><tr><th class="sortable">Ticker</th><th class="sortable">Yield</th><th class="sortable">Payout history</th><th class="sortable">Notes</th></tr></thead>
-<tbody>
-<tr><td><span class="ticker-badge">WD</span><strong>WDS</strong> (Woodside Energy)</td><td>~5.2-5.7%</td><td>Consistent, no suspension - 5yr growth +24%, 3yr <span class="down">-12%</span></td><td>Cyclical energy payer - trending down from 2022 peak</td></tr>
-<tr><td><span class="ticker-badge">BH</span><strong>BHP</strong> (BHP Group)</td><td>~3.2-3.3%</td><td>Consistent, no suspension - 5yr growth <span class="down">-3%</span>, avg annual <span class="down">-18%</span></td><td>Cyclical iron-ore payer - declining/volatile</td></tr>
-</tbody>
-</table>
+<p>None qualified this week.</p>
 
 <h2>Watchlist - Micro-Cap Movers</h2>
 <div class="meta">Informational list: any verified micro-cap mover we spotted this week, not a pass/fail screen like the lists above.</div>
-<p>No micro-cap data collected yet — this section will populate starting next run.</p>
+<input class="filter-input" type="text" placeholder="Filter by ticker or text..." data-filter-target="microcap-table">
+<table class="sortable" id="microcap-table">
+<thead><tr><th class="sortable">Ticker</th><th class="sortable">Coverage/Rating</th><th class="sortable">Key metrics</th><th class="sortable">Notes</th></tr></thead>
+<tbody>
+<tr><td><span class="ticker-badge">EL</span><strong>ELUT</strong> (Elutia)</td><td>No Morningstar analyst coverage (quantitative rating only). Other coverage: Cantor Fitzgerald, Overweight.</td><td>Price ~$1.14 (+3.64%); Market cap ~$50.4M</td><td>Nasdaq biotech/medtech micro-cap.</td></tr>
+<tr><td><span class="ticker-badge">RN</span><strong>RNXT</strong> (RenovoRx)</td><td>No Morningstar analyst coverage (quantitative rating only). Other coverage: 5 analysts, consensus "Strong Buy", avg target $7.03-$8.13.</td><td>Price ~$0.865; Market cap ~$39.0M</td><td>Nasdaq biotech micro-cap. No Morningstar analyst coverage is expected/normal at this size.</td></tr>
+</tbody>
+</table>
 
 <div class="card">
-<strong>Excluded from every list</strong> (with reason, from independent verification): AMD (3 star fairly valued, narrow moat, very high uncertainty, no dividend), MU (no rating found, no moat, ~0.06% yield), MIN and PLS (dividends suspended, unresolved ratings), LTR (no analyst coverage found, price unverifiable - more than 2x spread across sources).
+<strong>Excluded from every list</strong> (with reason, from independent verification): AMD (3-star fairly valued, Narrow moat, no dividend), MU (star rating not found, moat None, ~0.07% yield), MIN (moat None, star not found, pays no dividend), PLS (moat Narrow not Wide, star not found, dividend suspended), WDS (moat None, star not confirmed; yield ~5.5% clears the bar but payout cut ~46% since 2022 - fails consistency), BHP (moat None, star not confirmed; yield ~3.3% clears the bar but payout declined ~35% since FY23 - fails consistency), LTR (no Morningstar analyst coverage found at all).
 </div>
 
 </div>
@@ -243,7 +243,8 @@
 <div class="tab-panel" data-tab-panel="archive">
 <h2>Past Weeks</h2>
 <ul>
-  <li><a href="archive/2026-07-31.html">Week of 2026-07-31</a> (this week)</li>
+  <li><a href="archive/2026-08-01.html">Week of 2026-08-01</a> (this week)</li>
+  <li><a href="archive/2026-07-31.html">Week of 2026-07-31</a></li>
 </ul>
 </div>
 
