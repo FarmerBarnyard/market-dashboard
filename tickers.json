@@ -6,17 +6,19 @@
     "history": [
       {
         "date": "2026-08-01",
-        "price": 460.57,
+        "price": 464.72,
         "currency": "USD",
-        "move_pct": 2.1,
+        "move_pct": 3.02,
         "move_label": "day",
-        "rating": "5-star (undervalued) &mdash; Uncertainty Medium &mdash; Wide moat. Fair value $600.",
+        "rating": "5-star, Wide moat, Medium uncertainty, fair value 600",
         "lists": [
           "Mid-Term",
           "Long-Term"
         ],
-        "note": "Rallied +16% in the week ending 7/31 (record 1-day gain) after Q4 FY26 earnings; Azure +43% YoY. Star rating last confirmed by Morningstar 2026-07-29/30; price has since risen further, narrowing the discount from ~36% to ~23%.",
-        "source_url": "https://www.morningstar.com/stocks/undervalued-by-21-this-stock-own-forever-is-buy"
+        "note": "quarterly payer; recent quarterly dividend $0.91",
+        "source_url": "CNN Markets; stockanalysis.com",
+        "market_cap": "25.11",
+        "dividend_yield": "0.91"
       }
     ]
   },
@@ -27,19 +29,19 @@
     "history": [
       {
         "date": "2026-08-01",
-        "price": 307.36,
+        "price": null,
         "currency": "USD",
-        "move_pct": -9.4,
+        "move_pct": -7.35,
         "move_label": "day",
-        "rating": "2-star (moderately overvalued) &mdash; Uncertainty/Moat not restated this week. Fair value $290.",
-        "lists": [],
-        "note": "Fell -9.4% Friday 7/31 on an AI-driven chip-shortage supply warning constraining iPhone/Mac supply and margins. Morningstar's 2-star/moderately-overvalued rating predates the warning (unclear if since revised). This week's Morningstar sourcing did not restate a moat rating, so AAPL is not placed on Long-Term this week &mdash; a previously-known Wide-moat rating was not re-confirmed and is not assumed.",
-        "source_url": "https://stockanalysis.com/stocks/aapl/",
-        "market_cap": "$4.54T",
-        "week52_high": 344.57,
-        "week52_low": 201.5,
-        "pe_trailing": 40.91,
-        "dividend_yield": "0.32%"
+        "rating": "2-star, Wide moat, Medium uncertainty, fair value 290",
+        "lists": [
+          "Long-Term"
+        ],
+        "note": "Raised annually 14 straight years",
+        "source_url": "Yahoo Finance; MSN Money",
+        "market_cap": "35.47",
+        "pe_trailing": "201.68-344.57",
+        "dividend_yield": "0.34"
       }
     ]
   },
@@ -50,14 +52,15 @@
     "history": [
       {
         "date": "2026-08-01",
-        "price": 486.99,
+        "price": null,
         "currency": "USD",
-        "move_pct": 13.48,
+        "move_pct": -1.9,
         "move_label": "day",
-        "rating": "3-star (fairly valued) &mdash; Narrow moat. Fair value $530.",
+        "rating": "No Morningstar coverage found",
         "lists": [],
-        "note": "Down -5% in the week ending 7/31 amid broad semiconductor weakness, though it has since rallied sharply around its Advancing AI event. The 3-star rating and Narrow (not Wide) moat exclude it from both the Mid-Term and Long-Term lists; AMD pays no dividend.",
-        "source_url": "https://www.morningstar.com/stocks/amd-stock-is-bargain"
+        "note": "none since 1995",
+        "source_url": "Seeking Alpha; Yahoo Finance",
+        "dividend_yield": "0.00"
       }
     ]
   },
@@ -88,16 +91,15 @@
     "history": [
       {
         "date": "2026-08-01",
-        "price": 33.9,
+        "price": null,
         "currency": "AUD",
-        "move_pct": 26,
-        "move_label": "week",
-        "rating": "Wide moat (upgraded ~July 2026). Star rating not confirmed.",
-        "lists": [
-          "Long-Term"
-        ],
-        "note": "Up +26% in the week ending 7/31 (+6.67% on the day) despite a governance-driven fair-value cut tied to founder Richard White stepping down as executive chair. Price has since fallen back to ~A$34. Wide moat qualifies it for Long-Term.",
-        "source_url": "https://www.morningstar.com.au/stocks/what-next-for-embattled-wisetech"
+        "move_pct": -4.2,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "semi-annual; small but growing dividend",
+        "source_url": "stockanalysis.com; investing.com",
+        "dividend_yield": "0.52"
       }
     ]
   },
@@ -108,17 +110,15 @@
     "history": [
       {
         "date": "2026-08-01",
-        "price": 1.9,
+        "price": null,
         "currency": "AUD",
-        "move_pct": -10.41,
+        "move_pct": -2.03,
         "move_label": "day",
-        "rating": "No Morningstar analyst coverage found.",
+        "rating": "No Morningstar coverage found",
         "lists": [],
-        "note": "Fell -10.41% Friday 7/31. No Morningstar analyst rating, fair value, or moat could be found &mdash; appears to lack full analyst coverage, consistent with prior weeks. Does not pay a dividend.",
-        "source_url": "https://stockanalysis.com/quote/asx/LTR/",
-        "market_cap": "A$3.51B",
-        "week52_high": 2.26,
-        "week52_low": 0.42
+        "note": "no dividend paid",
+        "source_url": "TipRanks; StockMetric",
+        "dividend_yield": "0.00"
       }
     ]
   },
@@ -201,14 +201,15 @@
     "history": [
       {
         "date": "2026-08-01",
-        "price": 823.03,
+        "price": null,
         "currency": "USD",
         "move_pct": -5.9,
         "move_label": "day",
-        "rating": "No moat (per Morningstar). Star rating not found.",
+        "rating": "No Morningstar coverage found",
         "lists": [],
-        "note": "Weekly direction unclear from available sourcing (-8%+ earlier in the week per the market review vs. an ~18% single-day rally reported elsewhere on memory-shortage news). TTM dividend yield ~0.07% &mdash; well below the Dividends list's 2% bar.",
-        "source_url": "https://www.morningstar.com/stocks/micron-earnings-we-raise-our-dram-forecast-valuation-behind-stronger-pricing-assumptions"
+        "note": "Token payout; rarely increased",
+        "source_url": "",
+        "dividend_yield": "0.07"
       }
     ]
   },
@@ -259,21 +260,20 @@
     "history": [
       {
         "date": "2026-08-01",
-        "price": 270.87,
+        "price": null,
         "currency": "USD",
-        "move_pct": 14.9,
+        "move_pct": 15.32,
         "move_label": "day",
-        "rating": "Moat = Wide (Morningstar). Star rating/Uncertainty not restated this week. Fair value $300.",
+        "rating": "4-star, Wide moat, Medium uncertainty, fair value 280",
         "lists": [
+          "Mid-Term",
           "Long-Term"
         ],
-        "note": "Surged +14.9% Friday 7/31 after Q2 revenue topped $200B for the first time on cloud growth. Morningstar independently raised its fair value to $300 (from $280) on the same earnings; the stock still closed ~9.7% below that fair value. Qualifies for Long-Term on its confirmed Wide moat; not Mid-Term since star rating/Uncertainty weren't restated this week. Does not pay a dividend.",
-        "source_url": "https://stockanalysis.com/stocks/amzn/",
-        "market_cap": "$2.92T",
-        "week52_high": 278.56,
-        "week52_low": 196.0,
-        "pe_trailing": "32.89 (normalized)",
-        "dividend_yield": "0.00%"
+        "note": "no dividend ever paid",
+        "source_url": "Yahoo Finance; CNBC",
+        "market_cap": "21.83",
+        "pe_trailing": "196.00-278.56",
+        "dividend_yield": "0.00"
       }
     ]
   },
@@ -284,19 +284,15 @@
     "history": [
       {
         "date": "2026-08-01",
-        "price": 84.7,
+        "price": null,
         "currency": "USD",
-        "move_pct": 11.0,
+        "move_pct": 11.95,
         "move_label": "day",
-        "rating": "No Morningstar rating found (Premium-paywalled).",
+        "rating": "No Morningstar coverage found",
         "lists": [],
-        "note": "Rose +11% Friday 7/31 on a Q2 earnings beat. Morningstar's own rating/fair value could not be retrieved (Premium-paywalled); no watchlist comparison possible from this data alone.",
-        "source_url": "https://www.wallstreetzen.com/stocks/us/nasdaq/dxcm",
-        "market_cap": "$28.8B",
-        "week52_high": 84.7,
-        "week52_low": 54.11,
-        "pe_trailing": 31.88,
-        "dividend_yield": "0.00%"
+        "note": "never paid a dividend",
+        "source_url": "NOT_REQUESTED",
+        "dividend_yield": "0.00"
       }
     ]
   },
@@ -338,6 +334,1426 @@
         "market_cap": "A$1.280B",
         "week52_high": 9.2,
         "week52_low": 3.05
+      }
+    ]
+  },
+  "MPWR": {
+    "name": "MPWR",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 8.35,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "growing quarterly dividend; low payout",
+        "source_url": "NOT_REQUESTED",
+        "dividend_yield": "0.65"
+      }
+    ]
+  },
+  "GOOG": {
+    "name": "GOOG",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 6.88,
+        "move_label": "day",
+        "rating": "4-star, Wide moat, Medium uncertainty, fair value 433",
+        "lists": [
+          "Mid-Term",
+          "Long-Term"
+        ],
+        "note": "small growing dividend since 2024",
+        "source_url": "Yahoo Finance; MacroTrends",
+        "market_cap": "17.86",
+        "pe_trailing": "190.92-404.47",
+        "dividend_yield": "0.25"
+      }
+    ]
+  },
+  "GOOGL": {
+    "name": "GOOGL",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 356.65,
+        "currency": "USD",
+        "move_pct": 6.73,
+        "move_label": "day",
+        "rating": "4-star, Wide moat, Medium uncertainty, fair value 433",
+        "lists": [
+          "Mid-Term",
+          "Long-Term"
+        ],
+        "note": "initiated 2024; raised annually; short history",
+        "source_url": "CNN Markets; Robinhood; StockAnalysis",
+        "market_cap": "16.7",
+        "pe_trailing": "$187.82-$408.61",
+        "dividend_yield": "0.25"
+      }
+    ]
+  },
+  "FTNT": {
+    "name": "FTNT",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 4.99,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "never paid a dividend",
+        "source_url": "",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "SNPS": {
+    "name": "SNPS",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 388.76,
+        "currency": "USD",
+        "move_pct": 4.41,
+        "move_label": "day",
+        "rating": "4-star, Wide moat, High uncertainty, fair value 520",
+        "lists": [
+          "Long-Term"
+        ],
+        "note": "never paid a dividend",
+        "source_url": "CNN Markets; Investing.com",
+        "pe_trailing": "$366.00-$646.29",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "ALAB": {
+    "name": "ALAB",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 3.85,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "no dividend since 2024 IPO",
+        "source_url": "",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "REGN": {
+    "name": "REGN",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 3.29,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "recently initiated; short history",
+        "source_url": "",
+        "dividend_yield": "0.36-0.45"
+      }
+    ]
+  },
+  "META": {
+    "name": "META",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 556.71,
+        "currency": "USD",
+        "move_pct": 3.28,
+        "move_label": "day",
+        "rating": "4-star, Wide moat, NOT_FOUND uncertainty, fair value 850",
+        "lists": [
+          "Long-Term"
+        ],
+        "note": "raised two consecutive years",
+        "source_url": "Robinhood; CNN",
+        "market_cap": "20.97",
+        "pe_trailing": "520.26-796.25",
+        "dividend_yield": "0.36"
+      }
+    ]
+  },
+  "WBD": {
+    "name": "WBD",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 3.26,
+        "move_label": "day",
+        "rating": "3-star, None moat, NOT_FOUND uncertainty, fair value NOT_FOUND",
+        "lists": [],
+        "note": "never paid a dividend",
+        "source_url": "",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "CRWD": {
+    "name": "CRWD",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 3.04,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "no dividend; buybacks only",
+        "source_url": "",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "LITE": {
+    "name": "LITE",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 2.99,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "no dividend paid",
+        "source_url": "Macrotrends; WallStreetZen; TipRanks",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "NVDA": {
+    "name": "NVDA",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 200.75,
+        "currency": "USD",
+        "move_pct": 2.93,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "small but rapidly growing quarterly dividend",
+        "source_url": "stockanalysis.com; Koyfin",
+        "dividend_yield": "0.50"
+      }
+    ]
+  },
+  "MRVL": {
+    "name": "MRVL",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 2.32,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "flat $0.06 quarterly; not growing",
+        "source_url": "Macrotrends; Koyfin",
+        "dividend_yield": "0.15"
+      }
+    ]
+  },
+  "ORLY": {
+    "name": "ORLY",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 2.28,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "No dividend paid; none in 16 years",
+        "source_url": "",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "FAST": {
+    "name": "FAST",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 2.25,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Consistent growth; 27 straight growth years",
+        "source_url": "",
+        "dividend_yield": "2.11"
+      }
+    ]
+  },
+  "WDC": {
+    "name": "WDC",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 2.21,
+        "move_label": "day",
+        "rating": "1-star, None moat, NOT_FOUND uncertainty, fair value 415",
+        "lists": [],
+        "note": "Small dividend; 5-year growth negative",
+        "source_url": "",
+        "dividend_yield": "0.12"
+      }
+    ]
+  },
+  "CDNS": {
+    "name": "CDNS",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 340.02,
+        "currency": "USD",
+        "move_pct": 2.16,
+        "move_label": "day",
+        "rating": "2-star, Wide moat, High uncertainty, fair value 330",
+        "lists": [
+          "Long-Term"
+        ],
+        "note": "Never paid a dividend",
+        "source_url": "Investing.com; Vested Finance",
+        "pe_trailing": "262.75-416.69",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "NXPI": {
+    "name": "NXPI",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -6.53,
+        "move_label": "day",
+        "rating": "4-star, Wide moat, High uncertainty, fair value 280",
+        "lists": [
+          "Long-Term"
+        ],
+        "note": "Grew since 2020; recent cut report unconfirmed",
+        "source_url": "Yahoo Finance",
+        "market_cap": "45.65",
+        "pe_trailing": "183.00-339.95",
+        "dividend_yield": "1.77"
+      }
+    ]
+  },
+  "LIN": {
+    "name": "LIN",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -5.95,
+        "move_label": "day",
+        "rating": "4-star, Wide moat, Low uncertainty, fair value 540",
+        "lists": [
+          "Mid-Term",
+          "Long-Term"
+        ],
+        "note": "33 consecutive annual increases",
+        "source_url": "Yahoo Finance; stockanalysis.com",
+        "market_cap": "30.86",
+        "pe_trailing": "387.78-548.20",
+        "dividend_yield": "1.20"
+      }
+    ]
+  },
+  "SNDK": {
+    "name": "SNDK",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -5.09,
+        "move_label": "day",
+        "rating": "1-star, None moat, Very High uncertainty, fair value 1000",
+        "lists": [],
+        "note": "no dividend paid; 2025 spinoff",
+        "source_url": "MacroTrends; Morningstar",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "MSTR": {
+    "name": "MSTR",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -4.56,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "never paid; bitcoin treasury strategy",
+        "source_url": "WallStreetZen; MacroTrends",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "SHOP": {
+    "name": "SHOP",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -4.29,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "has never paid a dividend",
+        "source_url": "StockAnalysis; MacroTrends",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "SPCX": {
+    "name": "SPCX",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -3.41,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "ticker ambiguous; sources conflict sharply",
+        "source_url": ""
+      }
+    ]
+  },
+  "CRWV": {
+    "name": "CRWV",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -2.88,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "No dividend paid; growth-stage company",
+        "source_url": "MacroTrends; WallStreetZen",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "GEHC": {
+    "name": "GEHC",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 68.02,
+        "currency": "USD",
+        "move_pct": -2.75,
+        "move_label": "day",
+        "rating": "5-star, Wide moat, NOT_FOUND uncertainty, fair value 88",
+        "lists": [
+          "Long-Term"
+        ],
+        "note": "Small but rising quarterly payout",
+        "source_url": "CNN; StockAnalysis; TradingKey",
+        "market_cap": "14.63",
+        "pe_trailing": "58.75-89.69",
+        "dividend_yield": "0.23"
+      }
+    ]
+  },
+  "QCOM": {
+    "name": "QCOM",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -2.63,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "22 consecutive years of growth",
+        "source_url": "StockAnalysis; MacroTrends",
+        "dividend_yield": "2.36"
+      }
+    ]
+  },
+  "CCEP": {
+    "name": "CCEP",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -2.01,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Semi-annual payout growing slowly",
+        "source_url": "StockAnalysis; TradingView",
+        "dividend_yield": "2.27"
+      }
+    ]
+  },
+  "KHC": {
+    "name": "KHC",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -2.01,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "flat $0.40 quarterly; no growth",
+        "source_url": "Macrotrends; stockinvest.us",
+        "dividend_yield": "6.20"
+      }
+    ]
+  },
+  "NFLX": {
+    "name": "NFLX",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": 71.71,
+        "currency": "USD",
+        "move_pct": -2.0,
+        "move_label": "day",
+        "rating": "2-star, Narrow moat, NOT_FOUND uncertainty, fair value 77",
+        "lists": [],
+        "note": "never paid; buybacks instead",
+        "source_url": "CNBC; CNN; GuruFocus",
+        "market_cap": "22.59",
+        "pe_trailing": "65.08-126.71",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "APP": {
+    "name": "APP",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -1.97,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "never paid a dividend",
+        "source_url": "Macrotrends; stockanalysis.com",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "TTWO": {
+    "name": "TTWO",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -1.82,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "no dividend paid",
+        "source_url": "Macrotrends; CompaniesMarketCap",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "LRCX": {
+    "name": "LRCX",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -1.58,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "11 straight growth years",
+        "source_url": "StockAnalysis; FinanceCharts",
+        "dividend_yield": "0.33"
+      }
+    ]
+  },
+  "CPRT": {
+    "name": "CPRT",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -1.51,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "no dividend paid",
+        "source_url": "CompaniesMarketCap; Yahoo Finance",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "KDP": {
+    "name": "KDP",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -1.43,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "consistent quarterly payer; growing",
+        "source_url": "StockAnalysis; Macrotrends",
+        "dividend_yield": "3.06"
+      }
+    ]
+  },
+  "4DX": {
+    "name": "4DX",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 13.08,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "no dividends ever paid",
+        "source_url": "wisesheets.io",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "EOS": {
+    "name": "EOS",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 9.67,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      }
+    ]
+  },
+  "DYL": {
+    "name": "DYL",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 8.64,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      }
+    ]
+  },
+  "OBM": {
+    "name": "OBM",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 8.1,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "no current payout; historical mean 1.49%",
+        "source_url": "wisesheets.io",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "ZIP": {
+    "name": "ZIP",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 8.05,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "No dividend paid",
+        "source_url": "GuruFocus; Halo Technologies",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "CSC": {
+    "name": "CSC",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 7.12,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      }
+    ]
+  },
+  "PDN": {
+    "name": "PDN",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 7.05,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "No recent dividend paid",
+        "source_url": "DividendMax",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "PNI": {
+    "name": "PNI",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 5.48,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "Growing payout; sources conflict on yield",
+        "source_url": "Stockopedia; SimplyWallSt; Digrin",
+        "dividend_yield": "1.8"
+      }
+    ]
+  },
+  "NXG": {
+    "name": "NXG",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 5.4,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "never paid a dividend",
+        "source_url": "stockanalysis.com; SEC 40-F filing",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "WAF": {
+    "name": "WAF",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 5.19,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "zero yield ten years",
+        "source_url": "wisesheets.io",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "ILU": {
+    "name": "ILU",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 4.85,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "declining payout; sources conflict",
+        "source_url": "divvydiary.com",
+        "dividend_yield": "0.52"
+      }
+    ]
+  },
+  "PDI": {
+    "name": "PDI",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 4.72,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "no dividend history found",
+        "source_url": "companiesmarketcap.com",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "AAI": {
+    "name": "AAI",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 4.66,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "steady quarterly payout; no growth",
+        "source_url": "TradingView; StockAnalysis",
+        "dividend_yield": "0.58"
+      }
+    ]
+  },
+  "BGL": {
+    "name": "BGL",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 4.56,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "never paid dividends",
+        "source_url": "TradingView; Wisesheets",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "NXT": {
+    "name": "NXT",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 4.46,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "no dividends paid",
+        "source_url": "GuruFocus; Wisesheets",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "CDA": {
+    "name": "CDA",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 4.05,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "semi-annual; 5yr growth +10.55%",
+        "source_url": "StockAnalysis; Investing.com",
+        "dividend_yield": "1.15"
+      }
+    ]
+  },
+  "ZIM": {
+    "name": "ZIM",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 3.78,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "no dividend paid last year",
+        "source_url": "stockanalysis.com",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "WGX": {
+    "name": "WGX",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 3.5,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "small annual payout; growing",
+        "source_url": "stockanalysis.com; stockinvest.us",
+        "dividend_yield": "0.60"
+      }
+    ]
+  },
+  "NEM": {
+    "name": "NEM",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 3.46,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "quarterly for decades; level declining",
+        "source_url": "simplywall.st; fullratio.com",
+        "dividend_yield": "1.06"
+      }
+    ]
+  },
+  "EMR": {
+    "name": "EMR",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 3.45,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "no dividend history found",
+        "source_url": "finance.yahoo.com",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "GNE": {
+    "name": "GNE",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -6.82,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "semi-annual payer; negative 5yr growth",
+        "source_url": "stockanalysis; companiesmarketcap; investing.com"
+      }
+    ]
+  },
+  "CIA": {
+    "name": "CIA",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -5.8,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "semi-annual; earnings-linked and variable",
+        "source_url": "stockanalysis.com",
+        "dividend_yield": "3.77"
+      }
+    ]
+  },
+  "RYM": {
+    "name": "RYM",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -4.74,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "payout suspended; long prior history",
+        "source_url": "companiesmarketcap.com",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "DRO": {
+    "name": "DRO",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -4.24,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "never paid a dividend",
+        "source_url": "Morningstar; halo-technologies",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "SMR": {
+    "name": "SMR",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -4.15,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "annual; variable coal-cycle payout",
+        "source_url": "stockanalysis.com; simplywall.st",
+        "dividend_yield": "4.53"
+      }
+    ]
+  },
+  "CSL": {
+    "name": "CSL",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -3.81,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "consistent grower; sources conflict 2.51-4.17%",
+        "source_url": "investing.com; stockanalysis.com"
+      }
+    ]
+  },
+  "NHC": {
+    "name": "NHC",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -2.99,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "semi-annual; grown but cyclical",
+        "source_url": "investing.com; wisesheets.io",
+        "dividend_yield": "4.75"
+      }
+    ]
+  },
+  "SHL": {
+    "name": "SHL",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -2.84,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Long-term growth; recent cut; ~100% payout",
+        "source_url": "stockanalysis.com; simplywall.st",
+        "dividend_yield": "5.10"
+      }
+    ]
+  },
+  "WHC": {
+    "name": "WHC",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -2.79,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "Volatile; previously cut; sources conflict widely",
+        "source_url": "stockanalysis.com; simplywall.st"
+      }
+    ]
+  },
+  "REA": {
+    "name": "REA",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -2.68,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "Consistently growing since 2021; ~57% payout",
+        "source_url": "stockanalysis.com; tipranks.com",
+        "dividend_yield": "1.75"
+      }
+    ]
+  },
+  "AUB": {
+    "name": "AUB",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -2.66,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Steadily growing since 2021; ~53% payout",
+        "source_url": "stockanalysis.com; tipranks.com",
+        "dividend_yield": "2.37"
+      }
+    ]
+  },
+  "NWS": {
+    "name": "NWS",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -2.59,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "consistent; low payout ratio ~10%",
+        "source_url": "stockanalysis.com",
+        "dividend_yield": "0.68"
+      }
+    ]
+  },
+  "A2M": {
+    "name": "A2M",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -2.55,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "short history; special dividend added",
+        "source_url": "stockanalysis.com; Morningstar",
+        "dividend_yield": "2.25"
+      }
+    ]
+  },
+  "PMV": {
+    "name": "PMV",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -2.49,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "growing; franked; occasional specials",
+        "source_url": "stockanalysis.com; investing.com",
+        "dividend_yield": "6.57"
+      }
+    ]
+  },
+  "QBE": {
+    "name": "QBE",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -2.48,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "recovering; sources disagree 4.3-5.5%",
+        "source_url": "stockanalysis.com; TradingView",
+        "dividend_yield": "5.31"
+      }
+    ]
+  },
+  "YAL": {
+    "name": "YAL",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -2.11,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "paid unevenly; commodity-linked",
+        "source_url": "Investing.com; StockAnalysis",
+        "dividend_yield": "~2.9-3.4"
+      }
+    ]
+  },
+  "XRO": {
+    "name": "XRO",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -2.07,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "no dividend; buybacks instead",
+        "source_url": "GuruFocus; StockAnalysis",
+        "dividend_yield": "0.00"
+      }
+    ]
+  },
+  "360": {
+    "name": "360",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-01",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -1.99,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "never paid dividends",
+        "source_url": "Life360 IR; StockAnalysis",
+        "dividend_yield": "0.00"
       }
     ]
   }

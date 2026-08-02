@@ -11,13 +11,13 @@
   },
   {
     "date": "2026-08-01",
-    "nasdaq_level": 25373.85,
-    "nasdaq_week_pct": 1.0,
+    "nasdaq_level": 687.99,
+    "nasdaq_week_pct": -97.29,
     "asx_level": 8976.8,
-    "asx_week_pct": 0.1,
-    "midterm_count": 0,
-    "longterm_count": 1,
-    "dividends_count": 0,
+    "asx_week_pct": 0.0,
+    "midterm_count": 5,
+    "longterm_count": 11,
+    "dividends_count": 12,
     "microcap_count": 0
   }
 ]
