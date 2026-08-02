@@ -39,7 +39,15 @@
        would just be redundant).
     o. Fixed: the <title> tag's {{DATE}} was outside any SECTION marker
        and never got filled in (rendered literally as "{{DATE}}" in every
-       browser tab). Now wrapped in SECTION:TITLE_DATE.
+       browser tab). NOTE: this is NOT handled via a SECTION:...:START/END
+       marker like every other section -- <title> uses HTML's RCDATA
+       content model, which does not parse nested markup, so an HTML
+       comment placed inside it is NOT invisible the way it is everywhere
+       else on the page; it would render as literal text in the browser
+       tab (this was tried and caught by render-dashboard-test.yml before
+       shipping). Instead render_dashboard.py's fill_title() replaces the
+       whole <title>Weekly Market Dashboard - 2026-08-01</title> tag directly via regex. Keep the plain
+       {{DATE}} placeholder here, not a SECTION marker.
 
   WHAT CHANGED FROM v4 (per-ticker Snapshot block, low-workload):
     j. Each ticker's "This Week" card on its <TICKER>/index.html page (see
@@ -210,7 +218,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Market Dashboard - <!-- SECTION:TITLE_DATE:START -->2026-08-01<!-- SECTION:TITLE_DATE:END --></title>
+<title>Weekly Market Dashboard - {{DATE}}</title>
 <style>
   :root{
     --bg:#0b0f14; --surface:#12181f; --surface-2:#161d25; --border:#1e2732;
