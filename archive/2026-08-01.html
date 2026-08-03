@@ -292,6 +292,7 @@
   .movers-list{list-style:none;margin:4px 0 24px;padding:0;}
   .mover-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border);}
   .mover-row-head{border-bottom:1px solid var(--border);font-weight:700;padding-bottom:8px;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);}
+  .mover-row-head .mover-bar-wrap{background:transparent;} /* header has no value to show -- don't draw an empty track */
   .mover-rank{flex:0 0 22px;color:var(--text-dim);font-weight:700;text-align:center;font-family:var(--mono);}
   .mover-id{flex:0 0 170px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
   .mover-market{flex:0 0 70px;color:var(--text-dim);font-size:.78rem;font-family:var(--mono);}
@@ -304,10 +305,17 @@
   /* Index card sparklines */
   .sparkline{width:60px;height:24px;vertical-align:middle;}
 
-  /* Signal Scorecard — factual chips only, see rule 12 above */
-  .sig-toggle{background:transparent;border:1px solid var(--border);color:var(--text-dim);font-family:var(--sans);font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:3px;cursor:pointer;}
-  .sig-toggle:hover{color:var(--amber);border-color:var(--amber-dim);}
-  .scorecard{display:block;width:100%;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);}
+  /* Signal Scorecard — factual chips only, see rule 12 above.
+     .sig-toggle is a plain reactive label, not a boxed/bordered control --
+     it shouldn't read as a <select>-style dropdown. The scorecard itself
+     drops down as a full-width block on its own line via flex:0 0 100%
+     (its parent .mover-row is flex-wrap:wrap), so it appears below the
+     whole row rather than squeezed into the Notes column. */
+  .sig-toggle{background:none;border:none;padding:0;color:var(--text-dim);font-family:var(--sans);font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:3px;}
+  .sig-toggle:hover{color:var(--amber);}
+  .sig-toggle .chevron{display:inline-block;transition:transform .15s ease;}
+  .sig-toggle[aria-expanded="true"] .chevron{transform:rotate(180deg);}
+  .scorecard{display:block;flex:0 0 100%;width:100%;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);}
   .scorecard[hidden]{display:none;}
   .scorecard-label{display:block;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;font-family:var(--sans);}
   .chip{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:3px 8px;margin:0 5px 5px 0;font-family:var(--sans);}
@@ -344,6 +352,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:100px"></span></span>
   <span class="mover-move up">+15.32%</span>
   <span class="mover-note">Rating predates earnings pop so discount may now be gone</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">2</span>
@@ -352,6 +361,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:85px"></span></span>
   <span class="mover-move up">+13.08%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">3</span>
@@ -360,6 +370,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:78px"></span></span>
   <span class="mover-move up">+11.95%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">4</span>
@@ -368,6 +379,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:63px"></span></span>
   <span class="mover-move up">+9.67%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">5</span>
@@ -376,6 +388,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:56px"></span></span>
   <span class="mover-move up">+8.64%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">6</span>
@@ -384,6 +397,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:55px"></span></span>
   <span class="mover-move up">+8.35%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">7</span>
@@ -392,6 +406,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:53px"></span></span>
   <span class="mover-move up">+8.10%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">8</span>
@@ -400,6 +415,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:53px"></span></span>
   <span class="mover-move up">+8.05%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">9</span>
@@ -408,6 +424,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:48px"></span></span>
   <span class="mover-move down">-7.35%</span>
   <span class="mover-note">Drop toward fair value aligns with overvalued 2-star view</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">10</span>
@@ -416,6 +433,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:46px"></span></span>
   <span class="mover-move up">+7.12%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">11</span>
@@ -424,6 +442,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:46px"></span></span>
   <span class="mover-move up">+7.05%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">12</span>
@@ -432,6 +451,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:45px"></span></span>
   <span class="mover-move up">+6.88%</span>
   <span class="mover-note">Rally aligns; price still well below fair value</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">13</span>
@@ -440,6 +460,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:45px"></span></span>
   <span class="mover-move down">-6.82%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">14</span>
@@ -448,6 +469,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:44px"></span></span>
   <span class="mover-move up">+6.73%</span>
   <span class="mover-note">Rally aligns with undervalued 4-star call</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">15</span>
@@ -456,6 +478,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:43px"></span></span>
   <span class="mover-move down">-6.53%</span>
   <span class="mover-note">Selloff deepens discount diverging from bullish view; data stale</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">16</span>
@@ -464,6 +487,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:39px"></span></span>
   <span class="mover-move down">-5.95%</span>
   <span class="mover-note">Large drop conflicts with Low uncertainty rating; June data</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">17</span>
@@ -472,6 +496,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:39px"></span></span>
   <span class="mover-move down">-5.90%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">18</span>
@@ -480,6 +505,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:38px"></span></span>
   <span class="mover-move down">-5.80%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">19</span>
@@ -488,6 +514,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:36px"></span></span>
   <span class="mover-move up">+5.48%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">20</span>
@@ -496,6 +523,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:35px"></span></span>
   <span class="mover-move up">+5.40%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">21</span>
@@ -504,6 +532,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:34px"></span></span>
   <span class="mover-move up">+5.19%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">22</span>
@@ -512,6 +541,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:33px"></span></span>
   <span class="mover-move down">-5.09%</span>
   <span class="mover-note">Drop aligns with overvalued call but rating likely stale</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">23</span>
@@ -520,6 +550,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:33px"></span></span>
   <span class="mover-move up">+4.99%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">24</span>
@@ -528,6 +559,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:32px"></span></span>
   <span class="mover-move up">+4.85%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">25</span>
@@ -536,6 +568,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:31px"></span></span>
   <span class="mover-move down">-4.74%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">26</span>
@@ -544,6 +577,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:31px"></span></span>
   <span class="mover-move up">+4.72%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">27</span>
@@ -552,6 +586,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:30px"></span></span>
   <span class="mover-move up">+4.66%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">28</span>
@@ -560,6 +595,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:30px"></span></span>
   <span class="mover-move down">-4.56%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">29</span>
@@ -568,6 +604,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:30px"></span></span>
   <span class="mover-move up">+4.56%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">30</span>
@@ -576,6 +613,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:29px"></span></span>
   <span class="mover-move up">+4.46%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">31</span>
@@ -584,6 +622,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:29px"></span></span>
   <span class="mover-move up">+4.41%</span>
   <span class="mover-note">Gain aligns; still deeply discounted</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">32</span>
@@ -592,6 +631,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:28px"></span></span>
   <span class="mover-move down">-4.29%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">33</span>
@@ -600,6 +640,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:28px"></span></span>
   <span class="mover-move down">-4.24%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">34</span>
@@ -608,6 +649,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:27px"></span></span>
   <span class="mover-move down">-4.20%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">35</span>
@@ -616,6 +658,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:27px"></span></span>
   <span class="mover-move down">-4.15%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">36</span>
@@ -624,6 +667,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:26px"></span></span>
   <span class="mover-move up">+4.05%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">37</span>
@@ -632,6 +676,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:25px"></span></span>
   <span class="mover-move up">+3.85%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">38</span>
@@ -640,6 +685,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:25px"></span></span>
   <span class="mover-move down">-3.81%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">39</span>
@@ -648,6 +694,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:25px"></span></span>
   <span class="mover-move up">+3.78%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">40</span>
@@ -656,6 +703,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:23px"></span></span>
   <span class="mover-move up">+3.50%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">41</span>
@@ -664,6 +712,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:23px"></span></span>
   <span class="mover-move up">+3.46%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">42</span>
@@ -672,6 +721,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:23px"></span></span>
   <span class="mover-move up">+3.45%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">43</span>
@@ -680,6 +730,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:22px"></span></span>
   <span class="mover-move down">-3.41%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">44</span>
@@ -688,6 +739,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:21px"></span></span>
   <span class="mover-move up">+3.29%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">45</span>
@@ -696,6 +748,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:21px"></span></span>
   <span class="mover-move up">+3.28%</span>
   <span class="mover-note">Gain aligns with moderately undervalued 4-star view</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">46</span>
@@ -704,6 +757,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:21px"></span></span>
   <span class="mover-move up">+3.26%</span>
   <span class="mover-note">Gain diverges mildly from fairly valued 3-star call</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">47</span>
@@ -712,6 +766,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:20px"></span></span>
   <span class="mover-move up">+3.04%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">48</span>
@@ -720,6 +775,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:20px"></span></span>
   <span class="mover-move up">+3.02%</span>
   <span class="mover-note">Rally narrows discount to $600 FV; consistent with 5-star call</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">49</span>
@@ -728,6 +784,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:20px"></span></span>
   <span class="mover-move up">+2.99%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">50</span>
@@ -736,6 +793,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:20px"></span></span>
   <span class="mover-move down">-2.99%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">51</span>
@@ -744,6 +802,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:19px"></span></span>
   <span class="mover-move up">+2.93%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">52</span>
@@ -752,6 +811,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:19px"></span></span>
   <span class="mover-move down">-2.88%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">53</span>
@@ -760,6 +820,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:19px"></span></span>
   <span class="mover-move down">-2.84%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">54</span>
@@ -768,6 +829,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:18px"></span></span>
   <span class="mover-move down">-2.79%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">55</span>
@@ -776,6 +838,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:18px"></span></span>
   <span class="mover-move down">-2.75%</span>
   <span class="mover-note">Decline diverges from bullish wide-moat 5-star view</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">56</span>
@@ -784,6 +847,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:17px"></span></span>
   <span class="mover-move down">-2.68%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">57</span>
@@ -792,6 +856,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:17px"></span></span>
   <span class="mover-move down">-2.66%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">58</span>
@@ -800,6 +865,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:17px"></span></span>
   <span class="mover-move down">-2.63%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">59</span>
@@ -808,6 +874,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:17px"></span></span>
   <span class="mover-move down">-2.59%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">60</span>
@@ -816,6 +883,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:17px"></span></span>
   <span class="mover-move down">-2.55%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">61</span>
@@ -824,6 +892,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:16px"></span></span>
   <span class="mover-move down">-2.49%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">62</span>
@@ -832,6 +901,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:16px"></span></span>
   <span class="mover-move down">-2.48%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">63</span>
@@ -840,6 +910,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:15px"></span></span>
   <span class="mover-move up">+2.32%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">64</span>
@@ -848,6 +919,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:15px"></span></span>
   <span class="mover-move up">+2.28%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">65</span>
@@ -856,6 +928,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:15px"></span></span>
   <span class="mover-move up">+2.25%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">66</span>
@@ -864,6 +937,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:14px"></span></span>
   <span class="mover-move up">+2.21%</span>
   <span class="mover-note">Diverges; gain extends large premium on 1-star name</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">67</span>
@@ -872,6 +946,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar up" style="width:14px"></span></span>
   <span class="mover-move up">+2.16%</span>
   <span class="mover-note">Diverges; gain widens existing premium to fair value</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">68</span>
@@ -880,6 +955,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:14px"></span></span>
   <span class="mover-move down">-2.11%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">69</span>
@@ -888,6 +964,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:14px"></span></span>
   <span class="mover-move down">-2.07%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">70</span>
@@ -896,6 +973,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:13px"></span></span>
   <span class="mover-move down">-2.03%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">71</span>
@@ -904,6 +982,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:13px"></span></span>
   <span class="mover-move down">-2.01%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">72</span>
@@ -912,6 +991,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:13px"></span></span>
   <span class="mover-move down">-2.01%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">73</span>
@@ -920,6 +1000,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:13px"></span></span>
   <span class="mover-move down">-2.00%</span>
   <span class="mover-note">Drop aligns with overvalued 2-star call; FVE possibly updated</span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">74</span>
@@ -928,6 +1009,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:13px"></span></span>
   <span class="mover-move down">-1.99%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">75</span>
@@ -936,6 +1018,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:13px"></span></span>
   <span class="mover-move down">-1.97%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">76</span>
@@ -944,6 +1027,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:12px"></span></span>
   <span class="mover-move down">-1.90%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">77</span>
@@ -952,6 +1036,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:12px"></span></span>
   <span class="mover-move down">-1.82%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">78</span>
@@ -960,6 +1045,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:10px"></span></span>
   <span class="mover-move down">-1.58%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">79</span>
@@ -968,6 +1054,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:10px"></span></span>
   <span class="mover-move down">-1.51%</span>
   <span class="mover-note"></span>
+  
 </li>
 <li class="mover-row">
   <span class="mover-rank">80</span>
@@ -976,6 +1063,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-bar-wrap"><span class="mover-bar down" style="width:9px"></span></span>
   <span class="mover-move down">-1.43%</span>
   <span class="mover-note"></span>
+  
 </li>
 </ol>
 

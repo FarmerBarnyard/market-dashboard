@@ -292,6 +292,7 @@
   .movers-list{list-style:none;margin:4px 0 24px;padding:0;}
   .mover-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border);}
   .mover-row-head{border-bottom:1px solid var(--border);font-weight:700;padding-bottom:8px;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);}
+  .mover-row-head .mover-bar-wrap{background:transparent;} /* header has no value to show -- don't draw an empty track */
   .mover-rank{flex:0 0 22px;color:var(--text-dim);font-weight:700;text-align:center;font-family:var(--mono);}
   .mover-id{flex:0 0 170px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
   .mover-market{flex:0 0 70px;color:var(--text-dim);font-size:.78rem;font-family:var(--mono);}
@@ -304,10 +305,17 @@
   /* Index card sparklines */
   .sparkline{width:60px;height:24px;vertical-align:middle;}
 
-  /* Signal Scorecard — factual chips only, see rule 12 above */
-  .sig-toggle{background:transparent;border:1px solid var(--border);color:var(--text-dim);font-family:var(--sans);font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:3px;cursor:pointer;}
-  .sig-toggle:hover{color:var(--amber);border-color:var(--amber-dim);}
-  .scorecard{display:block;width:100%;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);}
+  /* Signal Scorecard — factual chips only, see rule 12 above.
+     .sig-toggle is a plain reactive label, not a boxed/bordered control --
+     it shouldn't read as a <select>-style dropdown. The scorecard itself
+     drops down as a full-width block on its own line via flex:0 0 100%
+     (its parent .mover-row is flex-wrap:wrap), so it appears below the
+     whole row rather than squeezed into the Notes column. */
+  .sig-toggle{background:none;border:none;padding:0;color:var(--text-dim);font-family:var(--sans);font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:3px;}
+  .sig-toggle:hover{color:var(--amber);}
+  .sig-toggle .chevron{display:inline-block;transition:transform .15s ease;}
+  .sig-toggle[aria-expanded="true"] .chevron{transform:rotate(180deg);}
+  .scorecard{display:block;flex:0 0 100%;width:100%;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);}
   .scorecard[hidden]{display:none;}
   .scorecard-label{display:block;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;font-family:var(--sans);}
   .chip{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:3px 8px;margin:0 5px 5px 0;font-family:var(--sans);}
