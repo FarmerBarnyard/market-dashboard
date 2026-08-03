@@ -292,6 +292,7 @@
   .movers-list{list-style:none;margin:4px 0 24px;padding:0;}
   .mover-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border);}
   .mover-row-head{border-bottom:1px solid var(--border);font-weight:700;padding-bottom:8px;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);}
+  .mover-row-head .mover-bar-wrap{background:transparent;} /* header has no value to show -- don't draw an empty track */
   .mover-rank{flex:0 0 22px;color:var(--text-dim);font-weight:700;text-align:center;font-family:var(--mono);}
   .mover-id{flex:0 0 170px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
   .mover-market{flex:0 0 70px;color:var(--text-dim);font-size:.78rem;font-family:var(--mono);}
@@ -304,10 +305,17 @@
   /* Index card sparklines */
   .sparkline{width:60px;height:24px;vertical-align:middle;}
 
-  /* Signal Scorecard — factual chips only, see rule 12 above */
-  .sig-toggle{background:transparent;border:1px solid var(--border);color:var(--text-dim);font-family:var(--sans);font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:3px;cursor:pointer;}
-  .sig-toggle:hover{color:var(--amber);border-color:var(--amber-dim);}
-  .scorecard{display:block;width:100%;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);}
+  /* Signal Scorecard — factual chips only, see rule 12 above.
+     .sig-toggle is a plain reactive label, not a boxed/bordered control --
+     it shouldn't read as a <select>-style dropdown. The scorecard itself
+     drops down as a full-width block on its own line via flex:0 0 100%
+     (its parent .mover-row is flex-wrap:wrap), so it appears below the
+     whole row rather than squeezed into the Notes column. */
+  .sig-toggle{background:none;border:none;padding:0;color:var(--text-dim);font-family:var(--sans);font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:3px;}
+  .sig-toggle:hover{color:var(--amber);}
+  .sig-toggle .chevron{display:inline-block;transition:transform .15s ease;}
+  .sig-toggle[aria-expanded="true"] .chevron{transform:rotate(180deg);}
+  .scorecard{display:block;flex:0 0 100%;width:100%;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);}
   .scorecard[hidden]{display:none;}
   .scorecard-label{display:block;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;font-family:var(--sans);}
   .chip{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:3px 8px;margin:0 5px 5px 0;font-family:var(--sans);}
@@ -378,11 +386,16 @@
 <ol class="movers-list" id="movers-list">
 <li class="mover-row" data-filter-row>
   <span class="mover-rank">{{RANK}}</span>
-  <span class="mover-id"><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span>{{TICKER}}</a> <button class="sig-toggle" type="button">signal &#9662;</button></span>
+  <span class="mover-id"><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span>{{TICKER}}</a> <button class="sig-toggle" type="button">signal <span class="chevron">&#9662;</span></button></span>
   <span class="mover-market">{{NASDAQ or ASX}}</span>
   <span class="mover-bar-wrap"><span class="mover-bar up or down" style="width:{{BAR_PX}}px"></span></span>
   <span class="mover-move up or down">{{MOVE}}</span>
-  <span class="mover-note">{{NOTE}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS -- see rule 12}}</div></span>
+  <span class="mover-note">{{NOTE}}</span>
+  <div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS -- see rule 12}}</div>
+  <!-- scorecard is a sibling of mover-note, NOT nested inside it -- with
+  flex:0 0 100% on .mover-row (flex-wrap:wrap) it drops onto its own full-
+  width line below the whole row when toggled, instead of being squeezed
+  into the Notes column's width. -->
 </li>
 <!-- one <li> per mover, ranked by magnitude of move (largest first), capped at ~6 total per the pipeline's efficiency rule. See rule 7 above for BAR_PX. -->
 </ol>
@@ -418,7 +431,7 @@
 <table class="sortable" id="midterm-table">
 <thead><tr><th class="sortable">Ticker</th><th class="sortable">Rating</th><th class="sortable">Fair value vs price</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
-<tr><td><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></a> <button class="sig-toggle" type="button">signal &#9662;</button></td><td>{{STARS}} - Uncertainty {{LEVEL}} - {{MOAT}} moat</td><td>{{FV_VS_PRICE}}</td><td>{{NOTES}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS}}</div></td></tr>
+<tr><td><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></a> <button class="sig-toggle" type="button">signal <span class="chevron">&#9662;</span></button></td><td>{{STARS}} - Uncertainty {{LEVEL}} - {{MOAT}} moat</td><td>{{FV_VS_PRICE}}</td><td>{{NOTES}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS}}</div></td></tr>
 </tbody>
 </table>
 <!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
@@ -433,7 +446,7 @@
 <table class="sortable" id="longterm-table">
 <thead><tr><th class="sortable">Ticker</th><th class="sortable">Moat</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
-<tr><td><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></a> <button class="sig-toggle" type="button">signal &#9662;</button></td><td>Wide</td><td>{{NOTES}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS}}</div></td></tr>
+<tr><td><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></a> <button class="sig-toggle" type="button">signal <span class="chevron">&#9662;</span></button></td><td>Wide</td><td>{{NOTES}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS}}</div></td></tr>
 </tbody>
 </table>
 <!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
@@ -448,7 +461,7 @@
 <table class="sortable" id="dividends-table">
 <thead><tr><th class="sortable">Ticker</th><th class="sortable">Yield</th><th class="sortable">Payout history</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
-<tr><td><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></a> <button class="sig-toggle" type="button">signal &#9662;</button></td><td>{{YIELD}}</td><td>{{PAYOUT_HISTORY}}</td><td>{{NOTES}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS}}</div></td></tr>
+<tr><td><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></a> <button class="sig-toggle" type="button">signal <span class="chevron">&#9662;</span></button></td><td>{{YIELD}}</td><td>{{PAYOUT_HISTORY}}</td><td>{{NOTES}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS}}</div></td></tr>
 </tbody>
 </table>
 <!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
@@ -463,7 +476,7 @@
 <table class="sortable" id="microcap-table">
 <thead><tr><th class="sortable">Ticker</th><th class="sortable">Coverage/Rating</th><th class="sortable">Key metrics</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
-<tr><td><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></a> <button class="sig-toggle" type="button">signal &#9662;</button></td><td>{{RATING or "No analyst coverage found"}}</td><td>{{KEY_METRIC_VALUES}}</td><td>{{NOTES}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS}}</div></td></tr>
+<tr><td><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></a> <button class="sig-toggle" type="button">signal <span class="chevron">&#9662;</span></button></td><td>{{RATING or "No analyst coverage found"}}</td><td>{{KEY_METRIC_VALUES}}</td><td>{{NOTES}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS}}</div></td></tr>
 </tbody>
 </table>
 <!-- if none qualified/were found this week, replace the table with: <p>None qualified this week.</p>
@@ -583,11 +596,13 @@
   // block that lives in the same row as the button that was clicked. No
   // data fetching here -- the facts are already in the page, just hidden. ---
   document.querySelectorAll('.sig-toggle').forEach(function(btn){
+    btn.setAttribute('aria-expanded', 'false');
     btn.addEventListener('click', function(){
       var row = btn.closest('tr, li');
       var card = row && row.querySelector('.scorecard');
       if (!card) return;
       card.hidden = !card.hidden;
+      btn.setAttribute('aria-expanded', card.hidden ? 'false' : 'true');
     });
   });
 
