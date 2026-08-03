@@ -46,7 +46,7 @@
        else on the page; it would render as literal text in the browser
        tab (this was tried and caught by render-dashboard-test.yml before
        shipping). Instead render_dashboard.py's fill_title() replaces the
-       whole <title>Weekly Market Dashboard - 2026-08-01</title> tag directly via regex. Keep the plain
+       whole <title>...</title> tag directly via regex. Keep the plain
        {{DATE}} placeholder here, not a SECTION marker.
 
   WHAT CHANGED FROM v4 (per-ticker Snapshot block, low-workload):
@@ -218,7 +218,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Market Dashboard - {{DATE}}</title>
+<title>Weekly Market Dashboard - 2026-08-01</title>
 <style>
   :root{
     --bg:#0b0f14; --surface:#12181f; --surface-2:#161d25; --border:#1e2732;
