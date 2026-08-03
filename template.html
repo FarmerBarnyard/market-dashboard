@@ -246,6 +246,8 @@
   .card-head{display:flex;align-items:center;gap:8px;}
   footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);color:var(--text-dim);font-size:.8rem;}
   a{color:var(--amber);}
+  .hint-bar{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px;padding:10px 14px;border:1px solid var(--border);background:var(--surface);border-radius:3px;font-family:var(--sans);font-size:.7rem;color:var(--text-dim);}
+  kbd{font-family:var(--mono);font-size:.65rem;border:1px solid var(--border);border-bottom-width:2px;border-radius:3px;padding:1px 5px;color:var(--text-dim);background:var(--bg);}
   .filter-input{width:100%;box-sizing:border-box;padding:8px 10px;margin:8px 0;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:3px;font-size:.85rem;font-family:var(--mono);}
   .filter-input::placeholder{color:var(--text-dim);}
   .filter-input:focus{outline:1px solid var(--amber);border-color:var(--amber);}
@@ -499,6 +501,11 @@
 <!-- SECTION:PAST_WEEKS:END -->
 </div>
 
+<div class="hint-bar">
+  <span><kbd>/</kbd> focus search</span>
+  <span><kbd>Esc</kbd> clear search</span>
+</div>
+
 <footer>
   Generated from the weekly market-review to Morningstar cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). This page is not investment advice.
 </footer>
@@ -666,6 +673,26 @@
     drawSparkline('sparkNasdaq', trendData.map(function(d){ return d.nasdaq_week_pct; }), '#e8a33d');
     drawSparkline('sparkAsx', trendData.map(function(d){ return d.asx_week_pct; }), '#4cc38a');
     renderTrendChart();
+  });
+
+  // --- Keyboard shortcuts: "/" focuses the filter-input for whatever's
+  // currently visible (scoped to the active subtab-panel when one exists,
+  // otherwise the active tab-panel directly); Esc clears and blurs it. ---
+  document.addEventListener('keydown', function(e){
+    if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+      var activePanel = document.querySelector('.tab-panel.active');
+      if (!activePanel) return;
+      var scope = activePanel.querySelector('.subtab-panel.active') || activePanel;
+      var input = scope.querySelector('.filter-input');
+      if (!input) return;
+      e.preventDefault();
+      input.focus();
+    }
+    if (e.key === 'Escape' && document.activeElement.classList.contains('filter-input')) {
+      document.activeElement.value = '';
+      document.activeElement.dispatchEvent(new Event('input'));
+      document.activeElement.blur();
+    }
   });
 })();
 </script>
