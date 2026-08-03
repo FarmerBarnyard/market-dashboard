@@ -518,6 +518,10 @@
       panels.forEach(function(p){ p.classList.remove('active'); });
       btn.classList.add('active');
       document.querySelector('[data-tab-panel="' + btn.dataset.tab + '"]').classList.add('active');
+      // Trends tab starts hidden (.tab-panel{display:none}), so its canvas
+      // reports clientWidth/clientHeight 0 on initial page load -- redraw
+      // now that the panel is actually visible and sized correctly.
+      if (btn.dataset.tab === 'trends') { renderTrendChart(); }
     });
   });
 
@@ -607,23 +611,27 @@
   }
 
   // --- Trend chart + sparklines (vanilla canvas, no libraries) ---
-  fetch('data.json').then(function(r){ return r.json(); }).catch(function(){ return []; }).then(function(data){
-    data = data || [];
+  // The big trend chart lives inside the Trends tab-panel, which is
+  // display:none until clicked. Sizing a canvas via clientWidth/clientHeight
+  // while its ancestor is display:none always reads 0, permanently baking
+  // in a 0x0 bitmap -- so this is wrapped in a named function, called once
+  // on load (a no-op if Trends isn't the active tab) AND re-called by the
+  // tab click handler above once the panel is actually visible and sized.
+  var trendData = null;
+  function renderTrendChart(){
+    var canvas = document.getElementById('trendChart');
+    if (!canvas || !trendData) return;
+    var data = trendData;
     var nasdaq = data.map(function(d){ return d.nasdaq_week_pct; });
     var asx = data.map(function(d){ return d.asx_week_pct; });
-
-    drawSparkline('sparkNasdaq', nasdaq, '#e8a33d');
-    drawSparkline('sparkAsx', asx, '#4cc38a');
-
-    var canvas = document.getElementById('trendChart');
-    if (!canvas) return;
     if (data.length < 2) {
       canvas.style.display = 'none';
       document.getElementById('trendFallback').style.display = 'block';
       return;
     }
-    var ctx = canvas.getContext('2d');
     var w = canvas.clientWidth, h = canvas.clientHeight;
+    if (!w || !h) return; // panel still hidden -- tab click handler will retry once visible
+    var ctx = canvas.getContext('2d');
     canvas.width = w * devicePixelRatio; canvas.height = h * devicePixelRatio;
     ctx.scale(devicePixelRatio, devicePixelRatio);
     var pad = 36;
@@ -651,6 +659,13 @@
     drawLine(asx, '#4cc38a');
     ctx.fillStyle = '#6b7885'; ctx.font = '11px sans-serif';
     data.forEach(function(d, i){ if (i === 0 || i === data.length - 1 || data.length <= 6) ctx.fillText(d.date, x(i) - 20, h - 8); });
+  }
+
+  fetch('data.json').then(function(r){ return r.json(); }).catch(function(){ return []; }).then(function(data){
+    trendData = data || [];
+    drawSparkline('sparkNasdaq', trendData.map(function(d){ return d.nasdaq_week_pct; }), '#e8a33d');
+    drawSparkline('sparkAsx', trendData.map(function(d){ return d.asx_week_pct; }), '#4cc38a');
+    renderTrendChart();
   });
 })();
 </script>
