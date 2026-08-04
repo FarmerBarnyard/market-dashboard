@@ -292,14 +292,21 @@
   .movers-list{list-style:none;margin:4px 0 24px;padding:0;}
   .mover-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border);}
   .mover-row-head{border-bottom:1px solid var(--border);font-weight:700;padding-bottom:8px;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);}
-  .mover-row-head .mover-bar-wrap{background:transparent;} /* header has no value to show -- don't draw an empty track */
   .mover-rank{flex:0 0 22px;color:var(--text-dim);font-weight:700;text-align:center;font-family:var(--mono);}
   .mover-id{flex:0 0 170px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
   .mover-market{flex:0 0 70px;color:var(--text-dim);font-size:.78rem;font-family:var(--mono);}
-  .mover-bar-wrap{flex:0 0 100px;height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;}
-  .mover-bar{height:6px;}
-  .mover-bar.up{background:var(--up);} .mover-bar.down{background:var(--down);}
-  .mover-move{flex:0 0 90px;font-weight:700;font-family:var(--mono);}
+  /* Move column: a low-opacity background bar scaled to move magnitude,
+     sitting BEHIND the percentage text within the same cell -- not a
+     separate track next to it. This is the "move graph" from the Signal
+     Desk prototype; an earlier build accidentally shipped a different,
+     much smaller separate-track design instead of this one. */
+  .mover-move-cell{position:relative;flex:0 0 170px;padding:3px 8px;border-radius:3px;overflow:hidden;font-weight:700;font-family:var(--mono);}
+  .mover-bar-bg{position:absolute;top:0;bottom:0;left:0;opacity:.16;}
+  .mover-move-cell.up .mover-bar-bg{background:var(--up);}
+  .mover-move-cell.down .mover-bar-bg{background:var(--down);}
+  .mover-move-value{position:relative;}
+  .mover-move-cell.up .mover-move-value{color:var(--up);}
+  .mover-move-cell.down .mover-move-value{color:var(--down);}
   .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
 
   /* Index card sparklines */

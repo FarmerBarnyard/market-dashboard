@@ -292,14 +292,21 @@
   .movers-list{list-style:none;margin:4px 0 24px;padding:0;}
   .mover-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border);}
   .mover-row-head{border-bottom:1px solid var(--border);font-weight:700;padding-bottom:8px;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);}
-  .mover-row-head .mover-bar-wrap{background:transparent;} /* header has no value to show -- don't draw an empty track */
   .mover-rank{flex:0 0 22px;color:var(--text-dim);font-weight:700;text-align:center;font-family:var(--mono);}
   .mover-id{flex:0 0 170px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
   .mover-market{flex:0 0 70px;color:var(--text-dim);font-size:.78rem;font-family:var(--mono);}
-  .mover-bar-wrap{flex:0 0 100px;height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;}
-  .mover-bar{height:6px;}
-  .mover-bar.up{background:var(--up);} .mover-bar.down{background:var(--down);}
-  .mover-move{flex:0 0 90px;font-weight:700;font-family:var(--mono);}
+  /* Move column: a low-opacity background bar scaled to move magnitude,
+     sitting BEHIND the percentage text within the same cell -- not a
+     separate track next to it. This is the "move graph" from the Signal
+     Desk prototype; an earlier build accidentally shipped a different,
+     much smaller separate-track design instead of this one. */
+  .mover-move-cell{position:relative;flex:0 0 170px;padding:3px 8px;border-radius:3px;overflow:hidden;font-weight:700;font-family:var(--mono);}
+  .mover-bar-bg{position:absolute;top:0;bottom:0;left:0;opacity:.16;}
+  .mover-move-cell.up .mover-bar-bg{background:var(--up);}
+  .mover-move-cell.down .mover-bar-bg{background:var(--down);}
+  .mover-move-value{position:relative;}
+  .mover-move-cell.up .mover-move-value{color:var(--up);}
+  .mover-move-cell.down .mover-move-value{color:var(--down);}
   .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
 
   /* Index card sparklines */
@@ -349,8 +356,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">1</span>
   <span class="mover-id"><a class="ticker-link" href="../AMZN/"><span class="ticker-badge">AM</span>AMZN</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:100px"></span></span>
-  <span class="mover-move up">+15.32%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:100%"></span><span class="mover-move-value">+15.32%</span></span>
   <span class="mover-note">Rating predates earnings pop so discount may now be gone</span>
   
 </li>
@@ -358,8 +364,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">2</span>
   <span class="mover-id"><a class="ticker-link" href="../4DX/"><span class="ticker-badge">4D</span>4DX</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:85px"></span></span>
-  <span class="mover-move up">+13.08%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:85%"></span><span class="mover-move-value">+13.08%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -367,8 +372,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">3</span>
   <span class="mover-id"><a class="ticker-link" href="../DXCM/"><span class="ticker-badge">DX</span>DXCM</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:78px"></span></span>
-  <span class="mover-move up">+11.95%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:78%"></span><span class="mover-move-value">+11.95%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -376,8 +380,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">4</span>
   <span class="mover-id"><a class="ticker-link" href="../EOS/"><span class="ticker-badge">EO</span>EOS</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:63px"></span></span>
-  <span class="mover-move up">+9.67%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:63%"></span><span class="mover-move-value">+9.67%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -385,8 +388,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">5</span>
   <span class="mover-id"><a class="ticker-link" href="../DYL/"><span class="ticker-badge">DY</span>DYL</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:56px"></span></span>
-  <span class="mover-move up">+8.64%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:56%"></span><span class="mover-move-value">+8.64%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -394,8 +396,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">6</span>
   <span class="mover-id"><a class="ticker-link" href="../MPWR/"><span class="ticker-badge">MP</span>MPWR</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:55px"></span></span>
-  <span class="mover-move up">+8.35%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:55%"></span><span class="mover-move-value">+8.35%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -403,8 +404,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">7</span>
   <span class="mover-id"><a class="ticker-link" href="../OBM/"><span class="ticker-badge">OB</span>OBM</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:53px"></span></span>
-  <span class="mover-move up">+8.10%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:53%"></span><span class="mover-move-value">+8.10%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -412,8 +412,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">8</span>
   <span class="mover-id"><a class="ticker-link" href="../ZIP/"><span class="ticker-badge">ZI</span>ZIP</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:53px"></span></span>
-  <span class="mover-move up">+8.05%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:53%"></span><span class="mover-move-value">+8.05%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -421,8 +420,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">9</span>
   <span class="mover-id"><a class="ticker-link" href="../AAPL/"><span class="ticker-badge">AA</span>AAPL</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:48px"></span></span>
-  <span class="mover-move down">-7.35%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:48%"></span><span class="mover-move-value">-7.35%</span></span>
   <span class="mover-note">Drop toward fair value aligns with overvalued 2-star view</span>
   
 </li>
@@ -430,8 +428,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">10</span>
   <span class="mover-id"><a class="ticker-link" href="../CSC/"><span class="ticker-badge">CS</span>CSC</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:46px"></span></span>
-  <span class="mover-move up">+7.12%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:46%"></span><span class="mover-move-value">+7.12%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -439,8 +436,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">11</span>
   <span class="mover-id"><a class="ticker-link" href="../PDN/"><span class="ticker-badge">PD</span>PDN</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:46px"></span></span>
-  <span class="mover-move up">+7.05%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:46%"></span><span class="mover-move-value">+7.05%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -448,8 +444,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">12</span>
   <span class="mover-id"><a class="ticker-link" href="../GOOG/"><span class="ticker-badge">GO</span>GOOG</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:45px"></span></span>
-  <span class="mover-move up">+6.88%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:45%"></span><span class="mover-move-value">+6.88%</span></span>
   <span class="mover-note">Rally aligns; price still well below fair value</span>
   
 </li>
@@ -457,8 +452,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">13</span>
   <span class="mover-id"><a class="ticker-link" href="../GNE/"><span class="ticker-badge">GN</span>GNE</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:45px"></span></span>
-  <span class="mover-move down">-6.82%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:45%"></span><span class="mover-move-value">-6.82%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -466,8 +460,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">14</span>
   <span class="mover-id"><a class="ticker-link" href="../GOOGL/"><span class="ticker-badge">GO</span>GOOGL</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:44px"></span></span>
-  <span class="mover-move up">+6.73%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:44%"></span><span class="mover-move-value">+6.73%</span></span>
   <span class="mover-note">Rally aligns with undervalued 4-star call</span>
   
 </li>
@@ -475,8 +468,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">15</span>
   <span class="mover-id"><a class="ticker-link" href="../NXPI/"><span class="ticker-badge">NX</span>NXPI</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:43px"></span></span>
-  <span class="mover-move down">-6.53%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:43%"></span><span class="mover-move-value">-6.53%</span></span>
   <span class="mover-note">Selloff deepens discount diverging from bullish view; data stale</span>
   
 </li>
@@ -484,8 +476,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">16</span>
   <span class="mover-id"><a class="ticker-link" href="../LIN/"><span class="ticker-badge">LI</span>LIN</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:39px"></span></span>
-  <span class="mover-move down">-5.95%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:39%"></span><span class="mover-move-value">-5.95%</span></span>
   <span class="mover-note">Large drop conflicts with Low uncertainty rating; June data</span>
   
 </li>
@@ -493,8 +484,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">17</span>
   <span class="mover-id"><a class="ticker-link" href="../MU/"><span class="ticker-badge">MU</span>MU</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:39px"></span></span>
-  <span class="mover-move down">-5.90%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:39%"></span><span class="mover-move-value">-5.90%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -502,8 +492,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">18</span>
   <span class="mover-id"><a class="ticker-link" href="../CIA/"><span class="ticker-badge">CI</span>CIA</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:38px"></span></span>
-  <span class="mover-move down">-5.80%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:38%"></span><span class="mover-move-value">-5.80%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -511,8 +500,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">19</span>
   <span class="mover-id"><a class="ticker-link" href="../PNI/"><span class="ticker-badge">PN</span>PNI</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:36px"></span></span>
-  <span class="mover-move up">+5.48%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:36%"></span><span class="mover-move-value">+5.48%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -520,8 +508,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">20</span>
   <span class="mover-id"><a class="ticker-link" href="../NXG/"><span class="ticker-badge">NX</span>NXG</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:35px"></span></span>
-  <span class="mover-move up">+5.40%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:35%"></span><span class="mover-move-value">+5.40%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -529,8 +516,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">21</span>
   <span class="mover-id"><a class="ticker-link" href="../WAF/"><span class="ticker-badge">WA</span>WAF</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:34px"></span></span>
-  <span class="mover-move up">+5.19%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:34%"></span><span class="mover-move-value">+5.19%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -538,8 +524,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">22</span>
   <span class="mover-id"><a class="ticker-link" href="../SNDK/"><span class="ticker-badge">SN</span>SNDK</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:33px"></span></span>
-  <span class="mover-move down">-5.09%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:33%"></span><span class="mover-move-value">-5.09%</span></span>
   <span class="mover-note">Drop aligns with overvalued call but rating likely stale</span>
   
 </li>
@@ -547,8 +532,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">23</span>
   <span class="mover-id"><a class="ticker-link" href="../FTNT/"><span class="ticker-badge">FT</span>FTNT</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:33px"></span></span>
-  <span class="mover-move up">+4.99%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:33%"></span><span class="mover-move-value">+4.99%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -556,8 +540,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">24</span>
   <span class="mover-id"><a class="ticker-link" href="../ILU/"><span class="ticker-badge">IL</span>ILU</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:32px"></span></span>
-  <span class="mover-move up">+4.85%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:32%"></span><span class="mover-move-value">+4.85%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -565,8 +548,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">25</span>
   <span class="mover-id"><a class="ticker-link" href="../RYM/"><span class="ticker-badge">RY</span>RYM</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:31px"></span></span>
-  <span class="mover-move down">-4.74%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:31%"></span><span class="mover-move-value">-4.74%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -574,8 +556,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">26</span>
   <span class="mover-id"><a class="ticker-link" href="../PDI/"><span class="ticker-badge">PD</span>PDI</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:31px"></span></span>
-  <span class="mover-move up">+4.72%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:31%"></span><span class="mover-move-value">+4.72%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -583,8 +564,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">27</span>
   <span class="mover-id"><a class="ticker-link" href="../AAI/"><span class="ticker-badge">AA</span>AAI</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:30px"></span></span>
-  <span class="mover-move up">+4.66%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:30%"></span><span class="mover-move-value">+4.66%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -592,8 +572,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">28</span>
   <span class="mover-id"><a class="ticker-link" href="../MSTR/"><span class="ticker-badge">MS</span>MSTR</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:30px"></span></span>
-  <span class="mover-move down">-4.56%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:30%"></span><span class="mover-move-value">-4.56%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -601,8 +580,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">29</span>
   <span class="mover-id"><a class="ticker-link" href="../BGL/"><span class="ticker-badge">BG</span>BGL</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:30px"></span></span>
-  <span class="mover-move up">+4.56%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:30%"></span><span class="mover-move-value">+4.56%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -610,8 +588,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">30</span>
   <span class="mover-id"><a class="ticker-link" href="../NXT/"><span class="ticker-badge">NX</span>NXT</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:29px"></span></span>
-  <span class="mover-move up">+4.46%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:29%"></span><span class="mover-move-value">+4.46%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -619,8 +596,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">31</span>
   <span class="mover-id"><a class="ticker-link" href="../SNPS/"><span class="ticker-badge">SN</span>SNPS</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:29px"></span></span>
-  <span class="mover-move up">+4.41%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:29%"></span><span class="mover-move-value">+4.41%</span></span>
   <span class="mover-note">Gain aligns; still deeply discounted</span>
   
 </li>
@@ -628,8 +604,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">32</span>
   <span class="mover-id"><a class="ticker-link" href="../SHOP/"><span class="ticker-badge">SH</span>SHOP</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:28px"></span></span>
-  <span class="mover-move down">-4.29%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:28%"></span><span class="mover-move-value">-4.29%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -637,8 +612,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">33</span>
   <span class="mover-id"><a class="ticker-link" href="../DRO/"><span class="ticker-badge">DR</span>DRO</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:28px"></span></span>
-  <span class="mover-move down">-4.24%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:28%"></span><span class="mover-move-value">-4.24%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -646,8 +620,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">34</span>
   <span class="mover-id"><a class="ticker-link" href="../WTC/"><span class="ticker-badge">WT</span>WTC</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:27px"></span></span>
-  <span class="mover-move down">-4.20%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:27%"></span><span class="mover-move-value">-4.20%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -655,8 +628,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">35</span>
   <span class="mover-id"><a class="ticker-link" href="../SMR/"><span class="ticker-badge">SM</span>SMR</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:27px"></span></span>
-  <span class="mover-move down">-4.15%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:27%"></span><span class="mover-move-value">-4.15%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -664,8 +636,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">36</span>
   <span class="mover-id"><a class="ticker-link" href="../CDA/"><span class="ticker-badge">CD</span>CDA</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:26px"></span></span>
-  <span class="mover-move up">+4.05%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:26%"></span><span class="mover-move-value">+4.05%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -673,8 +644,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">37</span>
   <span class="mover-id"><a class="ticker-link" href="../ALAB/"><span class="ticker-badge">AL</span>ALAB</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:25px"></span></span>
-  <span class="mover-move up">+3.85%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:25%"></span><span class="mover-move-value">+3.85%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -682,8 +652,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">38</span>
   <span class="mover-id"><a class="ticker-link" href="../CSL/"><span class="ticker-badge">CS</span>CSL</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:25px"></span></span>
-  <span class="mover-move down">-3.81%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:25%"></span><span class="mover-move-value">-3.81%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -691,8 +660,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">39</span>
   <span class="mover-id"><a class="ticker-link" href="../ZIM/"><span class="ticker-badge">ZI</span>ZIM</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:25px"></span></span>
-  <span class="mover-move up">+3.78%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:25%"></span><span class="mover-move-value">+3.78%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -700,8 +668,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">40</span>
   <span class="mover-id"><a class="ticker-link" href="../WGX/"><span class="ticker-badge">WG</span>WGX</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:23px"></span></span>
-  <span class="mover-move up">+3.50%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:23%"></span><span class="mover-move-value">+3.50%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -709,8 +676,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">41</span>
   <span class="mover-id"><a class="ticker-link" href="../NEM/"><span class="ticker-badge">NE</span>NEM</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:23px"></span></span>
-  <span class="mover-move up">+3.46%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:23%"></span><span class="mover-move-value">+3.46%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -718,8 +684,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">42</span>
   <span class="mover-id"><a class="ticker-link" href="../EMR/"><span class="ticker-badge">EM</span>EMR</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:23px"></span></span>
-  <span class="mover-move up">+3.45%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:23%"></span><span class="mover-move-value">+3.45%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -727,8 +692,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">43</span>
   <span class="mover-id"><a class="ticker-link" href="../SPCX/"><span class="ticker-badge">SP</span>SPCX</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:22px"></span></span>
-  <span class="mover-move down">-3.41%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:22%"></span><span class="mover-move-value">-3.41%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -736,8 +700,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">44</span>
   <span class="mover-id"><a class="ticker-link" href="../REGN/"><span class="ticker-badge">RE</span>REGN</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:21px"></span></span>
-  <span class="mover-move up">+3.29%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:21%"></span><span class="mover-move-value">+3.29%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -745,8 +708,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">45</span>
   <span class="mover-id"><a class="ticker-link" href="../META/"><span class="ticker-badge">ME</span>META</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:21px"></span></span>
-  <span class="mover-move up">+3.28%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:21%"></span><span class="mover-move-value">+3.28%</span></span>
   <span class="mover-note">Gain aligns with moderately undervalued 4-star view</span>
   
 </li>
@@ -754,8 +716,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">46</span>
   <span class="mover-id"><a class="ticker-link" href="../WBD/"><span class="ticker-badge">WB</span>WBD</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:21px"></span></span>
-  <span class="mover-move up">+3.26%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:21%"></span><span class="mover-move-value">+3.26%</span></span>
   <span class="mover-note">Gain diverges mildly from fairly valued 3-star call</span>
   
 </li>
@@ -763,8 +724,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">47</span>
   <span class="mover-id"><a class="ticker-link" href="../CRWD/"><span class="ticker-badge">CR</span>CRWD</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:20px"></span></span>
-  <span class="mover-move up">+3.04%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:20%"></span><span class="mover-move-value">+3.04%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -772,8 +732,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">48</span>
   <span class="mover-id"><a class="ticker-link" href="../MSFT/"><span class="ticker-badge">MS</span>MSFT</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:20px"></span></span>
-  <span class="mover-move up">+3.02%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:20%"></span><span class="mover-move-value">+3.02%</span></span>
   <span class="mover-note">Rally narrows discount to $600 FV; consistent with 5-star call</span>
   
 </li>
@@ -781,8 +740,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">49</span>
   <span class="mover-id"><a class="ticker-link" href="../LITE/"><span class="ticker-badge">LI</span>LITE</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:20px"></span></span>
-  <span class="mover-move up">+2.99%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:20%"></span><span class="mover-move-value">+2.99%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -790,8 +748,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">50</span>
   <span class="mover-id"><a class="ticker-link" href="../NHC/"><span class="ticker-badge">NH</span>NHC</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:20px"></span></span>
-  <span class="mover-move down">-2.99%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:20%"></span><span class="mover-move-value">-2.99%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -799,8 +756,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">51</span>
   <span class="mover-id"><a class="ticker-link" href="../NVDA/"><span class="ticker-badge">NV</span>NVDA</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:19px"></span></span>
-  <span class="mover-move up">+2.93%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value">+2.93%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -808,8 +764,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">52</span>
   <span class="mover-id"><a class="ticker-link" href="../CRWV/"><span class="ticker-badge">CR</span>CRWV</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:19px"></span></span>
-  <span class="mover-move down">-2.88%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value">-2.88%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -817,8 +772,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">53</span>
   <span class="mover-id"><a class="ticker-link" href="../SHL/"><span class="ticker-badge">SH</span>SHL</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:19px"></span></span>
-  <span class="mover-move down">-2.84%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value">-2.84%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -826,8 +780,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">54</span>
   <span class="mover-id"><a class="ticker-link" href="../WHC/"><span class="ticker-badge">WH</span>WHC</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:18px"></span></span>
-  <span class="mover-move down">-2.79%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:18%"></span><span class="mover-move-value">-2.79%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -835,8 +788,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">55</span>
   <span class="mover-id"><a class="ticker-link" href="../GEHC/"><span class="ticker-badge">GE</span>GEHC</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:18px"></span></span>
-  <span class="mover-move down">-2.75%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:18%"></span><span class="mover-move-value">-2.75%</span></span>
   <span class="mover-note">Decline diverges from bullish wide-moat 5-star view</span>
   
 </li>
@@ -844,8 +796,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">56</span>
   <span class="mover-id"><a class="ticker-link" href="../REA/"><span class="ticker-badge">RE</span>REA</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:17px"></span></span>
-  <span class="mover-move down">-2.68%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value">-2.68%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -853,8 +804,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">57</span>
   <span class="mover-id"><a class="ticker-link" href="../AUB/"><span class="ticker-badge">AU</span>AUB</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:17px"></span></span>
-  <span class="mover-move down">-2.66%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value">-2.66%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -862,8 +812,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">58</span>
   <span class="mover-id"><a class="ticker-link" href="../QCOM/"><span class="ticker-badge">QC</span>QCOM</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:17px"></span></span>
-  <span class="mover-move down">-2.63%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value">-2.63%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -871,8 +820,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">59</span>
   <span class="mover-id"><a class="ticker-link" href="../NWS/"><span class="ticker-badge">NW</span>NWS</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:17px"></span></span>
-  <span class="mover-move down">-2.59%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value">-2.59%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -880,8 +828,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">60</span>
   <span class="mover-id"><a class="ticker-link" href="../A2M/"><span class="ticker-badge">A2</span>A2M</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:17px"></span></span>
-  <span class="mover-move down">-2.55%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value">-2.55%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -889,8 +836,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">61</span>
   <span class="mover-id"><a class="ticker-link" href="../PMV/"><span class="ticker-badge">PM</span>PMV</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:16px"></span></span>
-  <span class="mover-move down">-2.49%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:16%"></span><span class="mover-move-value">-2.49%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -898,8 +844,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">62</span>
   <span class="mover-id"><a class="ticker-link" href="../QBE/"><span class="ticker-badge">QB</span>QBE</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:16px"></span></span>
-  <span class="mover-move down">-2.48%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:16%"></span><span class="mover-move-value">-2.48%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -907,8 +852,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">63</span>
   <span class="mover-id"><a class="ticker-link" href="../MRVL/"><span class="ticker-badge">MR</span>MRVL</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:15px"></span></span>
-  <span class="mover-move up">+2.32%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value">+2.32%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -916,8 +860,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">64</span>
   <span class="mover-id"><a class="ticker-link" href="../ORLY/"><span class="ticker-badge">OR</span>ORLY</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:15px"></span></span>
-  <span class="mover-move up">+2.28%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value">+2.28%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -925,8 +868,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">65</span>
   <span class="mover-id"><a class="ticker-link" href="../FAST/"><span class="ticker-badge">FA</span>FAST</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:15px"></span></span>
-  <span class="mover-move up">+2.25%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value">+2.25%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -934,8 +876,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">66</span>
   <span class="mover-id"><a class="ticker-link" href="../WDC/"><span class="ticker-badge">WD</span>WDC</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:14px"></span></span>
-  <span class="mover-move up">+2.21%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:14%"></span><span class="mover-move-value">+2.21%</span></span>
   <span class="mover-note">Diverges; gain extends large premium on 1-star name</span>
   
 </li>
@@ -943,8 +884,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">67</span>
   <span class="mover-id"><a class="ticker-link" href="../CDNS/"><span class="ticker-badge">CD</span>CDNS</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar up" style="width:14px"></span></span>
-  <span class="mover-move up">+2.16%</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:14%"></span><span class="mover-move-value">+2.16%</span></span>
   <span class="mover-note">Diverges; gain widens existing premium to fair value</span>
   
 </li>
@@ -952,8 +892,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">68</span>
   <span class="mover-id"><a class="ticker-link" href="../YAL/"><span class="ticker-badge">YA</span>YAL</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:14px"></span></span>
-  <span class="mover-move down">-2.11%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:14%"></span><span class="mover-move-value">-2.11%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -961,8 +900,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">69</span>
   <span class="mover-id"><a class="ticker-link" href="../XRO/"><span class="ticker-badge">XR</span>XRO</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:14px"></span></span>
-  <span class="mover-move down">-2.07%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:14%"></span><span class="mover-move-value">-2.07%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -970,8 +908,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">70</span>
   <span class="mover-id"><a class="ticker-link" href="../LTR/"><span class="ticker-badge">LT</span>LTR</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:13px"></span></span>
-  <span class="mover-move down">-2.03%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:13%"></span><span class="mover-move-value">-2.03%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -979,8 +916,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">71</span>
   <span class="mover-id"><a class="ticker-link" href="../CCEP/"><span class="ticker-badge">CC</span>CCEP</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:13px"></span></span>
-  <span class="mover-move down">-2.01%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:13%"></span><span class="mover-move-value">-2.01%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -988,8 +924,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">72</span>
   <span class="mover-id"><a class="ticker-link" href="../KHC/"><span class="ticker-badge">KH</span>KHC</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:13px"></span></span>
-  <span class="mover-move down">-2.01%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:13%"></span><span class="mover-move-value">-2.01%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -997,8 +932,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">73</span>
   <span class="mover-id"><a class="ticker-link" href="../NFLX/"><span class="ticker-badge">NF</span>NFLX</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:13px"></span></span>
-  <span class="mover-move down">-2.00%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:13%"></span><span class="mover-move-value">-2.00%</span></span>
   <span class="mover-note">Drop aligns with overvalued 2-star call; FVE possibly updated</span>
   
 </li>
@@ -1006,8 +940,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">74</span>
   <span class="mover-id"><a class="ticker-link" href="../360/"><span class="ticker-badge">36</span>360</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:13px"></span></span>
-  <span class="mover-move down">-1.99%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:13%"></span><span class="mover-move-value">-1.99%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -1015,8 +948,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">75</span>
   <span class="mover-id"><a class="ticker-link" href="../APP/"><span class="ticker-badge">AP</span>APP</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:13px"></span></span>
-  <span class="mover-move down">-1.97%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:13%"></span><span class="mover-move-value">-1.97%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -1024,8 +956,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">76</span>
   <span class="mover-id"><a class="ticker-link" href="../AMD/"><span class="ticker-badge">AM</span>AMD</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:12px"></span></span>
-  <span class="mover-move down">-1.90%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:12%"></span><span class="mover-move-value">-1.90%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -1033,8 +964,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">77</span>
   <span class="mover-id"><a class="ticker-link" href="../TTWO/"><span class="ticker-badge">TT</span>TTWO</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:12px"></span></span>
-  <span class="mover-move down">-1.82%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:12%"></span><span class="mover-move-value">-1.82%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -1042,8 +972,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">78</span>
   <span class="mover-id"><a class="ticker-link" href="../LRCX/"><span class="ticker-badge">LR</span>LRCX</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:10px"></span></span>
-  <span class="mover-move down">-1.58%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:10%"></span><span class="mover-move-value">-1.58%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -1051,8 +980,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">79</span>
   <span class="mover-id"><a class="ticker-link" href="../CPRT/"><span class="ticker-badge">CP</span>CPRT</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:10px"></span></span>
-  <span class="mover-move down">-1.51%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:10%"></span><span class="mover-move-value">-1.51%</span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -1060,8 +988,7 @@ Andy Jassy's comments addressing concerns over Amazon's massive AI spending like
   <span class="mover-rank">80</span>
   <span class="mover-id"><a class="ticker-link" href="../KDP/"><span class="ticker-badge">KD</span>KDP</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-bar-wrap"><span class="mover-bar down" style="width:9px"></span></span>
-  <span class="mover-move down">-1.43%</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:9%"></span><span class="mover-move-value">-1.43%</span></span>
   <span class="mover-note"></span>
   
 </li>
