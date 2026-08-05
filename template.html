@@ -530,9 +530,21 @@
 
 <script>
 (function(){
-  // --- Ticker strip: duplicate content once for a seamless CSS loop ---
+  // --- Ticker strip: duplicate content once for a seamless CSS loop.
+  // The item count varies a lot day to day (a full weekly run vs. a
+  // smaller daily-update mover list), but the CSS animation had a fixed
+  // 32s duration regardless -- so more tickers in the same 32s meant a
+  // visibly faster scroll. Measure the single (pre-duplication) width and
+  // set the duration so the strip always scrolls at roughly the same
+  // constant speed, however many tickers are in it. ---
   var tickerTrack = document.getElementById('tickerTrack');
-  if (tickerTrack) { tickerTrack.innerHTML += tickerTrack.innerHTML; }
+  if (tickerTrack) {
+    var singleWidth = tickerTrack.scrollWidth;
+    tickerTrack.innerHTML += tickerTrack.innerHTML;
+    var TICKER_PX_PER_SEC = 45;
+    var duration = Math.max(singleWidth / TICKER_PX_PER_SEC, 12);
+    tickerTrack.style.animationDuration = duration + 's';
+  }
 
   // --- Tabs ---
   var btns = document.querySelectorAll('.tab-btn');
