@@ -345,17 +345,6 @@
 </head>
 <body>
 
-<div class="ticker-wrap">
-  <div class="ticker-track" id="tickerTrack">
-    <!-- SECTION:TICKER_STRIP:START -->
-    <span class="ticker-item">NASDAQ <strong>{{LEVEL}}</strong> <span class="up or down">{{WEEK_CHANGE_PCT}}</span></span>
-    <span class="ticker-item">ASX 200 <strong>{{LEVEL}}</strong> <span class="up or down">{{WEEK_CHANGE_PCT}}</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span>{{TICKER}}</a> <span class="up or down">{{MOVE_PCT}}</span></span>
-    <!-- one item per notable mover, same tickers as the Notable Movers list below; keep the move text short (just the headline %, not the full note) -->
-    <!-- SECTION:TICKER_STRIP:END -->
-  </div>
-</div>
-
 <h1>Weekly Market Dashboard</h1>
 <!-- SECTION:DATE:START -->
 <div class="meta">Data for week ending {{DATE}} - NASDAQ + ASX - Morningstar cross-reference - Investment watchlists</div>
@@ -367,6 +356,17 @@
   <button class="tab-btn" data-tab="trends">Trends</button>
   <button class="tab-btn" data-tab="archive">Archive</button>
 </nav>
+
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack">
+    <!-- SECTION:TICKER_STRIP:START -->
+    <span class="ticker-item">NASDAQ <strong>{{LEVEL}}</strong> <span class="up or down">{{WEEK_CHANGE_PCT}}</span></span>
+    <span class="ticker-item">ASX 200 <strong>{{LEVEL}}</strong> <span class="up or down">{{WEEK_CHANGE_PCT}}</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span>{{TICKER}}</a> <span class="up or down">{{MOVE_PCT}}</span></span>
+    <!-- one item per notable mover, same tickers as the Notable Movers list below; keep the move text short (just the headline %, not the full note) -->
+    <!-- SECTION:TICKER_STRIP:END -->
+  </div>
+</div>
 
 <div class="tab-panel active" data-tab-panel="markets">
 
