@@ -242,7 +242,13 @@
   td{font-variant-numeric:tabular-nums;}
   .up{color:var(--up);} .down{color:var(--down);}
   .card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:14px 16px;margin:12px 0;}
-  .card-head{display:flex;align-items:center;gap:8px;}
+  .card-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  /* Callout badge next to an index card's label, e.g. "WEEK CHANGE
+     UNAVAILABLE" when this week's level isn't comparable to last week's
+     (data source switch, or no prior week on file) -- see
+     render_index_flag in render_dashboard.py. */
+  .flag{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-dim);border-radius:2px;
+    padding:1px 6px;font-family:var(--sans);font-size:.62rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
   footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);color:var(--text-dim);font-size:.8rem;}
   a{color:var(--amber);}
   .hint-bar{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px;padding:10px 14px;border:1px solid var(--border);background:var(--surface);border-radius:3px;font-family:var(--sans);font-size:.7rem;color:var(--text-dim);}
@@ -373,7 +379,7 @@
 <h2>Market Review - NASDAQ and ASX</h2>
 <!-- SECTION:NASDAQ_CARD:START -->
 <div class="card">
-  <div class="card-head"><strong>NASDAQ Composite:</strong> <canvas class="sparkline" id="sparkNasdaq" width="60" height="24"></canvas></div>
+  <div class="card-head"><strong>NASDAQ Composite:</strong> <span class="flag">{{OPTIONAL: WEEK CHANGE UNAVAILABLE -- see render_index_flag, only when week_change_pct is missing}}</span> <canvas class="sparkline" id="sparkNasdaq" width="60" height="24"></canvas></div>
   {{LEVEL}} ({{AS_OF}}), <span class="up or down">{{DAY_CHANGE}}</span> on the day.<br>
   Week-to-date: <span class="up or down">{{WEEK_CHANGE_PCT}}</span> ({{WEEK_CHANGE_PTS}} pts).<br>
   <span class="meta">Driver: {{DRIVER_SUMMARY}}</span>
@@ -382,7 +388,7 @@
 
 <!-- SECTION:ASX_CARD:START -->
 <div class="card">
-  <div class="card-head"><strong>S&P/ASX 200:</strong> <canvas class="sparkline" id="sparkAsx" width="60" height="24"></canvas></div>
+  <div class="card-head"><strong>S&P/ASX 200:</strong> <span class="flag">{{OPTIONAL: WEEK CHANGE UNAVAILABLE -- see render_index_flag}}</span> <canvas class="sparkline" id="sparkAsx" width="60" height="24"></canvas></div>
   {{LEVEL}} ({{AS_OF}}).<br>
   Week-to-date: <span class="up or down">{{WEEK_CHANGE_PCT}}</span> ({{WEEK_CHANGE_PTS}} pts).<br>
   <span class="meta">Driver: {{DRIVER_SUMMARY}}</span>
