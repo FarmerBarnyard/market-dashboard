@@ -218,7 +218,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Market Dashboard - 2026-08-08</title>
+<title>Weekly Market Dashboard - 2026-08-11</title>
 <style>
   :root{
     --bg:#0b0f14; --surface:#12181f; --surface-2:#161d25; --border:#1e2732;
@@ -242,7 +242,13 @@
   td{font-variant-numeric:tabular-nums;}
   .up{color:var(--up);} .down{color:var(--down);}
   .card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:14px 16px;margin:12px 0;}
-  .card-head{display:flex;align-items:center;gap:8px;}
+  .card-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  /* Callout badge next to an index card's label, e.g. "WEEK CHANGE
+     UNAVAILABLE" when this week's level isn't comparable to last week's
+     (data source switch, or no prior week on file) -- see
+     render_index_flag in render_dashboard.py. */
+  .flag{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-dim);border-radius:2px;
+    padding:1px 6px;font-family:var(--sans);font-size:.62rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
   footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);color:var(--text-dim);font-size:.8rem;}
   a{color:var(--amber);}
   .hint-bar{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px;padding:10px 14px;border:1px solid var(--border);background:var(--surface);border-radius:3px;font-family:var(--sans);font-size:.7rem;color:var(--text-dim);}
@@ -353,7 +359,7 @@
 
 <h2>This Week</h2>
 <div class="card">
-    Price: NOT_FOUND (2026-08-08), <span class="up">+17.43%</span> (day).<br>
+    Price: NOT_FOUND (2026-08-11), <span class="up">+3.72%</span> (day).<br>
     No Morningstar coverage found<br>
     Watchlists: None this week.<br>
     <span class="meta">No additional context recorded.</span><br>
