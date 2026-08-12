@@ -352,14 +352,14 @@
 <body>
 
 <p><a href="../index.html">&larr; Back to dashboard</a></p>
-<h1><span class="ticker-badge">NB</span>NBIS <span class="meta">NBIS - NASDAQ</span></h1>
+<h1><span class="ticker-badge">AG</span>AGL <span class="meta">AGL - ASX</span></h1>
 
 <h2>About</h2>
 <div class="card">Description not yet recorded for this ticker.</div>
 
 <h2>This Week</h2>
 <div class="card">
-    Price: NOT_FOUND (2026-08-12), <span class="up">+4.95%</span> (day).<br>
+    Price: NOT_FOUND (2026-08-12), <span class="up">+4.86%</span> (day).<br>
     No Morningstar coverage found<br>
     Watchlists: None this week.<br>
     <span class="meta">No additional context recorded.</span><br>
@@ -378,7 +378,7 @@
 <script>
 (function(){
   fetch('../tickers.json').then(function(r){ return r.json(); }).catch(function(){ return {}; }).then(function(data){
-    var entry = data['NBIS'];
+    var entry = data['AGL'];
     var hist = (entry && entry.history) || [];
     var series = hist.map(function(h){ return h.price; }).filter(function(v){ return typeof v === 'number'; });
     var canvas = document.getElementById('tickerTrendChart');
