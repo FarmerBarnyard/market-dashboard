@@ -312,6 +312,9 @@
   .movers-list{list-style:none;margin:4px 0 24px;padding:0;}
   .mover-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border);}
   .mover-row-head{border-bottom:1px solid var(--border);font-weight:700;padding-bottom:8px;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);}
+  .mover-row-head .sortable{cursor:pointer;user-select:none;}
+  .mover-row-head .sortable:hover{color:var(--amber);}
+  .mover-row-head .sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
   .mover-rank{flex:0 0 22px;color:var(--text-dim);font-weight:700;text-align:center;font-family:var(--mono);}
   .mover-id{flex:0 0 170px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
   .mover-market{flex:0 0 70px;color:var(--text-dim);font-size:.78rem;font-family:var(--mono);}
@@ -417,12 +420,12 @@
 
 <h2>Notable Movers</h2>
 <input class="filter-input" type="text" placeholder="Filter movers by ticker or text..." data-filter-target="movers-list">
-<div class="mover-row mover-row-head meta" aria-hidden="true">
-  <span class="mover-rank">#</span>
-  <span class="mover-id">Ticker</span>
-  <span class="mover-market">Market</span>
-  <span class="mover-move-cell">Move</span>
-  <span class="mover-note">Note</span>
+<div class="mover-row mover-row-head meta">
+  <span class="mover-rank sortable" data-sort-key="rank">#</span>
+  <span class="mover-id sortable" data-sort-key="ticker">Ticker</span>
+  <span class="mover-market sortable" data-sort-key="market">Market</span>
+  <span class="mover-move-cell sortable" data-sort-key="move">Move</span>
+  <span class="mover-note sortable" data-sort-key="note">Note</span>
 </div>
 <!-- SECTION:MOVERS_TABLE:START -->
 <ol class="movers-list" id="movers-list">
@@ -631,6 +634,38 @@ this button's click adds .expanded to the <ol>. -->
       });
     });
   });
+
+  // --- Sortable Notable Movers list (not a <table>, so a separate pattern
+  // from the block above -- reads the ticker from a data-ticker attribute
+  // since .mover-id's visible text also includes the badge and the
+  // "signal" toggle button, not just the ticker). ---
+  var moversList = document.getElementById('movers-list');
+  if (moversList) {
+    var moverColIdx = {rank: 0, market: 2, move: 3, note: 4};
+    document.querySelectorAll('.mover-row-head .sortable').forEach(function(head){
+      var key = head.dataset.sortKey;
+      var dir = 1;
+      head.addEventListener('click', function(){
+        var rows = Array.prototype.slice.call(moversList.querySelectorAll(':scope > li.mover-row'));
+        rows.sort(function(a, b){
+          var av, bv;
+          if (key === 'ticker') {
+            av = a.dataset.ticker || '';
+            bv = b.dataset.ticker || '';
+          } else {
+            av = a.children[moverColIdx[key]].innerText.trim();
+            bv = b.children[moverColIdx[key]].innerText.trim();
+          }
+          var an = parseFloat(av.replace(/[^0-9.\-]/g, ''));
+          var bn = parseFloat(bv.replace(/[^0-9.\-]/g, ''));
+          var cmp = (!isNaN(an) && !isNaN(bn)) ? (an - bn) : av.localeCompare(bv);
+          return cmp * dir;
+        });
+        rows.forEach(function(r){ moversList.appendChild(r); });
+        dir *= -1;
+      });
+    });
+  }
 
   // --- Filter inputs (works against table rows or generic [data-filter-row] items) ---
   document.querySelectorAll('.filter-input').forEach(function(input){
