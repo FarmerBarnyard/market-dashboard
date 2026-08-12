@@ -224,6 +224,7 @@
     --bg:#0b0f14; --surface:#12181f; --surface-2:#161d25; --border:#1e2732;
     --text:#c9d2db; --text-dim:#6b7885; --text-bright:#eef2f6;
     --amber:#e8a33d; --amber-dim:#8a641f; --amber-bg:rgba(232,163,61,.10);
+    --blue:#5b9fe8; --blue-dim:#2f5c8a; --blue-bg:rgba(91,159,232,.12);
     --up:#4cc38a; --down:#ff6b5e;
     --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
     --sans:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
@@ -241,14 +242,26 @@
   th.sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
   td{font-variant-numeric:tabular-nums;}
   .up{color:var(--up);} .down{color:var(--down);}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:14px 16px;margin:12px 0;}
+  .card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:14px 16px;margin:12px 0;}
   .card-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   /* Callout badge next to an index card's label, e.g. "WEEK CHANGE
      UNAVAILABLE" when this week's level isn't comparable to last week's
-     (data source switch, or no prior week on file) -- see
-     render_index_flag in render_dashboard.py. */
+     and there's no prior week on file -- see render_index_flag in
+     render_dashboard.py. */
   .flag{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-dim);border-radius:2px;
     padding:1px 6px;font-family:var(--sans);font-size:.62rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
+  /* Pinned to the card's top-right corner for a genuine instrument
+     substitution (NASDAQ's Composite level -> QQQ proxy) -- see
+     render_index_badge in render_dashboard.py. Not used for ASX, whose
+     own index_proxy column is its real ticker, not a substitute. */
+  .flag-info{position:absolute;top:-9px;right:14px;background:var(--blue-bg);color:var(--blue);border-color:var(--blue-dim);}
+  /* Index card stat-tile body: big figure, colored change line, brief
+     summary -- see render_index_card_body in render_dashboard.py. */
+  .index-level{font-size:1.9rem;font-weight:800;color:var(--text-bright);font-variant-numeric:tabular-nums;line-height:1.2;margin-top:4px;}
+  .index-asof{font-size:.7rem;font-weight:400;margin-left:4px;}
+  .index-change{font-size:.95rem;font-weight:700;margin-top:2px;}
+  .index-week{color:var(--text-dim);font-size:.8rem;margin-top:2px;}
+  .index-summary{margin:8px 0 0;color:var(--text-dim);font-size:.85rem;}
   footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);color:var(--text-dim);font-size:.8rem;}
   a{color:var(--amber);}
   .hint-bar{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px;padding:10px 14px;border:1px solid var(--border);background:var(--surface);border-radius:3px;font-family:var(--sans);font-size:.7rem;color:var(--text-dim);}
