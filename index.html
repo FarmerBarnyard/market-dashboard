@@ -243,6 +243,8 @@
   td{font-variant-numeric:tabular-nums;}
   .up{color:var(--up);} .down{color:var(--down);}
   .card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:14px 16px;margin:12px 0;}
+  .index-cards{display:flex;gap:16px;flex-wrap:wrap;}
+  .index-cards .card{flex:1 1 300px;margin:12px 0;min-width:0;}
   .card-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   /* Callout badge next to an index card's label, e.g. "WEEK CHANGE
      UNAVAILABLE" when this week's level isn't comparable to last week's
@@ -291,7 +293,7 @@
   .legend-asx::before{color:var(--up);}
 
   /* Ticker strip */
-  .ticker-wrap{position:relative;left:50%;right:50%;width:100vw;margin-left:-50vw;margin-right:-50vw;overflow:hidden;background:var(--surface);border-bottom:1px solid var(--border);white-space:nowrap;box-sizing:border-box;}
+  .ticker-wrap{overflow:hidden;background:var(--surface);border:1px solid var(--border);border-radius:3px;white-space:nowrap;box-sizing:border-box;}
   .ticker-track{display:inline-flex;padding:8px 0;animation:ticker-scroll 32s linear infinite;font-family:var(--mono);}
   .ticker-item{display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-size:.8rem;color:var(--text);border-right:1px solid var(--border);flex:0 0 auto;}
   .ticker-item strong{color:var(--text-bright);}
@@ -428,6 +430,7 @@
 <div class="tab-panel active" data-tab-panel="markets">
 
 <h2>Market Review - NASDAQ and ASX</h2>
+<div class="index-cards">
 <!-- SECTION:NASDAQ_CARD:START -->
 <div class="card">
   <div class="card-head"><strong>NASDAQ Composite:</strong> <canvas class="sparkline" id="sparkNasdaq" width="60" height="24"></canvas></div>
@@ -447,6 +450,7 @@
   <p class="index-summary">Not available for this market on the current data feed.</p>
 </div>
 <!-- SECTION:ASX_CARD:END -->
+</div>
 
 <h2>Notable Movers</h2>
 <input class="filter-input" type="text" placeholder="Filter movers by ticker or text..." data-filter-target="movers-list">
@@ -1159,9 +1163,10 @@
   <div class="meta">Snapshot of the week ending {{DATE}}</div>
 
   <h2>Market Review - NASDAQ and ASX</h2>
-  ...(same NASDAQ_CARD / ASX_CARD content as that week's Markets tab, but
-      WITHOUT the sparkline canvas or the card-head wrapper — plain
-      <strong>NASDAQ Composite:</strong> ... text, no JS on archive pages)...
+  <div class="index-cards">...(same NASDAQ_CARD / ASX_CARD content as that
+      week's Markets tab, side by side via .index-cards, but WITHOUT the
+      sparkline canvas or the card-head wrapper — plain
+      <strong>NASDAQ Composite:</strong> ... text, no JS on archive pages)...</div>
 
   <h2>Notable Movers</h2>
   ...(the same ranked <ol class="movers-list"> / <li class="mover-row">
