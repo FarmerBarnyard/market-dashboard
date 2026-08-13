@@ -370,14 +370,14 @@
 <body>
 
 <p><a href="../index.html">&larr; Back to dashboard</a></p>
-<h1><span class="ticker-badge">WD</span>WDAY <span class="meta">WDAY - NASDAQ</span></h1>
+<h1><span class="ticker-badge">AN</span>ANZ <span class="meta">ANZ - ASX</span></h1>
 
 <h2>About</h2>
 <div class="card">Description not yet recorded for this ticker.</div>
 
 <h2>This Week</h2>
 <div class="card">
-    Price: NOT_FOUND (2026-08-13), <span class="down">-3.30%</span> (day).<br>
+    Price: NOT_FOUND (2026-08-13), <span class="up">+2.36%</span> (day).<br>
     No Morningstar coverage found<br>
     Watchlists: None this week.<br>
     <span class="meta">No additional context recorded.</span><br>
@@ -396,7 +396,7 @@
 <script>
 (function(){
   fetch('../tickers.json').then(function(r){ return r.json(); }).catch(function(){ return {}; }).then(function(data){
-    var entry = data['WDAY'];
+    var entry = data['ANZ'];
     var hist = (entry && entry.history) || [];
     var series = hist.map(function(h){ return h.price; }).filter(function(v){ return typeof v === 'number'; });
     var canvas = document.getElementById('tickerTrendChart');
