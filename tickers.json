@@ -271,6 +271,17 @@
         "lists": [],
         "note": "",
         "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 4.45,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
       }
     ]
   },
@@ -390,6 +401,17 @@
         "lists": [],
         "note": "Under heavy selling pressure in the week ending 7/31 (exact % not confirmed) amid falling commodity/gold prices. TTM dividend yield ~3.3% clears the Dividends list's 2% bar, but per-share payout declined ~35% from FY23 ($1.70) to FY25 ($1.10) &mdash; fails the consistency test.",
         "source_url": "https://www.bhp.com/investors/shareholder-information/dividends"
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -3.64,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
       }
     ]
   },
@@ -724,6 +746,21 @@
         "move_pct": -0.69,
         "move_label": "day",
         "rating": "2-star, Wide moat, High uncertainty, fair value 1300",
+        "lists": [
+          "Long-Term"
+        ],
+        "note": "Pays growing quarterly dividend unconfirmed exact amt",
+        "source_url": "General knowledge; search tool limit reached",
+        "pe_trailing": "774.14-1714.09",
+        "dividend_yield": "0.5"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 1426.03,
+        "currency": "USD",
+        "move_pct": -4.38,
+        "move_label": "day",
+        "rating": "2-star, Wide moat, High uncertainty, fair value $1300",
         "lists": [
           "Long-Term"
         ],
@@ -1269,6 +1306,19 @@
         "source_url": "Yahoo Finance chart API (free)",
         "pe_trailing": "\\$106.16-\\$1085.68",
         "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 713.94,
+        "currency": "USD",
+        "move_pct": -5.58,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
+        "source_url": "Yahoo Finance chart API (free)",
+        "pe_trailing": "\\$106.16-\\$1085.68",
+        "dividend_yield": "0.0%"
       }
     ]
   },
@@ -1446,6 +1496,21 @@
         "source_url": "stockanalysis.com; fullratio.com",
         "pe_trailing": "38.97-50.63",
         "dividend_yield": "2.01"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 47.71,
+        "currency": "USD",
+        "move_pct": -1.69,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Payout ratio approx 80% high for sector",
+        "source_url": "stockanalysis.com; fullratio.com",
+        "pe_trailing": "38.97-50.63",
+        "dividend_yield": "2.01"
       }
     ]
   },
@@ -1500,6 +1565,19 @@
         "move_pct": -3.81,
         "move_label": "day",
         "rating": "2-star, None moat, High uncertainty, fair value $420",
+        "lists": [],
+        "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
+        "source_url": "Yahoo Finance chart API (free)",
+        "pe_trailing": "\\$73.14-\\$799.87",
+        "dividend_yield": "0.09%"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 544.84,
+        "currency": "USD",
+        "move_pct": 7.31,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -1727,6 +1805,19 @@
         "source_url": "Yahoo Finance chart API (free)",
         "pe_trailing": "\\$40.53-\\$2354.39",
         "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 1214.83,
+        "currency": "USD",
+        "move_pct": 13.67,
+        "move_label": "day",
+        "rating": "2-star, None moat, Very High uncertainty, fair value $1000",
+        "lists": [],
+        "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
+        "source_url": "Yahoo Finance chart API (free)",
+        "pe_trailing": "\\$40.53-\\$2354.39",
+        "dividend_yield": "0.0%"
       }
     ]
   },
@@ -1812,6 +1903,19 @@
         "price": 117.15,
         "currency": "USD",
         "move_pct": 2.22,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
+        "source_url": "Yahoo Finance chart API (free)",
+        "pe_trailing": "\\$94.0-\\$182.19",
+        "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 117.15,
+        "currency": "USD",
+        "move_pct": 5.4,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -1925,6 +2029,19 @@
         "move_pct": 9.65,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
+        "source_url": "Yahoo Finance chart API (free)",
+        "pe_trailing": "\\$107.01-\\$225.64",
+        "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 108.37,
+        "currency": "USD",
+        "move_pct": -3.33,
+        "move_label": "day",
+        "rating": "1-star, NOT_FOUND moat, Very High uncertainty, fair value $62",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -2285,6 +2402,19 @@
         "source_url": "Yahoo Finance chart API (free)",
         "pe_trailing": "\\$65.08-\\$126.71",
         "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 71.71,
+        "currency": "USD",
+        "move_pct": 5.43,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
+        "source_url": "Yahoo Finance chart API (free)",
+        "pe_trailing": "\\$65.08-\\$126.71",
+        "dividend_yield": "0.0%"
       }
     ]
   },
@@ -2534,6 +2664,21 @@
         "source_url": "fullratio.com",
         "pe_trailing": "24.88-35.94",
         "dividend_yield": "2.96"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 31.12,
+        "currency": "USD",
+        "move_pct": 5.28,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "payout ratio ~68%; 17yr dividend history",
+        "source_url": "fullratio.com",
+        "pe_trailing": "24.88-35.94",
+        "dividend_yield": "2.96"
       }
     ]
   },
@@ -2717,6 +2862,19 @@
         "price": 1.315,
         "currency": "AUD",
         "move_pct": -3.76,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
+        "source_url": "Yahoo Finance chart API (free)",
+        "pe_trailing": "\\$1.215-\\$2.97",
+        "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 1.315,
+        "currency": "AUD",
+        "move_pct": -4.71,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -2940,6 +3098,19 @@
         "price": 9.44,
         "currency": "AUD",
         "move_pct": 3.46,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
+        "source_url": "Yahoo Finance chart API (free)",
+        "pe_trailing": "\\$6.04-\\$15.1",
+        "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 9.44,
+        "currency": "AUD",
+        "move_pct": -4.76,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -3289,6 +3460,19 @@
         "price": 64.67,
         "currency": "AUD",
         "move_pct": -6.79,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "payout ratio ~9%; quarterly CDI of Alcoa",
+        "source_url": "stockanalysis.com; tradingview.com",
+        "pe_trailing": "44.27-117.87",
+        "dividend_yield": "0.88"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 64.67,
+        "currency": "AUD",
+        "move_pct": -4.77,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -4066,6 +4250,17 @@
         "lists": [],
         "note": "",
         "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 1.59,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
       }
     ]
   },
@@ -4094,6 +4289,21 @@
         "price": 24.89,
         "currency": "AUD",
         "move_pct": -1.68,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "payout ratio ~43% consistent history",
+        "source_url": "Gurufocus; Investing.com; Kalkine",
+        "pe_trailing": "18.57-25.83",
+        "dividend_yield": "4.4"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 24.89,
+        "currency": "AUD",
+        "move_pct": -3.9,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [
@@ -4153,6 +4363,19 @@
         "price": 71.09,
         "currency": "AUD",
         "move_pct": -2.07,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
+        "source_url": "Yahoo Finance chart API (free)",
+        "pe_trailing": "\\$61.45-\\$179.685",
+        "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 71.09,
+        "currency": "AUD",
+        "move_pct": 4.65,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -4258,6 +4481,17 @@
         "rating": "3-star, Narrow moat, Very High uncertainty, fair value 150",
         "lists": [],
         "note": "Rally pushes shares further above fair value",
+        "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 4.66,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
         "source_url": ""
       }
     ]
@@ -4443,6 +4677,17 @@
         "price": null,
         "currency": "USD",
         "move_pct": -3.9,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -2.2,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -5111,6 +5356,17 @@
         "lists": [],
         "note": "",
         "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 2.14,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
       }
     ]
   },
@@ -5447,6 +5703,17 @@
         "price": null,
         "currency": "AUD",
         "move_pct": 5.7,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 2.34,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -5857,6 +6124,17 @@
         "lists": [],
         "note": "",
         "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 7.04,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
       }
     ]
   },
@@ -5881,6 +6159,17 @@
         "price": null,
         "currency": "USD",
         "move_pct": 5.61,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -1.77,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -6116,6 +6405,17 @@
         "lists": [],
         "note": "",
         "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -3.73,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
       }
     ]
   },
@@ -6187,6 +6487,17 @@
         "price": null,
         "currency": "AUD",
         "move_pct": -2.91,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -4.62,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -6391,6 +6702,17 @@
         "lists": [],
         "note": "",
         "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -3.37,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
       }
     ]
   },
@@ -6531,6 +6853,17 @@
         "price": null,
         "currency": "USD",
         "move_pct": 7.03,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 4.91,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -6694,6 +7027,17 @@
         "lists": [],
         "note": "",
         "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 4.7,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
       }
     ]
   },
@@ -6823,6 +7167,17 @@
           "Long-Term"
         ],
         "note": "Price dip conflicts with undervalued wide-moat low-risk view",
+        "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -2.17,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
         "source_url": ""
       }
     ]
@@ -7033,6 +7388,17 @@
         "price": null,
         "currency": "AUD",
         "move_pct": 6.83,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -3.54,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -7286,6 +7652,17 @@
         "price": null,
         "currency": "USD",
         "move_pct": -3.3,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "USD",
+        "move_pct": 17.78,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -7612,6 +7989,17 @@
         "lists": [],
         "note": "",
         "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 1.83,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
       }
     ]
   },
@@ -7769,6 +8157,17 @@
         "lists": [],
         "note": "",
         "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -5.46,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
       }
     ]
   },
@@ -7818,6 +8217,17 @@
         "price": null,
         "currency": "AUD",
         "move_pct": -16.24,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 4.53,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -7942,6 +8352,19 @@
         "lists": [],
         "note": "",
         "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -2.48,
+        "move_label": "day",
+        "rating": "3-star, Wide moat, NOT_FOUND uncertainty, fair value $520",
+        "lists": [
+          "Long-Term"
+        ],
+        "note": "Fairly valued view; pullback is roughly neutral signal",
+        "source_url": ""
       }
     ]
   },
@@ -7978,6 +8401,17 @@
         "lists": [],
         "note": "",
         "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 1.71,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
       }
     ]
   },
@@ -7996,6 +8430,17 @@
         "lists": [],
         "note": "",
         "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 2.18,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
       }
     ]
   },
@@ -8009,6 +8454,17 @@
         "price": null,
         "currency": "AUD",
         "move_pct": -5.73,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      },
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": -3.57,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
@@ -8045,6 +8501,42 @@
         "price": null,
         "currency": "AUD",
         "move_pct": -3.06,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      }
+    ]
+  },
+  "CSCO": {
+    "name": "CSCO",
+    "market": "NASDAQ",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "USD",
+        "move_pct": -8.4,
+        "move_label": "day",
+        "rating": "No Morningstar coverage found",
+        "lists": [],
+        "note": "",
+        "source_url": ""
+      }
+    ]
+  },
+  "TNE": {
+    "name": "TNE",
+    "market": "ASX",
+    "description": "",
+    "history": [
+      {
+        "date": "2026-08-14",
+        "price": null,
+        "currency": "AUD",
+        "move_pct": 1.65,
         "move_label": "day",
         "rating": "No Morningstar coverage found",
         "lists": [],
