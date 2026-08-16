@@ -28,9 +28,9 @@
        and the three criteria-based watchlist tables (Mid-Term, Long-Term,
        Dividends) plus Micro-Cap now has a "signal ▾" toggle next to it.
        Clicking reveals a small set of FACTUAL chips already computed by
-       the pipeline this run — Morningstar rating/moat/uncertainty, fair
-       value vs verified price, dividend yield/payout, and how today's
-       move compares to the standing rating. Deliberately does NOT
+       the pipeline this run — free Finnhub analyst-consensus rating, fair
+       value (mean price target) vs verified price, dividend yield/payout,
+       and how today's move compares to the standing consensus. Deliberately does NOT
        synthesize a buy/sell/hold verdict — see agents.md Boundaries and
        the NOT_INVESTMENT_ADVICE banner. Not shown on archive pages or
        individual ticker pages (archive stays a static non-JS snapshot per
@@ -206,7 +206,7 @@
       <TICKER>/index.html from that ticker's FULL tickers.json history
       (not just this week). Tickers not mentioned this week are left alone.
   12. Signal Scorecard chips must only ever restate facts already computed
-      elsewhere this run (Morningstar rating/moat/uncertainty/fair value,
+      elsewhere this run (free Finnhub analyst-consensus rating/fair value,
       dividend yield/payout, price) or a plain factual comparison between
       them (e.g. "today's move aligns with / diverges from the standing
       rating"). Never add a synthesized recommendation word (Buy/Sell/
@@ -371,7 +371,7 @@
 
 <h1>Weekly Market Dashboard</h1>
 <!-- SECTION:DATE:START -->
-<div class="meta">Data for week ending {{DATE}} - NASDAQ + ASX - Morningstar cross-reference - Investment watchlists</div>
+<div class="meta">Data for week ending {{DATE}} - NASDAQ + ASX - Analyst cross-reference - Investment watchlists</div>
 <!-- SECTION:DATE:END -->
 
 <nav class="tabs">
@@ -451,14 +451,14 @@ expand. CSS hides li.mover-row:nth-child(n+11) inside #movers-list until
 this button's click adds .expanded to the <ol>. -->
 <!-- SECTION:MOVERS_TABLE:END -->
 
-<h2>Morningstar Cross-Reference Highlights</h2>
+<h2>Analyst Consensus Highlights</h2>
 <!-- SECTION:MORNINGSTAR_HIGHLIGHTS:START -->
 <div class="card">
-<strong>{{TICKER}}</strong> - {{one or two sentences on how this week's price action lines up with or diverges from Morningstar's published rating/fair value}}.
+<strong>{{TICKER}}</strong> - {{one or two sentences on how this week's price action lines up with or diverges from the free Finnhub analyst-consensus rating/fair value}}.
 </div>
 <!-- one card per ticker with a notable divergence or alignment; keep to the most notable 3-5, not every ticker -->
 <div class="card">
-<strong>Data quality note:</strong> {{brief note if Morningstar direct fetch was blocked/paywalled and figures were reconstructed from search snippets, or "All figures confirmed directly." if not}}
+<strong>Data quality note:</strong> Rating and fair-value figures come from Finnhub's free analyst-consensus and price-target endpoints, not Morningstar -- Morningstar's own moat/uncertainty judgments have no free equivalent, so this is a different data source, not a free version of the same one.
 </div>
 <!-- SECTION:MORNINGSTAR_HIGHLIGHTS:END -->
 
@@ -475,13 +475,13 @@ this button's click adds .expanded to the <ol>. -->
 
 <div class="subtab-panel active" data-subtab-panel="midterm">
 <h2>Watchlist - Mid-Term (1-3 years)</h2>
-<div class="meta">Criteria: Morningstar 4-5 star (undervalued) AND Uncertainty Low/Medium AND at least Narrow moat</div>
+<div class="meta">Criteria: Finnhub analyst consensus 4-5 star (Buy or Strong Buy)</div>
 <input class="filter-input" type="text" placeholder="Filter by ticker or text..." data-filter-target="midterm-table">
 <!-- SECTION:WATCHLIST_MIDTERM:START -->
 <table class="sortable" id="midterm-table">
 <thead><tr><th class="sortable">Ticker</th><th class="sortable">Rating</th><th class="sortable">Fair value vs price</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
-<tr><td><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></a> <button class="sig-toggle" type="button">signal <span class="chevron">&#9662;</span></button></td><td>{{STARS}} - Uncertainty {{LEVEL}} - {{MOAT}} moat</td><td>{{FV_VS_PRICE}}</td><td>{{NOTES}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS}}</div></td></tr>
+<tr><td><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></a> <button class="sig-toggle" type="button">signal <span class="chevron">&#9662;</span></button></td><td>{{STARS}}★ analyst consensus</td><td>{{FV_VS_PRICE}}</td><td>{{NOTES}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS}}</div></td></tr>
 </tbody>
 </table>
 <!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
@@ -490,13 +490,13 @@ this button's click adds .expanded to the <ol>. -->
 
 <div class="subtab-panel" data-subtab-panel="longterm">
 <h2>Watchlist - Long-Term (3+ years)</h2>
-<div class="meta">Criteria: Morningstar Wide economic moat rating</div>
+<div class="meta">Criteria: Finnhub analyst consensus 5 star (Strong Buy)</div>
 <input class="filter-input" type="text" placeholder="Filter by ticker or text..." data-filter-target="longterm-table">
 <!-- SECTION:WATCHLIST_LONGTERM:START -->
 <table class="sortable" id="longterm-table">
-<thead><tr><th class="sortable">Ticker</th><th class="sortable">Moat</th><th class="sortable">Notes</th></tr></thead>
+<thead><tr><th class="sortable">Ticker</th><th class="sortable">Rating</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
-<tr><td><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></a> <button class="sig-toggle" type="button">signal <span class="chevron">&#9662;</span></button></td><td>Wide</td><td>{{NOTES}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS}}</div></td></tr>
+<tr><td><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span><strong>{{TICKER}}</strong></a> <button class="sig-toggle" type="button">signal <span class="chevron">&#9662;</span></button></td><td>5★ (Strong Buy)</td><td>{{NOTES}}<div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS}}</div></td></tr>
 </tbody>
 </table>
 <!-- if none qualified this week, replace the table with: <p>None qualified this week.</p> -->
@@ -564,7 +564,7 @@ this button's click adds .expanded to the <ol>. -->
 </div>
 
 <footer>
-  Generated from the weekly market-review to Morningstar cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Morningstar) ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.
+  Generated from the weekly market-review to analyst-consensus cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Finnhub) analyst-consensus ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.
 </footer>
 
 <script>
@@ -861,7 +861,7 @@ this button's click adds .expanded to the <ol>. -->
       sig-toggle/.scorecard block, since this is a static historical
       record with no JS to drive any of those)...
 
-  <h2>Morningstar Cross-Reference Highlights</h2>
+  <h2>Analyst Consensus Highlights</h2>
   ...(same as that week's Markets tab content)...
 
   <h2>Watchlist - Mid-Term / Long-Term / Dividends / Micro-Cap Movers</h2>
@@ -905,7 +905,7 @@ this button's click adds .expanded to the <ol>. -->
   <h2>This Week</h2>
   <div class="card">
     Price: {{PRICE}} ({{AS_OF_DATE}}), <span class="up or down">{{DAY_OR_WEEK_MOVE}}</span>.<br>
-    {{RATING}} - only if Morningstar rating/moat/uncertainty data exists for
+    {{RATING}} - only if Finnhub analyst-consensus rating data exists for
     this ticker; omit the line entirely if not.<br>
     Watchlists: {{comma-separated list of "Mid-Term"/"Long-Term"/"Dividends"/
     "Micro-Cap Movers" this ticker qualified for this week, or "None this week"}}.<br>
