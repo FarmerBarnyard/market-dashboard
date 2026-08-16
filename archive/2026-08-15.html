@@ -28,9 +28,9 @@
        and the three criteria-based watchlist tables (Mid-Term, Long-Term,
        Dividends) plus Micro-Cap now has a "signal ▾" toggle next to it.
        Clicking reveals a small set of FACTUAL chips already computed by
-       the pipeline this run — Morningstar rating/moat/uncertainty, fair
-       value vs verified price, dividend yield/payout, and how today's
-       move compares to the standing rating. Deliberately does NOT
+       the pipeline this run — free Finnhub analyst-consensus rating, fair
+       value (mean price target) vs verified price, dividend yield/payout,
+       and how today's move compares to the standing consensus. Deliberately does NOT
        synthesize a buy/sell/hold verdict — see agents.md Boundaries and
        the NOT_INVESTMENT_ADVICE banner. Not shown on archive pages or
        individual ticker pages (archive stays a static non-JS snapshot per
@@ -206,7 +206,7 @@
       <TICKER>/index.html from that ticker's FULL tickers.json history
       (not just this week). Tickers not mentioned this week are left alone.
   12. Signal Scorecard chips must only ever restate facts already computed
-      elsewhere this run (Morningstar rating/moat/uncertainty/fair value,
+      elsewhere this run (free Finnhub analyst-consensus rating/fair value,
       dividend yield/payout, price) or a plain factual comparison between
       them (e.g. "today's move aligns with / diverges from the standing
       rating"). Never add a synthesized recommendation word (Buy/Sell/
@@ -378,12 +378,12 @@
 <div class="card"><strong>NASDAQ Composite:</strong><br>
 <div class="index-level">731.07 <span class="meta index-asof">(2026-08-15)</span></div>
   <div class="index-change down">▼ -0.14% today</div>
-  <div class="index-week">Week-to-date: <span class="down">-0.14%</span> (-1.0 pts)</div>
+  <div class="index-week">Week-to-date: <span class="up">+0.00%</span> (0.0 pts)</div>
   <p class="index-summary">The most likely driver of today's move is geopolitical tension in the Middle East, with multiple headlines about Iran sanctions, tanker attacks, and oil supply disruptions driving oil prices up over $1, which benefited semiconductor and storage companies (SNDK, AMD, STX, WDC) while pressuring software/enterprise companies (AVGO, AMAT, CRWD, PANW, WDAY, INTU). However, no headline explicitly explains the sharp divergence between chip equipment losers (AMAT, AVGO) and chip/storage gainers.</p></div>
 <div class="card"><strong>S&amp;P/ASX 200:</strong><br>
 <div class="index-level">9115.2 <span class="meta index-asof">(2026-08-15)</span></div>
   <div class="index-change down">▼ -0.80% today</div>
-  <div class="index-week">Week-to-date: <span class="down">-0.09%</span> (-8.3 pts)</div>
+  <div class="index-week">Week-to-date: <span class="up">+0.00%</span> (0.0 pts)</div>
   <p class="index-summary">Not available for this market on the current data feed.</p></div>
 </div>
 
@@ -458,7 +458,7 @@
   <span class="mover-id"><a class="ticker-link" href="../AVGO/"><span class="ticker-badge">AV</span>AVGO</a></span>
   <span class="mover-market">NASDAQ</span>
   <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:65%"></span><span class="mover-move-value">-5.94%</span></span>
-  <span class="mover-note">Already rated undervalued; today's drop diverges further from fair value</span>
+  <span class="mover-note"></span>
   
 </li>
 <li class="mover-row" data-ticker="STX">
@@ -514,7 +514,7 @@
   <span class="mover-id"><a class="ticker-link" href="../AMAT/"><span class="ticker-badge">AM</span>AMAT</a></span>
   <span class="mover-market">NASDAQ</span>
   <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:56%"></span><span class="mover-move-value">-5.12%</span></span>
-  <span class="mover-note">Rated near fair value; sharp drop diverges toward undervalued territory</span>
+  <span class="mover-note"></span>
   
 </li>
 <li class="mover-row" data-ticker="PDN">
@@ -602,7 +602,7 @@
   <span class="mover-id"><a class="ticker-link" href="../CRWD/"><span class="ticker-badge">CR</span>CRWD</a></span>
   <span class="mover-market">NASDAQ</span>
   <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:42%"></span><span class="mover-move-value">-3.80%</span></span>
-  <span class="mover-note">Drop deepens discount to FV diverging from fairly valued view</span>
+  <span class="mover-note"></span>
   
 </li>
 <li class="mover-row" data-ticker="WDAY">
@@ -666,7 +666,7 @@
   <span class="mover-id"><a class="ticker-link" href="../PANW/"><span class="ticker-badge">PA</span>PANW</a></span>
   <span class="mover-market">NASDAQ</span>
   <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:32%"></span><span class="mover-move-value">-2.96%</span></span>
-  <span class="mover-note">Price near $396 far above $285 FV drop fits</span>
+  <span class="mover-note"></span>
   
 </li>
 <li class="mover-row" data-ticker="MPWR">
@@ -690,7 +690,7 @@
   <span class="mover-id"><a class="ticker-link" href="../PLTR/"><span class="ticker-badge">PL</span>PLTR</a></span>
   <span class="mover-market">NASDAQ</span>
   <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:30%"></span><span class="mover-move-value">-2.78%</span></span>
-  <span class="mover-note">Price above FV pullback aligns with overvaluation</span>
+  <span class="mover-note"></span>
   
 </li>
 <li class="mover-row" data-ticker="SNPS">
@@ -698,7 +698,7 @@
   <span class="mover-id"><a class="ticker-link" href="../SNPS/"><span class="ticker-badge">SN</span>SNPS</a></span>
   <span class="mover-market">NASDAQ</span>
   <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:26%"></span><span class="mover-move-value">+2.37%</span></span>
-  <span class="mover-note">Undervalued view; today's rise aligns with fair value gap</span>
+  <span class="mover-note"></span>
   
 </li>
 <li class="mover-row" data-ticker="MU">
@@ -711,36 +711,36 @@
 </li>
 </ol>
 
-<h2>Morningstar Cross-Reference Highlights</h2>
+<h2>Analyst Consensus Highlights</h2>
 <div class="card">
-<strong>AVGO</strong> - Already rated undervalued; today's drop diverges further from fair value.
+<strong>AVGO</strong> - 4-star analyst consensus, fair value 500 -- today's -5.94% move for context.
 </div>
 <div class="card">
-<strong>AMAT</strong> - Rated near fair value; sharp drop diverges toward undervalued territory.
+<strong>AMAT</strong> - 3-star analyst consensus, fair value 520 -- today's -5.12% move for context.
 </div>
 <div class="card">
-<strong>CRWD</strong> - Drop deepens discount to FV diverging from fairly valued view.
+<strong>CRWD</strong> - 3-star analyst consensus, fair value 460 -- today's -3.80% move for context.
 </div>
 <div class="card">
-<strong>PANW</strong> - Price near $396 far above $285 FV drop fits.
+<strong>PANW</strong> - 3-star analyst consensus, fair value 285 -- today's -2.96% move for context.
 </div>
 <div class="card">
-<strong>PLTR</strong> - Price above FV pullback aligns with overvaluation.
+<strong>PLTR</strong> - 3-star analyst consensus, fair value 153 -- today's -2.78% move for context.
 </div>
 <div class="card">
-<strong>Data quality note:</strong> Figures reconstructed from web search snippets where Morningstar's own pages were paywalled or bot-blocked; each figure is sourced or explicitly marked unconfirmed rather than guessed.
+<strong>Data quality note:</strong> Rating and fair-value figures come from Finnhub's free analyst-consensus and price-target endpoints, not Morningstar -- Morningstar's own moat/uncertainty judgments have no free equivalent, so this is a different data source, not a free version of the same one.
 </div>
 
 <h2>Watchlist - Mid-Term (1-3 years)</h2>
 <p>None qualified this week.</p>
 <h2>Watchlist - Long-Term (3+ years)</h2>
 <table id="longterm-table">
-<thead><tr><th>Ticker</th><th>Moat</th><th>Notes</th></tr></thead>
+<thead><tr><th>Ticker</th><th>Rating</th><th>Notes</th></tr></thead>
 <tbody>
-<tr><td><a class="ticker-link" href="../AVGO/"><span class="ticker-badge">AV</span>AVGO</a></td><td>Wide</td><td>Already rated undervalued; today's drop diverges further from fair value</td></tr>
-<tr><td><a class="ticker-link" href="../AMAT/"><span class="ticker-badge">AM</span>AMAT</a></td><td>Wide</td><td>Rated near fair value; sharp drop diverges toward undervalued territory</td></tr>
-<tr><td><a class="ticker-link" href="../CRWD/"><span class="ticker-badge">CR</span>CRWD</a></td><td>Wide</td><td>Drop deepens discount to FV diverging from fairly valued view</td></tr>
-<tr><td><a class="ticker-link" href="../PANW/"><span class="ticker-badge">PA</span>PANW</a></td><td>Wide</td><td>Price near $396 far above $285 FV drop fits</td></tr>
+<tr><td><a class="ticker-link" href="../AVGO/"><span class="ticker-badge">AV</span>AVGO</a></td><td>5★ (Strong Buy)</td><td>Fair value 500</td></tr>
+<tr><td><a class="ticker-link" href="../AMAT/"><span class="ticker-badge">AM</span>AMAT</a></td><td>5★ (Strong Buy)</td><td>Fair value 520</td></tr>
+<tr><td><a class="ticker-link" href="../CRWD/"><span class="ticker-badge">CR</span>CRWD</a></td><td>5★ (Strong Buy)</td><td>Fair value 460</td></tr>
+<tr><td><a class="ticker-link" href="../PANW/"><span class="ticker-badge">PA</span>PANW</a></td><td>5★ (Strong Buy)</td><td>Fair value 285</td></tr>
 </tbody>
 </table>
 <h2>Watchlist - Dividends</h2>
@@ -764,7 +764,7 @@
 <p>None qualified this week.</p>
 
 <footer>
-  Generated from the weekly market-review to Morningstar cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Morningstar) ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.
+  Generated from the weekly market-review to analyst-consensus cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Finnhub) analyst-consensus ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.
 </footer>
 
 </body>

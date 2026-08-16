@@ -133,7 +133,7 @@
         "currency": "USD",
         "move_pct": 6.5,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -302,7 +302,7 @@
         "currency": "AUD",
         "move_pct": 5.55,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -385,7 +385,7 @@
         "currency": "AUD",
         "move_pct": 3.66,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -582,7 +582,7 @@
         "currency": "USD",
         "move_pct": 2.3,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -825,7 +825,7 @@
         "currency": "USD",
         "move_pct": 2.9,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "Pays growing quarterly dividend unconfirmed exact amt",
         "source_url": "General knowledge; search tool limit reached",
@@ -1003,7 +1003,7 @@
         "currency": "USD",
         "move_pct": -3.28,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -1039,7 +1039,7 @@
         "currency": "USD",
         "move_pct": 2.37,
         "move_label": "day",
-        "rating": "4-star, Narrow moat, High uncertainty, fair value 474",
+        "rating": "4-star analyst consensus, fair value 474",
         "lists": [],
         "note": "No dividend paid; confirmed 0.00% yield",
         "source_url": "companiesmarketcap.com",
@@ -1305,7 +1305,7 @@
         "currency": "USD",
         "move_pct": -3.8,
         "move_label": "day",
-        "rating": "3-star, Wide moat, Very High uncertainty, fair value 460",
+        "rating": "3-star analyst consensus, fair value 460",
         "lists": [
           "Long-Term"
         ],
@@ -1431,7 +1431,7 @@
         "currency": "USD",
         "move_pct": 5.19,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -1708,7 +1708,7 @@
         "currency": "USD",
         "move_pct": 4.41,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -1956,7 +1956,7 @@
         "currency": "USD",
         "move_pct": 7.39,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -2015,7 +2015,7 @@
         "currency": "USD",
         "move_pct": -4.18,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -2791,7 +2791,7 @@
         "currency": "USD",
         "move_pct": 7.55,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -2941,7 +2941,7 @@
         "currency": "AUD",
         "move_pct": -6.91,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -3308,7 +3308,7 @@
         "currency": "AUD",
         "move_pct": -4.52,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -3683,7 +3683,7 @@
         "currency": "AUD",
         "move_pct": -4.1,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "payout ratio ~9%; quarterly CDI of Alcoa",
         "source_url": "stockanalysis.com; tradingview.com",
@@ -4599,7 +4599,7 @@
         "currency": "AUD",
         "move_pct": 5.54,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
@@ -4722,9 +4722,9 @@
         "currency": "USD",
         "move_pct": -2.78,
         "move_label": "day",
-        "rating": "3-star, Narrow moat, Very High uncertainty, fair value 153",
+        "rating": "3-star analyst consensus, fair value 153",
         "lists": [],
-        "note": "Price above FV pullback aligns with overvaluation",
+        "note": "",
         "source_url": ""
       }
     ]
@@ -4980,11 +4980,11 @@
         "currency": "USD",
         "move_pct": -5.94,
         "move_label": "day",
-        "rating": "4-star, Wide moat, High uncertainty, fair value 500",
+        "rating": "4-star analyst consensus, fair value 500",
         "lists": [
           "Long-Term"
         ],
-        "note": "Already rated undervalued; today's drop diverges further from fair value",
+        "note": "",
         "source_url": ""
       }
     ]
@@ -5066,7 +5066,7 @@
         "currency": "USD",
         "move_pct": 8.88,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -5631,7 +5631,7 @@
         "currency": "AUD",
         "move_pct": 3.9,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -5805,7 +5805,7 @@
         "currency": "AUD",
         "move_pct": 5.57,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -5925,7 +5925,7 @@
         "currency": "AUD",
         "move_pct": -3.91,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -6316,7 +6316,7 @@
         "currency": "AUD",
         "move_pct": -4.12,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -6443,7 +6443,7 @@
         "currency": "USD",
         "move_pct": -3.53,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -6822,7 +6822,7 @@
         "currency": "AUD",
         "move_pct": -7.14,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -6902,7 +6902,7 @@
         "currency": "AUD",
         "move_pct": -4.33,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -6960,7 +6960,7 @@
         "currency": "AUD",
         "move_pct": 6.22,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -7221,7 +7221,7 @@
         "currency": "USD",
         "move_pct": 5.65,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -7767,7 +7767,7 @@
         "currency": "AUD",
         "move_pct": -3.68,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -8042,7 +8042,7 @@
         "currency": "USD",
         "move_pct": -3.76,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -8154,7 +8154,7 @@
         "currency": "USD",
         "move_pct": -2.82,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -8356,11 +8356,11 @@
         "currency": "USD",
         "move_pct": -2.96,
         "move_label": "day",
-        "rating": "3-star, Wide moat, High uncertainty, fair value 285",
+        "rating": "3-star analyst consensus, fair value 285",
         "lists": [
           "Long-Term"
         ],
-        "note": "Price near $396 far above $285 FV drop fits",
+        "note": "",
         "source_url": ""
       }
     ]
@@ -8456,7 +8456,7 @@
         "currency": "AUD",
         "move_pct": 5.47,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -8653,7 +8653,7 @@
         "currency": "AUD",
         "move_pct": 9.13,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -8796,11 +8796,11 @@
         "currency": "USD",
         "move_pct": -5.12,
         "move_label": "day",
-        "rating": "3-star, Wide moat, High uncertainty, fair value 520",
+        "rating": "3-star analyst consensus, fair value 520",
         "lists": [
           "Long-Term"
         ],
-        "note": "Rated near fair value; sharp drop diverges toward undervalued territory",
+        "note": "",
         "source_url": ""
       }
     ]
@@ -8885,7 +8885,7 @@
         "currency": "AUD",
         "move_pct": 4.23,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -8925,7 +8925,7 @@
         "currency": "AUD",
         "move_pct": -4.15,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -9008,7 +9008,7 @@
         "currency": "AUD",
         "move_pct": 3.2,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
@@ -9026,7 +9026,7 @@
         "currency": "AUD",
         "move_pct": -3.64,
         "move_label": "day",
-        "rating": "No Morningstar coverage found",
+        "rating": "No analyst-consensus coverage found",
         "lists": [],
         "note": "",
         "source_url": ""
