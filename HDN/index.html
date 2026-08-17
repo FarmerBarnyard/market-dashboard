@@ -324,6 +324,9 @@
   .mover-move-value{position:relative;}
   .mover-move-cell.up .mover-move-value{color:var(--up);}
   .mover-move-cell.down .mover-move-value{color:var(--down);}
+  /* $ change sits on its own line under the % -- keeps both readable
+     without overflowing the cell's fixed 170px width. */
+  .mover-move-abs{position:relative;display:block;font-size:.68rem;font-weight:400;color:var(--text-dim);margin-top:1px;}
   .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
   /* Condensed by default to MOVERS_VISIBLE_COUNT (10) rows -- keep the
      n+11 here in sync with render_dashboard.py's MOVERS_VISIBLE_COUNT.
@@ -384,6 +387,11 @@
 <canvas id="tickerTrendChart" style="width:100%;height:200px;background:var(--surface);border:1px solid var(--border);border-radius:3px;"></canvas>
 <p class="meta" id="tickerTrendFallback" style="display:none;">Not enough history yet for this ticker - check back after it's appeared in a few more weekly runs.</p>
 
+<h2>Price History (3 Months)</h2>
+<p class="meta">Daily candlesticks from Yahoo Finance, refreshed each time this page regenerates -- not accumulated like the Trend chart above, so it always shows the trailing ~3 months as of the last run.</p>
+<canvas id="tickerCandleChart" style="width:100%;height:260px;background:var(--surface);border:1px solid var(--border);border-radius:3px;"></canvas>
+<p class="meta" id="tickerCandleFallback" style="display:none;">No 3-month price history available for this ticker this run.</p>
+
 <footer>
   Generated from the weekly market-review to analyst-consensus cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Finnhub) analyst-consensus ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.
 </footer>
@@ -416,6 +424,48 @@
     ctx.stroke();
     series.forEach(function(v, i){ ctx.fillStyle = '#e8a33d'; ctx.beginPath(); ctx.arc(x(i), y(v), 3, 0, 7); ctx.fill(); });
   });
+})();
+</script>
+
+<script>
+(function(){
+  var bars = [];
+  var canvas = document.getElementById('tickerCandleChart');
+  if (!canvas) return;
+  if (!bars || bars.length < 2) {
+    canvas.style.display = 'none';
+    document.getElementById('tickerCandleFallback').style.display = 'block';
+    return;
+  }
+  var ctx = canvas.getContext('2d');
+  var w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width = w * devicePixelRatio; canvas.height = h * devicePixelRatio;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+  var padTop = 12, padBottom = 24, padSide = 4;
+  var highs = bars.map(function(b){ return b.high; });
+  var lows = bars.map(function(b){ return b.low; });
+  var min = Math.min.apply(null, lows), max = Math.max.apply(null, highs);
+  var range = (max - min) || 1;
+  var n = bars.length;
+  var slot = (w - padSide * 2) / n;
+  var bodyW = Math.max(1, slot * 0.6);
+  function y(v){ return h - padBottom - ((v - min) / range) * (h - padTop - padBottom); }
+  bars.forEach(function(b, i){
+    var x = padSide + i * slot + slot / 2;
+    var up = b.close >= b.open;
+    var color = up ? '#4cc38a' : '#ff6b5e';
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, y(b.high));
+    ctx.lineTo(x, y(b.low));
+    ctx.stroke();
+    var bodyTop = y(Math.max(b.open, b.close));
+    var bodyBottom = y(Math.min(b.open, b.close));
+    ctx.fillRect(x - bodyW / 2, bodyTop, bodyW, Math.max(1, bodyBottom - bodyTop));
+  });
+  ctx.fillStyle = '#6b7885'; ctx.font = '10px monospace'; ctx.textAlign = 'center';
+  ctx.fillText(bars[0].date, padSide + slot / 2, h - 8);
+  ctx.fillText(bars[bars.length - 1].date, w - padSide - slot / 2, h - 8);
 })();
 </script>
 
