@@ -1,0 +1,777 @@
+<!--
+  DASHBOARD TEMPLATE v6 — read this fully before touching this file.
+  As of v6, this file is read directly by ClaudeRepo/scripts/render_dashboard.py
+  (a fixed Python script, not a per-week AI agent) — see agents.md. The RULES
+  section below is now maintainer documentation for that script's author
+  rather than live instructions an agent re-derives each run, but the
+  discipline it describes (never remove/rename a SECTION marker, keep
+  structure identical week to week) still applies and is what the script
+  depends on.
+
+  WHAT CHANGED FROM v5 (visual redesign + Signal Scorecard):
+    l. Full CSS reskin from the plain default-dark-theme palette to a
+       trading-terminal aesthetic (near-black background, amber accent,
+       monospace-first numerals). Every class name render_dashboard.py
+       already emits (ticker-item, ticker-badge, card, mover-row, up/down,
+       sortable, filter-input, tab-btn/tab-panel, etc.) is UNCHANGED —
+       only the CSS values behind them changed, so this was a template +
+       CSS change, not a Python rewrite of what HTML gets emitted.
+    m. The Watchlists tab's four lists (Mid-Term/Long-Term/Dividends/
+       Micro-Cap) are now organized into sub-tabs instead of always being
+       shown stacked. New data-subtab/data-subtab-panel convention,
+       mirroring the existing data-tab/data-tab-panel pattern one level
+       down. The SECTION:WATCHLIST_...:START/END markers themselves did
+       not move or change — they're just now wrapped in a
+       <div class="subtab-panel" data-subtab-panel="...">. SECTION:EXCLUDED
+       stays outside the sub-tabs (it applies across all four lists).
+    n. Signal Scorecard: every ticker mention in the Notable Movers list
+       and the three criteria-based watchlist tables (Mid-Term, Long-Term,
+       Dividends) plus Micro-Cap now has a "signal ▾" toggle next to it.
+       Clicking reveals a small set of FACTUAL chips already computed by
+       the pipeline this run — free Finnhub analyst-consensus rating, fair
+       value (mean price target) vs verified price, dividend yield/payout,
+       and how today's move compares to the standing consensus. Deliberately does NOT
+       synthesize a buy/sell/hold verdict — see agents.md Boundaries and
+       the NOT_INVESTMENT_ADVICE banner. Not shown on archive pages or
+       individual ticker pages (archive stays a static non-JS snapshot per
+       rule 4 below; ticker pages already state the same facts in prose in
+       their "This Week" card, so a second chip-based restatement there
+       would just be redundant).
+    o. Fixed: the <title> tag's {{DATE}} was outside any SECTION marker
+       and never got filled in (rendered literally as "{{DATE}}" in every
+       browser tab). NOTE: this is NOT handled via a SECTION:...:START/END
+       marker like every other section -- <title> uses HTML's RCDATA
+       content model, which does not parse nested markup, so an HTML
+       comment placed inside it is NOT invisible the way it is everywhere
+       else on the page; it would render as literal text in the browser
+       tab (this was tried and caught by render-dashboard-test.yml before
+       shipping). Instead render_dashboard.py's fill_title() replaces the
+       whole <title>...</title> tag directly via regex. Keep the plain
+       {{DATE}} placeholder here, not a SECTION marker.
+
+  WHAT CHANGED FROM v4 (per-ticker Snapshot block, low-workload):
+    j. Each ticker's "This Week" card on its <TICKER>/index.html page (see
+       TICKER PAGE STRUCTURE below) now also includes a Snapshot line with
+       a handful of basic stats: Market Cap, 52-Week Range, Trailing P/E,
+       Forward P/E, Dividend Yield, Avg Daily Volume. IMPORTANT: this does
+       NOT require any new searches. Capture these from the SAME single
+       verification-source page you already open for that ticker (step 2
+       of the watchlist agent's routine — stockanalysis.com/Yahoo
+       Finance/Google Finance typically show all of these on one page).
+       Omit any individual field from the Snapshot line if it isn't
+       visible on that page — do not search further or guess to fill a
+       gap. This is deliberately NOT an attempt to replicate a full
+       broker-grade research report (proprietary quant scores, historical
+       PE charts, analyst revision tracking, and peer-comparison tables
+       are out of scope — that data isn't available via free web search
+       and isn't worth the added search cost per ticker).
+    k. tickers.json's per-entry history schema gains optional fields for
+       this: market_cap, week52_high, week52_low, pe_trailing, pe_forward,
+       dividend_yield, avg_volume (see schema in rule h below). Omit any
+       field that wasn't visible on the source page rather than writing a
+       guessed or null placeholder value.
+
+  WHAT CHANGED FROM v3 (per-ticker pages):
+    g. Every ticker mention anywhere on the page (ticker strip, movers list,
+       all watchlist tables) is now a link to a dedicated page for that
+       security at repo-root path <TICKER>/index.html, served at
+       https://domain/<TICKER>/ (e.g. /MSFT/). Wrap the existing
+       badge+symbol markup in <a class="ticker-link" href="{{TICKER}}/">
+       instead of a bare <span>/text node — see the .ticker-link CSS rule
+       and the TICKER_LINK pattern comment near SECTION:TICKER_STRIP below.
+       archive/<date>.html snapshots live one directory deeper than
+       index.html, so their ticker links must use href="../{{TICKER}}/"
+       (not "{{TICKER}}/") to resolve to the same repo-root page.
+    h. A new data.json sibling, tickers.json, lives at the repo root: one
+       JSON object keyed by ticker symbol, e.g.
+       {"MSFT": {"name": "...", "market": "NASDAQ", "description": "...",
+       "history": [{"date": "...", "price": 460.57, "day_move_pct": 2.1,
+       "rating": "...", "lists": ["Mid-Term","Long-Term"], "note": "...",
+       "source_url": "...", "market_cap": "...", "week52_high": "...",
+       "week52_low": "...", "pe_trailing": "...", "pe_forward": "...",
+       "dividend_yield": "...", "avg_volume": "..."}, ...]}, ...}. The
+       market_cap/week52/pe/dividend_yield/avg_volume fields are optional —
+       include whichever of them were visible on the single verification
+       source page already used for that ticker (see rule j/k further
+       below), and simply omit any that weren't shown there. Each week's agent APPENDS one
+       history entry per ticker mentioned that week (creating the ticker's
+       top-level entry, with name/market/description, the first time it's
+       seen) — never overwrites prior history entries. `lists` is the
+       subset of ["Mid-Term","Long-Term","Dividends"]
+       that ticker qualified for that week (empty array if none — it can
+       still be linked from Notable Movers with no watchlist membership).
+       `description` is a short, factual 1-2 sentence description of what
+       the company actually does/sells — not a rating, not investment
+       framing, and stays the same each week once written (only the
+       `history` array grows).
+    i. Each ticker mentioned this week gets its <TICKER>/index.html
+       (re)generated from the FULL accumulated tickers.json history for
+       that ticker (see TICKER PAGE STRUCTURE block near the bottom of
+       this file) — so its trend chart/table always reflects every week
+       that ticker has appeared, not just the latest one. Tickers NOT
+       mentioned this week keep their existing page untouched (don't
+       regenerate pages for tickers you didn't verify this week).
+
+  WHAT CHANGED FROM v2 (NabTrade-inspired presentation pass, adapted for a
+  public no-login data-only site — not a literal copy of any broker's
+  branding/colors/logo):
+    a. A horizontal auto-scrolling TICKER STRIP now sits above everything,
+       even the tabs. It shows index levels + notable-mover tickers with
+       their % moves. It's pure CSS (@keyframes translateX loop); the JS at
+       the bottom duplicates its content once at load time so the loop is
+       seamless — you only ever write ONE copy of the ticker items between
+       the SECTION:TICKER_STRIP markers, never two.
+    b. The first tab is renamed "This Week" -> "Markets". Its content and
+       behavior are unchanged. The data-tab/data-tab-panel key changed from
+       "week" to "markets" — use "markets" everywhere that key appears.
+    c. Notable Movers is no longer a table. It's a ranked <ol class="movers-list">
+       — rank, ticker (with badge), market, a proportional bar, move %, note.
+       Still filterable via the same .filter-input pattern (now filtering
+       [data-filter-row] elements instead of table rows).
+    d. Every ticker symbol anywhere on the page (movers list, all watchlist
+       tables) gets a small circular CSS badge — <span class="ticker-badge">
+       showing the first 1-2 letters of the ticker, uppercase. Pure CSS,
+       no image assets, no logo fetching.
+    e. The NASDAQ and ASX cards in the Markets tab now each have a tiny
+       ~60x24px canvas sparkline plotting that index's weekly % history
+       from data.json. Same vanilla-canvas approach as the existing trend
+       chart, just smaller and simpler. With 1-2 data points it correctly
+       renders as a dot or a flat line — do not treat that as broken.
+    f. A 4th watchlist section, "Micro-Cap Movers", using the same
+       SECTION:WATCHLIST_...:START/END marker convention, table styling,
+       and filter-input/sortable pattern as the other three. It is
+       INFORMATIONAL, not criteria-based like the other three lists — say
+       so in a one-line .meta div above it. data.json gains a new field
+       for this: microcap_count (see rule 5 below). Older data.json entries
+       written before this list existed won't have the field — that's fine,
+       nothing reads it besides the weekly agent populating the count.
+
+  RULES:
+  1. Copy this file's structure, <style>, and the <script> block at the
+     bottom EXACTLY, unmodified. Do not redesign the layout/CSS/JS.
+  2. Every content section is marked with a START/END comment. Replace only
+     the content BETWEEN those markers with this week's real data. Leave
+     `class="sortable"`, `data-filter-target`, and `data-filter-row`
+     attributes on tables/lists as-is — that's what makes sorting/filtering
+     work; don't remove them. For the ticker strip, write only ONE copy of
+     the items — the loop duplication happens in JS, not in your markup.
+  3. If a section has nothing to report this week, keep the heading and
+     write "None qualified this week." rather than deleting the section —
+     structure must stay identical week to week.
+  4. index.html lives at the repo root and has all 4 tabs. Each week also
+     gets a snapshot saved to archive/<YYYY-MM-DD>.html — that snapshot is
+     SIMPLER: only "Markets" and "Watchlists" content, no tabs, no
+     sub-tabs, no chart, no Signal Scorecard, just a "Back to latest" link.
+     See the ARCHIVE SNAPSHOT block near the bottom of this file for that
+     structure. Archive pages keep ticker badges and the ranked-movers bar
+     styling (pure CSS/HTML) but drop the scrolling ticker strip,
+     sparklines, and all JS interactivity — they're static historical
+     records, not live pages.
+  5. data.json lives at the repo root, one JSON array of objects, one object
+     per week, oldest first. Each week's agent APPENDS a new object (does
+     not overwrite prior ones): {date, nasdaq_level, nasdaq_week_pct,
+     asx_level, asx_week_pct, midterm_count, longterm_count, dividends_count}
+     — pct values are plain numbers (e.g. 2.5 for +2.5%,
+     -1.2 for -1.2%), counts are the number of tickers on each watchlist
+     that week. nasdaq_week_pct/
+     asx_week_pct may be omitted for a given week if the prior week's
+     level isn't a comparable instrument (e.g. an index-vs-proxy data
+     source change) — don't compute or display a week-over-week % across
+     an instrument switch.
+  6. Ticker badge text = the ticker symbol's first 1-2 letters, uppercase
+     (e.g. MSFT -> "MS", WTC -> "WT"). Just a visual stand-in for a logo,
+     not a lookup against anything.
+  7. Ranked movers list bar width: scale each row's bar to the LARGEST
+     move magnitude in that week's list, max bar width 100px, i.e.
+     width_px = round(abs(this_move_pct) / abs(largest_move_pct) * 100).
+     Rank rows 1..N by magnitude of move, largest first.
+  8. Keep it factual and skimmable — this is a briefing, not an essay.
+  9. Every ticker occurrence (ticker strip, movers list, watchlist tables) is
+     wrapped in <a class="ticker-link" href="{{TICKER}}/">...</a> — the badge
+     and symbol text go INSIDE the anchor, same as before, just wrapped. See
+     rules h/i above and the TICKER PAGE STRUCTURE block near the bottom of
+     this file for what goes on the other end of that link.
+  10. tickers.json lives at the repo root alongside data.json. For every
+      ticker mentioned this week (ticker strip / movers / any watchlist),
+      append a new entry to that ticker's `history` array (create the
+      top-level ticker entry with name/market/description if it doesn't
+      exist yet). Never rewrite or delete prior history entries.
+  11. For every ticker mentioned this week, (re)generate its
+      <TICKER>/index.html from that ticker's FULL tickers.json history
+      (not just this week). Tickers not mentioned this week are left alone.
+  12. Signal Scorecard chips must only ever restate facts already computed
+      elsewhere this run (free Finnhub analyst-consensus rating/fair value,
+      dividend yield/payout, price) or a plain factual comparison between
+      them (e.g. "today's move aligns with / diverges from the standing
+      rating"). Never add a synthesized recommendation word (Buy/Sell/
+      Hold or equivalent) to a chip — that's a deliberate, permanent
+      boundary for this project (see agents.md), not a style preference.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly Market Dashboard - 2026-08-18</title>
+<style>
+  :root{
+    --bg:#0b0f14; --surface:#12181f; --surface-2:#161d25; --border:#1e2732;
+    --text:#c9d2db; --text-dim:#6b7885; --text-bright:#eef2f6;
+    --amber:#e8a33d; --amber-dim:#8a641f; --amber-bg:rgba(232,163,61,.10);
+    --blue:#5b9fe8; --blue-dim:#2f5c8a; --blue-bg:rgba(91,159,232,.12);
+    --up:#4cc38a; --down:#ff6b5e;
+    --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+    --sans:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  }
+  html{overflow-x:hidden;}
+  body{font-family:var(--sans);max-width:1040px;margin:0 auto;padding:16px;line-height:1.5;background:var(--bg);color:var(--text);}
+  h1{font-size:1.4rem;font-weight:800;letter-spacing:-.01em;margin-bottom:4px;color:var(--text-bright);text-transform:uppercase;}
+  h2{font-size:.85rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-bright);border-bottom:1px solid var(--border);padding-bottom:6px;margin-top:32px;}
+  .meta{color:var(--text-dim);font-size:.85rem;}
+  table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:.85rem;}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
+  th{background:var(--surface);color:var(--text-dim);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;}
+  th.sortable{cursor:pointer;user-select:none;}
+  th.sortable:hover{color:var(--amber);}
+  th.sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
+  td{font-variant-numeric:tabular-nums;}
+  .up{color:var(--up);} .down{color:var(--down);}
+  .card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:14px 16px;margin:12px 0;}
+  .index-cards{display:flex;gap:16px;flex-wrap:wrap;}
+  .index-cards .card{flex:1 1 300px;margin:12px 0;min-width:0;}
+  .card-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  /* Callout badge next to an index card's label, e.g. "WEEK CHANGE
+     UNAVAILABLE" when this week's level isn't comparable to last week's
+     and there's no prior week on file -- see render_index_flag in
+     render_dashboard.py. */
+  .flag{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-dim);border-radius:2px;
+    padding:1px 6px;font-family:var(--sans);font-size:.62rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
+  /* Pinned to the card's top-right corner for a genuine instrument
+     substitution (NASDAQ's Composite level -> QQQ proxy) -- see
+     render_index_badge in render_dashboard.py. Not used for ASX, whose
+     own index_proxy column is its real ticker, not a substitute. */
+  .flag-info{position:absolute;top:-9px;right:14px;background:var(--blue-bg);color:var(--blue);border-color:var(--blue-dim);}
+  /* Index card stat-tile body: big figure, colored change line, brief
+     summary -- see render_index_card_body in render_dashboard.py. */
+  .index-level{font-size:1.9rem;font-weight:800;color:var(--text-bright);font-variant-numeric:tabular-nums;line-height:1.2;margin-top:4px;}
+  .index-asof{font-size:.7rem;font-weight:400;margin-left:4px;}
+  .index-change{font-size:.95rem;font-weight:700;margin-top:2px;}
+  .index-week{color:var(--text-dim);font-size:.8rem;margin-top:2px;}
+  .index-summary{margin:8px 0 0;color:var(--text-dim);font-size:.85rem;}
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);color:var(--text-dim);font-size:.8rem;}
+  a{color:var(--amber);}
+  .hint-bar{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px;padding:10px 14px;border:1px solid var(--border);background:var(--surface);border-radius:3px;font-family:var(--sans);font-size:.7rem;color:var(--text-dim);}
+  kbd{font-family:var(--mono);font-size:.65rem;border:1px solid var(--border);border-bottom-width:2px;border-radius:3px;padding:1px 5px;color:var(--text-dim);background:var(--bg);}
+  .filter-input{width:100%;box-sizing:border-box;padding:8px 10px;margin:8px 0;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:3px;font-size:.85rem;font-family:var(--mono);}
+  .filter-input::placeholder{color:var(--text-dim);}
+  .filter-input:focus{outline:1px solid var(--amber);border-color:var(--amber);}
+  .tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin:20px 0 0;flex-wrap:wrap;}
+  .tab-btn{background:none;border:none;color:var(--text-dim);padding:10px 16px;cursor:pointer;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid transparent;font-family:var(--sans);}
+  .tab-btn.active{color:var(--text-bright);border-bottom-color:var(--amber);}
+  .tab-btn:hover{color:var(--amber);}
+  .tab-panel{display:none;padding-top:8px;}
+  .tab-panel.active{display:block;}
+
+  /* Watchlist sub-tabs */
+  .subtabs{display:flex;gap:6px;margin:18px 0 -1px;flex-wrap:wrap;}
+  .subtab-btn{background:transparent;border:1px solid transparent;color:var(--text-dim);font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:7px 12px;cursor:pointer;border-radius:3px 3px 0 0;}
+  .subtab-btn.active{color:var(--amber);background:var(--surface);border-color:var(--border);border-bottom-color:var(--surface);}
+  .subtab-btn:hover{color:var(--text-bright);}
+  .subtab-panel{display:none;}
+  .subtab-panel.active{display:block;}
+
+  #trendChart{width:100%;height:260px;background:var(--surface);border:1px solid var(--border);border-radius:3px;}
+  .chart-legend{display:flex;gap:16px;font-size:.8rem;color:var(--text-dim);margin-top:8px;}
+  .chart-legend span::before{content:"\25CF";margin-right:6px;}
+  .legend-nasdaq::before{color:var(--amber);}
+  .legend-asx::before{color:var(--up);}
+
+  /* Ticker strip */
+  .ticker-wrap{overflow:hidden;background:var(--surface);border:1px solid var(--border);border-radius:3px;white-space:nowrap;box-sizing:border-box;}
+  .ticker-track{display:inline-flex;padding:8px 0;animation:ticker-scroll 32s linear infinite;font-family:var(--mono);}
+  .ticker-item{display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-size:.8rem;color:var(--text);border-right:1px solid var(--border);flex:0 0 auto;}
+  .ticker-item strong{color:var(--text-bright);}
+  @keyframes ticker-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){.ticker-track{animation:none;}}
+
+  /* Ticker badges (stand-in for a logo) */
+  .ticker-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;min-width:26px;border-radius:3px;background:var(--surface-2);color:var(--text-dim);font-size:.62rem;font-weight:700;margin-right:8px;vertical-align:middle;font-family:var(--mono);}
+
+  /* Ticker links — every ticker mention opens that security's own page */
+  a.ticker-link{color:var(--text-bright);text-decoration:none;display:inline-flex;align-items:center;font-weight:700;}
+  a.ticker-link:hover{color:var(--amber);}
+  a.ticker-link:hover .ticker-badge{background:var(--amber-dim);color:var(--amber);}
+
+  /* Ranked movers list */
+  .movers-list{list-style:none;margin:4px 0 24px;padding:0;}
+  .mover-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border);}
+  .mover-row-head{border-bottom:1px solid var(--border);font-weight:700;padding-bottom:8px;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);}
+  .mover-row-head .sortable{cursor:pointer;user-select:none;}
+  .mover-row-head .sortable:hover{color:var(--amber);}
+  .mover-row-head .sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
+  .mover-rank{flex:0 0 22px;color:var(--text-dim);font-weight:700;text-align:center;font-family:var(--mono);}
+  .mover-id{flex:0 0 170px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
+  .mover-market{flex:0 0 70px;color:var(--text-dim);font-size:.78rem;font-family:var(--mono);}
+  /* Move column: a low-opacity background bar scaled to move magnitude,
+     sitting BEHIND the percentage text within the same cell -- not a
+     separate track next to it. This is the "move graph" from the Signal
+     Desk prototype; an earlier build accidentally shipped a different,
+     much smaller separate-track design instead of this one. */
+  .mover-move-cell{position:relative;flex:0 0 170px;padding:3px 8px;border-radius:3px;overflow:hidden;font-weight:700;font-family:var(--mono);}
+  .mover-bar-bg{position:absolute;top:0;bottom:0;left:0;opacity:.16;}
+  .mover-move-cell.up .mover-bar-bg{background:var(--up);}
+  .mover-move-cell.down .mover-bar-bg{background:var(--down);}
+  .mover-move-value{position:relative;}
+  .mover-move-cell.up .mover-move-value{color:var(--up);}
+  .mover-move-cell.down .mover-move-value{color:var(--down);}
+  /* $ change sits on its own line under the % -- keeps both readable
+     without overflowing the cell's fixed 170px width. */
+  .mover-move-abs{position:relative;display:block;font-size:.68rem;font-weight:400;color:var(--text-dim);margin-top:1px;}
+  .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
+  /* Condensed by default to MOVERS_VISIBLE_COUNT (10) rows -- keep the
+     n+11 here in sync with render_dashboard.py's MOVERS_VISIBLE_COUNT.
+     A filter-input match sets style.display inline on a row, which wins
+     over this class-based rule regardless of collapsed/expanded state,
+     so searching still surfaces a matching row past the fold. */
+  .movers-list:not(.expanded) li.mover-row:nth-child(n+11){display:none;}
+  .movers-expand-toggle{display:block;width:100%;margin:10px 0 20px;padding:10px;
+    background:var(--surface);border:1px solid var(--border);border-radius:3px;
+    color:var(--text-dim);font-family:var(--sans);font-size:.72rem;font-weight:700;
+    letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-align:center;}
+  .movers-expand-toggle:hover{color:var(--amber);border-color:var(--amber-dim);}
+  .movers-expand-toggle .chevron{display:inline-block;margin-left:4px;transition:transform .15s ease;}
+  .movers-expand-toggle[aria-expanded="true"] .chevron{transform:rotate(180deg);}
+
+  /* Index card sparklines */
+  .sparkline{width:60px;height:24px;vertical-align:middle;}
+
+  /* Signal Scorecard — factual chips only, see rule 12 above.
+     .sig-toggle is a plain reactive label, not a boxed/bordered control --
+     it shouldn't read as a <select>-style dropdown. The scorecard itself
+     drops down as a full-width block on its own line via flex:0 0 100%
+     (its parent .mover-row is flex-wrap:wrap), so it appears below the
+     whole row rather than squeezed into the Notes column. */
+  .sig-toggle{background:none;border:none;padding:0;color:var(--text-dim);font-family:var(--sans);font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:3px;}
+  .sig-toggle:hover{color:var(--amber);}
+  .sig-toggle .chevron{display:inline-block;transition:transform .15s ease;}
+  .sig-toggle[aria-expanded="true"] .chevron{transform:rotate(180deg);}
+  .scorecard{display:block;flex:0 0 100%;width:100%;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);}
+  .scorecard[hidden]{display:none;}
+  .scorecard-label{display:block;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;font-family:var(--sans);}
+  .chip{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:3px 8px;margin:0 5px 5px 0;font-family:var(--sans);}
+  .chip b{color:var(--text-bright);}
+  .chip .stars{color:var(--amber);font-family:var(--mono);letter-spacing:1px;}
+  .chip.na{opacity:.6;font-style:italic;}
+</style>
+</head>
+<body>
+
+<h1>Weekly Market Dashboard — Archived</h1>
+<p><a href="../index.html">&larr; Back to latest dashboard</a></p>
+<div class="meta">Snapshot of the week ending 2026-08-18</div>
+
+<h2>Market Review - NASDAQ and ASX</h2>
+<div class="index-cards">
+<div class="card"><strong>NASDAQ Composite:</strong><br>
+<div class="index-level">729.87 <span class="meta index-asof">(2026-08-18)</span></div>
+  <div class="index-change down">▼ -0.16% today</div>
+  <div class="index-week">Week-to-date: <span class="down">-0.16%</span> (-1.2 pts)</div>
+  <p class="index-summary">Nasdaq-100 (QQQ proxy) finished down 0.16% today; SNDK led gainers (+8.88%) and TRI led losers (-4.39%).</p></div>
+<div class="card"><strong>S&amp;P/ASX 200:</strong><br>
+<div class="index-level">9076.4 <span class="meta index-asof">(2026-08-18)</span></div>
+  <div class="index-change up">▲ +0.04% today</div>
+  <div class="index-week">Week-to-date: <span class="down">-0.43%</span> (-38.8 pts)</div>
+  <p class="index-summary">Not available for this market on the current data feed.</p></div>
+</div>
+
+<h2>Notable Movers</h2>
+<ol class="movers-list" id="movers-list">
+<li class="mover-row" data-ticker="RWC">
+  <span class="mover-rank">1</span>
+  <span class="mover-id"><a class="ticker-link" href="../RWC/"><span class="ticker-badge">RW</span>RWC</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:100%"></span><span class="mover-move-value">+23.82% <span class="mover-move-abs">($+0.86)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="CSL">
+  <span class="mover-rank">2</span>
+  <span class="mover-id"><a class="ticker-link" href="../CSL/"><span class="ticker-badge">CS</span>CSL</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:69%"></span><span class="mover-move-value">+16.54% <span class="mover-move-abs">($+22.26)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="SGM">
+  <span class="mover-rank">3</span>
+  <span class="mover-id"><a class="ticker-link" href="../SGM/"><span class="ticker-badge">SG</span>SGM</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:55%"></span><span class="mover-move-value">-13.09% <span class="mover-move-abs">($-3.38)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="SNDK">
+  <span class="mover-rank">4</span>
+  <span class="mover-id"><a class="ticker-link" href="../SNDK/"><span class="ticker-badge">SN</span>SNDK</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:37%"></span><span class="mover-move-value">+8.88% <span class="mover-move-abs">($+145.74)</span></span></span>
+  <span class="mover-note">26 buy / 5 hold / 0 sell; move aligns with consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="PME">
+  <span class="mover-rank">5</span>
+  <span class="mover-id"><a class="ticker-link" href="../PME/"><span class="ticker-badge">PM</span>PME</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:36%"></span><span class="mover-move-value">+8.57% <span class="mover-move-abs">($+15.06)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="L1G">
+  <span class="mover-rank">6</span>
+  <span class="mover-id"><a class="ticker-link" href="../L1G/"><span class="ticker-badge">L1</span>L1G</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:32%"></span><span class="mover-move-value">+7.59% <span class="mover-move-abs">($+0.09)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="BEN">
+  <span class="mover-rank">7</span>
+  <span class="mover-id"><a class="ticker-link" href="../BEN/"><span class="ticker-badge">BE</span>BEN</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:28%"></span><span class="mover-move-value">-6.73% <span class="mover-move-abs">($-0.75)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="TER">
+  <span class="mover-rank">8</span>
+  <span class="mover-id"><a class="ticker-link" href="../TER/"><span class="ticker-badge">TE</span>TER</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:24%"></span><span class="mover-move-value">+5.81% <span class="mover-move-abs">($+24.35)</span></span></span>
+  <span class="mover-note">17 buy / 5 hold / 0 sell; move aligns with consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="COH">
+  <span class="mover-rank">9</span>
+  <span class="mover-id"><a class="ticker-link" href="../COH/"><span class="ticker-badge">CO</span>COH</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:24%"></span><span class="mover-move-value">+5.78% <span class="mover-move-abs">($+7.59)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="AMAT">
+  <span class="mover-rank">10</span>
+  <span class="mover-id"><a class="ticker-link" href="../AMAT/"><span class="ticker-badge">AM</span>AMAT</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:23%"></span><span class="mover-move-value">+5.55% <span class="mover-move-abs">($+28.13)</span></span></span>
+  <span class="mover-note">39 buy / 6 hold / 0 sell; move aligns with consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="MRVL">
+  <span class="mover-rank">11</span>
+  <span class="mover-id"><a class="ticker-link" href="../MRVL/"><span class="ticker-badge">MR</span>MRVL</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:23%"></span><span class="mover-move-value">+5.54% <span class="mover-move-abs">($+12.31)</span></span></span>
+  <span class="mover-note">42 buy / 7 hold / 0 sell; move aligns with consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="HUB">
+  <span class="mover-rank">12</span>
+  <span class="mover-id"><a class="ticker-link" href="../HUB/"><span class="ticker-badge">HU</span>HUB</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:23%"></span><span class="mover-move-value">-5.40% <span class="mover-move-abs">($-4.65)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="WDC">
+  <span class="mover-rank">13</span>
+  <span class="mover-id"><a class="ticker-link" href="../WDC/"><span class="ticker-badge">WD</span>WDC</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:22%"></span><span class="mover-move-value">+5.35% <span class="mover-move-abs">($+27.21)</span></span></span>
+  <span class="mover-note">25 buy / 5 hold / 0 sell; move aligns with consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="MSTR">
+  <span class="mover-rank">14</span>
+  <span class="mover-id"><a class="ticker-link" href="../MSTR/"><span class="ticker-badge">MS</span>MSTR</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:21%"></span><span class="mover-move-value">+4.99% <span class="mover-move-abs">($+4.64)</span></span></span>
+  <span class="mover-note">23 buy / 3 hold / 0 sell; move aligns with consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="LITE">
+  <span class="mover-rank">15</span>
+  <span class="mover-id"><a class="ticker-link" href="../LITE/"><span class="ticker-badge">LI</span>LITE</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value">+4.62% <span class="mover-move-abs">($+42.76)</span></span></span>
+  <span class="mover-note">28 buy / 5 hold / 0 sell; move aligns with consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="LTR">
+  <span class="mover-rank">16</span>
+  <span class="mover-id"><a class="ticker-link" href="../LTR/"><span class="ticker-badge">LT</span>LTR</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value">-4.62% <span class="mover-move-abs">($-0.06)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="IMD">
+  <span class="mover-rank">17</span>
+  <span class="mover-id"><a class="ticker-link" href="../IMD/"><span class="ticker-badge">IM</span>IMD</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value">-4.61% <span class="mover-move-abs">($-0.17)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="360">
+  <span class="mover-rank">18</span>
+  <span class="mover-id"><a class="ticker-link" href="../360/"><span class="ticker-badge">36</span>360</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value">-4.49% <span class="mover-move-abs">($-1.10)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="SPCX">
+  <span class="mover-rank">19</span>
+  <span class="mover-id"><a class="ticker-link" href="../SPCX/"><span class="ticker-badge">SP</span>SPCX</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value">+4.45% <span class="mover-move-abs">($+6.23)</span></span></span>
+  <span class="mover-note">32 buy / 7 hold / 1 sell; move aligns with consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="TRI">
+  <span class="mover-rank">20</span>
+  <span class="mover-id"><a class="ticker-link" href="../TRI/"><span class="ticker-badge">TR</span>TRI</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:18%"></span><span class="mover-move-value">-4.39% <span class="mover-move-abs">($-4.55)</span></span></span>
+  <span class="mover-note">16 buy / 6 hold / 0 sell; move diverges from consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="DYL">
+  <span class="mover-rank">21</span>
+  <span class="mover-id"><a class="ticker-link" href="../DYL/"><span class="ticker-badge">DY</span>DYL</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:18%"></span><span class="mover-move-value">+4.19% <span class="mover-move-abs">($+0.06)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="MU">
+  <span class="mover-rank">22</span>
+  <span class="mover-id"><a class="ticker-link" href="../MU/"><span class="ticker-badge">MU</span>MU</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value">+4.13% <span class="mover-move-abs">($+40.09)</span></span></span>
+  <span class="mover-note">51 buy / 4 hold / 1 sell; move aligns with consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="ROST">
+  <span class="mover-rank">23</span>
+  <span class="mover-id"><a class="ticker-link" href="../ROST/"><span class="ticker-badge">RO</span>ROST</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value">-4.11% <span class="mover-move-abs">($-10.08)</span></span></span>
+  <span class="mover-note">19 buy / 7 hold / 0 sell; move diverges from consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="ADSK">
+  <span class="mover-rank">24</span>
+  <span class="mover-id"><a class="ticker-link" href="../ADSK/"><span class="ticker-badge">AD</span>ADSK</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value">-3.98% <span class="mover-move-abs">($-10.02)</span></span></span>
+  <span class="mover-note">37 buy / 5 hold / 0 sell; move diverges from consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="ZIP">
+  <span class="mover-rank">25</span>
+  <span class="mover-id"><a class="ticker-link" href="../ZIP/"><span class="ticker-badge">ZI</span>ZIP</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:16%"></span><span class="mover-move-value">-3.89% <span class="mover-move-abs">($-0.10)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="NXG">
+  <span class="mover-rank">26</span>
+  <span class="mover-id"><a class="ticker-link" href="../NXG/"><span class="ticker-badge">NX</span>NXG</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:16%"></span><span class="mover-move-value">+3.79% <span class="mover-move-abs">($+0.56)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="ADBE">
+  <span class="mover-rank">27</span>
+  <span class="mover-id"><a class="ticker-link" href="../ADBE/"><span class="ticker-badge">AD</span>ADBE</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:16%"></span><span class="mover-move-value">-3.78% <span class="mover-move-abs">($-9.98)</span></span></span>
+  <span class="mover-note">18 buy / 23 hold / 5 sell; move diverges from consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="WDAY">
+  <span class="mover-rank">28</span>
+  <span class="mover-id"><a class="ticker-link" href="../WDAY/"><span class="ticker-badge">WD</span>WDAY</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:16%"></span><span class="mover-move-value">-3.77% <span class="mover-move-abs">($-7.50)</span></span></span>
+  <span class="mover-note">29 buy / 18 hold / 2 sell; move diverges from consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="KDP">
+  <span class="mover-rank">29</span>
+  <span class="mover-id"><a class="ticker-link" href="../KDP/"><span class="ticker-badge">KD</span>KDP</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value">-3.69% <span class="mover-move-abs">($-1.16)</span></span></span>
+  <span class="mover-note">14 buy / 9 hold / 0 sell; move diverges from consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="SHOP">
+  <span class="mover-rank">30</span>
+  <span class="mover-id"><a class="ticker-link" href="../SHOP/"><span class="ticker-badge">SH</span>SHOP</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value">-3.67% <span class="mover-move-abs">($-5.67)</span></span></span>
+  <span class="mover-note">42 buy / 10 hold / 1 sell; move diverges from consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="PDN">
+  <span class="mover-rank">31</span>
+  <span class="mover-id"><a class="ticker-link" href="../PDN/"><span class="ticker-badge">PD</span>PDN</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value">+3.65% <span class="mover-move-abs">($+0.38)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="GMG">
+  <span class="mover-rank">32</span>
+  <span class="mover-id"><a class="ticker-link" href="../GMG/"><span class="ticker-badge">GM</span>GMG</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value">+3.58% <span class="mover-move-abs">($+1.06)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="DRR">
+  <span class="mover-rank">33</span>
+  <span class="mover-id"><a class="ticker-link" href="../DRR/"><span class="ticker-badge">DR</span>DRR</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value">+3.55% <span class="mover-move-abs">($+0.15)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="META">
+  <span class="mover-rank">34</span>
+  <span class="mover-id"><a class="ticker-link" href="../META/"><span class="ticker-badge">ME</span>META</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value">-3.54% <span class="mover-move-abs">($-20.88)</span></span></span>
+  <span class="mover-note">62 buy / 9 hold / 0 sell; move diverges from consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="LRCX">
+  <span class="mover-rank">35</span>
+  <span class="mover-id"><a class="ticker-link" href="../LRCX/"><span class="ticker-badge">LR</span>LRCX</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:14%"></span><span class="mover-move-value">+3.45% <span class="mover-move-abs">($+11.48)</span></span></span>
+  <span class="mover-note">35 buy / 6 hold / 0 sell; move aligns with consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="BKNG">
+  <span class="mover-rank">36</span>
+  <span class="mover-id"><a class="ticker-link" href="../BKNG/"><span class="ticker-badge">BK</span>BKNG</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:14%"></span><span class="mover-move-value">-3.44% <span class="mover-move-abs">($-7.30)</span></span></span>
+  <span class="mover-note">38 buy / 8 hold / 0 sell; move diverges from consensus</span>
+  
+</li>
+<li class="mover-row" data-ticker="LNW">
+  <span class="mover-rank">37</span>
+  <span class="mover-id"><a class="ticker-link" href="../LNW/"><span class="ticker-badge">LN</span>LNW</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:14%"></span><span class="mover-move-value">-3.37% <span class="mover-move-abs">($-4.65)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="PLS">
+  <span class="mover-rank">38</span>
+  <span class="mover-id"><a class="ticker-link" href="../PLS/"><span class="ticker-badge">PL</span>PLS</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:14%"></span><span class="mover-move-value">-3.24% <span class="mover-move-abs">($-0.17)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="GPT">
+  <span class="mover-rank">39</span>
+  <span class="mover-id"><a class="ticker-link" href="../GPT/"><span class="ticker-badge">GP</span>GPT</a></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:13%"></span><span class="mover-move-value">-3.20% <span class="mover-move-abs">($-0.16)</span></span></span>
+  <span class="mover-note"></span>
+  
+</li>
+<li class="mover-row" data-ticker="DDOG">
+  <span class="mover-rank">40</span>
+  <span class="mover-id"><a class="ticker-link" href="../DDOG/"><span class="ticker-badge">DD</span>DDOG</a></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:13%"></span><span class="mover-move-value">-3.19% <span class="mover-move-abs">($-8.14)</span></span></span>
+  <span class="mover-note">51 buy / 4 hold / 1 sell; move diverges from consensus</span>
+  
+</li>
+</ol>
+
+<h2>Analyst Consensus Highlights</h2>
+<div class="card">
+<strong>SNDK</strong> - 26 buy / 5 hold / 0 sell; move aligns with consensus.
+</div>
+<div class="card">
+<strong>TER</strong> - 17 buy / 5 hold / 0 sell; move aligns with consensus.
+</div>
+<div class="card">
+<strong>AMAT</strong> - 39 buy / 6 hold / 0 sell; move aligns with consensus.
+</div>
+<div class="card">
+<strong>MRVL</strong> - 42 buy / 7 hold / 0 sell; move aligns with consensus.
+</div>
+<div class="card">
+<strong>WDC</strong> - 25 buy / 5 hold / 0 sell; move aligns with consensus.
+</div>
+<div class="card">
+<strong>Data quality note:</strong> Rating and fair-value figures come from Finnhub's free analyst-consensus and price-target endpoints, not Morningstar -- Morningstar's own moat/uncertainty judgments have no free equivalent, so this is a different data source, not a free version of the same one.
+</div>
+
+<h2>Watchlist - Mid-Term (1-3 years)</h2>
+<table id="midterm-table">
+<thead><tr><th>Ticker</th><th>Rating</th><th>Fair value vs price</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><a class="ticker-link" href="../SNDK/"><span class="ticker-badge">SN</span>SNDK</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 1786.85</td><td>26 buy / 5 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../TER/"><span class="ticker-badge">TE</span>TER</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 443.14</td><td>17 buy / 5 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../AMAT/"><span class="ticker-badge">AM</span>AMAT</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 535.31</td><td>39 buy / 6 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../MRVL/"><span class="ticker-badge">MR</span>MRVL</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 234.33</td><td>42 buy / 7 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../WDC/"><span class="ticker-badge">WD</span>WDC</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 536.01</td><td>25 buy / 5 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../MSTR/"><span class="ticker-badge">MS</span>MSTR</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 97.68</td><td>23 buy / 3 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../LITE/"><span class="ticker-badge">LI</span>LITE</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 968.9</td><td>28 buy / 5 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../SPCX/"><span class="ticker-badge">SP</span>SPCX</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 146.23</td><td>32 buy / 7 hold / 1 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../MU/"><span class="ticker-badge">MU</span>MU</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 1011.75</td><td>51 buy / 4 hold / 1 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../LRCX/"><span class="ticker-badge">LR</span>LRCX</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 343.84</td><td>35 buy / 6 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../TRI/"><span class="ticker-badge">TR</span>TRI</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 99.06</td><td>16 buy / 6 hold / 0 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../ROST/"><span class="ticker-badge">RO</span>ROST</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 235.28</td><td>19 buy / 7 hold / 0 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../ADSK/"><span class="ticker-badge">AD</span>ADSK</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 241.64</td><td>37 buy / 5 hold / 0 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../WDAY/"><span class="ticker-badge">WD</span>WDAY</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 191.18</td><td>29 buy / 18 hold / 2 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../KDP/"><span class="ticker-badge">KD</span>KDP</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 30.28</td><td>14 buy / 9 hold / 0 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../SHOP/"><span class="ticker-badge">SH</span>SHOP</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 148.65</td><td>42 buy / 10 hold / 1 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../META/"><span class="ticker-badge">ME</span>META</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 568.97</td><td>62 buy / 9 hold / 0 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../BKNG/"><span class="ticker-badge">BK</span>BKNG</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 204.76</td><td>38 buy / 8 hold / 0 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../DDOG/"><span class="ticker-badge">DD</span>DDOG</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 247.32</td><td>51 buy / 4 hold / 1 sell; move diverges from consensus</td></tr>
+</tbody>
+</table>
+<h2>Watchlist - Long-Term (3+ years)</h2>
+<p>None qualified this week.</p>
+<h2>Watchlist - Dividends</h2>
+<table id="dividends-table">
+<thead><tr><th>Ticker</th><th>Yield</th><th>Payout history</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><a class="ticker-link" href="../TRI/"><span class="ticker-badge">TR</span>TRI</a></td><td>3.97%</td><td>5 payments in trailing 12mo (Yahoo data)</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../KDP/"><span class="ticker-badge">KD</span>KDP</a></td><td>3.04%</td><td>4 payments in trailing 12mo (Yahoo data)</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../CSL/"><span class="ticker-badge">CS</span>CSL</a></td><td>2.71%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../COH/"><span class="ticker-badge">CO</span>COH</a></td><td>3.07%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../DRR/"><span class="ticker-badge">DR</span>DRR</a></td><td>5.79%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../BEN/"><span class="ticker-badge">BE</span>BEN</a></td><td>6.19%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../GPT/"><span class="ticker-badge">GP</span>GPT</a></td><td>4.96%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
+</tbody>
+</table>
+
+<footer>
+  Generated from the weekly market-review to analyst-consensus cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Finnhub) analyst-consensus ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.
+</footer>
+
+</body>
+</html>

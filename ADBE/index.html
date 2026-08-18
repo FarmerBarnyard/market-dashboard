@@ -28,9 +28,9 @@
        and the three criteria-based watchlist tables (Mid-Term, Long-Term,
        Dividends) plus Micro-Cap now has a "signal ▾" toggle next to it.
        Clicking reveals a small set of FACTUAL chips already computed by
-       the pipeline this run — Morningstar rating/moat/uncertainty, fair
-       value vs verified price, dividend yield/payout, and how today's
-       move compares to the standing rating. Deliberately does NOT
+       the pipeline this run — free Finnhub analyst-consensus rating, fair
+       value (mean price target) vs verified price, dividend yield/payout,
+       and how today's move compares to the standing consensus. Deliberately does NOT
        synthesize a buy/sell/hold verdict — see agents.md Boundaries and
        the NOT_INVESTMENT_ADVICE banner. Not shown on archive pages or
        individual ticker pages (archive stays a static non-JS snapshot per
@@ -97,7 +97,7 @@
        history entry per ticker mentioned that week (creating the ticker's
        top-level entry, with name/market/description, the first time it's
        seen) — never overwrites prior history entries. `lists` is the
-       subset of ["Mid-Term","Long-Term","Dividends","Micro-Cap Movers"]
+       subset of ["Mid-Term","Long-Term","Dividends"]
        that ticker qualified for that week (empty array if none — it can
        still be linked from Notable Movers with no watchlist membership).
        `description` is a short, factual 1-2 sentence description of what
@@ -157,11 +157,7 @@
      the items — the loop duplication happens in JS, not in your markup.
   3. If a section has nothing to report this week, keep the heading and
      write "None qualified this week." rather than deleting the section —
-     structure must stay identical week to week. For Micro-Cap Movers
-     specifically: if the micro-cap pipeline hasn't produced any data at
-     all yet (e.g. its first run hasn't happened), replace the table with
-     "No micro-cap data collected yet — this section will populate
-     starting next run." instead.
+     structure must stay identical week to week.
   4. index.html lives at the repo root and has all 4 tabs. Each week also
      gets a snapshot saved to archive/<YYYY-MM-DD>.html — that snapshot is
      SIMPLER: only "Markets" and "Watchlists" content, no tabs, no
@@ -174,12 +170,10 @@
   5. data.json lives at the repo root, one JSON array of objects, one object
      per week, oldest first. Each week's agent APPENDS a new object (does
      not overwrite prior ones): {date, nasdaq_level, nasdaq_week_pct,
-     asx_level, asx_week_pct, midterm_count, longterm_count, dividends_count,
-     microcap_count} — pct values are plain numbers (e.g. 2.5 for +2.5%,
+     asx_level, asx_week_pct, midterm_count, longterm_count, dividends_count}
+     — pct values are plain numbers (e.g. 2.5 for +2.5%,
      -1.2 for -1.2%), counts are the number of tickers on each watchlist
-     that week. microcap_count is the count of rows in that week's
-     Micro-Cap Movers table (0 if none found, omit the field entirely if
-     the micro-cap pipeline didn't run that week). nasdaq_week_pct/
+     that week. nasdaq_week_pct/
      asx_week_pct may be omitted for a given week if the prior week's
      level isn't a comparable instrument (e.g. an index-vs-proxy data
      source change) — don't compute or display a week-over-week % across
@@ -206,7 +200,7 @@
       <TICKER>/index.html from that ticker's FULL tickers.json history
       (not just this week). Tickers not mentioned this week are left alone.
   12. Signal Scorecard chips must only ever restate facts already computed
-      elsewhere this run (Morningstar rating/moat/uncertainty/fair value,
+      elsewhere this run (free Finnhub analyst-consensus rating/fair value,
       dividend yield/payout, price) or a plain factual comparison between
       them (e.g. "today's move aligns with / diverges from the standing
       rating"). Never add a synthesized recommendation word (Buy/Sell/
@@ -218,7 +212,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Market Dashboard - 2026-08-12</title>
+<title>Weekly Market Dashboard - 2026-08-18</title>
 <style>
   :root{
     --bg:#0b0f14; --surface:#12181f; --surface-2:#161d25; --border:#1e2732;
@@ -312,6 +306,9 @@
   .movers-list{list-style:none;margin:4px 0 24px;padding:0;}
   .mover-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border);}
   .mover-row-head{border-bottom:1px solid var(--border);font-weight:700;padding-bottom:8px;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);}
+  .mover-row-head .sortable{cursor:pointer;user-select:none;}
+  .mover-row-head .sortable:hover{color:var(--amber);}
+  .mover-row-head .sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
   .mover-rank{flex:0 0 22px;color:var(--text-dim);font-weight:700;text-align:center;font-family:var(--mono);}
   .mover-id{flex:0 0 170px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
   .mover-market{flex:0 0 70px;color:var(--text-dim);font-size:.78rem;font-family:var(--mono);}
@@ -327,6 +324,9 @@
   .mover-move-value{position:relative;}
   .mover-move-cell.up .mover-move-value{color:var(--up);}
   .mover-move-cell.down .mover-move-value{color:var(--down);}
+  /* $ change sits on its own line under the % -- keeps both readable
+     without overflowing the cell's fixed 170px width. */
+  .mover-move-abs{position:relative;display:block;font-size:.68rem;font-weight:400;color:var(--text-dim);margin-top:1px;}
   .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
   /* Condensed by default to MOVERS_VISIBLE_COUNT (10) rows -- keep the
      n+11 here in sync with render_dashboard.py's MOVERS_VISIBLE_COUNT.
@@ -374,11 +374,12 @@
 
 <h2>This Week</h2>
 <div class="card">
-    Price: NOT_FOUND (2026-08-12), <span class="down">-3.39%</span> (day).<br>
-    5-star, Wide moat, High uncertainty, fair value 560<br>
-    Watchlists: Long-Term.<br>
-    <span class="meta">Drop reinforces undervalued view no divergence</span><br>
-    Source: Not recorded
+    Price: $254.04 (2026-08-18), <span class="down">-3.78% ($-9.98)</span> (day).<br>
+    3-star analyst consensus, fair value NOT_FOUND<br>
+    Watchlists: None this week.<br>
+    <span class="meta">Snapshot: Trailing P/E $190.12-$370.86 - Div Yield 0.0%. Sourced from the same page already used for price verification.</span><br>
+    <span class="meta">No dividend paid</span><br>
+    Source: Yahoo Finance (free)
 </div>
 
 <h2>Trend</h2>
@@ -386,8 +387,13 @@
 <canvas id="tickerTrendChart" style="width:100%;height:200px;background:var(--surface);border:1px solid var(--border);border-radius:3px;"></canvas>
 <p class="meta" id="tickerTrendFallback" style="display:none;">Not enough history yet for this ticker - check back after it's appeared in a few more weekly runs.</p>
 
+<h2>Price History (3 Months)</h2>
+<p class="meta">Daily candlesticks from Yahoo Finance, refreshed each time this page regenerates -- not accumulated like the Trend chart above, so it always shows the trailing ~3 months as of the last run.</p>
+<canvas id="tickerCandleChart" style="width:100%;height:260px;background:var(--surface);border:1px solid var(--border);border-radius:3px;"></canvas>
+<p class="meta" id="tickerCandleFallback" style="display:none;">No 3-month price history available for this ticker this run.</p>
+
 <footer>
-  Generated from the weekly market-review to Morningstar cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Morningstar) ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.
+  Generated from the weekly market-review to analyst-consensus cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Finnhub) analyst-consensus ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.
 </footer>
 
 <script>
@@ -418,6 +424,48 @@
     ctx.stroke();
     series.forEach(function(v, i){ ctx.fillStyle = '#e8a33d'; ctx.beginPath(); ctx.arc(x(i), y(v), 3, 0, 7); ctx.fill(); });
   });
+})();
+</script>
+
+<script>
+(function(){
+  var bars = [{"date": "2026-05-18", "open": 247.31, "high": 256.19, "low": 245.24, "close": 255.64}, {"date": "2026-05-19", "open": 263.33, "high": 265.09, "low": 251.81, "close": 254.99}, {"date": "2026-05-20", "open": 250.28, "high": 253.69, "low": 246.21, "close": 253.37}, {"date": "2026-05-21", "open": 246.45, "high": 247.95, "low": 242.11, "close": 244.1}, {"date": "2026-05-22", "open": 245.89, "high": 249.77, "low": 242.71, "close": 244.76}, {"date": "2026-05-26", "open": 242.57, "high": 243.57, "low": 238.57, "close": 240.49}, {"date": "2026-05-27", "open": 237.76, "high": 244.24, "low": 237.28, "close": 238.24}, {"date": "2026-05-28", "open": 239.57, "high": 244.76, "low": 236.66, "close": 241.44}, {"date": "2026-05-29", "open": 245.23, "high": 260.63, "low": 244.66, "close": 259.21}, {"date": "2026-06-01", "open": 270.0, "high": 275.44, "low": 262.3, "close": 274.03}, {"date": "2026-06-02", "open": 267.98, "high": 272.03, "low": 260.05, "close": 262.11}, {"date": "2026-06-03", "open": 259.39, "high": 260.0, "low": 252.34, "close": 256.24}, {"date": "2026-06-04", "open": 263.02, "high": 265.94, "low": 258.33, "close": 258.42}, {"date": "2026-06-05", "open": 259.28, "high": 262.53, "low": 249.05, "close": 251.44}, {"date": "2026-06-08", "open": 249.06, "high": 250.74, "low": 244.25, "close": 244.99}, {"date": "2026-06-09", "open": 242.98, "high": 245.25, "low": 233.33, "close": 237.88}, {"date": "2026-06-10", "open": 233.02, "high": 238.51, "low": 231.74, "close": 233.38}, {"date": "2026-06-11", "open": 229.92, "high": 232.5, "low": 218.09, "close": 218.8}, {"date": "2026-06-12", "open": 202.4, "high": 205.65, "low": 196.9, "close": 204.02}, {"date": "2026-06-15", "open": 206.88, "high": 211.99, "low": 205.72, "close": 206.36}, {"date": "2026-06-16", "open": 205.38, "high": 210.8, "low": 203.84, "close": 207.32}, {"date": "2026-06-17", "open": 204.02, "high": 206.5, "low": 195.02, "close": 196.28}, {"date": "2026-06-18", "open": 193.6, "high": 196.78, "low": 190.12, "close": 195.16}, {"date": "2026-06-22", "open": 193.39, "high": 199.25, "low": 191.2, "close": 194.9}, {"date": "2026-06-23", "open": 197.96, "high": 200.55, "low": 195.35, "close": 197.43}, {"date": "2026-06-24", "open": 195.89, "high": 202.41, "low": 195.1, "close": 196.57}, {"date": "2026-06-25", "open": 193.0, "high": 199.3, "low": 191.8, "close": 193.41}, {"date": "2026-06-26", "open": 195.48, "high": 203.48, "low": 195.29, "close": 202.73}, {"date": "2026-06-29", "open": 206.67, "high": 209.54, "low": 204.34, "close": 206.43}, {"date": "2026-06-30", "open": 204.1, "high": 205.6, "low": 201.31, "close": 205.02}, {"date": "2026-07-01", "open": 209.43, "high": 213.66, "low": 207.06, "close": 210.98}, {"date": "2026-07-02", "open": 215.55, "high": 222.15, "low": 213.74, "close": 219.72}, {"date": "2026-07-06", "open": 216.1, "high": 219.76, "low": 212.9, "close": 218.07}, {"date": "2026-07-07", "open": 221.16, "high": 230.74, "low": 220.29, "close": 221.54}, {"date": "2026-07-08", "open": 221.39, "high": 222.5, "low": 216.93, "close": 220.94}, {"date": "2026-07-09", "open": 214.12, "high": 222.71, "low": 213.09, "close": 222.65}, {"date": "2026-07-10", "open": 226.5, "high": 228.4, "low": 222.82, "close": 223.64}, {"date": "2026-07-13", "open": 226.75, "high": 232.08, "low": 225.0, "close": 230.61}, {"date": "2026-07-14", "open": 221.16, "high": 224.2, "low": 218.0, "close": 220.78}, {"date": "2026-07-15", "open": 223.16, "high": 231.53, "low": 222.91, "close": 224.56}, {"date": "2026-07-16", "open": 228.71, "high": 235.48, "low": 222.04, "close": 235.31}, {"date": "2026-07-17", "open": 235.26, "high": 240.15, "low": 232.36, "close": 237.25}, {"date": "2026-07-20", "open": 235.67, "high": 236.66, "low": 227.5, "close": 234.74}, {"date": "2026-07-21", "open": 222.85, "high": 231.5, "low": 222.3, "close": 227.16}, {"date": "2026-07-22", "open": 229.66, "high": 229.66, "low": 218.0, "close": 218.36}, {"date": "2026-07-23", "open": 222.18, "high": 222.75, "low": 210.88, "close": 212.17}, {"date": "2026-07-24", "open": 216.5, "high": 226.93, "low": 216.15, "close": 225.11}, {"date": "2026-07-27", "open": 230.39, "high": 242.05, "low": 229.79, "close": 237.75}, {"date": "2026-07-28", "open": 242.85, "high": 254.06, "low": 241.69, "close": 249.18}, {"date": "2026-07-29", "open": 249.99, "high": 266.28, "low": 248.54, "close": 263.43}, {"date": "2026-07-30", "open": 251.5, "high": 255.3, "low": 242.42, "close": 247.9}, {"date": "2026-07-31", "open": 244.73, "high": 250.71, "low": 241.23, "close": 250.41}, {"date": "2026-08-03", "open": 258.25, "high": 262.15, "low": 251.17, "close": 251.34}, {"date": "2026-08-04", "open": 248.67, "high": 258.54, "low": 245.46, "close": 257.49}, {"date": "2026-08-05", "open": 260.07, "high": 261.01, "low": 255.56, "close": 259.32}, {"date": "2026-08-06", "open": 252.23, "high": 260.64, "low": 250.84, "close": 260.24}, {"date": "2026-08-07", "open": 262.82, "high": 270.16, "low": 261.29, "close": 265.21}, {"date": "2026-08-10", "open": 263.06, "high": 273.13, "low": 262.14, "close": 272.96}, {"date": "2026-08-11", "open": 270.48, "high": 272.23, "low": 262.68, "close": 263.71}, {"date": "2026-08-12", "open": 258.45, "high": 263.26, "low": 255.1, "close": 258.75}, {"date": "2026-08-13", "open": 261.61, "high": 271.88, "low": 255.85, "close": 270.49}, {"date": "2026-08-14", "open": 273.22, "high": 273.4, "low": 261.67, "close": 264.02}, {"date": "2026-08-17", "open": 259.9, "high": 261.65, "low": 251.2001, "close": 254.04}];
+  var canvas = document.getElementById('tickerCandleChart');
+  if (!canvas) return;
+  if (!bars || bars.length < 2) {
+    canvas.style.display = 'none';
+    document.getElementById('tickerCandleFallback').style.display = 'block';
+    return;
+  }
+  var ctx = canvas.getContext('2d');
+  var w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width = w * devicePixelRatio; canvas.height = h * devicePixelRatio;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+  var padTop = 12, padBottom = 24, padSide = 4;
+  var highs = bars.map(function(b){ return b.high; });
+  var lows = bars.map(function(b){ return b.low; });
+  var min = Math.min.apply(null, lows), max = Math.max.apply(null, highs);
+  var range = (max - min) || 1;
+  var n = bars.length;
+  var slot = (w - padSide * 2) / n;
+  var bodyW = Math.max(1, slot * 0.6);
+  function y(v){ return h - padBottom - ((v - min) / range) * (h - padTop - padBottom); }
+  bars.forEach(function(b, i){
+    var x = padSide + i * slot + slot / 2;
+    var up = b.close >= b.open;
+    var color = up ? '#4cc38a' : '#ff6b5e';
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, y(b.high));
+    ctx.lineTo(x, y(b.low));
+    ctx.stroke();
+    var bodyTop = y(Math.max(b.open, b.close));
+    var bodyBottom = y(Math.min(b.open, b.close));
+    ctx.fillRect(x - bodyW / 2, bodyTop, bodyW, Math.max(1, bodyBottom - bodyTop));
+  });
+  ctx.fillStyle = '#6b7885'; ctx.font = '10px monospace'; ctx.textAlign = 'center';
+  ctx.fillText(bars[0].date, padSide + slot / 2, h - 8);
+  ctx.fillText(bars[bars.length - 1].date, w - padSide - slot / 2, h - 8);
 })();
 </script>
 

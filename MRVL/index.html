@@ -28,9 +28,9 @@
        and the three criteria-based watchlist tables (Mid-Term, Long-Term,
        Dividends) plus Micro-Cap now has a "signal ▾" toggle next to it.
        Clicking reveals a small set of FACTUAL chips already computed by
-       the pipeline this run — Morningstar rating/moat/uncertainty, fair
-       value vs verified price, dividend yield/payout, and how today's
-       move compares to the standing rating. Deliberately does NOT
+       the pipeline this run — free Finnhub analyst-consensus rating, fair
+       value (mean price target) vs verified price, dividend yield/payout,
+       and how today's move compares to the standing consensus. Deliberately does NOT
        synthesize a buy/sell/hold verdict — see agents.md Boundaries and
        the NOT_INVESTMENT_ADVICE banner. Not shown on archive pages or
        individual ticker pages (archive stays a static non-JS snapshot per
@@ -97,7 +97,7 @@
        history entry per ticker mentioned that week (creating the ticker's
        top-level entry, with name/market/description, the first time it's
        seen) — never overwrites prior history entries. `lists` is the
-       subset of ["Mid-Term","Long-Term","Dividends","Micro-Cap Movers"]
+       subset of ["Mid-Term","Long-Term","Dividends"]
        that ticker qualified for that week (empty array if none — it can
        still be linked from Notable Movers with no watchlist membership).
        `description` is a short, factual 1-2 sentence description of what
@@ -157,11 +157,7 @@
      the items — the loop duplication happens in JS, not in your markup.
   3. If a section has nothing to report this week, keep the heading and
      write "None qualified this week." rather than deleting the section —
-     structure must stay identical week to week. For Micro-Cap Movers
-     specifically: if the micro-cap pipeline hasn't produced any data at
-     all yet (e.g. its first run hasn't happened), replace the table with
-     "No micro-cap data collected yet — this section will populate
-     starting next run." instead.
+     structure must stay identical week to week.
   4. index.html lives at the repo root and has all 4 tabs. Each week also
      gets a snapshot saved to archive/<YYYY-MM-DD>.html — that snapshot is
      SIMPLER: only "Markets" and "Watchlists" content, no tabs, no
@@ -174,12 +170,10 @@
   5. data.json lives at the repo root, one JSON array of objects, one object
      per week, oldest first. Each week's agent APPENDS a new object (does
      not overwrite prior ones): {date, nasdaq_level, nasdaq_week_pct,
-     asx_level, asx_week_pct, midterm_count, longterm_count, dividends_count,
-     microcap_count} — pct values are plain numbers (e.g. 2.5 for +2.5%,
+     asx_level, asx_week_pct, midterm_count, longterm_count, dividends_count}
+     — pct values are plain numbers (e.g. 2.5 for +2.5%,
      -1.2 for -1.2%), counts are the number of tickers on each watchlist
-     that week. microcap_count is the count of rows in that week's
-     Micro-Cap Movers table (0 if none found, omit the field entirely if
-     the micro-cap pipeline didn't run that week). nasdaq_week_pct/
+     that week. nasdaq_week_pct/
      asx_week_pct may be omitted for a given week if the prior week's
      level isn't a comparable instrument (e.g. an index-vs-proxy data
      source change) — don't compute or display a week-over-week % across
@@ -206,7 +200,7 @@
       <TICKER>/index.html from that ticker's FULL tickers.json history
       (not just this week). Tickers not mentioned this week are left alone.
   12. Signal Scorecard chips must only ever restate facts already computed
-      elsewhere this run (Morningstar rating/moat/uncertainty/fair value,
+      elsewhere this run (free Finnhub analyst-consensus rating/fair value,
       dividend yield/payout, price) or a plain factual comparison between
       them (e.g. "today's move aligns with / diverges from the standing
       rating"). Never add a synthesized recommendation word (Buy/Sell/
@@ -218,12 +212,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Market Dashboard - 2026-08-11</title>
+<title>Weekly Market Dashboard - 2026-08-18</title>
 <style>
   :root{
     --bg:#0b0f14; --surface:#12181f; --surface-2:#161d25; --border:#1e2732;
     --text:#c9d2db; --text-dim:#6b7885; --text-bright:#eef2f6;
     --amber:#e8a33d; --amber-dim:#8a641f; --amber-bg:rgba(232,163,61,.10);
+    --blue:#5b9fe8; --blue-dim:#2f5c8a; --blue-bg:rgba(91,159,232,.12);
     --up:#4cc38a; --down:#ff6b5e;
     --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
     --sans:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
@@ -241,14 +236,28 @@
   th.sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
   td{font-variant-numeric:tabular-nums;}
   .up{color:var(--up);} .down{color:var(--down);}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:14px 16px;margin:12px 0;}
+  .card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:14px 16px;margin:12px 0;}
+  .index-cards{display:flex;gap:16px;flex-wrap:wrap;}
+  .index-cards .card{flex:1 1 300px;margin:12px 0;min-width:0;}
   .card-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   /* Callout badge next to an index card's label, e.g. "WEEK CHANGE
      UNAVAILABLE" when this week's level isn't comparable to last week's
-     (data source switch, or no prior week on file) -- see
-     render_index_flag in render_dashboard.py. */
+     and there's no prior week on file -- see render_index_flag in
+     render_dashboard.py. */
   .flag{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-dim);border-radius:2px;
     padding:1px 6px;font-family:var(--sans);font-size:.62rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
+  /* Pinned to the card's top-right corner for a genuine instrument
+     substitution (NASDAQ's Composite level -> QQQ proxy) -- see
+     render_index_badge in render_dashboard.py. Not used for ASX, whose
+     own index_proxy column is its real ticker, not a substitute. */
+  .flag-info{position:absolute;top:-9px;right:14px;background:var(--blue-bg);color:var(--blue);border-color:var(--blue-dim);}
+  /* Index card stat-tile body: big figure, colored change line, brief
+     summary -- see render_index_card_body in render_dashboard.py. */
+  .index-level{font-size:1.9rem;font-weight:800;color:var(--text-bright);font-variant-numeric:tabular-nums;line-height:1.2;margin-top:4px;}
+  .index-asof{font-size:.7rem;font-weight:400;margin-left:4px;}
+  .index-change{font-size:.95rem;font-weight:700;margin-top:2px;}
+  .index-week{color:var(--text-dim);font-size:.8rem;margin-top:2px;}
+  .index-summary{margin:8px 0 0;color:var(--text-dim);font-size:.85rem;}
   footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);color:var(--text-dim);font-size:.8rem;}
   a{color:var(--amber);}
   .hint-bar{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px;padding:10px 14px;border:1px solid var(--border);background:var(--surface);border-radius:3px;font-family:var(--sans);font-size:.7rem;color:var(--text-dim);}
@@ -278,7 +287,7 @@
   .legend-asx::before{color:var(--up);}
 
   /* Ticker strip */
-  .ticker-wrap{position:relative;left:50%;right:50%;width:100vw;margin-left:-50vw;margin-right:-50vw;overflow:hidden;background:var(--surface);border-bottom:1px solid var(--border);white-space:nowrap;box-sizing:border-box;}
+  .ticker-wrap{overflow:hidden;background:var(--surface);border:1px solid var(--border);border-radius:3px;white-space:nowrap;box-sizing:border-box;}
   .ticker-track{display:inline-flex;padding:8px 0;animation:ticker-scroll 32s linear infinite;font-family:var(--mono);}
   .ticker-item{display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-size:.8rem;color:var(--text);border-right:1px solid var(--border);flex:0 0 auto;}
   .ticker-item strong{color:var(--text-bright);}
@@ -297,6 +306,9 @@
   .movers-list{list-style:none;margin:4px 0 24px;padding:0;}
   .mover-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border);}
   .mover-row-head{border-bottom:1px solid var(--border);font-weight:700;padding-bottom:8px;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);}
+  .mover-row-head .sortable{cursor:pointer;user-select:none;}
+  .mover-row-head .sortable:hover{color:var(--amber);}
+  .mover-row-head .sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
   .mover-rank{flex:0 0 22px;color:var(--text-dim);font-weight:700;text-align:center;font-family:var(--mono);}
   .mover-id{flex:0 0 170px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
   .mover-market{flex:0 0 70px;color:var(--text-dim);font-size:.78rem;font-family:var(--mono);}
@@ -312,6 +324,9 @@
   .mover-move-value{position:relative;}
   .mover-move-cell.up .mover-move-value{color:var(--up);}
   .mover-move-cell.down .mover-move-value{color:var(--down);}
+  /* $ change sits on its own line under the % -- keeps both readable
+     without overflowing the cell's fixed 170px width. */
+  .mover-move-abs{position:relative;display:block;font-size:.68rem;font-weight:400;color:var(--text-dim);margin-top:1px;}
   .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
   /* Condensed by default to MOVERS_VISIBLE_COUNT (10) rows -- keep the
      n+11 here in sync with render_dashboard.py's MOVERS_VISIBLE_COUNT.
@@ -359,12 +374,12 @@
 
 <h2>This Week</h2>
 <div class="card">
-    Price: $187.56 (2026-08-11), <span class="down">-4.65%</span> (day).<br>
-    No Morningstar coverage found<br>
-    Watchlists: None this week.<br>
-    <span class="meta">Snapshot: Trailing P/E \$61.44-\$329.88 - Div Yield 0.13%. Sourced from the same page already used for price verification.</span><br>
-    <span class="meta">No meaningful dividend in trailing 12 months (Yahoo data)</span><br>
-    Source: Yahoo Finance chart API (free)
+    Price: $234.33 (2026-08-18), <span class="up">+5.54% ($+12.31)</span> (day).<br>
+    4-star analyst consensus, fair value NOT_FOUND<br>
+    Watchlists: Mid-Term.<br>
+    <span class="meta">Snapshot: Trailing P/E $61.44-$329.88 - Div Yield 0.1%. Sourced from the same page already used for price verification.</span><br>
+    <span class="meta">4 payments in trailing 12mo (Yahoo data)</span><br>
+    Source: Yahoo Finance (free)
 </div>
 
 <h2>Trend</h2>
@@ -372,8 +387,13 @@
 <canvas id="tickerTrendChart" style="width:100%;height:200px;background:var(--surface);border:1px solid var(--border);border-radius:3px;"></canvas>
 <p class="meta" id="tickerTrendFallback" style="display:none;">Not enough history yet for this ticker - check back after it's appeared in a few more weekly runs.</p>
 
+<h2>Price History (3 Months)</h2>
+<p class="meta">Daily candlesticks from Yahoo Finance, refreshed each time this page regenerates -- not accumulated like the Trend chart above, so it always shows the trailing ~3 months as of the last run.</p>
+<canvas id="tickerCandleChart" style="width:100%;height:260px;background:var(--surface);border:1px solid var(--border);border-radius:3px;"></canvas>
+<p class="meta" id="tickerCandleFallback" style="display:none;">No 3-month price history available for this ticker this run.</p>
+
 <footer>
-  Generated from the weekly market-review to Morningstar cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Morningstar) ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.
+  Generated from the weekly market-review to analyst-consensus cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Finnhub) analyst-consensus ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.
 </footer>
 
 <script>
@@ -404,6 +424,48 @@
     ctx.stroke();
     series.forEach(function(v, i){ ctx.fillStyle = '#e8a33d'; ctx.beginPath(); ctx.arc(x(i), y(v), 3, 0, 7); ctx.fill(); });
   });
+})();
+</script>
+
+<script>
+(function(){
+  var bars = [{"date": "2026-05-18", "open": 181.77, "high": 182.71, "low": 165.1, "close": 168.93}, {"date": "2026-05-19", "open": 164.61, "high": 181.64, "low": 162.85, "close": 176.27}, {"date": "2026-05-20", "open": 183.45, "high": 193.32, "low": 182.28, "close": 186.8}, {"date": "2026-05-21", "open": 192.51, "high": 194.58, "low": 188.2, "close": 190.69}, {"date": "2026-05-22", "open": 194.72, "high": 198.4, "low": 192.22, "close": 196.33}, {"date": "2026-05-26", "open": 211.24, "high": 217.45, "low": 200.04, "close": 208.26}, {"date": "2026-05-27", "open": 217.98, "high": 218.26, "low": 196.25, "close": 198.7}, {"date": "2026-05-28", "open": 198.75, "high": 207.4, "low": 194.7, "close": 204.83}, {"date": "2026-05-29", "open": 204.44, "high": 208.76, "low": 199.2, "close": 205.0}, {"date": "2026-06-01", "open": 198.91, "high": 225.14, "low": 195.12, "close": 219.43}, {"date": "2026-06-02", "open": 253.46, "high": 291.3, "low": 252.43, "close": 290.79}, {"date": "2026-06-03", "open": 317.63, "high": 324.2, "low": 294.01, "close": 301.65}, {"date": "2026-06-04", "open": 282.95, "high": 321.5, "low": 277.56, "close": 316.43}, {"date": "2026-06-05", "open": 299.5, "high": 300.72, "low": 261.39, "close": 263.47}, {"date": "2026-06-08", "open": 288.69, "high": 304.96, "low": 281.36, "close": 288.85}, {"date": "2026-06-09", "open": 299.76, "high": 302.4, "low": 244.0, "close": 266.88}, {"date": "2026-06-10", "open": 263.5, "high": 272.47, "low": 252.26, "close": 252.59}, {"date": "2026-06-11", "open": 260.54, "high": 282.32, "low": 258.43, "close": 280.71}, {"date": "2026-06-12", "open": 270.07, "high": 287.98, "low": 267.31, "close": 279.7}, {"date": "2026-06-15", "open": 296.71, "high": 312.98, "low": 288.09, "close": 308.88}, {"date": "2026-06-16", "open": 299.13, "high": 317.0, "low": 278.13, "close": 278.67}, {"date": "2026-06-17", "open": 292.89, "high": 307.37, "low": 283.32, "close": 289.54}, {"date": "2026-06-18", "open": 305.47, "high": 329.88, "low": 302.36, "close": 310.58}, {"date": "2026-06-22", "open": 313.39, "high": 314.17, "low": 298.18, "close": 307.86}, {"date": "2026-06-23", "open": 278.82, "high": 290.95, "low": 276.25, "close": 279.04}, {"date": "2026-06-24", "open": 281.95, "high": 281.95, "low": 263.66, "close": 276.7}, {"date": "2026-06-25", "open": 291.18, "high": 292.51, "low": 263.72, "close": 281.26}, {"date": "2026-06-26", "open": 268.37, "high": 274.2, "low": 262.0, "close": 266.77}, {"date": "2026-06-29", "open": 272.41, "high": 278.28, "low": 250.52, "close": 277.75}, {"date": "2026-06-30", "open": 278.75, "high": 300.0, "low": 275.5, "close": 297.89}, {"date": "2026-07-01", "open": 282.47, "high": 292.5, "low": 271.35, "close": 272.05}, {"date": "2026-07-02", "open": 269.5, "high": 274.95, "low": 237.2, "close": 245.29}, {"date": "2026-07-06", "open": 254.82, "high": 260.46, "low": 249.04, "close": 249.27}, {"date": "2026-07-07", "open": 234.92, "high": 237.44, "low": 222.94, "close": 230.7}, {"date": "2026-07-08", "open": 225.16, "high": 236.79, "low": 224.98, "close": 231.71}, {"date": "2026-07-09", "open": 246.18, "high": 251.7, "low": 241.1, "close": 243.27}, {"date": "2026-07-10", "open": 237.79, "high": 240.94, "low": 232.02, "close": 235.81}, {"date": "2026-07-13", "open": 228.78, "high": 228.8, "low": 215.28, "close": 217.53}, {"date": "2026-07-14", "open": 231.57, "high": 232.0, "low": 218.63, "close": 222.44}, {"date": "2026-07-15", "open": 222.16, "high": 223.3, "low": 201.22, "close": 206.26}, {"date": "2026-07-16", "open": 200.12, "high": 201.94, "low": 186.15, "close": 188.3}, {"date": "2026-07-17", "open": 182.23, "high": 194.05, "low": 177.95, "close": 188.68}, {"date": "2026-07-20", "open": 193.01, "high": 202.08, "low": 191.99, "close": 194.94}, {"date": "2026-07-21", "open": 205.56, "high": 210.6, "low": 202.84, "close": 207.96}, {"date": "2026-07-22", "open": 201.15, "high": 214.92, "low": 200.58, "close": 210.99}, {"date": "2026-07-23", "open": 207.86, "high": 214.56, "low": 205.02, "close": 209.32}, {"date": "2026-07-24", "open": 202.91, "high": 206.07, "low": 191.29, "close": 194.23}, {"date": "2026-07-27", "open": 198.72, "high": 199.79, "low": 181.76, "close": 189.17}, {"date": "2026-07-28", "open": 180.0, "high": 181.48, "low": 167.32, "close": 174.47}, {"date": "2026-07-29", "open": 174.03, "high": 177.8, "low": 162.9, "close": 163.4}, {"date": "2026-07-30", "open": 178.38, "high": 184.35, "low": 175.15, "close": 183.3}, {"date": "2026-07-31", "open": 199.38, "high": 201.35, "low": 187.12, "close": 187.56}, {"date": "2026-08-03", "open": 180.52, "high": 194.44, "low": 177.57, "close": 193.78}, {"date": "2026-08-04", "open": 210.01, "high": 222.67, "low": 208.0, "close": 218.59}, {"date": "2026-08-05", "open": 215.98, "high": 222.38, "low": 210.29, "close": 211.02}, {"date": "2026-08-06", "open": 205.57, "high": 219.46, "low": 201.74, "close": 210.54}, {"date": "2026-08-07", "open": 219.05, "high": 221.87, "low": 205.52, "close": 218.72}, {"date": "2026-08-10", "open": 227.77, "high": 230.1, "low": 208.51, "close": 208.56}, {"date": "2026-08-11", "open": 212.0, "high": 212.66, "low": 206.43, "close": 212.31}, {"date": "2026-08-12", "open": 225.9, "high": 226.89, "low": 216.88, "close": 217.08}, {"date": "2026-08-13", "open": 217.68, "high": 231.38, "low": 217.18, "close": 222.18}, {"date": "2026-08-14", "open": 221.4, "high": 223.52, "low": 217.1, "close": 222.02}, {"date": "2026-08-17", "open": 227.8, "high": 240.18, "low": 226.89, "close": 234.33}];
+  var canvas = document.getElementById('tickerCandleChart');
+  if (!canvas) return;
+  if (!bars || bars.length < 2) {
+    canvas.style.display = 'none';
+    document.getElementById('tickerCandleFallback').style.display = 'block';
+    return;
+  }
+  var ctx = canvas.getContext('2d');
+  var w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width = w * devicePixelRatio; canvas.height = h * devicePixelRatio;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+  var padTop = 12, padBottom = 24, padSide = 4;
+  var highs = bars.map(function(b){ return b.high; });
+  var lows = bars.map(function(b){ return b.low; });
+  var min = Math.min.apply(null, lows), max = Math.max.apply(null, highs);
+  var range = (max - min) || 1;
+  var n = bars.length;
+  var slot = (w - padSide * 2) / n;
+  var bodyW = Math.max(1, slot * 0.6);
+  function y(v){ return h - padBottom - ((v - min) / range) * (h - padTop - padBottom); }
+  bars.forEach(function(b, i){
+    var x = padSide + i * slot + slot / 2;
+    var up = b.close >= b.open;
+    var color = up ? '#4cc38a' : '#ff6b5e';
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, y(b.high));
+    ctx.lineTo(x, y(b.low));
+    ctx.stroke();
+    var bodyTop = y(Math.max(b.open, b.close));
+    var bodyBottom = y(Math.min(b.open, b.close));
+    ctx.fillRect(x - bodyW / 2, bodyTop, bodyW, Math.max(1, bodyBottom - bodyTop));
+  });
+  ctx.fillStyle = '#6b7885'; ctx.font = '10px monospace'; ctx.textAlign = 'center';
+  ctx.fillText(bars[0].date, padSide + slot / 2, h - 8);
+  ctx.fillText(bars[bars.length - 1].date, w - padSide - slot / 2, h - 8);
 })();
 </script>
 
