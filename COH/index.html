@@ -327,6 +327,13 @@
   /* $ change sits on its own line under the % -- keeps both readable
      without overflowing the cell's fixed 170px width. */
   .mover-move-abs{position:relative;display:block;font-size:.68rem;font-weight:400;color:var(--text-dim);margin-top:1px;}
+  /* Candlestick chart hover tooltip -- see tickerCandleChart's mousemove
+     handler in render_dashboard.py's build_ticker_page. */
+  .candle-chart-wrap{position:relative;}
+  .candle-tooltip{position:absolute;display:none;pointer-events:none;background:var(--surface-2);
+    border:1px solid var(--border);border-radius:3px;padding:6px 8px;font-family:var(--mono);
+    font-size:.72rem;line-height:1.5;color:var(--text);white-space:nowrap;z-index:5;box-shadow:0 2px 8px rgba(0,0,0,.4);}
+  .candle-tooltip .date{color:var(--text-dim);font-size:.66rem;margin-bottom:2px;}
   .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
   /* Condensed by default to MOVERS_VISIBLE_COUNT (10) rows -- keep the
      n+11 here in sync with render_dashboard.py's MOVERS_VISIBLE_COUNT.
@@ -388,8 +395,11 @@
 <p class="meta" id="tickerTrendFallback" style="display:none;">Not enough history yet for this ticker - check back after it's appeared in a few more weekly runs.</p>
 
 <h2>Price History (3 Months)</h2>
-<p class="meta">Daily candlesticks from Yahoo Finance, refreshed each time this page regenerates -- not accumulated like the Trend chart above, so it always shows the trailing ~3 months as of the last run.</p>
-<canvas id="tickerCandleChart" style="width:100%;height:260px;background:var(--surface);border:1px solid var(--border);border-radius:3px;"></canvas>
+<p class="meta">Daily candlesticks from Yahoo Finance, refreshed each time this page regenerates -- not accumulated like the Trend chart above, so it always shows the trailing ~3 months as of the last run. Hover (or touch) any bar for its exact date/open/high/low/close.</p>
+<div class="candle-chart-wrap">
+  <canvas id="tickerCandleChart" style="width:100%;height:260px;background:var(--surface);border:1px solid var(--border);border-radius:3px;"></canvas>
+  <div class="candle-tooltip" id="tickerCandleTooltip"></div>
+</div>
 <p class="meta" id="tickerCandleFallback" style="display:none;">No 3-month price history available for this ticker this run.</p>
 
 <footer>
@@ -431,6 +441,7 @@
 (function(){
   var bars = [{"date": "2026-05-18", "open": 96.02, "high": 97.04, "low": 93.52, "close": 93.52}, {"date": "2026-05-19", "open": 95.17, "high": 95.59, "low": 93.64, "close": 95.37}, {"date": "2026-05-20", "open": 95.0, "high": 95.31, "low": 94.29, "close": 94.77}, {"date": "2026-05-21", "open": 96.87, "high": 96.98, "low": 95.37, "close": 96.89}, {"date": "2026-05-22", "open": 97.03, "high": 98.66, "low": 96.73, "close": 97.53}, {"date": "2026-05-25", "open": 97.39, "high": 97.53, "low": 96.09, "close": 97.04}, {"date": "2026-05-26", "open": 97.28, "high": 98.37, "low": 96.69, "close": 96.91}, {"date": "2026-05-27", "open": 95.3, "high": 98.1, "low": 95.3, "close": 97.97}, {"date": "2026-05-28", "open": 98.22, "high": 98.29, "low": 96.44, "close": 97.4}, {"date": "2026-05-29", "open": 97.89, "high": 100.5, "low": 97.41, "close": 100.5}, {"date": "2026-06-01", "open": 100.23, "high": 102.06, "low": 99.63, "close": 101.07}, {"date": "2026-06-02", "open": 100.55, "high": 102.5, "low": 95.58, "close": 96.74}, {"date": "2026-06-03", "open": 96.99, "high": 97.175, "low": 93.61, "close": 95.1}, {"date": "2026-06-04", "open": 97.64, "high": 97.7, "low": 94.23, "close": 95.1}, {"date": "2026-06-05", "open": 96.88, "high": 100.45, "low": 96.0, "close": 100.45}, {"date": "2026-06-09", "open": 101.97, "high": 103.75, "low": 100.56, "close": 102.64}, {"date": "2026-06-10", "open": 105.2, "high": 105.39, "low": 103.13, "close": 104.93}, {"date": "2026-06-11", "open": 103.83, "high": 104.71, "low": 102.2, "close": 102.89}, {"date": "2026-06-12", "open": 106.47, "high": 107.0, "low": 103.19, "close": 103.75}, {"date": "2026-06-15", "open": 103.81, "high": 104.45, "low": 102.3, "close": 104.45}, {"date": "2026-06-16", "open": 104.21, "high": 108.27, "low": 103.84, "close": 106.86}, {"date": "2026-06-17", "open": 106.82, "high": 111.43, "low": 106.54, "close": 111.32}, {"date": "2026-06-18", "open": 112.34, "high": 114.86, "low": 111.69, "close": 114.29}, {"date": "2026-06-19", "open": 114.65, "high": 118.14, "low": 113.04, "close": 118.14}, {"date": "2026-06-22", "open": 118.2, "high": 118.77, "low": 111.87, "close": 112.97}, {"date": "2026-06-23", "open": 113.46, "high": 114.06, "low": 111.345, "close": 112.78}, {"date": "2026-06-24", "open": 114.28, "high": 115.13, "low": 112.63, "close": 113.45}, {"date": "2026-06-25", "open": 114.0, "high": 118.56, "low": 113.74, "close": 116.55}, {"date": "2026-06-26", "open": 116.5, "high": 118.76, "low": 115.64, "close": 118.03}, {"date": "2026-06-29", "open": 117.63, "high": 121.14, "low": 116.91, "close": 121.08}, {"date": "2026-06-30", "open": 122.0, "high": 123.0, "low": 119.05, "close": 121.75}, {"date": "2026-07-01", "open": 115.43, "high": 119.64, "low": 115.0, "close": 118.45}, {"date": "2026-07-02", "open": 117.9, "high": 120.61, "low": 116.5, "close": 120.35}, {"date": "2026-07-03", "open": 121.62, "high": 125.07, "low": 121.45, "close": 124.96}, {"date": "2026-07-06", "open": 124.76, "high": 128.14, "low": 124.71, "close": 127.86}, {"date": "2026-07-07", "open": 125.88, "high": 127.73, "low": 125.33, "close": 127.05}, {"date": "2026-07-08", "open": 125.51, "high": 126.5, "low": 121.47, "close": 124.82}, {"date": "2026-07-09", "open": 125.0, "high": 125.98, "low": 123.04, "close": 123.68}, {"date": "2026-07-10", "open": 123.0, "high": 123.62, "low": 120.86, "close": 121.62}, {"date": "2026-07-13", "open": 122.14, "high": 122.81, "low": 120.76, "close": 121.3}, {"date": "2026-07-14", "open": 121.38, "high": 123.62, "low": 120.575, "close": 123.2}, {"date": "2026-07-15", "open": 122.0, "high": 124.01, "low": 121.56, "close": 124.0}, {"date": "2026-07-16", "open": 123.0, "high": 125.45, "low": 122.71, "close": 123.27}, {"date": "2026-07-17", "open": 120.35, "high": 123.28, "low": 116.22, "close": 119.48}, {"date": "2026-07-20", "open": 121.5, "high": 122.44, "low": 118.09, "close": 119.0}, {"date": "2026-07-21", "open": 117.81, "high": 120.28, "low": 117.01, "close": 118.0}, {"date": "2026-07-22", "open": 116.22, "high": 116.62, "low": 112.19, "close": 112.19}, {"date": "2026-07-23", "open": 110.0, "high": 113.1, "low": 109.5, "close": 112.11}, {"date": "2026-07-24", "open": 110.39, "high": 113.04, "low": 108.98, "close": 111.61}, {"date": "2026-07-27", "open": 112.0, "high": 115.07, "low": 112.0, "close": 114.5}, {"date": "2026-07-28", "open": 115.03, "high": 119.88, "low": 115.03, "close": 119.88}, {"date": "2026-07-29", "open": 123.98, "high": 125.2, "low": 121.335, "close": 122.5}, {"date": "2026-07-30", "open": 124.41, "high": 124.62, "low": 121.41, "close": 122.2}, {"date": "2026-07-31", "open": 120.0, "high": 120.98, "low": 118.74, "close": 119.94}, {"date": "2026-08-03", "open": 120.33, "high": 121.05, "low": 119.62, "close": 120.74}, {"date": "2026-08-04", "open": 123.99, "high": 124.74, "low": 121.68, "close": 122.32}, {"date": "2026-08-05", "open": 122.32, "high": 123.42, "low": 119.69, "close": 122.0}, {"date": "2026-08-06", "open": 122.32, "high": 126.47, "low": 122.24, "close": 125.99}, {"date": "2026-08-07", "open": 123.97, "high": 126.29, "low": 122.99, "close": 124.86}, {"date": "2026-08-10", "open": 125.4, "high": 127.81, "low": 124.91, "close": 127.11}, {"date": "2026-08-11", "open": 125.68, "high": 130.21, "low": 125.68, "close": 130.21}, {"date": "2026-08-12", "open": 129.5, "high": 132.42, "low": 129.13, "close": 131.68}, {"date": "2026-08-13", "open": 130.02, "high": 133.99, "low": 129.85, "close": 133.93}, {"date": "2026-08-14", "open": 135.5, "high": 135.5, "low": 131.7, "close": 133.6}, {"date": "2026-08-17", "open": 134.0, "high": 134.57, "low": 130.55, "close": 131.25}, {"date": "2026-08-18", "open": 134.52, "high": 141.77, "low": 130.6, "close": 140.26}];
   var canvas = document.getElementById('tickerCandleChart');
+  var tooltip = document.getElementById('tickerCandleTooltip');
   if (!canvas) return;
   if (!bars || bars.length < 2) {
     canvas.style.display = 'none';
@@ -450,22 +461,68 @@
   var slot = (w - padSide * 2) / n;
   var bodyW = Math.max(1, slot * 0.6);
   function y(v){ return h - padBottom - ((v - min) / range) * (h - padTop - padBottom); }
-  bars.forEach(function(b, i){
-    var x = padSide + i * slot + slot / 2;
+  function barX(i){ return padSide + i * slot + slot / 2; }
+
+  function draw(hoverIndex){
+    ctx.clearRect(0, 0, w, h);
+    bars.forEach(function(b, i){
+      var x = barX(i);
+      var up = b.close >= b.open;
+      var color = up ? '#4cc38a' : '#ff6b5e';
+      ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x, y(b.high));
+      ctx.lineTo(x, y(b.low));
+      ctx.stroke();
+      var bodyTop = y(Math.max(b.open, b.close));
+      var bodyBottom = y(Math.min(b.open, b.close));
+      ctx.fillRect(x - bodyW / 2, bodyTop, bodyW, Math.max(1, bodyBottom - bodyTop));
+    });
+    ctx.fillStyle = '#6b7885'; ctx.font = '10px monospace'; ctx.textAlign = 'center';
+    ctx.fillText(bars[0].date, padSide + slot / 2, h - 8);
+    ctx.fillText(bars[bars.length - 1].date, w - padSide - slot / 2, h - 8);
+    if (hoverIndex != null) {
+      var hx = barX(hoverIndex);
+      ctx.strokeStyle = 'rgba(201,210,219,.35)'; ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(hx, padTop);
+      ctx.lineTo(hx, h - padBottom);
+      ctx.stroke();
+    }
+  }
+  draw(null);
+
+  function showTooltip(clientX, clientY){
+    var rect = canvas.getBoundingClientRect();
+    var mx = clientX - rect.left;
+    var i = Math.min(n - 1, Math.max(0, Math.floor((mx - padSide) / slot)));
+    var b = bars[i];
+    draw(i);
     var up = b.close >= b.open;
-    var color = up ? '#4cc38a' : '#ff6b5e';
-    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(x, y(b.high));
-    ctx.lineTo(x, y(b.low));
-    ctx.stroke();
-    var bodyTop = y(Math.max(b.open, b.close));
-    var bodyBottom = y(Math.min(b.open, b.close));
-    ctx.fillRect(x - bodyW / 2, bodyTop, bodyW, Math.max(1, bodyBottom - bodyTop));
-  });
-  ctx.fillStyle = '#6b7885'; ctx.font = '10px monospace'; ctx.textAlign = 'center';
-  ctx.fillText(bars[0].date, padSide + slot / 2, h - 8);
-  ctx.fillText(bars[bars.length - 1].date, w - padSide - slot / 2, h - 8);
+    tooltip.innerHTML = '<div class="date">' + b.date + '</div>' +
+      'O: ' + b.open.toFixed(2) + '&nbsp;&nbsp;H: ' + b.high.toFixed(2) + '<br>' +
+      'L: ' + b.low.toFixed(2) + '&nbsp;&nbsp;C: <span class="' + (up ? 'up' : 'down') + '">' + b.close.toFixed(2) + '</span>';
+    tooltip.style.display = 'block';
+    var tw = tooltip.offsetWidth || 140;
+    var left = mx + 12;
+    if (left + tw > w) left = mx - tw - 12;
+    tooltip.style.left = Math.max(0, left) + 'px';
+    tooltip.style.top = '8px';
+  }
+  function hideTooltip(){
+    draw(null);
+    tooltip.style.display = 'none';
+  }
+
+  canvas.addEventListener('mousemove', function(e){ showTooltip(e.clientX, e.clientY); });
+  canvas.addEventListener('mouseleave', hideTooltip);
+  canvas.addEventListener('touchstart', function(e){
+    if (e.touches.length) { showTooltip(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); }
+  }, {passive: false});
+  canvas.addEventListener('touchmove', function(e){
+    if (e.touches.length) { showTooltip(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); }
+  }, {passive: false});
+  canvas.addEventListener('touchend', hideTooltip);
 })();
 </script>
 

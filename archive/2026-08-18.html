@@ -327,6 +327,13 @@
   /* $ change sits on its own line under the % -- keeps both readable
      without overflowing the cell's fixed 170px width. */
   .mover-move-abs{position:relative;display:block;font-size:.68rem;font-weight:400;color:var(--text-dim);margin-top:1px;}
+  /* Candlestick chart hover tooltip -- see tickerCandleChart's mousemove
+     handler in render_dashboard.py's build_ticker_page. */
+  .candle-chart-wrap{position:relative;}
+  .candle-tooltip{position:absolute;display:none;pointer-events:none;background:var(--surface-2);
+    border:1px solid var(--border);border-radius:3px;padding:6px 8px;font-family:var(--mono);
+    font-size:.72rem;line-height:1.5;color:var(--text);white-space:nowrap;z-index:5;box-shadow:0 2px 8px rgba(0,0,0,.4);}
+  .candle-tooltip .date{color:var(--text-dim);font-size:.66rem;margin-bottom:2px;}
   .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
   /* Condensed by default to MOVERS_VISIBLE_COUNT (10) rows -- keep the
      n+11 here in sync with render_dashboard.py's MOVERS_VISIBLE_COUNT.
@@ -375,12 +382,12 @@
 <div class="card"><strong>NASDAQ Composite:</strong><br>
 <div class="index-level">729.87 <span class="meta index-asof">(2026-08-18)</span></div>
   <div class="index-change down">▼ -0.16% today</div>
-  <div class="index-week">Week-to-date: <span class="down">-0.16%</span> (-1.2 pts)</div>
+  <div class="index-week">Week-to-date: <span class="up">+0.00%</span> (0.0 pts)</div>
   <p class="index-summary">Nasdaq-100 (QQQ proxy) finished down 0.16% today; SNDK led gainers (+8.88%) and TRI led losers (-4.39%).</p></div>
 <div class="card"><strong>S&amp;P/ASX 200:</strong><br>
 <div class="index-level">9076.4 <span class="meta index-asof">(2026-08-18)</span></div>
   <div class="index-change up">▲ +0.04% today</div>
-  <div class="index-week">Week-to-date: <span class="down">-0.43%</span> (-38.8 pts)</div>
+  <div class="index-week">Week-to-date: <span class="up">+0.00%</span> (0.0 pts)</div>
   <p class="index-summary">Not available for this market on the current data feed.</p></div>
 </div>
 
