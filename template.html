@@ -327,6 +327,13 @@
   /* $ change sits on its own line under the % -- keeps both readable
      without overflowing the cell's fixed 170px width. */
   .mover-move-abs{position:relative;display:block;font-size:.68rem;font-weight:400;color:var(--text-dim);margin-top:1px;}
+  /* Candlestick chart hover tooltip -- see tickerCandleChart's mousemove
+     handler in render_dashboard.py's build_ticker_page. */
+  .candle-chart-wrap{position:relative;}
+  .candle-tooltip{position:absolute;display:none;pointer-events:none;background:var(--surface-2);
+    border:1px solid var(--border);border-radius:3px;padding:6px 8px;font-family:var(--mono);
+    font-size:.72rem;line-height:1.5;color:var(--text);white-space:nowrap;z-index:5;box-shadow:0 2px 8px rgba(0,0,0,.4);}
+  .candle-tooltip .date{color:var(--text-dim);font-size:.66rem;margin-bottom:2px;}
   .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
   /* Condensed by default to MOVERS_VISIBLE_COUNT (10) rows -- keep the
      n+11 here in sync with render_dashboard.py's MOVERS_VISIBLE_COUNT.
@@ -908,6 +915,19 @@ this button's click adds .expanded to the <ol>. -->
   <canvas id="tickerTrendChart" style="width:100%;height:200px;background:var(--surface);border:1px solid var(--border);border-radius:3px;"></canvas>
   <p class="meta" id="tickerTrendFallback" style="display:none;">Not enough history yet for this ticker - check back after it's appeared in a few more weekly runs.</p>
 
+  <h2>Price History (3 Months)</h2>
+  <p class="meta">Daily candlesticks from Yahoo Finance (free, unofficial
+  chart endpoint), refetched fresh every time this page regenerates -- a
+  rolling ~3-month window, NOT accumulated like the Trend chart above.
+  Green/red body = close at/above or below open; wick = high/low. Hover
+  (or touch, on mobile) any bar for its exact date/open/high/low/close in
+  a tooltip, with a crosshair marking the hovered bar.</p>
+  <div class="candle-chart-wrap">
+    <canvas id="tickerCandleChart" style="width:100%;height:260px;background:var(--surface);border:1px solid var(--border);border-radius:3px;"></canvas>
+    <div class="candle-tooltip" id="tickerCandleTooltip"></div>
+  </div>
+  <p class="meta" id="tickerCandleFallback" style="display:none;">No 3-month price history available for this ticker this run.</p>
+
   <footer>...(same footer)...</footer>
 
   <script>
@@ -916,5 +936,20 @@ this button's click adds .expanded to the <ol>. -->
   // array, map to price series, same min/max/pad/x()/y() approach, same
   // "< 2 points -> show fallback text" rule). Do not add new chart
   // libraries or a different rendering approach.
+  </script>
+
+  <script>
+  // Candlestick chart: OHLC bars are baked directly into the page as an
+  // inline JSON array (render_dashboard.py already has them server-side
+  // from watchlist_builder.py's fetch_yahoo_ohlc -- no client-side fetch
+  // needed, unlike the Trend chart above which pulls tickers.json).
+  // Pure canvas, no chart library: for each bar draw a 1px wick from
+  // high to low, then a filled body rect from open to close, colored
+  // var(--up)/var(--down) by direction. Same "< 2 points -> fallback
+  // text" rule as the Trend chart. Interactive: a draw(hoverIndex)
+  // function redraws the whole chart (cheap at ~60 bars) plus an
+  // optional crosshair line; mousemove/touchmove find the nearest bar
+  // by x-position and populate #tickerCandleTooltip with its exact
+  // date/open/high/low/close, positioned to stay inside the canvas.
   </script>
 -->
