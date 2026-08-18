@@ -8,9 +8,7 @@
 // page keeps showing whatever render_dashboard.py last rendered statically.
 // Nothing here can break the page.
 //
-// Update this one line after deploying the Worker (see
-// ClaudeRepo/cloudflare-worker/README.md):
-var LIVE_PRICE_API = "https://REPLACE_ME.workers.dev";
+var LIVE_PRICE_API = "https://barnyard-live-prices.nathanbarnard29.workers.dev";
 
 (function () {
   var POLL_INTERVAL_MS = 15000;
