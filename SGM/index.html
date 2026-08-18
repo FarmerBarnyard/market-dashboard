@@ -334,6 +334,16 @@
     border:1px solid var(--border);border-radius:3px;padding:6px 8px;font-family:var(--mono);
     font-size:.72rem;line-height:1.5;color:var(--text);white-space:nowrap;z-index:5;box-shadow:0 2px 8px rgba(0,0,0,.4);}
   .candle-tooltip .date{color:var(--text-dim);font-size:.66rem;margin-bottom:2px;}
+  /* Live price ticking -- live-prices.js polls the Cloudflare Worker proxy
+     (ClaudeRepo/cloudflare-worker) every ~15s and patches any
+     [data-live-symbol] element in place; see render_index_card_body / the
+     ticker-strip loop / build_ticker_page in render_dashboard.py for where
+     these attributes get added. Inert if the worker isn't reachable -- the
+     page just keeps showing the last static render. */
+  .live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--text-dim);margin-left:6px;vertical-align:middle;}
+  .live-dot.live-ok{background:var(--up);animation:live-pulse 1.6s ease-in-out infinite;}
+  @keyframes live-pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  @media (prefers-reduced-motion: reduce){.live-dot.live-ok{animation:none;}}
   .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
   /* Condensed by default to MOVERS_VISIBLE_COUNT (10) rows -- keep the
      n+11 here in sync with render_dashboard.py's MOVERS_VISIBLE_COUNT.
@@ -381,7 +391,7 @@
 
 <h2>This Week</h2>
 <div class="card">
-    Price: $22.52 (2026-08-18), <span class="down">-13.09% ($-3.38)</span> (day).<br>
+    Price: <span class="live-price" data-live-field="price" data-live-symbol="SGM" data-live-market="ASX">$22.52</span> (2026-08-18), <span class="down live-price" data-live-field="change" data-live-symbol="SGM" data-live-market="ASX">-13.09% ($-3.38)</span> (day). <span class="live-dot" data-live-field="dot" data-live-symbol="SGM" data-live-market="ASX" title="Live price"></span><br>
     No analyst-consensus coverage found<br>
     Watchlists: None this week.<br>
     <span class="meta">Snapshot: Trailing P/E $13.04-$31.81 - Div Yield 1.2%. Sourced from the same page already used for price verification.</span><br>
@@ -405,6 +415,8 @@
 <footer>
   Generated from the weekly market-review to analyst-consensus cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Finnhub) analyst-consensus ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.
 </footer>
+
+<script src="../live-prices.js"></script>
 
 <script>
 (function(){

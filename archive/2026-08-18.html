@@ -334,6 +334,16 @@
     border:1px solid var(--border);border-radius:3px;padding:6px 8px;font-family:var(--mono);
     font-size:.72rem;line-height:1.5;color:var(--text);white-space:nowrap;z-index:5;box-shadow:0 2px 8px rgba(0,0,0,.4);}
   .candle-tooltip .date{color:var(--text-dim);font-size:.66rem;margin-bottom:2px;}
+  /* Live price ticking -- live-prices.js polls the Cloudflare Worker proxy
+     (ClaudeRepo/cloudflare-worker) every ~15s and patches any
+     [data-live-symbol] element in place; see render_index_card_body / the
+     ticker-strip loop / build_ticker_page in render_dashboard.py for where
+     these attributes get added. Inert if the worker isn't reachable -- the
+     page just keeps showing the last static render. */
+  .live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--text-dim);margin-left:6px;vertical-align:middle;}
+  .live-dot.live-ok{background:var(--up);animation:live-pulse 1.6s ease-in-out infinite;}
+  @keyframes live-pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  @media (prefers-reduced-motion: reduce){.live-dot.live-ok{animation:none;}}
   .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
   /* Condensed by default to MOVERS_VISIBLE_COUNT (10) rows -- keep the
      n+11 here in sync with render_dashboard.py's MOVERS_VISIBLE_COUNT.
@@ -380,13 +390,13 @@
 <h2>Market Review - NASDAQ and ASX</h2>
 <div class="index-cards">
 <div class="card"><strong>NASDAQ Composite:</strong><br>
-<div class="index-level">729.87 <span class="meta index-asof">(2026-08-18)</span></div>
-  <div class="index-change down">▼ -0.16% today</div>
+<div class="index-level"><span class="live-price" data-live-field="price" data-live-symbol="QQQ" data-live-market="NASDAQ" data-live-index>729.87</span> <span class="meta index-asof">(2026-08-18)</span> <span class="live-dot" data-live-field="dot" data-live-symbol="QQQ" data-live-market="NASDAQ" title="Live price"></span></div>
+  <div class="index-change"><span class="live-price down" data-live-field="change" data-live-symbol="QQQ" data-live-market="NASDAQ" data-live-index>▼ -0.16%</span> today</div>
   <div class="index-week">Week-to-date: <span class="up">+0.00%</span> (0.0 pts)</div>
   <p class="index-summary">Nasdaq-100 (QQQ proxy) finished down 0.16% today; SNDK led gainers (+8.88%) and TRI led losers (-4.39%).</p></div>
 <div class="card"><strong>S&amp;P/ASX 200:</strong><br>
-<div class="index-level">9076.4 <span class="meta index-asof">(2026-08-18)</span></div>
-  <div class="index-change up">▲ +0.04% today</div>
+<div class="index-level"><span class="live-price" data-live-field="price" data-live-symbol="^AXJO" data-live-market="ASX" data-live-index>9076.4</span> <span class="meta index-asof">(2026-08-18)</span> <span class="live-dot" data-live-field="dot" data-live-symbol="^AXJO" data-live-market="ASX" title="Live price"></span></div>
+  <div class="index-change"><span class="live-price up" data-live-field="change" data-live-symbol="^AXJO" data-live-market="ASX" data-live-index>▲ +0.04%</span> today</div>
   <div class="index-week">Week-to-date: <span class="up">+0.00%</span> (0.0 pts)</div>
   <p class="index-summary">Not available for this market on the current data feed.</p></div>
 </div>
