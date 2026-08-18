@@ -325,8 +325,12 @@
   .mover-move-cell.up .mover-move-value{color:var(--up);}
   .mover-move-cell.down .mover-move-value{color:var(--down);}
   /* $ change sits on its own line under the % -- keeps both readable
-     without overflowing the cell's fixed 170px width. */
-  .mover-move-abs{position:relative;display:block;font-size:.68rem;font-weight:400;color:var(--text-dim);margin-top:1px;}
+     without overflowing the cell's fixed 170px width. Bold and colored by
+     direction (not a dim muted sub-line) so it reads as equally important
+     as the % above it, not an afterthought. */
+  .mover-move-abs{position:relative;display:block;font-size:.8rem;font-weight:700;margin-top:1px;}
+  .mover-move-cell.up .mover-move-abs{color:var(--up);}
+  .mover-move-cell.down .mover-move-abs{color:var(--down);}
   /* Candlestick chart hover tooltip -- see tickerCandleChart's mousemove
      handler in render_dashboard.py's build_ticker_page. */
   .candle-chart-wrap{position:relative;}
