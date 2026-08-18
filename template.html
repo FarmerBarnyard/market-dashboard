@@ -447,7 +447,12 @@
   <span class="mover-rank">{{RANK}}</span>
   <span class="mover-id"><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span>{{TICKER}}</a> <button class="sig-toggle" type="button">signal <span class="chevron">&#9662;</span></button></span>
   <span class="mover-market">{{NASDAQ or ASX}}</span>
-  <span class="mover-move-cell up or down"><span class="mover-bar-bg" style="width:{{BAR_PCT}}%"></span><span class="mover-move-value">{{MOVE_PCT}} <span class="mover-move-abs">({{MOVE_$}})</span></span></span>
+  <span class="mover-move-cell up or down"><span class="mover-bar-bg" style="width:{{BAR_PCT}}%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="{{TICKER}}" data-live-market="{{NASDAQ or ASX}}">{{MOVE_PCT}}</span> <span class="live-dot" data-live-field="dot" data-live-symbol="{{TICKER}}" data-live-market="{{NASDAQ or ASX}}" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="{{TICKER}}" data-live-market="{{NASDAQ or ASX}}">({{MOVE_$}})</span></span></span>
+  <!-- change_pct/change_abs are live-prices.js's split-field variants (see its comment) -- keeps the % and $ on
+  their existing separate lines instead of the combined "pct% ($dollar)" format ticker pages use. Row color stays
+  on the row's static daily direction (.mover-move-cell's up/down class), not re-colored live. -->
+  <!-- On archive.html (interactive=False), these data-live-* attributes are omitted entirely -- archive pages
+  don't load live-prices.js, so there's nothing to wire up. -->
   <span class="mover-note">{{NOTE}}</span>
   <div class="scorecard" hidden>{{SIGNAL SCORECARD CHIPS -- see rule 12}}</div>
   <!-- scorecard is a sibling of mover-note, NOT nested inside it -- with

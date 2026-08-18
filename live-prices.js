@@ -23,10 +23,14 @@ var LIVE_PRICE_API = "https://barnyard-live-prices.nathanbarnard29.workers.dev";
   function fmtTickerPrice(n) {
     return "$" + n.toFixed(2);
   }
+  function fmtPctSigned(pct) {
+    return (pct >= 0 ? "+" : "") + pct.toFixed(2) + "%";
+  }
+  function fmtDollarSigned(change) {
+    return "$" + (change >= 0 ? "+" : "") + change.toFixed(2);
+  }
   function fmtTickerChange(pct, change) {
-    var pctText = (pct >= 0 ? "+" : "") + pct.toFixed(2) + "%";
-    var dollarText = "$" + (change >= 0 ? "+" : "") + change.toFixed(2);
-    return pctText + " (" + dollarText + ")";
+    return fmtPctSigned(pct) + " (" + fmtDollarSigned(change) + ")";
   }
 
   function cssAttrEscape(value) {
@@ -47,6 +51,15 @@ var LIVE_PRICE_API = "https://barnyard-live-prices.nathanbarnard29.workers.dev";
           : fmtTickerChange(quote.changePercent, quote.change);
         el.classList.remove("up", "down");
         el.classList.add(quote.changePercent >= 0 ? "up" : "down");
+      } else if (field === "change_pct") {
+        // Notable Movers rows split % and $ onto two lines (see
+        // .mover-move-abs in template.html) instead of the combined
+        // "pct% ($dollar)" format ticker pages use -- color stays on the
+        // row's static daily direction (.mover-move-cell), not re-colored
+        // live, matching that table's existing design.
+        el.textContent = fmtPctSigned(quote.changePercent);
+      } else if (field === "change_abs") {
+        el.textContent = "(" + fmtDollarSigned(quote.change) + ")";
       } else if (field === "dot") {
         el.classList.add("live-ok");
         el.title = "Live \u2014 updated " + new Date().toLocaleTimeString();
