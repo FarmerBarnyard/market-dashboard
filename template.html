@@ -334,6 +334,16 @@
     border:1px solid var(--border);border-radius:3px;padding:6px 8px;font-family:var(--mono);
     font-size:.72rem;line-height:1.5;color:var(--text);white-space:nowrap;z-index:5;box-shadow:0 2px 8px rgba(0,0,0,.4);}
   .candle-tooltip .date{color:var(--text-dim);font-size:.66rem;margin-bottom:2px;}
+  /* Live price ticking -- live-prices.js polls the Cloudflare Worker proxy
+     (ClaudeRepo/cloudflare-worker) every ~15s and patches any
+     [data-live-symbol] element in place; see render_index_card_body / the
+     ticker-strip loop / build_ticker_page in render_dashboard.py for where
+     these attributes get added. Inert if the worker isn't reachable -- the
+     page just keeps showing the last static render. */
+  .live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--text-dim);margin-left:6px;vertical-align:middle;}
+  .live-dot.live-ok{background:var(--up);animation:live-pulse 1.6s ease-in-out infinite;}
+  @keyframes live-pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  @media (prefers-reduced-motion: reduce){.live-dot.live-ok{animation:none;}}
   .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
   /* Condensed by default to MOVERS_VISIBLE_COUNT (10) rows -- keep the
      n+11 here in sync with render_dashboard.py's MOVERS_VISIBLE_COUNT.
@@ -388,10 +398,10 @@
 <div class="ticker-wrap">
   <div class="ticker-track" id="tickerTrack">
     <!-- SECTION:TICKER_STRIP:START -->
-    <span class="ticker-item">NASDAQ <strong>{{LEVEL}}</strong> <span class="up or down">{{WEEK_CHANGE_PCT}}</span></span>
-    <span class="ticker-item">ASX 200 <strong>{{LEVEL}}</strong> <span class="up or down">{{WEEK_CHANGE_PCT}}</span></span>
+    <span class="ticker-item">NASDAQ <strong class="live-price" data-live-field="price" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{LEVEL}}</strong> <span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{WEEK_CHANGE_PCT}}</span></span>
+    <span class="ticker-item">ASX 200 <strong class="live-price" data-live-field="price" data-live-index data-live-symbol="^AXJO" data-live-market="ASX">{{LEVEL}}</strong> <span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="^AXJO" data-live-market="ASX">{{WEEK_CHANGE_PCT}}</span></span>
     <span class="ticker-item"><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span>{{TICKER}}</a> <span class="up or down">{{MOVE_PCT}}</span></span>
-    <!-- one item per notable mover, same tickers as the Notable Movers list below; keep the move text short (just the headline %, not the full note) -->
+    <!-- one item per notable mover, same tickers as the Notable Movers list below; keep the move text short (just the headline %, not the full note). Only the two index items are wired for live ticking (data-live-*) -- per-mover items stay static between rebuilds, see render_dashboard.py's ticker-strip loop for the scoping rationale. -->
     <!-- SECTION:TICKER_STRIP:END -->
   </div>
 </div>
@@ -404,8 +414,8 @@
 <div class="card">
   {{OPTIONAL: <span class="flag flag-info">New proxy</span> -- see render_index_badge, only during a genuine QQQ proxy switch}}
   <div class="card-head"><strong>{{NASDAQ Composite, or "Nasdaq (via QQQ)" during a proxy switch -- see render_index_label}}:</strong> <span class="flag">{{OPTIONAL: WEEK CHANGE UNAVAILABLE -- see render_index_flag, only when there's no prior week on file}}</span> <canvas class="sparkline" id="sparkNasdaq" width="60" height="24"></canvas></div>
-  <div class="index-level">{{LEVEL}} <span class="meta index-asof">({{AS_OF}})</span></div>
-  <div class="index-change up or down">{{▲ or ▼}} {{DAY_CHANGE}} today</div>
+  <div class="index-level"><span class="live-price" data-live-field="price" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{LEVEL}}</span> <span class="meta index-asof">({{AS_OF}})</span> <span class="live-dot" data-live-field="dot" data-live-symbol="QQQ" data-live-market="NASDAQ" title="Live price"></span></div>
+  <div class="index-change"><span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{▲ or ▼}} {{DAY_CHANGE}}</span> today</div>
   {{OPTIONAL: <div class="index-week">Week-to-date: <span class="up or down">{{WEEK_CHANGE_PCT}}</span> ({{WEEK_CHANGE_PTS}} pts)</div> -- omitted when no prior week is comparable}}
   <p class="index-summary">{{DRIVER_SUMMARY, or the PROXY_SWITCH_NOTE during a proxy switch -- see render_index_card_body}}</p>
 </div>
@@ -414,8 +424,8 @@
 <!-- SECTION:ASX_CARD:START -->
 <div class="card">
   <div class="card-head"><strong>S&P/ASX 200:</strong> <span class="flag">{{OPTIONAL: WEEK CHANGE UNAVAILABLE -- see render_index_flag}}</span> <canvas class="sparkline" id="sparkAsx" width="60" height="24"></canvas></div>
-  <div class="index-level">{{LEVEL}} <span class="meta index-asof">({{AS_OF}})</span></div>
-  <div class="index-change up or down">{{▲ or ▼}} {{DAY_CHANGE}} today</div>
+  <div class="index-level"><span class="live-price" data-live-field="price" data-live-index data-live-symbol="^AXJO" data-live-market="ASX">{{LEVEL}}</span> <span class="meta index-asof">({{AS_OF}})</span> <span class="live-dot" data-live-field="dot" data-live-symbol="^AXJO" data-live-market="ASX" title="Live price"></span></div>
+  <div class="index-change"><span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="^AXJO" data-live-market="ASX">{{▲ or ▼}} {{DAY_CHANGE}}</span> today</div>
   {{OPTIONAL: <div class="index-week">Week-to-date: <span class="up or down">{{WEEK_CHANGE_PCT}}</span> ({{WEEK_CHANGE_PTS}} pts)</div>}}
   <p class="index-summary">{{DRIVER_SUMMARY}}</p>
 </div>
@@ -550,6 +560,8 @@ this button's click adds .expanded to the <ol>. -->
 <footer>
   Generated from the weekly market-review to analyst-consensus cross-reference to watchlist pipeline. Source data and full detail live in a private data repo (access-restricted). NOT INVESTMENT ADVICE - this page is a factual summary of market data and publicly published third-party (Finnhub) analyst-consensus ratings, independently cross-checked. No buy, sell, or hold recommendation is made or implied. Always do your own research and/or consult a licensed financial adviser.
 </footer>
+
+<script src="live-prices.js"></script>
 
 <script>
 (function(){
@@ -888,7 +900,7 @@ this button's click adds .expanded to the <ol>. -->
 
   <h2>This Week</h2>
   <div class="card">
-    Price: {{PRICE}} ({{AS_OF_DATE}}), <span class="up or down">{{DAY_OR_WEEK_MOVE}}</span>.<br>
+    Price: <span class="live-price" data-live-field="price" data-live-symbol="{{TICKER}}" data-live-market="{{MARKET}}">{{PRICE}}</span> ({{AS_OF_DATE}}), <span class="up or down live-price" data-live-field="change" data-live-symbol="{{TICKER}}" data-live-market="{{MARKET}}">{{DAY_OR_WEEK_MOVE}}</span> <span class="live-dot" data-live-field="dot" data-live-symbol="{{TICKER}}" data-live-market="{{MARKET}}" title="Live price"></span>.<br>
     {{RATING}} - only if Finnhub analyst-consensus rating data exists for
     this ticker; omit the line entirely if not.<br>
     Watchlists: {{comma-separated list of "Mid-Term"/"Long-Term"/"Dividends"
@@ -929,6 +941,12 @@ this button's click adds .expanded to the <ol>. -->
   <p class="meta" id="tickerCandleFallback" style="display:none;">No 3-month price history available for this ticker this run.</p>
 
   <footer>...(same footer)...</footer>
+
+  <script src="../live-prices.js"></script>
+  <!-- Same live-price polling script as the main page, one directory up.
+  Ticks the Price/change spans above via their data-live-symbol/
+  data-live-market attributes (market: "NASDAQ" or "ASX", from
+  entry["market"] in tickers.json -- not the currency, not lowercase). -->
 
   <script>
   // Reuse the SAME drawSparkline/line-chart canvas logic as the main page's
