@@ -325,8 +325,12 @@
   .mover-move-cell.up .mover-move-value{color:var(--up);}
   .mover-move-cell.down .mover-move-value{color:var(--down);}
   /* $ change sits on its own line under the % -- keeps both readable
-     without overflowing the cell's fixed 170px width. */
-  .mover-move-abs{position:relative;display:block;font-size:.68rem;font-weight:400;color:var(--text-dim);margin-top:1px;}
+     without overflowing the cell's fixed 170px width. Bold and colored by
+     direction (not a dim muted sub-line) so it reads as equally important
+     as the % above it, not an afterthought. */
+  .mover-move-abs{position:relative;display:block;font-size:.8rem;font-weight:700;margin-top:1px;}
+  .mover-move-cell.up .mover-move-abs{color:var(--up);}
+  .mover-move-cell.down .mover-move-abs{color:var(--down);}
   /* Candlestick chart hover tooltip -- see tickerCandleChart's mousemove
      handler in render_dashboard.py's build_ticker_page. */
   .candle-chart-wrap{position:relative;}
@@ -749,25 +753,25 @@
 <table id="midterm-table">
 <thead><tr><th>Ticker</th><th>Rating</th><th>Fair value vs price</th><th>Notes</th></tr></thead>
 <tbody>
-<tr><td><a class="ticker-link" href="../SNDK/"><span class="ticker-badge">SN</span>SNDK</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 1786.85</td><td>26 buy / 5 hold / 0 sell; move aligns with consensus</td></tr>
-<tr><td><a class="ticker-link" href="../TER/"><span class="ticker-badge">TE</span>TER</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 443.14</td><td>17 buy / 5 hold / 0 sell; move aligns with consensus</td></tr>
-<tr><td><a class="ticker-link" href="../AMAT/"><span class="ticker-badge">AM</span>AMAT</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 535.31</td><td>39 buy / 6 hold / 0 sell; move aligns with consensus</td></tr>
-<tr><td><a class="ticker-link" href="../MRVL/"><span class="ticker-badge">MR</span>MRVL</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 234.33</td><td>42 buy / 7 hold / 0 sell; move aligns with consensus</td></tr>
-<tr><td><a class="ticker-link" href="../WDC/"><span class="ticker-badge">WD</span>WDC</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 536.01</td><td>25 buy / 5 hold / 0 sell; move aligns with consensus</td></tr>
-<tr><td><a class="ticker-link" href="../MSTR/"><span class="ticker-badge">MS</span>MSTR</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 97.68</td><td>23 buy / 3 hold / 0 sell; move aligns with consensus</td></tr>
-<tr><td><a class="ticker-link" href="../LITE/"><span class="ticker-badge">LI</span>LITE</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 968.9</td><td>28 buy / 5 hold / 0 sell; move aligns with consensus</td></tr>
-<tr><td><a class="ticker-link" href="../SPCX/"><span class="ticker-badge">SP</span>SPCX</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 146.23</td><td>32 buy / 7 hold / 1 sell; move aligns with consensus</td></tr>
-<tr><td><a class="ticker-link" href="../MU/"><span class="ticker-badge">MU</span>MU</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 1011.75</td><td>51 buy / 4 hold / 1 sell; move aligns with consensus</td></tr>
-<tr><td><a class="ticker-link" href="../LRCX/"><span class="ticker-badge">LR</span>LRCX</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 343.84</td><td>35 buy / 6 hold / 0 sell; move aligns with consensus</td></tr>
-<tr><td><a class="ticker-link" href="../TRI/"><span class="ticker-badge">TR</span>TRI</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 99.06</td><td>16 buy / 6 hold / 0 sell; move diverges from consensus</td></tr>
-<tr><td><a class="ticker-link" href="../ROST/"><span class="ticker-badge">RO</span>ROST</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 235.28</td><td>19 buy / 7 hold / 0 sell; move diverges from consensus</td></tr>
-<tr><td><a class="ticker-link" href="../ADSK/"><span class="ticker-badge">AD</span>ADSK</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 241.64</td><td>37 buy / 5 hold / 0 sell; move diverges from consensus</td></tr>
-<tr><td><a class="ticker-link" href="../WDAY/"><span class="ticker-badge">WD</span>WDAY</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 191.18</td><td>29 buy / 18 hold / 2 sell; move diverges from consensus</td></tr>
-<tr><td><a class="ticker-link" href="../KDP/"><span class="ticker-badge">KD</span>KDP</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 30.28</td><td>14 buy / 9 hold / 0 sell; move diverges from consensus</td></tr>
-<tr><td><a class="ticker-link" href="../SHOP/"><span class="ticker-badge">SH</span>SHOP</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 148.65</td><td>42 buy / 10 hold / 1 sell; move diverges from consensus</td></tr>
-<tr><td><a class="ticker-link" href="../META/"><span class="ticker-badge">ME</span>META</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 568.97</td><td>62 buy / 9 hold / 0 sell; move diverges from consensus</td></tr>
-<tr><td><a class="ticker-link" href="../BKNG/"><span class="ticker-badge">BK</span>BKNG</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 204.76</td><td>38 buy / 8 hold / 0 sell; move diverges from consensus</td></tr>
-<tr><td><a class="ticker-link" href="../DDOG/"><span class="ticker-badge">DD</span>DDOG</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 247.32</td><td>51 buy / 4 hold / 1 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../SNDK/"><span class="ticker-badge">SN</span>SNDK</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 1645.98</td><td>26 buy / 5 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../TER/"><span class="ticker-badge">TE</span>TER</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 401.45</td><td>17 buy / 5 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../AMAT/"><span class="ticker-badge">AM</span>AMAT</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 506.225</td><td>39 buy / 6 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../MRVL/"><span class="ticker-badge">MR</span>MRVL</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 215.16</td><td>42 buy / 7 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../WDC/"><span class="ticker-badge">WD</span>WDC</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 497.33</td><td>25 buy / 5 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../MSTR/"><span class="ticker-badge">MS</span>MSTR</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 95.49</td><td>23 buy / 3 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../LITE/"><span class="ticker-badge">LI</span>LITE</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 879.128</td><td>28 buy / 5 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../SPCX/"><span class="ticker-badge">SP</span>SPCX</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 142.18</td><td>32 buy / 7 hold / 1 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../MU/"><span class="ticker-badge">MU</span>MU</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 942.25</td><td>51 buy / 4 hold / 1 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../LRCX/"><span class="ticker-badge">LR</span>LRCX</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 321.815</td><td>35 buy / 6 hold / 0 sell; move aligns with consensus</td></tr>
+<tr><td><a class="ticker-link" href="../TRI/"><span class="ticker-badge">TR</span>TRI</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 101.15</td><td>16 buy / 6 hold / 0 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../ROST/"><span class="ticker-badge">RO</span>ROST</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 237.83</td><td>19 buy / 7 hold / 0 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../ADSK/"><span class="ticker-badge">AD</span>ADSK</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 248.97</td><td>37 buy / 5 hold / 0 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../WDAY/"><span class="ticker-badge">WD</span>WDAY</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 193.085</td><td>29 buy / 18 hold / 2 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../KDP/"><span class="ticker-badge">KD</span>KDP</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 30.745</td><td>14 buy / 9 hold / 0 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../SHOP/"><span class="ticker-badge">SH</span>SHOP</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 148.035</td><td>42 buy / 10 hold / 1 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../META/"><span class="ticker-badge">ME</span>META</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 553.833</td><td>62 buy / 9 hold / 0 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../BKNG/"><span class="ticker-badge">BK</span>BKNG</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 211.22</td><td>38 buy / 8 hold / 0 sell; move diverges from consensus</td></tr>
+<tr><td><a class="ticker-link" href="../DDOG/"><span class="ticker-badge">DD</span>DDOG</a></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 247.69</td><td>51 buy / 4 hold / 1 sell; move diverges from consensus</td></tr>
 </tbody>
 </table>
 <h2>Watchlist - Long-Term (3+ years)</h2>
@@ -776,13 +780,13 @@
 <table id="dividends-table">
 <thead><tr><th>Ticker</th><th>Yield</th><th>Payout history</th><th>Notes</th></tr></thead>
 <tbody>
-<tr><td><a class="ticker-link" href="../TRI/"><span class="ticker-badge">TR</span>TRI</a></td><td>3.97%</td><td>5 payments in trailing 12mo (Yahoo data)</td><td>Verified via Yahoo Finance (free)</td></tr>
-<tr><td><a class="ticker-link" href="../KDP/"><span class="ticker-badge">KD</span>KDP</a></td><td>3.04%</td><td>4 payments in trailing 12mo (Yahoo data)</td><td>Verified via Yahoo Finance (free)</td></tr>
-<tr><td><a class="ticker-link" href="../CSL/"><span class="ticker-badge">CS</span>CSL</a></td><td>2.71%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
-<tr><td><a class="ticker-link" href="../COH/"><span class="ticker-badge">CO</span>COH</a></td><td>3.07%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
-<tr><td><a class="ticker-link" href="../DRR/"><span class="ticker-badge">DR</span>DRR</a></td><td>5.79%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
-<tr><td><a class="ticker-link" href="../BEN/"><span class="ticker-badge">BE</span>BEN</a></td><td>6.19%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
-<tr><td><a class="ticker-link" href="../GPT/"><span class="ticker-badge">GP</span>GPT</a></td><td>4.96%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../TRI/"><span class="ticker-badge">TR</span>TRI</a></td><td>3.89%</td><td>5 payments in trailing 12mo (Yahoo data)</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../KDP/"><span class="ticker-badge">KD</span>KDP</a></td><td>2.99%</td><td>4 payments in trailing 12mo (Yahoo data)</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../CSL/"><span class="ticker-badge">CS</span>CSL</a></td><td>2.7%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../COH/"><span class="ticker-badge">CO</span>COH</a></td><td>3.05%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../DRR/"><span class="ticker-badge">DR</span>DRR</a></td><td>5.84%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../BEN/"><span class="ticker-badge">BE</span>BEN</a></td><td>5.97%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
+<tr><td><a class="ticker-link" href="../GPT/"><span class="ticker-badge">GP</span>GPT</a></td><td>5.05%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)</td></tr>
 </tbody>
 </table>
 

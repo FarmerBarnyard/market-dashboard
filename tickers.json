@@ -237,7 +237,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 443.14,
+        "price": 401.45,
         "currency": "USD",
         "move_pct": 5.81,
         "move_points": 24.35,
@@ -249,7 +249,7 @@
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$106.3-$487.91",
-        "dividend_yield": "0.11%"
+        "dividend_yield": "0.12%"
       }
     ]
   },
@@ -415,7 +415,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 1.25,
+        "price": 1.205,
         "currency": "AUD",
         "move_pct": -4.62,
         "move_points": -0.06,
@@ -567,7 +567,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 4.97,
+        "price": 4.93,
         "currency": "AUD",
         "move_pct": -3.24,
         "move_points": -0.17,
@@ -641,7 +641,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 1011.75,
+        "price": 942.25,
         "currency": "USD",
         "move_pct": 4.13,
         "move_points": 40.09,
@@ -653,7 +653,7 @@
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$113.46-$1255.0",
-        "dividend_yield": "0.05%"
+        "dividend_yield": "0.06%"
       }
     ]
   },
@@ -1277,7 +1277,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 568.97,
+        "price": 553.833,
         "currency": "USD",
         "move_pct": -3.54,
         "move_points": -20.88,
@@ -1289,7 +1289,7 @@
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$520.26-$790.8",
-        "dividend_yield": "0.37%"
+        "dividend_yield": "0.38%"
       }
     ]
   },
@@ -1526,7 +1526,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 968.9,
+        "price": 879.128,
         "currency": "USD",
         "move_pct": 4.62,
         "move_points": 42.76,
@@ -1649,7 +1649,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 234.33,
+        "price": 215.16,
         "currency": "USD",
         "move_pct": 5.54,
         "move_points": 12.31,
@@ -1661,7 +1661,7 @@
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$61.44-$329.88",
-        "dividend_yield": "0.1%"
+        "dividend_yield": "0.11%"
       }
     ]
   },
@@ -1836,7 +1836,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 536.01,
+        "price": 497.33,
         "currency": "USD",
         "move_pct": 5.35,
         "move_points": 27.21,
@@ -1848,7 +1848,7 @@
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$73.14-$799.87",
-        "dividend_yield": "0.09%"
+        "dividend_yield": "0.1%"
       }
     ]
   },
@@ -2101,7 +2101,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 1786.85,
+        "price": 1645.98,
         "currency": "USD",
         "move_pct": 8.88,
         "move_points": 145.74,
@@ -2177,7 +2177,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 97.68,
+        "price": 95.49,
         "currency": "USD",
         "move_pct": 4.99,
         "move_points": 4.64,
@@ -2252,7 +2252,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 148.65,
+        "price": 148.035,
         "currency": "USD",
         "move_pct": -3.67,
         "move_points": -5.67,
@@ -2392,7 +2392,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 146.23,
+        "price": 142.18,
         "currency": "USD",
         "move_pct": 4.45,
         "move_points": 6.23,
@@ -2968,7 +2968,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 343.84,
+        "price": 321.815,
         "currency": "USD",
         "move_pct": 3.45,
         "move_points": 11.48,
@@ -2980,7 +2980,7 @@
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$94.11-$438.5",
-        "dividend_yield": "0.3%"
+        "dividend_yield": "0.32%"
       }
     ]
   },
@@ -3070,7 +3070,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 30.28,
+        "price": 30.745,
         "currency": "USD",
         "move_pct": -3.69,
         "move_points": -1.16,
@@ -3083,7 +3083,7 @@
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$24.88-$35.94",
-        "dividend_yield": "3.04%"
+        "dividend_yield": "2.99%"
       }
     ]
   },
@@ -3304,7 +3304,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 1.515,
+        "price": 1.495,
         "currency": "AUD",
         "move_pct": 4.19,
         "move_points": 0.06,
@@ -3423,7 +3423,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 2.58,
+        "price": 2.52,
         "currency": "AUD",
         "move_pct": -3.89,
         "move_points": -0.1,
@@ -3582,7 +3582,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 10.805,
+        "price": 10.74,
         "currency": "AUD",
         "move_pct": 3.65,
         "move_points": 0.38,
@@ -3696,7 +3696,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 15.28,
+        "price": 15.3,
         "currency": "AUD",
         "move_pct": 3.79,
         "move_points": 0.56,
@@ -4526,7 +4526,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 157.22,
+        "price": 157.82,
         "currency": "AUD",
         "move_pct": 16.54,
         "move_points": 22.26,
@@ -4537,8 +4537,8 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$90.0-$273.45",
-        "dividend_yield": "2.71%"
+        "pe_trailing": "$90.0-$257.0",
+        "dividend_yield": "2.7%"
       }
     ]
   },
@@ -4978,7 +4978,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 23.25,
+        "price": 22.49,
         "currency": "AUD",
         "move_pct": -4.49,
         "move_points": -1.1,
@@ -5180,7 +5180,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 99.06,
+        "price": 101.15,
         "currency": "USD",
         "move_pct": -4.39,
         "move_points": -4.55,
@@ -5193,7 +5193,7 @@
         "note": "5 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$76.28-$180.0",
-        "dividend_yield": "3.97%"
+        "dividend_yield": "3.89%"
       }
     ]
   },
@@ -5610,7 +5610,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 235.28,
+        "price": 237.83,
         "currency": "USD",
         "move_pct": -4.11,
         "move_points": -10.08,
@@ -5622,7 +5622,7 @@
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$143.39-$257.0",
-        "dividend_yield": "0.72%"
+        "dividend_yield": "0.71%"
       }
     ]
   },
@@ -6008,7 +6008,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 134.17,
+        "price": 133.25,
         "currency": "AUD",
         "move_pct": -3.37,
         "move_points": -4.65,
@@ -6098,7 +6098,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 3.62,
+        "price": 3.75,
         "currency": "AUD",
         "move_pct": -4.61,
         "move_points": -0.17,
@@ -6108,7 +6108,7 @@
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$2.87-$4.59",
-        "dividend_yield": "0.75%"
+        "dividend_yield": "0.73%"
       }
     ]
   },
@@ -6271,7 +6271,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 198.78,
+        "price": 196.75,
         "currency": "AUD",
         "move_pct": 8.57,
         "move_points": 15.06,
@@ -6280,8 +6280,8 @@
         "lists": [],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$107.75-$324.49",
-        "dividend_yield": "0.31%"
+        "pe_trailing": "$107.75-$321.57",
+        "dividend_yield": "0.32%"
       }
     ]
   },
@@ -6350,7 +6350,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 1.235,
+        "price": 1.21,
         "currency": "AUD",
         "move_pct": 7.59,
         "move_points": 0.09,
@@ -6360,7 +6360,7 @@
         "note": "Only 1 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$0.645-$1.3",
-        "dividend_yield": "0.81%"
+        "dividend_yield": "0.83%"
       }
     ]
   },
@@ -6556,7 +6556,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 140.23,
+        "price": 141.2,
         "currency": "AUD",
         "move_pct": 5.78,
         "move_points": 7.59,
@@ -6567,8 +6567,8 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$88.74-$311.99",
-        "dividend_yield": "3.07%"
+        "pe_trailing": "$88.74-$304.94",
+        "dividend_yield": "3.05%"
       }
     ]
   },
@@ -6805,7 +6805,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 204.76,
+        "price": 211.22,
         "currency": "USD",
         "move_pct": -3.44,
         "move_points": -7.3,
@@ -6817,7 +6817,7 @@
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$150.14-$231.8",
-        "dividend_yield": "0.79%"
+        "dividend_yield": "0.76%"
       }
     ]
   },
@@ -6983,7 +6983,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 241.64,
+        "price": 248.97,
         "currency": "USD",
         "move_pct": -3.98,
         "move_points": -10.02,
@@ -7432,7 +7432,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 22.52,
+        "price": 22.97,
         "currency": "AUD",
         "move_pct": -13.09,
         "move_points": -3.38,
@@ -7442,7 +7442,7 @@
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$13.04-$31.81",
-        "dividend_yield": "1.2%"
+        "dividend_yield": "1.18%"
       }
     ]
   },
@@ -7525,7 +7525,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 31.01,
+        "price": 30.47,
         "currency": "AUD",
         "move_pct": 3.58,
         "move_points": 1.06,
@@ -7535,7 +7535,7 @@
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$24.56-$37.31",
-        "dividend_yield": "0.97%"
+        "dividend_yield": "0.98%"
       }
     ]
   },
@@ -7925,7 +7925,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 247.32,
+        "price": 247.69,
         "currency": "USD",
         "move_pct": -3.19,
         "move_points": -8.14,
@@ -8267,7 +8267,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 78.73,
+        "price": 79.94,
         "currency": "AUD",
         "move_pct": -5.4,
         "move_points": -4.65,
@@ -8277,7 +8277,7 @@
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$68.7-$122.03",
-        "dividend_yield": "0.86%"
+        "dividend_yield": "0.85%"
       }
     ]
   },
@@ -8485,7 +8485,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 4.48,
+        "price": 4.5,
         "currency": "AUD",
         "move_pct": 23.82,
         "move_points": 0.86,
@@ -8494,8 +8494,8 @@
         "lists": [],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$2.86-$4.62",
-        "dividend_yield": "1.49%"
+        "pe_trailing": "$2.86-$4.53",
+        "dividend_yield": "1.48%"
       }
     ]
   },
@@ -8629,7 +8629,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 191.18,
+        "price": 193.085,
         "currency": "USD",
         "move_pct": -3.77,
         "move_points": -7.5,
@@ -8868,7 +8868,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 10.18,
+        "price": 10.56,
         "currency": "AUD",
         "move_pct": -6.73,
         "move_points": -0.75,
@@ -8880,7 +8880,7 @@
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$9.81-$13.73",
-        "dividend_yield": "6.19%"
+        "dividend_yield": "5.97%"
       }
     ]
   },
@@ -9176,7 +9176,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 254.04,
+        "price": 263.96,
         "currency": "USD",
         "move_pct": -3.78,
         "move_points": -9.98,
@@ -9446,7 +9446,7 @@
       },
       {
         "date": "2026-08-18",
-        "price": 535.31,
+        "price": 506.225,
         "currency": "USD",
         "move_pct": 5.55,
         "move_points": 28.13,
@@ -9458,7 +9458,7 @@
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$154.47-$739.67",
-        "dividend_yield": "0.36%"
+        "dividend_yield": "0.38%"
       }
     ]
   },
@@ -9715,7 +9715,7 @@
     "history": [
       {
         "date": "2026-08-18",
-        "price": 4.385,
+        "price": 4.35,
         "currency": "AUD",
         "move_pct": 3.55,
         "move_points": 0.15,
@@ -9727,7 +9727,7 @@
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$3.67-$4.78",
-        "dividend_yield": "5.79%"
+        "dividend_yield": "5.84%"
       }
     ]
   },
@@ -9738,7 +9738,7 @@
     "history": [
       {
         "date": "2026-08-18",
-        "price": 4.89,
+        "price": 4.8,
         "currency": "AUD",
         "move_pct": -3.2,
         "move_points": -0.16,
@@ -9750,7 +9750,7 @@
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
         "pe_trailing": "$4.42-$5.75",
-        "dividend_yield": "4.96%"
+        "dividend_yield": "5.05%"
       }
     ]
   }
