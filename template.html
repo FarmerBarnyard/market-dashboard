@@ -769,7 +769,18 @@ this button's click adds .expanded to the <ol>. -->
       ctx.beginPath(); ctx.arc(cssW / 2, cssH / 2, 2, 0, 7); ctx.fill();
       return;
     }
-    var min = Math.min.apply(null, series), max = Math.max.apply(null, series);
+    // Filter to finite numbers before computing min/max -- a missing
+    // week-change key (see data.json's schema rule 5: omitted, not null,
+    // when there's no qualifying prior week) maps through Array#map to
+    // `undefined`, and Math.min/Math.max return NaN if ANY argument is
+    // non-numeric. That NaN silently propagates through `range = (max -
+    // min) || 1` (NaN is falsy, so the `|| 1` fallback never fires) and
+    // every plotted point becomes NaN, which canvas draw calls silently
+    // no-op on -- a fully blank sparkline with no error and no fallback
+    // message, rather than just an odd-looking one.
+    var finiteSeries = series.filter(function(v){ return typeof v === "number" && isFinite(v); });
+    if (!finiteSeries.length) return;
+    var min = Math.min.apply(null, finiteSeries), max = Math.max.apply(null, finiteSeries);
     var range = (max - min) || 1;
     function x(i){ return pad + (i / (series.length - 1)) * (cssW - pad * 2); }
     function y(v){ return cssH - pad - ((v - min) / range) * (cssH - pad * 2); }
@@ -804,7 +815,12 @@ this button's click adds .expanded to the <ol>. -->
     canvas.width = w * devicePixelRatio; canvas.height = h * devicePixelRatio;
     ctx.scale(devicePixelRatio, devicePixelRatio);
     var pad = 36;
-    var all = nasdaq.concat(asx);
+    // Filter to finite numbers before computing min/max -- see
+    // drawSparkline's matching comment above for why a missing week-change
+    // key (mapped through Array#map to `undefined`) would otherwise make
+    // Math.min/Math.max return NaN, silently blanking the whole chart with
+    // no error and no fallback message.
+    var all = nasdaq.concat(asx).filter(function(v){ return typeof v === "number" && isFinite(v); });
     var min = Math.min.apply(null, all.concat([0])), max = Math.max.apply(null, all.concat([0]));
     var range = (max - min) || 1;
     function x(i){ return pad + (i / (data.length - 1)) * (w - pad * 2); }
