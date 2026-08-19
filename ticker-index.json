@@ -1,0 +1,938 @@
+{
+  "MSFT": {
+    "name": "Microsoft Corporation",
+    "market": "NASDAQ"
+  },
+  "AAPL": {
+    "name": "Apple Inc.",
+    "market": "NASDAQ"
+  },
+  "AMD": {
+    "name": "Advanced Micro Devices, Inc.",
+    "market": "NASDAQ"
+  },
+  "TER": {
+    "name": "Teradyne, Inc.",
+    "market": "NASDAQ"
+  },
+  "WTC": {
+    "name": "WiseTech Global Limited",
+    "market": "ASX"
+  },
+  "LTR": {
+    "name": "Liontown Resources Limited",
+    "market": "ASX"
+  },
+  "WDS": {
+    "name": "Woodside Energy Group Ltd",
+    "market": "ASX"
+  },
+  "BHP": {
+    "name": "BHP Group Limited",
+    "market": "ASX"
+  },
+  "MIN": {
+    "name": "Mineral Resources Limited",
+    "market": "ASX"
+  },
+  "PLS": {
+    "name": "PLS Group Limited (formerly Pilbara Minerals)",
+    "market": "ASX"
+  },
+  "MU": {
+    "name": "Micron Technology, Inc.",
+    "market": "NASDAQ"
+  },
+  "ELUT": {
+    "name": "Elutia Inc.",
+    "market": "NASDAQ"
+  },
+  "RNXT": {
+    "name": "RenovoRx, Inc.",
+    "market": "NASDAQ"
+  },
+  "AMZN": {
+    "name": "Amazon.com, Inc.",
+    "market": "NASDAQ"
+  },
+  "DXCM": {
+    "name": "DexCom, Inc.",
+    "market": "NASDAQ"
+  },
+  "MP1": {
+    "name": "Megaport Limited",
+    "market": "ASX"
+  },
+  "IPX": {
+    "name": "IperionX Limited",
+    "market": "ASX"
+  },
+  "MPWR": {
+    "name": "MPWR",
+    "market": "NASDAQ"
+  },
+  "GOOG": {
+    "name": "GOOG",
+    "market": "NASDAQ"
+  },
+  "GOOGL": {
+    "name": "GOOGL",
+    "market": "NASDAQ"
+  },
+  "FTNT": {
+    "name": "FTNT",
+    "market": "NASDAQ"
+  },
+  "SNPS": {
+    "name": "SNPS",
+    "market": "NASDAQ"
+  },
+  "ALAB": {
+    "name": "ALAB",
+    "market": "NASDAQ"
+  },
+  "REGN": {
+    "name": "REGN",
+    "market": "NASDAQ"
+  },
+  "META": {
+    "name": "META",
+    "market": "NASDAQ"
+  },
+  "WBD": {
+    "name": "WBD",
+    "market": "NASDAQ"
+  },
+  "CRWD": {
+    "name": "CRWD",
+    "market": "NASDAQ"
+  },
+  "LITE": {
+    "name": "LITE",
+    "market": "NASDAQ"
+  },
+  "NVDA": {
+    "name": "NVDA",
+    "market": "NASDAQ"
+  },
+  "MRVL": {
+    "name": "MRVL",
+    "market": "NASDAQ"
+  },
+  "ORLY": {
+    "name": "ORLY",
+    "market": "NASDAQ"
+  },
+  "FAST": {
+    "name": "FAST",
+    "market": "NASDAQ"
+  },
+  "WDC": {
+    "name": "WDC",
+    "market": "NASDAQ"
+  },
+  "CDNS": {
+    "name": "CDNS",
+    "market": "NASDAQ"
+  },
+  "NXPI": {
+    "name": "NXPI",
+    "market": "NASDAQ"
+  },
+  "LIN": {
+    "name": "LIN",
+    "market": "NASDAQ"
+  },
+  "SNDK": {
+    "name": "SNDK",
+    "market": "NASDAQ"
+  },
+  "MSTR": {
+    "name": "MSTR",
+    "market": "NASDAQ"
+  },
+  "SHOP": {
+    "name": "SHOP",
+    "market": "NASDAQ"
+  },
+  "SPCX": {
+    "name": "SPCX",
+    "market": "NASDAQ"
+  },
+  "CRWV": {
+    "name": "CRWV",
+    "market": "NASDAQ"
+  },
+  "GEHC": {
+    "name": "GEHC",
+    "market": "NASDAQ"
+  },
+  "QCOM": {
+    "name": "QCOM",
+    "market": "NASDAQ"
+  },
+  "CCEP": {
+    "name": "CCEP",
+    "market": "NASDAQ"
+  },
+  "KHC": {
+    "name": "KHC",
+    "market": "NASDAQ"
+  },
+  "NFLX": {
+    "name": "NFLX",
+    "market": "NASDAQ"
+  },
+  "APP": {
+    "name": "APP",
+    "market": "NASDAQ"
+  },
+  "TTWO": {
+    "name": "TTWO",
+    "market": "NASDAQ"
+  },
+  "LRCX": {
+    "name": "LRCX",
+    "market": "NASDAQ"
+  },
+  "CPRT": {
+    "name": "CPRT",
+    "market": "NASDAQ"
+  },
+  "KDP": {
+    "name": "KDP",
+    "market": "NASDAQ"
+  },
+  "4DX": {
+    "name": "4DX",
+    "market": "ASX"
+  },
+  "EOS": {
+    "name": "EOS",
+    "market": "ASX"
+  },
+  "DYL": {
+    "name": "DYL",
+    "market": "ASX"
+  },
+  "OBM": {
+    "name": "OBM",
+    "market": "ASX"
+  },
+  "ZIP": {
+    "name": "ZIP",
+    "market": "ASX"
+  },
+  "CSC": {
+    "name": "CSC",
+    "market": "ASX"
+  },
+  "PDN": {
+    "name": "PDN",
+    "market": "ASX"
+  },
+  "PNI": {
+    "name": "PNI",
+    "market": "ASX"
+  },
+  "NXG": {
+    "name": "NXG",
+    "market": "ASX"
+  },
+  "WAF": {
+    "name": "WAF",
+    "market": "ASX"
+  },
+  "ILU": {
+    "name": "ILU",
+    "market": "ASX"
+  },
+  "PDI": {
+    "name": "PDI",
+    "market": "ASX"
+  },
+  "AAI": {
+    "name": "AAI",
+    "market": "ASX"
+  },
+  "BGL": {
+    "name": "BGL",
+    "market": "ASX"
+  },
+  "NXT": {
+    "name": "NXT",
+    "market": "ASX"
+  },
+  "CDA": {
+    "name": "CDA",
+    "market": "ASX"
+  },
+  "ZIM": {
+    "name": "ZIM",
+    "market": "ASX"
+  },
+  "WGX": {
+    "name": "WGX",
+    "market": "ASX"
+  },
+  "NEM": {
+    "name": "NEM",
+    "market": "ASX"
+  },
+  "EMR": {
+    "name": "EMR",
+    "market": "ASX"
+  },
+  "GNE": {
+    "name": "GNE",
+    "market": "ASX"
+  },
+  "CIA": {
+    "name": "CIA",
+    "market": "ASX"
+  },
+  "RYM": {
+    "name": "RYM",
+    "market": "ASX"
+  },
+  "DRO": {
+    "name": "DRO",
+    "market": "ASX"
+  },
+  "SMR": {
+    "name": "SMR",
+    "market": "ASX"
+  },
+  "CSL": {
+    "name": "CSL",
+    "market": "ASX"
+  },
+  "NHC": {
+    "name": "NHC",
+    "market": "ASX"
+  },
+  "SHL": {
+    "name": "SHL",
+    "market": "ASX"
+  },
+  "WHC": {
+    "name": "WHC",
+    "market": "ASX"
+  },
+  "REA": {
+    "name": "REA",
+    "market": "ASX"
+  },
+  "AUB": {
+    "name": "AUB",
+    "market": "ASX"
+  },
+  "NWS": {
+    "name": "NWS",
+    "market": "ASX"
+  },
+  "A2M": {
+    "name": "A2M",
+    "market": "ASX"
+  },
+  "PMV": {
+    "name": "PMV",
+    "market": "ASX"
+  },
+  "QBE": {
+    "name": "QBE",
+    "market": "ASX"
+  },
+  "YAL": {
+    "name": "YAL",
+    "market": "ASX"
+  },
+  "XRO": {
+    "name": "XRO",
+    "market": "ASX"
+  },
+  "360": {
+    "name": "360",
+    "market": "ASX"
+  },
+  "PLTR": {
+    "name": "PLTR",
+    "market": "NASDAQ"
+  },
+  "ARM": {
+    "name": "ARM",
+    "market": "NASDAQ"
+  },
+  "INTC": {
+    "name": "INTC",
+    "market": "NASDAQ"
+  },
+  "TRI": {
+    "name": "TRI",
+    "market": "NASDAQ"
+  },
+  "MCHP": {
+    "name": "MCHP",
+    "market": "NASDAQ"
+  },
+  "KLAC": {
+    "name": "KLAC",
+    "market": "NASDAQ"
+  },
+  "AVGO": {
+    "name": "AVGO",
+    "market": "NASDAQ"
+  },
+  "NBIS": {
+    "name": "NBIS",
+    "market": "NASDAQ"
+  },
+  "FANG": {
+    "name": "FANG",
+    "market": "NASDAQ"
+  },
+  "CEG": {
+    "name": "CEG",
+    "market": "NASDAQ"
+  },
+  "ISRG": {
+    "name": "ISRG",
+    "market": "NASDAQ"
+  },
+  "ROST": {
+    "name": "ROST",
+    "market": "NASDAQ"
+  },
+  "COST": {
+    "name": "COST",
+    "market": "NASDAQ"
+  },
+  "ALNY": {
+    "name": "ALNY",
+    "market": "NASDAQ"
+  },
+  "MELI": {
+    "name": "MELI",
+    "market": "NASDAQ"
+  },
+  "ABNB": {
+    "name": "ABNB",
+    "market": "NASDAQ"
+  },
+  "MAR": {
+    "name": "MAR",
+    "market": "NASDAQ"
+  },
+  "PEP": {
+    "name": "PEP",
+    "market": "NASDAQ"
+  },
+  "CTAS": {
+    "name": "CTAS",
+    "market": "NASDAQ"
+  },
+  "EA": {
+    "name": "EA",
+    "market": "NASDAQ"
+  },
+  "AEP": {
+    "name": "AEP",
+    "market": "NASDAQ"
+  },
+  "LNW": {
+    "name": "LNW",
+    "market": "ASX"
+  },
+  "LYC": {
+    "name": "LYC",
+    "market": "ASX"
+  },
+  "GGP": {
+    "name": "GGP",
+    "market": "ASX"
+  },
+  "IMD": {
+    "name": "IMD",
+    "market": "ASX"
+  },
+  "VGN": {
+    "name": "VGN",
+    "market": "ASX"
+  },
+  "FRW": {
+    "name": "FRW",
+    "market": "ASX"
+  },
+  "ASB": {
+    "name": "ASB",
+    "market": "ASX"
+  },
+  "ALK": {
+    "name": "ALK",
+    "market": "ASX"
+  },
+  "PME": {
+    "name": "PME",
+    "market": "ASX"
+  },
+  "L1G": {
+    "name": "L1G",
+    "market": "ASX"
+  },
+  "CBA": {
+    "name": "CBA",
+    "market": "ASX"
+  },
+  "BPT": {
+    "name": "BPT",
+    "market": "ASX"
+  },
+  "CEN": {
+    "name": "CEN",
+    "market": "ASX"
+  },
+  "MEZ": {
+    "name": "MEZ",
+    "market": "ASX"
+  },
+  "APA": {
+    "name": "APA",
+    "market": "ASX"
+  },
+  "TLS": {
+    "name": "TLS",
+    "market": "ASX"
+  },
+  "COH": {
+    "name": "COH",
+    "market": "ASX"
+  },
+  "STO": {
+    "name": "STO",
+    "market": "ASX"
+  },
+  "NIC": {
+    "name": "NIC",
+    "market": "ASX"
+  },
+  "EDV": {
+    "name": "EDV",
+    "market": "ASX"
+  },
+  "TWE": {
+    "name": "TWE",
+    "market": "ASX"
+  },
+  "ORG": {
+    "name": "ORG",
+    "market": "ASX"
+  },
+  "ALX": {
+    "name": "ALX",
+    "market": "ASX"
+  },
+  "CLW": {
+    "name": "CLW",
+    "market": "ASX"
+  },
+  "TCL": {
+    "name": "TCL",
+    "market": "ASX"
+  },
+  "BKNG": {
+    "name": "BKNG",
+    "market": "NASDAQ"
+  },
+  "AMGN": {
+    "name": "AMGN",
+    "market": "NASDAQ"
+  },
+  "DASH": {
+    "name": "DASH",
+    "market": "NASDAQ"
+  },
+  "INTU": {
+    "name": "INTU",
+    "market": "NASDAQ"
+  },
+  "VRTX": {
+    "name": "VRTX",
+    "market": "NASDAQ"
+  },
+  "ADSK": {
+    "name": "ADSK",
+    "market": "NASDAQ"
+  },
+  "SBUX": {
+    "name": "SBUX",
+    "market": "NASDAQ"
+  },
+  "HONA": {
+    "name": "HONA",
+    "market": "NASDAQ"
+  },
+  "VAU": {
+    "name": "VAU",
+    "market": "ASX"
+  },
+  "GMD": {
+    "name": "GMD",
+    "market": "ASX"
+  },
+  "AMP": {
+    "name": "AMP",
+    "market": "ASX"
+  },
+  "EVN": {
+    "name": "EVN",
+    "market": "ASX"
+  },
+  "RRL": {
+    "name": "RRL",
+    "market": "ASX"
+  },
+  "NST": {
+    "name": "NST",
+    "market": "ASX"
+  },
+  "MSB": {
+    "name": "MSB",
+    "market": "ASX"
+  },
+  "RMS": {
+    "name": "RMS",
+    "market": "ASX"
+  },
+  "CYL": {
+    "name": "CYL",
+    "market": "ASX"
+  },
+  "SGM": {
+    "name": "SGM",
+    "market": "ASX"
+  },
+  "TUA": {
+    "name": "TUA",
+    "market": "ASX"
+  },
+  "GDG": {
+    "name": "GDG",
+    "market": "ASX"
+  },
+  "GMG": {
+    "name": "GMG",
+    "market": "ASX"
+  },
+  "IFT": {
+    "name": "IFT",
+    "market": "ASX"
+  },
+  "VNT": {
+    "name": "VNT",
+    "market": "ASX"
+  },
+  "AZJ": {
+    "name": "AZJ",
+    "market": "ASX"
+  },
+  "NWH": {
+    "name": "NWH",
+    "market": "ASX"
+  },
+  "TMUS": {
+    "name": "TMUS",
+    "market": "NASDAQ"
+  },
+  "PYPL": {
+    "name": "PYPL",
+    "market": "NASDAQ"
+  },
+  "STX": {
+    "name": "STX",
+    "market": "NASDAQ"
+  },
+  "BKR": {
+    "name": "BKR",
+    "market": "NASDAQ"
+  },
+  "CMCSA": {
+    "name": "CMCSA",
+    "market": "NASDAQ"
+  },
+  "PAYX": {
+    "name": "PAYX",
+    "market": "NASDAQ"
+  },
+  "ASML": {
+    "name": "ASML",
+    "market": "NASDAQ"
+  },
+  "DDOG": {
+    "name": "DDOG",
+    "market": "NASDAQ"
+  },
+  "AXON": {
+    "name": "AXON",
+    "market": "NASDAQ"
+  },
+  "HON": {
+    "name": "HON",
+    "market": "NASDAQ"
+  },
+  "ODFL": {
+    "name": "ODFL",
+    "market": "NASDAQ"
+  },
+  "FER": {
+    "name": "FER",
+    "market": "NASDAQ"
+  },
+  "TLX": {
+    "name": "TLX",
+    "market": "ASX"
+  },
+  "JHX": {
+    "name": "JHX",
+    "market": "ASX"
+  },
+  "CMM": {
+    "name": "CMM",
+    "market": "ASX"
+  },
+  "CQR": {
+    "name": "CQR",
+    "market": "ASX"
+  },
+  "RMD": {
+    "name": "RMD",
+    "market": "ASX"
+  },
+  "HUB": {
+    "name": "HUB",
+    "market": "ASX"
+  },
+  "ASX": {
+    "name": "ASX",
+    "market": "ASX"
+  },
+  "NWL": {
+    "name": "NWL",
+    "market": "ASX"
+  },
+  "AMC": {
+    "name": "AMC",
+    "market": "ASX"
+  },
+  "EBO": {
+    "name": "EBO",
+    "market": "ASX"
+  },
+  "NAB": {
+    "name": "NAB",
+    "market": "ASX"
+  },
+  "SPK": {
+    "name": "SPK",
+    "market": "ASX"
+  },
+  "WBC": {
+    "name": "WBC",
+    "market": "ASX"
+  },
+  "RWC": {
+    "name": "RWC",
+    "market": "ASX"
+  },
+  "AIA": {
+    "name": "AIA",
+    "market": "ASX"
+  },
+  "COL": {
+    "name": "COL",
+    "market": "ASX"
+  },
+  "RKLB": {
+    "name": "RKLB",
+    "market": "NASDAQ"
+  },
+  "WDAY": {
+    "name": "WDAY",
+    "market": "NASDAQ"
+  },
+  "ADI": {
+    "name": "ADI",
+    "market": "NASDAQ"
+  },
+  "MNST": {
+    "name": "MNST",
+    "market": "NASDAQ"
+  },
+  "CSX": {
+    "name": "CSX",
+    "market": "NASDAQ"
+  },
+  "ADP": {
+    "name": "ADP",
+    "market": "NASDAQ"
+  },
+  "IDXX": {
+    "name": "IDXX",
+    "market": "NASDAQ"
+  },
+  "RSG": {
+    "name": "RSG",
+    "market": "ASX"
+  },
+  "TAH": {
+    "name": "TAH",
+    "market": "ASX"
+  },
+  "DBI": {
+    "name": "DBI",
+    "market": "ASX"
+  },
+  "FMG": {
+    "name": "FMG",
+    "market": "ASX"
+  },
+  "REG": {
+    "name": "REG",
+    "market": "ASX"
+  },
+  "BEN": {
+    "name": "BEN",
+    "market": "ASX"
+  },
+  "MFG": {
+    "name": "MFG",
+    "market": "ASX"
+  },
+  "BFL": {
+    "name": "BFL",
+    "market": "ASX"
+  },
+  "MND": {
+    "name": "MND",
+    "market": "ASX"
+  },
+  "PANW": {
+    "name": "PANW",
+    "market": "NASDAQ"
+  },
+  "VEA": {
+    "name": "VEA",
+    "market": "ASX"
+  },
+  "SGH": {
+    "name": "SGH",
+    "market": "ASX"
+  },
+  "CAR": {
+    "name": "CAR",
+    "market": "ASX"
+  },
+  "QAN": {
+    "name": "QAN",
+    "market": "ASX"
+  },
+  "BOQ": {
+    "name": "BOQ",
+    "market": "ASX"
+  },
+  "FLT": {
+    "name": "FLT",
+    "market": "ASX"
+  },
+  "ARB": {
+    "name": "ARB",
+    "market": "ASX"
+  },
+  "ADBE": {
+    "name": "ADBE",
+    "market": "NASDAQ"
+  },
+  "PDD": {
+    "name": "PDD",
+    "market": "NASDAQ"
+  },
+  "AGL": {
+    "name": "AGL",
+    "market": "ASX"
+  },
+  "SUN": {
+    "name": "SUN",
+    "market": "ASX"
+  },
+  "SEK": {
+    "name": "SEK",
+    "market": "ASX"
+  },
+  "LOV": {
+    "name": "LOV",
+    "market": "ASX"
+  },
+  "S32": {
+    "name": "S32",
+    "market": "ASX"
+  },
+  "APE": {
+    "name": "APE",
+    "market": "ASX"
+  },
+  "SUL": {
+    "name": "SUL",
+    "market": "ASX"
+  },
+  "MCY": {
+    "name": "MCY",
+    "market": "ASX"
+  },
+  "AMAT": {
+    "name": "AMAT",
+    "market": "NASDAQ"
+  },
+  "CWY": {
+    "name": "CWY",
+    "market": "ASX"
+  },
+  "ANZ": {
+    "name": "ANZ",
+    "market": "ASX"
+  },
+  "IAG": {
+    "name": "IAG",
+    "market": "ASX"
+  },
+  "HDN": {
+    "name": "HDN",
+    "market": "ASX"
+  },
+  "RIO": {
+    "name": "RIO",
+    "market": "ASX"
+  },
+  "GQG": {
+    "name": "GQG",
+    "market": "ASX"
+  },
+  "CSCO": {
+    "name": "CSCO",
+    "market": "NASDAQ"
+  },
+  "TNE": {
+    "name": "TNE",
+    "market": "ASX"
+  },
+  "DNL": {
+    "name": "DNL",
+    "market": "ASX"
+  },
+  "DRR": {
+    "name": "DRR",
+    "market": "ASX"
+  },
+  "GPT": {
+    "name": "GPT",
+    "market": "ASX"
+  }
+}
