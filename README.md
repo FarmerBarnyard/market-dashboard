@@ -1,6 +1,8 @@
 # market-dashboard
 
-Public rendering target for the weekly NASDAQ/ASX market pipeline. Published via GitHub Pages at **https://dashboard.barnyard.site/**.
+Public rendering target for the weekly NASDAQ/ASX market pipeline. Published via GitHub Pages at **https://stocks.barnyard.site/**.
+
+Previously served at `dashboard.barnyard.site` until 2026-08-19, when that domain was reassigned to a new `barnyard-hub` repo acting as a landing page for this and future projects; this dashboard moved to `stocks.barnyard.site` as part of the same change.
 
 ## What lives here
 
