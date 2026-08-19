@@ -167,17 +167,24 @@
      styling (pure CSS/HTML) but drop the scrolling ticker strip,
      sparklines, and all JS interactivity — they're static historical
      records, not live pages.
-  5. data.json lives at the repo root, one JSON array of objects, one object
-     per week, oldest first. Each week's agent APPENDS a new object (does
-     not overwrite prior ones): {date, nasdaq_level, nasdaq_week_pct,
+  5. data.json lives at the repo root, one JSON array of objects, ONE OBJECT
+     PER TRADING DAY THIS PIPELINE HAS RUN ON (Tue-Sat, or Monday's weekly
+     run) — NOT one per week; dashboard_daily_update.py appends to it
+     Mon-Sat, only watchlist_builder.py's own run is weekly. Oldest first.
+     Each run APPENDS a new object (does not overwrite prior ones, except
+     replacing same-day reruns): {date, nasdaq_level, nasdaq_week_pct,
      asx_level, asx_week_pct, midterm_count, longterm_count, dividends_count}
      — pct values are plain numbers (e.g. 2.5 for +2.5%,
      -1.2 for -1.2%), counts are the number of tickers on each watchlist
-     that week. nasdaq_week_pct/
-     asx_week_pct may be omitted for a given week if the prior week's
-     level isn't a comparable instrument (e.g. an index-vs-proxy data
-     source change) — don't compute or display a week-over-week % across
-     an instrument switch.
+     as of that entry. nasdaq_week_pct/asx_week_pct are a genuine
+     week-over-week comparison against the most recent entry from a
+     strictly earlier ISO week (not the immediately-prior row, which is
+     usually just the previous trading day) — see render_dashboard.py's
+     annotate_week_change. Omitted for a given entry if no such prior-week
+     entry exists yet, or if the prior week's level isn't a comparable
+     instrument (e.g. an index-vs-proxy data source change) — don't
+     compute or display a week-over-week % across an instrument switch or
+     against a non-week-boundary entry.
   6. Ticker badge text = the ticker symbol's first 1-2 letters, uppercase
      (e.g. MSFT -> "MS", WTC -> "WT"). Just a visual stand-in for a logo,
      not a lookup against anything.
@@ -228,6 +235,13 @@
   h1{font-size:1.4rem;font-weight:800;letter-spacing:-.01em;margin-bottom:4px;color:var(--text-bright);text-transform:uppercase;}
   h2{font-size:.85rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-bright);border-bottom:1px solid var(--border);padding-bottom:6px;margin-top:32px;}
   .meta{color:var(--text-dim);font-size:.85rem;}
+  /* Static-vs-live caption directly under the ticker strip -- inherits
+     .meta's color/size (applied alongside it, class="meta ticker-strip-note")
+     and just adds spacing appropriate to sitting between the strip above
+     and the tab nav below, instead of .meta's usual inline/paragraph
+     spacing. See render_index_html's ticker-strip caption in
+     render_dashboard.py's changelog for what this text is correcting. */
+  .ticker-strip-note{margin:6px 2px 18px;}
   table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:.85rem;}
   th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
   th{background:var(--surface);color:var(--text-dim);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;}
@@ -402,14 +416,21 @@
 <div class="ticker-wrap">
   <div class="ticker-track" id="tickerTrack">
     <!-- SECTION:TICKER_STRIP:START -->
-    <span class="ticker-item">NASDAQ (QQQ proxy) <strong class="live-price" data-live-field="price" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{LEVEL}}</strong> <span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{DAY_CHANGE_PCT}}</span></span>
+    <span class="ticker-item">Nasdaq-100 (via QQQ ETF price) <strong class="live-price" data-live-field="price" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{LEVEL}}</strong> <span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{DAY_CHANGE_PCT}}</span></span>
     <span class="ticker-item">ASX 200 <strong class="live-price" data-live-field="price" data-live-index data-live-symbol="^AXJO" data-live-market="ASX">{{LEVEL}}</strong> <span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="^AXJO" data-live-market="ASX">{{DAY_CHANGE_PCT}}</span></span>
     <span class="ticker-item"><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span>{{TICKER}}</a> <span class="up or down">{{MOVE_PCT}}</span></span>
-    <!-- one item per notable mover, same tickers as the Notable Movers list below; keep the move text short (just the headline %, not the full note). Only the two index items are wired for live ticking (data-live-*) -- per-mover items stay static between rebuilds, see render_dashboard.py's ticker-strip loop for the scoping rationale. The NASDAQ item's "(QQQ proxy)" qualifier is unconditional (see render_index_label) -- QQQ has permanently stood in for the real NASDAQ Composite since 2026-08-01, not just during that week's switch. -->
+    <!-- one item per notable mover, same tickers as the Notable Movers list below; keep the move text short (just the headline %, not the full note). Only the two index items are wired for live ticking (data-live-*) -- per-mover items stay static between rebuilds, see render_dashboard.py's ticker-strip loop for the scoping rationale. The NASDAQ item's "(via QQQ ETF price)" qualifier is unconditional (see render_index_label) -- QQQ has permanently stood in for the real NASDAQ Composite since 2026-08-01, not just during that week's switch; QQQ tracks the Nasdaq-100, not the Composite, and its ~700ish figure is an ETF share price, not any index level. -->
     <!-- SECTION:TICKER_STRIP:END -->
   </div>
 </div>
-<p class="meta ticker-strip-note">Figures in the strip above and in the driver summary below are a snapshot as of this page's last data refresh. Notable Movers and each ticker's own page (marked with a live dot) tick in near real time during market hours, so the same ticker's % move may read differently there later in the session -- both are today's session move, just captured at different times.</p>
+<!-- Scoped precisely: the two INDEX items above (NASDAQ/ASX) tick live via
+data-live-* -- only the per-ticker MOVER items in the strip, and the
+driver-summary prose in the index cards below, are a render-time snapshot.
+An earlier version of this caption claimed the whole strip was static,
+which was wrong for the index items and read as a contradiction next to
+their own live-dot/live-price wiring -- see render_dashboard.py's
+changelog. -->
+<p class="meta ticker-strip-note">The per-ticker figures in the strip above, and the driver summary below, are a snapshot as of this page's last data refresh (the index level and change tick live). Notable Movers and each ticker's own page (marked with a live dot) tick in near real time during market hours, so the same ticker's % move may read differently there later in the session -- both are today's session move, just captured at different times.</p>
 
 <div class="tab-panel active" data-tab-panel="markets">
 
@@ -418,7 +439,7 @@
 <!-- SECTION:NASDAQ_CARD:START -->
 <div class="card">
   {{OPTIONAL: <span class="flag flag-info">New proxy</span> -- see render_index_badge, only during a genuine QQQ proxy switch}}
-  <div class="card-head"><strong>{{"NASDAQ (QQQ proxy)" any time this index is served via a substitute instrument -- permanently true for NASDAQ since 2026-08-01, not just during that week's switch -- else the plain market label; see render_index_label}}:</strong> <span class="flag">{{OPTIONAL: WEEK CHANGE UNAVAILABLE -- see render_index_flag, only when there's no prior week on file}}</span> <canvas class="sparkline" id="sparkNasdaq" width="60" height="24"></canvas></div>
+  <div class="card-head"><strong>{{"Nasdaq-100 (via QQQ ETF price)" any time this index is served via a substitute instrument -- permanently true for NASDAQ since 2026-08-01, not just during that week's switch -- else the plain "NASDAQ" label (not "NASDAQ Composite" -- this pipeline never sources a true Composite reading); see render_index_label}}:</strong> <span class="flag">{{OPTIONAL: WEEK CHANGE UNAVAILABLE -- see render_index_flag, only when there's no prior week on file}}</span> <canvas class="sparkline" id="sparkNasdaq" width="60" height="24"></canvas></div>
   <div class="index-level"><span class="live-price" data-live-field="price" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{LEVEL}}</span> <span class="meta index-asof">({{AS_OF}})</span> <span class="live-dot" data-live-field="dot" data-live-symbol="QQQ" data-live-market="NASDAQ" title="Live price"></span></div>
   <div class="index-change"><span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{▲ or ▼}} {{DAY_CHANGE}}</span> today</div>
   {{OPTIONAL: <div class="index-week">Week-to-date: <span class="up or down">{{WEEK_CHANGE_PCT}}</span> ({{WEEK_CHANGE_PTS}} pts)</div> -- omitted when no prior week is comparable}}
@@ -857,7 +878,7 @@ this button's click adds .expanded to the <ol>. -->
   <div class="index-cards">...(same NASDAQ_CARD / ASX_CARD content as that
       week's Markets tab, side by side via .index-cards, but WITHOUT the
       sparkline canvas or the card-head wrapper — plain
-      <strong>NASDAQ Composite:</strong> ... text, no JS on archive pages)...</div>
+      <strong>Nasdaq-100 (via QQQ ETF price):</strong> ... text, no JS on archive pages)...</div>
 
   <h2>Notable Movers</h2>
   ...(the same ranked <ol class="movers-list"> / <li class="mover-row">
