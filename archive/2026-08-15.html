@@ -167,17 +167,24 @@
      styling (pure CSS/HTML) but drop the scrolling ticker strip,
      sparklines, and all JS interactivity — they're static historical
      records, not live pages.
-  5. data.json lives at the repo root, one JSON array of objects, one object
-     per week, oldest first. Each week's agent APPENDS a new object (does
-     not overwrite prior ones): {date, nasdaq_level, nasdaq_week_pct,
+  5. data.json lives at the repo root, one JSON array of objects, ONE OBJECT
+     PER TRADING DAY THIS PIPELINE HAS RUN ON (Tue-Sat, or Monday's weekly
+     run) — NOT one per week; dashboard_daily_update.py appends to it
+     Mon-Sat, only watchlist_builder.py's own run is weekly. Oldest first.
+     Each run APPENDS a new object (does not overwrite prior ones, except
+     replacing same-day reruns): {date, nasdaq_level, nasdaq_week_pct,
      asx_level, asx_week_pct, midterm_count, longterm_count, dividends_count}
      — pct values are plain numbers (e.g. 2.5 for +2.5%,
      -1.2 for -1.2%), counts are the number of tickers on each watchlist
-     that week. nasdaq_week_pct/
-     asx_week_pct may be omitted for a given week if the prior week's
-     level isn't a comparable instrument (e.g. an index-vs-proxy data
-     source change) — don't compute or display a week-over-week % across
-     an instrument switch.
+     as of that entry. nasdaq_week_pct/asx_week_pct are a genuine
+     week-over-week comparison against the most recent entry from a
+     strictly earlier ISO week (not the immediately-prior row, which is
+     usually just the previous trading day) — see render_dashboard.py's
+     annotate_week_change. Omitted for a given entry if no such prior-week
+     entry exists yet, or if the prior week's level isn't a comparable
+     instrument (e.g. an index-vs-proxy data source change) — don't
+     compute or display a week-over-week % across an instrument switch or
+     against a non-week-boundary entry.
   6. Ticker badge text = the ticker symbol's first 1-2 letters, uppercase
      (e.g. MSFT -> "MS", WTC -> "WT"). Just a visual stand-in for a logo,
      not a lookup against anything.
@@ -228,6 +235,13 @@
   h1{font-size:1.4rem;font-weight:800;letter-spacing:-.01em;margin-bottom:4px;color:var(--text-bright);text-transform:uppercase;}
   h2{font-size:.85rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-bright);border-bottom:1px solid var(--border);padding-bottom:6px;margin-top:32px;}
   .meta{color:var(--text-dim);font-size:.85rem;}
+  /* Static-vs-live caption directly under the ticker strip -- inherits
+     .meta's color/size (applied alongside it, class="meta ticker-strip-note")
+     and just adds spacing appropriate to sitting between the strip above
+     and the tab nav below, instead of .meta's usual inline/paragraph
+     spacing. See render_index_html's ticker-strip caption in
+     render_dashboard.py's changelog for what this text is correcting. */
+  .ticker-strip-note{margin:6px 2px 18px;}
   table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:.85rem;}
   th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
   th{background:var(--surface);color:var(--text-dim);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;}
@@ -325,8 +339,29 @@
   .mover-move-cell.up .mover-move-value{color:var(--up);}
   .mover-move-cell.down .mover-move-value{color:var(--down);}
   /* $ change sits on its own line under the % -- keeps both readable
-     without overflowing the cell's fixed 170px width. */
-  .mover-move-abs{position:relative;display:block;font-size:.68rem;font-weight:400;color:var(--text-dim);margin-top:1px;}
+     without overflowing the cell's fixed 170px width. Bold and colored by
+     direction (not a dim muted sub-line) so it reads as equally important
+     as the % above it, not an afterthought. */
+  .mover-move-abs{position:relative;display:block;font-size:.8rem;font-weight:700;margin-top:1px;}
+  .mover-move-cell.up .mover-move-abs{color:var(--up);}
+  .mover-move-cell.down .mover-move-abs{color:var(--down);}
+  /* Candlestick chart hover tooltip -- see tickerCandleChart's mousemove
+     handler in render_dashboard.py's build_ticker_page. */
+  .candle-chart-wrap{position:relative;}
+  .candle-tooltip{position:absolute;display:none;pointer-events:none;background:var(--surface-2);
+    border:1px solid var(--border);border-radius:3px;padding:6px 8px;font-family:var(--mono);
+    font-size:.72rem;line-height:1.5;color:var(--text);white-space:nowrap;z-index:5;box-shadow:0 2px 8px rgba(0,0,0,.4);}
+  .candle-tooltip .date{color:var(--text-dim);font-size:.66rem;margin-bottom:2px;}
+  /* Live price ticking -- live-prices.js polls the Cloudflare Worker proxy
+     (ClaudeRepo/cloudflare-worker) every ~15s and patches any
+     [data-live-symbol] element in place; see render_index_card_body / the
+     ticker-strip loop / build_ticker_page in render_dashboard.py for where
+     these attributes get added. Inert if the worker isn't reachable -- the
+     page just keeps showing the last static render. */
+  .live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--text-dim);margin-left:6px;vertical-align:middle;}
+  .live-dot.live-ok{background:var(--up);animation:live-pulse 1.6s ease-in-out infinite;}
+  @keyframes live-pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  @media (prefers-reduced-motion: reduce){.live-dot.live-ok{animation:none;}}
   .mover-note{flex:1 1 220px;color:var(--text-dim);font-size:.82rem;}
   /* Condensed by default to MOVERS_VISIBLE_COUNT (10) rows -- keep the
      n+11 here in sync with render_dashboard.py's MOVERS_VISIBLE_COUNT.
@@ -372,15 +407,15 @@
 
 <h2>Market Review - NASDAQ and ASX</h2>
 <div class="index-cards">
-<div class="card"><strong>NASDAQ Composite:</strong><br>
-<div class="index-level">731.07 <span class="meta index-asof">(2026-08-15)</span></div>
-  <div class="index-change down">▼ -0.14% today</div>
-  <div class="index-week">Week-to-date: <span class="up">+0.00%</span> (0.0 pts)</div>
+<div class="card"><strong>Nasdaq-100 (via QQQ ETF price):</strong><br>
+<div class="index-level"><span class="live-price" data-live-field="price" data-live-symbol="QQQ" data-live-market="NASDAQ" data-live-index>731.07</span> <span class="meta index-asof">(2026-08-15)</span> <span class="live-dot" data-live-field="dot" data-live-symbol="QQQ" data-live-market="NASDAQ" title="Live price"></span></div>
+  <div class="index-change"><span class="live-price down" data-live-field="change" data-live-symbol="QQQ" data-live-market="NASDAQ" data-live-index>▼ -0.14%</span> today</div>
+  <div class="index-week">Week-to-date: <span class="up">+1.11%</span> (8.04 pts)</div>
   <p class="index-summary">The most likely driver of today's move is geopolitical tension in the Middle East, with multiple headlines about Iran sanctions, tanker attacks, and oil supply disruptions driving oil prices up over $1, which benefited semiconductor and storage companies (SNDK, AMD, STX, WDC) while pressuring software/enterprise companies (AVGO, AMAT, CRWD, PANW, WDAY, INTU). However, no headline explicitly explains the sharp divergence between chip equipment losers (AMAT, AVGO) and chip/storage gainers.</p></div>
 <div class="card"><strong>S&amp;P/ASX 200:</strong><br>
-<div class="index-level">9115.2 <span class="meta index-asof">(2026-08-15)</span></div>
-  <div class="index-change down">▼ -0.80% today</div>
-  <div class="index-week">Week-to-date: <span class="up">+0.00%</span> (0.0 pts)</div>
+<div class="index-level"><span class="live-price" data-live-field="price" data-live-symbol="^AXJO" data-live-market="ASX" data-live-index>9115.2</span> <span class="meta index-asof">(2026-08-15)</span> <span class="live-dot" data-live-field="dot" data-live-symbol="^AXJO" data-live-market="ASX" title="Live price"></span></div>
+  <div class="index-change"><span class="live-price down" data-live-field="change" data-live-symbol="^AXJO" data-live-market="ASX" data-live-index>▼ -0.80%</span> today</div>
+  <div class="index-week">Week-to-date: <span class="down">-1.60%</span> (-148.4 pts)</div>
   <p class="index-summary">Not available for this market on the current data feed.</p></div>
 </div>
 
@@ -390,7 +425,7 @@
   <span class="mover-rank">1</span>
   <span class="mover-id"><a class="ticker-link" href="../SEK/"><span class="ticker-badge">SE</span>SEK</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:100%"></span><span class="mover-move-value">+9.13%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:100%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+9.13%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -398,7 +433,7 @@
   <span class="mover-rank">2</span>
   <span class="mover-id"><a class="ticker-link" href="../NBIS/"><span class="ticker-badge">NB</span>NBIS</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:97%"></span><span class="mover-move-value">+8.88%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:97%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+8.88%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -406,7 +441,7 @@
   <span class="mover-rank">3</span>
   <span class="mover-id"><a class="ticker-link" href="../CPRT/"><span class="ticker-badge">CP</span>CPRT</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:83%"></span><span class="mover-move-value">+7.55%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:83%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+7.55%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -414,7 +449,7 @@
   <span class="mover-rank">4</span>
   <span class="mover-id"><a class="ticker-link" href="../SNDK/"><span class="ticker-badge">SN</span>SNDK</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:81%"></span><span class="mover-move-value">+7.39%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:81%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+7.39%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -422,7 +457,7 @@
   <span class="mover-rank">5</span>
   <span class="mover-id"><a class="ticker-link" href="../MSB/"><span class="ticker-badge">MS</span>MSB</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:78%"></span><span class="mover-move-value">-7.14%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:78%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-7.14%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -430,7 +465,7 @@
   <span class="mover-rank">6</span>
   <span class="mover-id"><a class="ticker-link" href="../4DX/"><span class="ticker-badge">4D</span>4DX</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:76%"></span><span class="mover-move-value">-6.91%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:76%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-6.91%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -438,7 +473,7 @@
   <span class="mover-rank">7</span>
   <span class="mover-id"><a class="ticker-link" href="../AMD/"><span class="ticker-badge">AM</span>AMD</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:71%"></span><span class="mover-move-value">+6.50%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:71%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+6.50%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -446,7 +481,7 @@
   <span class="mover-rank">8</span>
   <span class="mover-id"><a class="ticker-link" href="../TUA/"><span class="ticker-badge">TU</span>TUA</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:68%"></span><span class="mover-move-value">+6.22%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:68%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+6.22%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -454,7 +489,7 @@
   <span class="mover-rank">9</span>
   <span class="mover-id"><a class="ticker-link" href="../AVGO/"><span class="ticker-badge">AV</span>AVGO</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:65%"></span><span class="mover-move-value">-5.94%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:65%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-5.94%</span></span></span>
   <span class="mover-note">Already rated undervalued; today's drop diverges further from fair value</span>
   
 </li>
@@ -462,7 +497,7 @@
   <span class="mover-rank">10</span>
   <span class="mover-id"><a class="ticker-link" href="../STX/"><span class="ticker-badge">ST</span>STX</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:62%"></span><span class="mover-move-value">+5.65%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:62%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+5.65%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -470,7 +505,7 @@
   <span class="mover-rank">11</span>
   <span class="mover-id"><a class="ticker-link" href="../ASB/"><span class="ticker-badge">AS</span>ASB</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:61%"></span><span class="mover-move-value">+5.57%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:61%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+5.57%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -478,7 +513,7 @@
   <span class="mover-rank">12</span>
   <span class="mover-id"><a class="ticker-link" href="../WTC/"><span class="ticker-badge">WT</span>WTC</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:61%"></span><span class="mover-move-value">+5.55%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:61%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+5.55%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -486,7 +521,7 @@
   <span class="mover-rank">13</span>
   <span class="mover-id"><a class="ticker-link" href="../XRO/"><span class="ticker-badge">XR</span>XRO</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:61%"></span><span class="mover-move-value">+5.54%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:61%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+5.54%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -494,7 +529,7 @@
   <span class="mover-rank">14</span>
   <span class="mover-id"><a class="ticker-link" href="../CAR/"><span class="ticker-badge">CA</span>CAR</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:60%"></span><span class="mover-move-value">+5.47%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:60%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+5.47%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -502,7 +537,7 @@
   <span class="mover-rank">15</span>
   <span class="mover-id"><a class="ticker-link" href="../LITE/"><span class="ticker-badge">LI</span>LITE</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:57%"></span><span class="mover-move-value">+5.19%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:57%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+5.19%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -510,7 +545,7 @@
   <span class="mover-rank">16</span>
   <span class="mover-id"><a class="ticker-link" href="../AMAT/"><span class="ticker-badge">AM</span>AMAT</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:56%"></span><span class="mover-move-value">-5.12%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:56%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-5.12%</span></span></span>
   <span class="mover-note">Rated near fair value; sharp drop diverges toward undervalued territory</span>
   
 </li>
@@ -518,7 +553,7 @@
   <span class="mover-rank">17</span>
   <span class="mover-id"><a class="ticker-link" href="../PDN/"><span class="ticker-badge">PD</span>PDN</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:50%"></span><span class="mover-move-value">-4.52%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:50%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-4.52%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -526,7 +561,7 @@
   <span class="mover-rank">18</span>
   <span class="mover-id"><a class="ticker-link" href="../WDC/"><span class="ticker-badge">WD</span>WDC</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:48%"></span><span class="mover-move-value">+4.41%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:48%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+4.41%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -534,7 +569,7 @@
   <span class="mover-rank">19</span>
   <span class="mover-id"><a class="ticker-link" href="../CYL/"><span class="ticker-badge">CY</span>CYL</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:47%"></span><span class="mover-move-value">-4.33%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:47%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-4.33%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -542,7 +577,7 @@
   <span class="mover-rank">20</span>
   <span class="mover-id"><a class="ticker-link" href="../IAG/"><span class="ticker-badge">IA</span>IAG</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:46%"></span><span class="mover-move-value">+4.23%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:46%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+4.23%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -550,7 +585,7 @@
   <span class="mover-rank">21</span>
   <span class="mover-id"><a class="ticker-link" href="../MSTR/"><span class="ticker-badge">MS</span>MSTR</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:46%"></span><span class="mover-move-value">-4.18%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:46%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-4.18%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -558,7 +593,7 @@
   <span class="mover-rank">22</span>
   <span class="mover-id"><a class="ticker-link" href="../HDN/"><span class="ticker-badge">HD</span>HDN</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:45%"></span><span class="mover-move-value">-4.15%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:45%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-4.15%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -566,7 +601,7 @@
   <span class="mover-rank">23</span>
   <span class="mover-id"><a class="ticker-link" href="../TCL/"><span class="ticker-badge">TC</span>TCL</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:45%"></span><span class="mover-move-value">-4.12%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:45%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-4.12%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -574,7 +609,7 @@
   <span class="mover-rank">24</span>
   <span class="mover-id"><a class="ticker-link" href="../AAI/"><span class="ticker-badge">AA</span>AAI</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:45%"></span><span class="mover-move-value">-4.10%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:45%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-4.10%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -582,7 +617,7 @@
   <span class="mover-rank">25</span>
   <span class="mover-id"><a class="ticker-link" href="../L1G/"><span class="ticker-badge">L1</span>L1G</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:43%"></span><span class="mover-move-value">-3.91%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:43%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-3.91%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -590,7 +625,7 @@
   <span class="mover-rank">26</span>
   <span class="mover-id"><a class="ticker-link" href="../LNW/"><span class="ticker-badge">LN</span>LNW</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:43%"></span><span class="mover-move-value">+3.90%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:43%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+3.90%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -598,7 +633,7 @@
   <span class="mover-rank">27</span>
   <span class="mover-id"><a class="ticker-link" href="../CRWD/"><span class="ticker-badge">CR</span>CRWD</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:42%"></span><span class="mover-move-value">-3.80%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:42%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-3.80%</span></span></span>
   <span class="mover-note">Drop deepens discount to FV diverging from fairly valued view</span>
   
 </li>
@@ -606,7 +641,7 @@
   <span class="mover-rank">28</span>
   <span class="mover-id"><a class="ticker-link" href="../WDAY/"><span class="ticker-badge">WD</span>WDAY</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:41%"></span><span class="mover-move-value">-3.76%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:41%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-3.76%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -614,7 +649,7 @@
   <span class="mover-rank">29</span>
   <span class="mover-id"><a class="ticker-link" href="../ASX/"><span class="ticker-badge">AS</span>ASX</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:40%"></span><span class="mover-move-value">-3.68%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:40%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-3.68%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -622,7 +657,7 @@
   <span class="mover-rank">30</span>
   <span class="mover-id"><a class="ticker-link" href="../LTR/"><span class="ticker-badge">LT</span>LTR</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:40%"></span><span class="mover-move-value">+3.66%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:40%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+3.66%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -630,7 +665,7 @@
   <span class="mover-rank">31</span>
   <span class="mover-id"><a class="ticker-link" href="../DNL/"><span class="ticker-badge">DN</span>DNL</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:40%"></span><span class="mover-move-value">-3.64%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:40%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-3.64%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -638,7 +673,7 @@
   <span class="mover-rank">32</span>
   <span class="mover-id"><a class="ticker-link" href="../INTU/"><span class="ticker-badge">IN</span>INTU</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:39%"></span><span class="mover-move-value">-3.53%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:39%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-3.53%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -646,7 +681,7 @@
   <span class="mover-rank">33</span>
   <span class="mover-id"><a class="ticker-link" href="../FTNT/"><span class="ticker-badge">FT</span>FTNT</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:36%"></span><span class="mover-move-value">-3.28%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:36%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-3.28%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -654,7 +689,7 @@
   <span class="mover-rank">34</span>
   <span class="mover-id"><a class="ticker-link" href="../TNE/"><span class="ticker-badge">TN</span>TNE</a></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:35%"></span><span class="mover-move-value">+3.20%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:35%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+3.20%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -662,7 +697,7 @@
   <span class="mover-rank">35</span>
   <span class="mover-id"><a class="ticker-link" href="../PANW/"><span class="ticker-badge">PA</span>PANW</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:32%"></span><span class="mover-move-value">-2.96%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:32%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-2.96%</span></span></span>
   <span class="mover-note">Price near $396 far above $285 FV drop fits</span>
   
 </li>
@@ -670,7 +705,7 @@
   <span class="mover-rank">36</span>
   <span class="mover-id"><a class="ticker-link" href="../MPWR/"><span class="ticker-badge">MP</span>MPWR</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:32%"></span><span class="mover-move-value">+2.90%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:32%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+2.90%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -678,7 +713,7 @@
   <span class="mover-rank">37</span>
   <span class="mover-id"><a class="ticker-link" href="../IDXX/"><span class="ticker-badge">ID</span>IDXX</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:31%"></span><span class="mover-move-value">-2.82%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:31%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-2.82%</span></span></span>
   <span class="mover-note"></span>
   
 </li>
@@ -686,7 +721,7 @@
   <span class="mover-rank">38</span>
   <span class="mover-id"><a class="ticker-link" href="../PLTR/"><span class="ticker-badge">PL</span>PLTR</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:30%"></span><span class="mover-move-value">-2.78%</span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:30%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">-2.78%</span></span></span>
   <span class="mover-note">Price above FV pullback aligns with overvaluation</span>
   
 </li>
@@ -694,7 +729,7 @@
   <span class="mover-rank">39</span>
   <span class="mover-id"><a class="ticker-link" href="../SNPS/"><span class="ticker-badge">SN</span>SNPS</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:26%"></span><span class="mover-move-value">+2.37%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:26%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+2.37%</span></span></span>
   <span class="mover-note">Undervalued view; today's rise aligns with fair value gap</span>
   
 </li>
@@ -702,7 +737,7 @@
   <span class="mover-rank">40</span>
   <span class="mover-id"><a class="ticker-link" href="../MU/"><span class="ticker-badge">MU</span>MU</a></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:25%"></span><span class="mover-move-value">+2.30%</span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:25%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct">+2.30%</span></span></span>
   <span class="mover-note"></span>
   
 </li>

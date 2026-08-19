@@ -167,17 +167,24 @@
      styling (pure CSS/HTML) but drop the scrolling ticker strip,
      sparklines, and all JS interactivity — they're static historical
      records, not live pages.
-  5. data.json lives at the repo root, one JSON array of objects, one object
-     per week, oldest first. Each week's agent APPENDS a new object (does
-     not overwrite prior ones): {date, nasdaq_level, nasdaq_week_pct,
+  5. data.json lives at the repo root, one JSON array of objects, ONE OBJECT
+     PER TRADING DAY THIS PIPELINE HAS RUN ON (Tue-Sat, or Monday's weekly
+     run) — NOT one per week; dashboard_daily_update.py appends to it
+     Mon-Sat, only watchlist_builder.py's own run is weekly. Oldest first.
+     Each run APPENDS a new object (does not overwrite prior ones, except
+     replacing same-day reruns): {date, nasdaq_level, nasdaq_week_pct,
      asx_level, asx_week_pct, midterm_count, longterm_count, dividends_count}
      — pct values are plain numbers (e.g. 2.5 for +2.5%,
      -1.2 for -1.2%), counts are the number of tickers on each watchlist
-     that week. nasdaq_week_pct/
-     asx_week_pct may be omitted for a given week if the prior week's
-     level isn't a comparable instrument (e.g. an index-vs-proxy data
-     source change) — don't compute or display a week-over-week % across
-     an instrument switch.
+     as of that entry. nasdaq_week_pct/asx_week_pct are a genuine
+     week-over-week comparison against the most recent entry from a
+     strictly earlier ISO week (not the immediately-prior row, which is
+     usually just the previous trading day) — see render_dashboard.py's
+     annotate_week_change. Omitted for a given entry if no such prior-week
+     entry exists yet, or if the prior week's level isn't a comparable
+     instrument (e.g. an index-vs-proxy data source change) — don't
+     compute or display a week-over-week % across an instrument switch or
+     against a non-week-boundary entry.
   6. Ticker badge text = the ticker symbol's first 1-2 letters, uppercase
      (e.g. MSFT -> "MS", WTC -> "WT"). Just a visual stand-in for a logo,
      not a lookup against anything.
@@ -228,6 +235,13 @@
   h1{font-size:1.4rem;font-weight:800;letter-spacing:-.01em;margin-bottom:4px;color:var(--text-bright);text-transform:uppercase;}
   h2{font-size:.85rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-bright);border-bottom:1px solid var(--border);padding-bottom:6px;margin-top:32px;}
   .meta{color:var(--text-dim);font-size:.85rem;}
+  /* Static-vs-live caption directly under the ticker strip -- inherits
+     .meta's color/size (applied alongside it, class="meta ticker-strip-note")
+     and just adds spacing appropriate to sitting between the strip above
+     and the tab nav below, instead of .meta's usual inline/paragraph
+     spacing. See render_index_html's ticker-strip caption in
+     render_dashboard.py's changelog for what this text is correcting. */
+  .ticker-strip-note{margin:6px 2px 18px;}
   table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:.85rem;}
   th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
   th{background:var(--surface);color:var(--text-dim);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;}
@@ -395,10 +409,10 @@
 
 <h2>This Week</h2>
 <div class="card">
-    Price: <span class="live-price" data-live-field="price" data-live-symbol="WDC" data-live-market="NASDAQ">$497.33</span> (2026-08-18), <span class="up live-price" data-live-field="change" data-live-symbol="WDC" data-live-market="NASDAQ">+5.35% ($+27.21)</span> (day). <span class="live-dot" data-live-field="dot" data-live-symbol="WDC" data-live-market="NASDAQ" title="Live price"></span><br>
-    4-star analyst consensus, fair value NOT_FOUND<br>
+    Price: <span class="live-price" data-live-field="price" data-live-symbol="WDC" data-live-market="NASDAQ">$497.33</span> (2026-08-18), <span class="up live-price" data-live-field="change" data-live-symbol="WDC" data-live-market="NASDAQ">+5.35% ($+27.21)</span> (day, live). <span class="live-dot" data-live-field="dot" data-live-symbol="WDC" data-live-market="NASDAQ" title="Live price"></span><br>
+    4-star analyst consensus, fair value not available<br>
     Watchlists: Mid-Term.<br>
-    <span class="meta">Snapshot: Trailing P/E $73.14-$799.87 - Div Yield 0.1%. Sourced from the same page already used for price verification.</span><br>
+    <span class="meta">Snapshot: 52-Wk 73.14 to 799.87 - Div Yield 0.1%. Sourced from the same page already used for price verification.</span><br>
     <span class="meta">4 payments in trailing 12mo (Yahoo data)</span><br>
     Source: Yahoo Finance (free)
 </div>

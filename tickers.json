@@ -17,9 +17,10 @@
         ],
         "note": "Payout ratio approx 20% of earnings",
         "source_url": "stockanalysis.com; finance.yahoo.com",
-        "market_cap": "25.9",
-        "pe_trailing": "349.2-553.72",
-        "dividend_yield": "0.78"
+        "dividend_yield": "0.78",
+        "week52_low": 349.2,
+        "week52_high": 553.72,
+        "pe_trailing": "25.9"
       },
       {
         "date": "2026-08-07",
@@ -31,9 +32,10 @@
         "lists": [],
         "note": "Payout ratio approx 20% of earnings",
         "source_url": "stockanalysis.com; finance.yahoo.com",
-        "market_cap": "25.9",
-        "pe_trailing": "349.2-553.72",
-        "dividend_yield": "0.78"
+        "dividend_yield": "0.78",
+        "week52_low": 349.2,
+        "week52_high": 553.72,
+        "pe_trailing": "25.9"
       }
     ]
   },
@@ -72,8 +74,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$149.22-\\$584.73",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 149.22,
+        "week52_high": 584.73
       },
       {
         "date": "2026-08-05",
@@ -85,8 +88,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$149.22-\\$584.73",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 149.22,
+        "week52_high": 584.73
       },
       {
         "date": "2026-08-06",
@@ -98,8 +102,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$149.22-\\$584.73",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 149.22,
+        "week52_high": 584.73
       },
       {
         "date": "2026-08-07",
@@ -111,8 +116,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$149.22-\\$584.73",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 149.22,
+        "week52_high": 584.73
       },
       {
         "date": "2026-08-08",
@@ -124,8 +130,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$149.22-\\$584.73",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 149.22,
+        "week52_high": 584.73
       },
       {
         "date": "2026-08-15",
@@ -138,8 +145,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$149.22-$584.73",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 149.22,
+        "week52_high": 584.73
       }
     ]
   },
@@ -167,7 +175,7 @@
         "currency": "USD",
         "move_pct": 10.32,
         "move_label": "day",
-        "rating": "1-star, Wide moat, NOT_FOUND uncertainty, fair value 275",
+        "rating": "1-star, Wide moat, not available uncertainty, fair value 275",
         "lists": [
           "Long-Term"
         ],
@@ -242,14 +250,15 @@
         "move_pct": 5.81,
         "move_points": 24.35,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$106.3-$487.91",
-        "dividend_yield": "0.12%"
+        "dividend_yield": "0.12%",
+        "week52_low": 106.3,
+        "week52_high": 487.91
       }
     ]
   },
@@ -324,8 +333,9 @@
         "lists": [],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$28.76-$116.98",
-        "dividend_yield": "0.5%"
+        "dividend_yield": "0.5%",
+        "week52_low": 28.76,
+        "week52_high": 116.98
       }
     ]
   },
@@ -344,8 +354,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.76-\\$2.65",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.76,
+        "week52_high": 2.65
       },
       {
         "date": "2026-08-05",
@@ -357,8 +368,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.76-\\$2.65",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.76,
+        "week52_high": 2.65
       },
       {
         "date": "2026-08-07",
@@ -370,8 +382,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.76-\\$2.65",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.76,
+        "week52_high": 2.65
       },
       {
         "date": "2026-08-08",
@@ -383,8 +396,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.76-\\$2.65",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.76,
+        "week52_high": 2.65
       },
       {
         "date": "2026-08-12",
@@ -396,8 +410,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.76-\\$2.65",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.76,
+        "week52_high": 2.65
       },
       {
         "date": "2026-08-15",
@@ -410,8 +425,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$0.76-$2.65",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.76,
+        "week52_high": 2.65
       },
       {
         "date": "2026-08-18",
@@ -424,8 +440,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$0.76-$2.65",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.76,
+        "week52_high": 2.65
       }
     ]
   },
@@ -576,8 +593,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$1.915-$6.81",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.915,
+        "week52_high": 6.81
       }
     ]
   },
@@ -596,8 +614,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$105.46-\\$1255.0",
-        "dividend_yield": "0.06%"
+        "dividend_yield": "0.06%",
+        "week52_low": 105.46,
+        "week52_high": 1255.0
       },
       {
         "date": "2026-08-05",
@@ -609,8 +628,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$105.46-\\$1255.0",
-        "dividend_yield": "0.06%"
+        "dividend_yield": "0.06%",
+        "week52_low": 105.46,
+        "week52_high": 1255.0
       },
       {
         "date": "2026-08-13",
@@ -622,8 +642,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$105.46-\\$1255.0",
-        "dividend_yield": "0.06%"
+        "dividend_yield": "0.06%",
+        "week52_low": 105.46,
+        "week52_high": 1255.0
       },
       {
         "date": "2026-08-15",
@@ -636,8 +657,9 @@
         "lists": [],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$113.46-$1255.0",
-        "dividend_yield": "0.05%"
+        "dividend_yield": "0.05%",
+        "week52_low": 113.46,
+        "week52_high": 1255.0
       },
       {
         "date": "2026-08-18",
@@ -646,14 +668,15 @@
         "move_pct": 4.13,
         "move_points": 40.09,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$113.46-$1255.0",
-        "dividend_yield": "0.06%"
+        "dividend_yield": "0.06%",
+        "week52_low": 113.46,
+        "week52_high": 1255.0
       }
     ]
   },
@@ -715,8 +738,9 @@
         ],
         "note": "No dividend paid historically",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "196.0-278.56",
-        "dividend_yield": "0.0"
+        "dividend_yield": "0.0",
+        "week52_low": 196.0,
+        "week52_high": 278.56
       },
       {
         "date": "2026-08-05",
@@ -730,8 +754,9 @@
         ],
         "note": "No dividend paid historically",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "196.0-278.56",
-        "dividend_yield": "0.0"
+        "dividend_yield": "0.0",
+        "week52_low": 196.0,
+        "week52_high": 278.56
       },
       {
         "date": "2026-08-12",
@@ -745,8 +770,9 @@
         ],
         "note": "No dividend paid historically",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "196.0-278.56",
-        "dividend_yield": "0.0"
+        "dividend_yield": "0.0",
+        "week52_low": 196.0,
+        "week52_high": 278.56
       }
     ]
   },
@@ -765,8 +791,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$54.11-\\$84.7",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 54.11,
+        "week52_high": 84.7
       },
       {
         "date": "2026-08-05",
@@ -778,8 +805,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$54.11-\\$84.7",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 54.11,
+        "week52_high": 84.7
       },
       {
         "date": "2026-08-06",
@@ -791,8 +819,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$54.11-\\$84.7",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 54.11,
+        "week52_high": 84.7
       }
     ]
   },
@@ -852,8 +881,9 @@
         "lists": [],
         "note": "Pays growing quarterly dividend unconfirmed exact amt",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "774.14-1714.09",
-        "dividend_yield": "0.5"
+        "dividend_yield": "0.5",
+        "week52_low": 774.14,
+        "week52_high": 1714.09
       },
       {
         "date": "2026-08-05",
@@ -867,8 +897,9 @@
         ],
         "note": "Pays growing quarterly dividend unconfirmed exact amt",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "774.14-1714.09",
-        "dividend_yield": "0.5"
+        "dividend_yield": "0.5",
+        "week52_low": 774.14,
+        "week52_high": 1714.09
       },
       {
         "date": "2026-08-14",
@@ -882,8 +913,9 @@
         ],
         "note": "Pays growing quarterly dividend unconfirmed exact amt",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "774.14-1714.09",
-        "dividend_yield": "0.5"
+        "dividend_yield": "0.5",
+        "week52_low": 774.14,
+        "week52_high": 1714.09
       },
       {
         "date": "2026-08-15",
@@ -896,8 +928,9 @@
         "lists": [],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$800.97-$1714.09",
-        "dividend_yield": "0.51%"
+        "dividend_yield": "0.51%",
+        "week52_low": 800.97,
+        "week52_high": 1714.09
       }
     ]
   },
@@ -919,8 +952,9 @@
         ],
         "note": "Dividend initiated 2024 continuing",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "190.92-404.47",
-        "dividend_yield": "0.24"
+        "dividend_yield": "0.24",
+        "week52_low": 190.92,
+        "week52_high": 404.47
       },
       {
         "date": "2026-08-06",
@@ -934,8 +968,9 @@
         ],
         "note": "Dividend initiated 2024 continuing",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "190.92-404.47",
-        "dividend_yield": "0.24"
+        "dividend_yield": "0.24",
+        "week52_low": 190.92,
+        "week52_high": 404.47
       },
       {
         "date": "2026-08-08",
@@ -949,8 +984,9 @@
         ],
         "note": "Dividend initiated 2024 continuing",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "190.92-404.47",
-        "dividend_yield": "0.24"
+        "dividend_yield": "0.24",
+        "week52_low": 190.92,
+        "week52_high": 404.47
       },
       {
         "date": "2026-08-12",
@@ -962,8 +998,9 @@
         "lists": [],
         "note": "Dividend initiated 2024 continuing",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "190.92-404.47",
-        "dividend_yield": "0.24"
+        "dividend_yield": "0.24",
+        "week52_low": 190.92,
+        "week52_high": 404.47
       }
     ]
   },
@@ -985,8 +1022,9 @@
         ],
         "note": "Dividend initiated 2024 continuing",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "190.12-408.61",
-        "dividend_yield": "0.24"
+        "dividend_yield": "0.24",
+        "week52_low": 190.12,
+        "week52_high": 408.61
       },
       {
         "date": "2026-08-06",
@@ -1000,8 +1038,9 @@
         ],
         "note": "Dividend initiated 2024 continuing",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "190.12-408.61",
-        "dividend_yield": "0.24"
+        "dividend_yield": "0.24",
+        "week52_low": 190.12,
+        "week52_high": 408.61
       },
       {
         "date": "2026-08-08",
@@ -1015,8 +1054,9 @@
         ],
         "note": "Dividend initiated 2024 continuing",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "190.12-408.61",
-        "dividend_yield": "0.24"
+        "dividend_yield": "0.24",
+        "week52_low": 190.12,
+        "week52_high": 408.61
       },
       {
         "date": "2026-08-12",
@@ -1028,8 +1068,9 @@
         "lists": [],
         "note": "Dividend initiated 2024 continuing",
         "source_url": "General knowledge; search tool limit reached",
-        "pe_trailing": "190.12-408.61",
-        "dividend_yield": "0.24"
+        "dividend_yield": "0.24",
+        "week52_low": 190.12,
+        "week52_high": 408.61
       }
     ]
   },
@@ -1048,8 +1089,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$70.12-\\$170.35",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 70.12,
+        "week52_high": 170.35
       },
       {
         "date": "2026-08-07",
@@ -1061,8 +1103,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$70.12-\\$170.35",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 70.12,
+        "week52_high": 170.35
       },
       {
         "date": "2026-08-15",
@@ -1075,8 +1118,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$73.55-$172.09",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 73.55,
+        "week52_high": 172.09
       }
     ]
   },
@@ -1097,9 +1141,10 @@
         ],
         "note": "No dividend paid; confirmed 0.00% yield",
         "source_url": "companiesmarketcap.com",
-        "market_cap": "88.27",
-        "pe_trailing": "366.0-636.61",
-        "dividend_yield": "0.0"
+        "dividend_yield": "0.0",
+        "week52_low": 366.0,
+        "week52_high": 636.61,
+        "pe_trailing": "88.27"
       },
       {
         "date": "2026-08-15",
@@ -1114,8 +1159,9 @@
         ],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$366.0-$626.24",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 366.0,
+        "week52_high": 626.24
       }
     ]
   },
@@ -1134,8 +1180,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$97.89-\\$499.476",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 97.89,
+        "week52_high": 499.476
       },
       {
         "date": "2026-08-05",
@@ -1147,8 +1194,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$97.89-\\$499.476",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 97.89,
+        "week52_high": 499.476
       },
       {
         "date": "2026-08-06",
@@ -1160,8 +1208,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$97.89-\\$499.476",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 97.89,
+        "week52_high": 499.476
       },
       {
         "date": "2026-08-07",
@@ -1173,8 +1222,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$97.89-\\$499.476",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 97.89,
+        "week52_high": 499.476
       },
       {
         "date": "2026-08-11",
@@ -1186,8 +1236,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$97.89-\\$499.476",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 97.89,
+        "week52_high": 499.476
       }
     ]
   },
@@ -1206,8 +1257,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$541.0-\\$821.11",
-        "dividend_yield": "0.48%"
+        "dividend_yield": "0.48%",
+        "week52_low": 541.0,
+        "week52_high": 821.11
       },
       {
         "date": "2026-08-06",
@@ -1219,8 +1271,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$541.0-\\$821.11",
-        "dividend_yield": "0.48%"
+        "dividend_yield": "0.48%",
+        "week52_low": 541.0,
+        "week52_high": 821.11
       }
     ]
   },
@@ -1235,15 +1288,16 @@
         "currency": "USD",
         "move_pct": 3.28,
         "move_label": "day",
-        "rating": "4-star, Wide moat, NOT_FOUND uncertainty, fair value 850",
+        "rating": "4-star, Wide moat, not available uncertainty, fair value 850",
         "lists": [
           "Long-Term"
         ],
         "note": "Payout ratio approx 8-15% of earnings",
         "source_url": "stockanalysis.com; companiesmarketcap.com",
-        "market_cap": "20.2",
-        "pe_trailing": "520.26-796.25",
-        "dividend_yield": "0.38"
+        "dividend_yield": "0.38",
+        "week52_low": 520.26,
+        "week52_high": 796.25,
+        "pe_trailing": "20.2"
       },
       {
         "date": "2026-08-05",
@@ -1257,9 +1311,10 @@
         ],
         "note": "Payout ratio approx 8-15% of earnings",
         "source_url": "stockanalysis.com; companiesmarketcap.com",
-        "market_cap": "20.2",
-        "pe_trailing": "520.26-796.25",
-        "dividend_yield": "0.38"
+        "dividend_yield": "0.38",
+        "week52_low": 520.26,
+        "week52_high": 796.25,
+        "pe_trailing": "20.2"
       },
       {
         "date": "2026-08-13",
@@ -1271,9 +1326,10 @@
         "lists": [],
         "note": "Payout ratio approx 8-15% of earnings",
         "source_url": "stockanalysis.com; companiesmarketcap.com",
-        "market_cap": "20.2",
-        "pe_trailing": "520.26-796.25",
-        "dividend_yield": "0.38"
+        "dividend_yield": "0.38",
+        "week52_low": 520.26,
+        "week52_high": 796.25,
+        "pe_trailing": "20.2"
       },
       {
         "date": "2026-08-18",
@@ -1282,14 +1338,15 @@
         "move_pct": -3.54,
         "move_points": -20.88,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$520.26-$790.8",
-        "dividend_yield": "0.38%"
+        "dividend_yield": "0.38%",
+        "week52_low": 520.26,
+        "week52_high": 790.8
       }
     ]
   },
@@ -1304,12 +1361,13 @@
         "currency": "USD",
         "move_pct": 3.26,
         "move_label": "day",
-        "rating": "3-star, None moat, NOT_FOUND uncertainty, fair value NOT_FOUND",
+        "rating": "3-star, None moat, not available uncertainty, fair value not available",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$10.76-\\$30.0",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 10.76,
+        "week52_high": 30.0
       },
       {
         "date": "2026-08-05",
@@ -1317,12 +1375,13 @@
         "currency": "USD",
         "move_pct": -1.15,
         "move_label": "day",
-        "rating": "3-star, None moat, NOT_FOUND uncertainty, fair value NOT_FOUND",
+        "rating": "3-star, None moat, not available uncertainty, fair value not available",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$10.76-\\$30.0",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 10.76,
+        "week52_high": 30.0
       },
       {
         "date": "2026-08-07",
@@ -1334,8 +1393,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$10.76-\\$30.0",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 10.76,
+        "week52_high": 30.0
       }
     ]
   },
@@ -1354,8 +1414,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$85.68-\\$217.5",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 85.68,
+        "week52_high": 217.5
       },
       {
         "date": "2026-08-08",
@@ -1369,8 +1430,9 @@
         ],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$85.68-\\$217.5",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 85.68,
+        "week52_high": 217.5
       },
       {
         "date": "2026-08-11",
@@ -1382,8 +1444,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$85.68-\\$217.5",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 85.68,
+        "week52_high": 217.5
       },
       {
         "date": "2026-08-15",
@@ -1396,8 +1459,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$85.68-$227.5",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 85.68,
+        "week52_high": 227.5
       }
     ]
   },
@@ -1416,8 +1480,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$106.16-\\$1085.68",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 106.16,
+        "week52_high": 1085.68
       },
       {
         "date": "2026-08-05",
@@ -1429,8 +1494,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$106.16-\\$1085.68",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 106.16,
+        "week52_high": 1085.68
       },
       {
         "date": "2026-08-06",
@@ -1442,8 +1508,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$106.16-\\$1085.68",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 106.16,
+        "week52_high": 1085.68
       },
       {
         "date": "2026-08-07",
@@ -1455,8 +1522,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$106.16-\\$1085.68",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 106.16,
+        "week52_high": 1085.68
       },
       {
         "date": "2026-08-08",
@@ -1468,8 +1536,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$106.16-\\$1085.68",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 106.16,
+        "week52_high": 1085.68
       },
       {
         "date": "2026-08-11",
@@ -1481,8 +1550,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$106.16-\\$1085.68",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 106.16,
+        "week52_high": 1085.68
       },
       {
         "date": "2026-08-13",
@@ -1494,8 +1564,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$106.16-\\$1085.68",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 106.16,
+        "week52_high": 1085.68
       },
       {
         "date": "2026-08-14",
@@ -1507,8 +1578,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$106.16-\\$1085.68",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 106.16,
+        "week52_high": 1085.68
       },
       {
         "date": "2026-08-15",
@@ -1521,8 +1593,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$111.2-$1085.68",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 111.2,
+        "week52_high": 1085.68
       },
       {
         "date": "2026-08-18",
@@ -1531,14 +1604,15 @@
         "move_pct": 4.62,
         "move_points": 42.76,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$111.2-$1085.68",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 111.2,
+        "week52_high": 1085.68
       }
     ]
   },
@@ -1557,8 +1631,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$164.07-\\$236.54",
-        "dividend_yield": "0.14%"
+        "dividend_yield": "0.14%",
+        "week52_low": 164.07,
+        "week52_high": 236.54
       },
       {
         "date": "2026-08-06",
@@ -1572,8 +1647,9 @@
         ],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$164.07-\\$236.54",
-        "dividend_yield": "0.14%"
+        "dividend_yield": "0.14%",
+        "week52_low": 164.07,
+        "week52_high": 236.54
       }
     ]
   },
@@ -1592,8 +1668,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$61.44-\\$329.88",
-        "dividend_yield": "0.13%"
+        "dividend_yield": "0.13%",
+        "week52_low": 61.44,
+        "week52_high": 329.88
       },
       {
         "date": "2026-08-05",
@@ -1605,8 +1682,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$61.44-\\$329.88",
-        "dividend_yield": "0.13%"
+        "dividend_yield": "0.13%",
+        "week52_low": 61.44,
+        "week52_high": 329.88
       },
       {
         "date": "2026-08-06",
@@ -1618,8 +1696,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$61.44-\\$329.88",
-        "dividend_yield": "0.13%"
+        "dividend_yield": "0.13%",
+        "week52_low": 61.44,
+        "week52_high": 329.88
       },
       {
         "date": "2026-08-08",
@@ -1631,8 +1710,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$61.44-\\$329.88",
-        "dividend_yield": "0.13%"
+        "dividend_yield": "0.13%",
+        "week52_low": 61.44,
+        "week52_high": 329.88
       },
       {
         "date": "2026-08-11",
@@ -1644,8 +1724,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$61.44-\\$329.88",
-        "dividend_yield": "0.13%"
+        "dividend_yield": "0.13%",
+        "week52_low": 61.44,
+        "week52_high": 329.88
       },
       {
         "date": "2026-08-18",
@@ -1654,14 +1735,15 @@
         "move_pct": 5.54,
         "move_points": 12.31,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$61.44-$329.88",
-        "dividend_yield": "0.11%"
+        "dividend_yield": "0.11%",
+        "week52_low": 61.44,
+        "week52_high": 329.88
       }
     ]
   },
@@ -1680,8 +1762,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$82.59-\\$108.72",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 82.59,
+        "week52_high": 108.72
       },
       {
         "date": "2026-08-06",
@@ -1693,8 +1776,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$82.59-\\$108.72",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 82.59,
+        "week52_high": 108.72
       }
     ]
   },
@@ -1715,8 +1799,9 @@
         ],
         "note": "Payout ratio approx 80% high for sector",
         "source_url": "stockanalysis.com; fullratio.com",
-        "pe_trailing": "38.97-50.63",
-        "dividend_yield": "2.01"
+        "dividend_yield": "2.01",
+        "week52_low": 38.97,
+        "week52_high": 50.63
       },
       {
         "date": "2026-08-07",
@@ -1730,8 +1815,9 @@
         ],
         "note": "Payout ratio approx 80% high for sector",
         "source_url": "stockanalysis.com; fullratio.com",
-        "pe_trailing": "38.97-50.63",
-        "dividend_yield": "2.01"
+        "dividend_yield": "2.01",
+        "week52_low": 38.97,
+        "week52_high": 50.63
       },
       {
         "date": "2026-08-14",
@@ -1745,8 +1831,9 @@
         ],
         "note": "Payout ratio approx 80% high for sector",
         "source_url": "stockanalysis.com; fullratio.com",
-        "pe_trailing": "38.97-50.63",
-        "dividend_yield": "2.01"
+        "dividend_yield": "2.01",
+        "week52_low": 38.97,
+        "week52_high": 50.63
       }
     ]
   },
@@ -1761,12 +1848,13 @@
         "currency": "USD",
         "move_pct": 2.21,
         "move_label": "day",
-        "rating": "1-star, None moat, NOT_FOUND uncertainty, fair value 415",
+        "rating": "1-star, None moat, not available uncertainty, fair value 415",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$73.14-\\$799.87",
-        "dividend_yield": "0.09%"
+        "dividend_yield": "0.09%",
+        "week52_low": 73.14,
+        "week52_high": 799.87
       },
       {
         "date": "2026-08-06",
@@ -1778,8 +1866,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$73.14-\\$799.87",
-        "dividend_yield": "0.09%"
+        "dividend_yield": "0.09%",
+        "week52_low": 73.14,
+        "week52_high": 799.87
       },
       {
         "date": "2026-08-07",
@@ -1791,8 +1880,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$73.14-\\$799.87",
-        "dividend_yield": "0.09%"
+        "dividend_yield": "0.09%",
+        "week52_low": 73.14,
+        "week52_high": 799.87
       },
       {
         "date": "2026-08-08",
@@ -1804,8 +1894,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$73.14-\\$799.87",
-        "dividend_yield": "0.09%"
+        "dividend_yield": "0.09%",
+        "week52_low": 73.14,
+        "week52_high": 799.87
       },
       {
         "date": "2026-08-14",
@@ -1817,8 +1908,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$73.14-\\$799.87",
-        "dividend_yield": "0.09%"
+        "dividend_yield": "0.09%",
+        "week52_low": 73.14,
+        "week52_high": 799.87
       },
       {
         "date": "2026-08-15",
@@ -1831,8 +1923,9 @@
         "lists": [],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$73.14-$799.87",
-        "dividend_yield": "0.1%"
+        "dividend_yield": "0.1%",
+        "week52_low": 73.14,
+        "week52_high": 799.87
       },
       {
         "date": "2026-08-18",
@@ -1841,14 +1934,15 @@
         "move_pct": 5.35,
         "move_points": 27.21,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$73.14-$799.87",
-        "dividend_yield": "0.1%"
+        "dividend_yield": "0.1%",
+        "week52_low": 73.14,
+        "week52_high": 799.87
       }
     ]
   },
@@ -1991,8 +2085,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$40.53-\\$2354.39",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 40.53,
+        "week52_high": 2354.39
       },
       {
         "date": "2026-08-05",
@@ -2004,8 +2099,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$40.53-\\$2354.39",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 40.53,
+        "week52_high": 2354.39
       },
       {
         "date": "2026-08-06",
@@ -2017,8 +2113,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$40.53-\\$2354.39",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 40.53,
+        "week52_high": 2354.39
       },
       {
         "date": "2026-08-07",
@@ -2030,8 +2127,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$40.53-\\$2354.39",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 40.53,
+        "week52_high": 2354.39
       },
       {
         "date": "2026-08-08",
@@ -2043,8 +2141,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$40.53-\\$2354.39",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 40.53,
+        "week52_high": 2354.39
       },
       {
         "date": "2026-08-12",
@@ -2056,8 +2155,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$40.53-\\$2354.39",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 40.53,
+        "week52_high": 2354.39
       },
       {
         "date": "2026-08-13",
@@ -2069,8 +2169,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$40.53-\\$2354.39",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 40.53,
+        "week52_high": 2354.39
       },
       {
         "date": "2026-08-14",
@@ -2082,8 +2183,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$40.53-\\$2354.39",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 40.53,
+        "week52_high": 2354.39
       },
       {
         "date": "2026-08-15",
@@ -2096,8 +2198,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$43.202-$2354.39",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 43.202,
+        "week52_high": 2354.39
       },
       {
         "date": "2026-08-18",
@@ -2106,14 +2209,15 @@
         "move_pct": 8.88,
         "move_points": 145.74,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$43.202-$2354.39",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 43.202,
+        "week52_high": 2354.39
       }
     ]
   },
@@ -2132,8 +2236,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$81.81-\\$414.36",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 81.81,
+        "week52_high": 414.36
       },
       {
         "date": "2026-08-07",
@@ -2145,8 +2250,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$81.81-\\$414.36",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 81.81,
+        "week52_high": 414.36
       },
       {
         "date": "2026-08-08",
@@ -2158,8 +2264,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$81.81-\\$414.36",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 81.81,
+        "week52_high": 414.36
       },
       {
         "date": "2026-08-15",
@@ -2172,8 +2279,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$81.81-$367.57",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 81.81,
+        "week52_high": 367.57
       },
       {
         "date": "2026-08-18",
@@ -2182,14 +2290,15 @@
         "move_pct": 4.99,
         "move_points": 4.64,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$81.81-$365.21",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 81.81,
+        "week52_high": 365.21
       }
     ]
   },
@@ -2208,8 +2317,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$94.0-\\$182.19",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 94.0,
+        "week52_high": 182.19
       },
       {
         "date": "2026-08-06",
@@ -2221,8 +2331,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$94.0-\\$182.19",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 94.0,
+        "week52_high": 182.19
       },
       {
         "date": "2026-08-07",
@@ -2234,8 +2345,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$94.0-\\$182.19",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 94.0,
+        "week52_high": 182.19
       },
       {
         "date": "2026-08-14",
@@ -2247,8 +2359,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$94.0-\\$182.19",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 94.0,
+        "week52_high": 182.19
       },
       {
         "date": "2026-08-18",
@@ -2257,14 +2370,15 @@
         "move_pct": -3.67,
         "move_points": -5.67,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$94.0-$182.19",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 94.0,
+        "week52_high": 182.19
       }
     ]
   },
@@ -2283,8 +2397,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$107.01-\\$225.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 107.01,
+        "week52_high": 225.64
       },
       {
         "date": "2026-08-05",
@@ -2296,8 +2411,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$107.01-\\$225.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 107.01,
+        "week52_high": 225.64
       },
       {
         "date": "2026-08-06",
@@ -2309,8 +2425,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$107.01-\\$225.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 107.01,
+        "week52_high": 225.64
       },
       {
         "date": "2026-08-07",
@@ -2322,8 +2439,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$107.01-\\$225.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 107.01,
+        "week52_high": 225.64
       },
       {
         "date": "2026-08-08",
@@ -2335,8 +2453,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$107.01-\\$225.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 107.01,
+        "week52_high": 225.64
       },
       {
         "date": "2026-08-11",
@@ -2348,8 +2467,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$107.01-\\$225.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 107.01,
+        "week52_high": 225.64
       },
       {
         "date": "2026-08-12",
@@ -2361,8 +2481,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$107.01-\\$225.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 107.01,
+        "week52_high": 225.64
       },
       {
         "date": "2026-08-13",
@@ -2374,8 +2495,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$107.01-\\$225.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 107.01,
+        "week52_high": 225.64
       },
       {
         "date": "2026-08-14",
@@ -2383,12 +2505,13 @@
         "currency": "USD",
         "move_pct": -3.33,
         "move_label": "day",
-        "rating": "1-star, NOT_FOUND moat, Very High uncertainty, fair value $62",
+        "rating": "1-star, not available moat, Very High uncertainty, fair value $62",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$107.01-\\$225.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 107.01,
+        "week52_high": 225.64
       },
       {
         "date": "2026-08-18",
@@ -2397,14 +2520,15 @@
         "move_pct": 4.45,
         "move_points": 6.23,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$104.83-$225.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 104.83,
+        "week52_high": 225.64
       }
     ]
   },
@@ -2423,8 +2547,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$60.55-\\$153.2",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 60.55,
+        "week52_high": 153.2
       },
       {
         "date": "2026-08-05",
@@ -2436,8 +2561,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$60.55-\\$153.2",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 60.55,
+        "week52_high": 153.2
       },
       {
         "date": "2026-08-07",
@@ -2449,8 +2575,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$60.55-\\$153.2",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 60.55,
+        "week52_high": 153.2
       },
       {
         "date": "2026-08-08",
@@ -2462,8 +2589,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$60.55-\\$153.2",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 60.55,
+        "week52_high": 153.2
       },
       {
         "date": "2026-08-12",
@@ -2475,8 +2603,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$60.55-\\$153.2",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 60.55,
+        "week52_high": 153.2
       },
       {
         "date": "2026-08-13",
@@ -2488,8 +2617,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$60.55-\\$153.2",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 60.55,
+        "week52_high": 153.2
       }
     ]
   },
@@ -2504,15 +2634,16 @@
         "currency": "USD",
         "move_pct": -2.75,
         "move_label": "day",
-        "rating": "5-star, Wide moat, NOT_FOUND uncertainty, fair value 88",
+        "rating": "5-star, Wide moat, not available uncertainty, fair value 88",
         "lists": [
           "Long-Term"
         ],
         "note": "payout ~3% of earnings low",
         "source_url": "Yahoo Finance;stockanalysis.com",
-        "market_cap": "15.7",
-        "pe_trailing": "58.75-89.77",
-        "dividend_yield": "0.21"
+        "dividend_yield": "0.21",
+        "week52_low": 58.75,
+        "week52_high": 89.77,
+        "pe_trailing": "15.7"
       }
     ]
   },
@@ -2533,8 +2664,9 @@
         ],
         "note": "payout ~38-39% moderate",
         "source_url": "stockanalysis.com",
-        "pe_trailing": "121.99-259.92",
-        "dividend_yield": "2.36"
+        "dividend_yield": "2.36",
+        "week52_low": 121.99,
+        "week52_high": 259.92
       },
       {
         "date": "2026-08-05",
@@ -2548,8 +2680,9 @@
         ],
         "note": "payout ~38-39% moderate",
         "source_url": "stockanalysis.com",
-        "pe_trailing": "121.99-259.92",
-        "dividend_yield": "2.36"
+        "dividend_yield": "2.36",
+        "week52_low": 121.99,
+        "week52_high": 259.92
       },
       {
         "date": "2026-08-06",
@@ -2563,8 +2696,9 @@
         ],
         "note": "payout ~38-39% moderate",
         "source_url": "stockanalysis.com",
-        "pe_trailing": "121.99-259.92",
-        "dividend_yield": "2.36"
+        "dividend_yield": "2.36",
+        "week52_low": 121.99,
+        "week52_high": 259.92
       },
       {
         "date": "2026-08-07",
@@ -2578,8 +2712,9 @@
         ],
         "note": "payout ~38-39% moderate",
         "source_url": "stockanalysis.com",
-        "pe_trailing": "121.99-259.92",
-        "dividend_yield": "2.36"
+        "dividend_yield": "2.36",
+        "week52_low": 121.99,
+        "week52_high": 259.92
       },
       {
         "date": "2026-08-08",
@@ -2587,14 +2722,15 @@
         "currency": "USD",
         "move_pct": 4.66,
         "move_label": "day",
-        "rating": "3-star, Narrow moat, NOT_FOUND uncertainty, fair value 200",
+        "rating": "3-star, Narrow moat, not available uncertainty, fair value 200",
         "lists": [
           "Dividends"
         ],
         "note": "payout ~38-39% moderate",
         "source_url": "stockanalysis.com",
-        "pe_trailing": "121.99-259.92",
-        "dividend_yield": "2.36"
+        "dividend_yield": "2.36",
+        "week52_low": 121.99,
+        "week52_high": 259.92
       },
       {
         "date": "2026-08-11",
@@ -2608,8 +2744,9 @@
         ],
         "note": "payout ~38-39% moderate",
         "source_url": "stockanalysis.com",
-        "pe_trailing": "121.99-259.92",
-        "dividend_yield": "2.36"
+        "dividend_yield": "2.36",
+        "week52_low": 121.99,
+        "week52_high": 259.92
       }
     ]
   },
@@ -2630,8 +2767,9 @@
         ],
         "note": "payout ~46-60% varies by source",
         "source_url": "WallStreetZen;gurufocus.com",
-        "pe_trailing": "84.66-113.67",
-        "dividend_yield": "2.3"
+        "dividend_yield": "2.3",
+        "week52_low": 84.66,
+        "week52_high": 113.67
       },
       {
         "date": "2026-08-05",
@@ -2645,8 +2783,9 @@
         ],
         "note": "payout ~46-60% varies by source",
         "source_url": "WallStreetZen;gurufocus.com",
-        "pe_trailing": "84.66-113.67",
-        "dividend_yield": "2.3"
+        "dividend_yield": "2.3",
+        "week52_low": 84.66,
+        "week52_high": 113.67
       },
       {
         "date": "2026-08-06",
@@ -2654,14 +2793,15 @@
         "currency": "USD",
         "move_pct": 2.31,
         "move_label": "day",
-        "rating": "2-star, Narrow moat, NOT_FOUND uncertainty, fair value 6300 GBX",
+        "rating": "2-star, Narrow moat, not available uncertainty, fair value 6300 GBX",
         "lists": [
           "Dividends"
         ],
         "note": "payout ~46-60% varies by source",
         "source_url": "WallStreetZen;gurufocus.com",
-        "pe_trailing": "84.66-113.67",
-        "dividend_yield": "2.3"
+        "dividend_yield": "2.3",
+        "week52_low": 84.66,
+        "week52_high": 113.67
       }
     ]
   },
@@ -2682,8 +2822,9 @@
         ],
         "note": "payout ~70-100% elevated high",
         "source_url": "macrotrends;tickeron.com",
-        "pe_trailing": "21.035-28.1",
-        "dividend_yield": "6.2"
+        "dividend_yield": "6.2",
+        "week52_low": 21.035,
+        "week52_high": 28.1
       },
       {
         "date": "2026-08-06",
@@ -2697,8 +2838,9 @@
         ],
         "note": "payout ~70-100% elevated high",
         "source_url": "macrotrends;tickeron.com",
-        "pe_trailing": "21.035-28.1",
-        "dividend_yield": "6.2"
+        "dividend_yield": "6.2",
+        "week52_low": 21.035,
+        "week52_high": 28.1
       },
       {
         "date": "2026-08-07",
@@ -2712,8 +2854,9 @@
         ],
         "note": "payout ~70-100% elevated high",
         "source_url": "macrotrends;tickeron.com",
-        "pe_trailing": "21.035-28.1",
-        "dividend_yield": "6.2"
+        "dividend_yield": "6.2",
+        "week52_low": 21.035,
+        "week52_high": 28.1
       }
     ]
   },
@@ -2728,12 +2871,13 @@
         "currency": "USD",
         "move_pct": -2.0,
         "move_label": "day",
-        "rating": "2-star, Narrow moat, NOT_FOUND uncertainty, fair value 77",
+        "rating": "2-star, Narrow moat, not available uncertainty, fair value 77",
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$65.08-\\$126.71",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 65.08,
+        "week52_high": 126.71
       },
       {
         "date": "2026-08-06",
@@ -2745,8 +2889,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$65.08-\\$126.71",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 65.08,
+        "week52_high": 126.71
       },
       {
         "date": "2026-08-12",
@@ -2758,8 +2903,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$65.08-\\$126.71",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 65.08,
+        "week52_high": 126.71
       },
       {
         "date": "2026-08-14",
@@ -2771,8 +2917,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$65.08-\\$126.71",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 65.08,
+        "week52_high": 126.71
       }
     ]
   },
@@ -2791,8 +2938,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$359.0-\\$745.61",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 359.0,
+        "week52_high": 745.61
       },
       {
         "date": "2026-08-07",
@@ -2804,8 +2952,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$359.0-\\$745.61",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 359.0,
+        "week52_high": 745.61
       },
       {
         "date": "2026-08-08",
@@ -2817,8 +2966,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$359.0-\\$745.61",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 359.0,
+        "week52_high": 745.61
       },
       {
         "date": "2026-08-12",
@@ -2830,8 +2980,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$359.0-\\$745.61",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 359.0,
+        "week52_high": 745.61
       },
       {
         "date": "2026-08-13",
@@ -2843,8 +2994,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$359.0-\\$745.61",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 359.0,
+        "week52_high": 745.61
       }
     ]
   },
@@ -2863,8 +3015,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$187.63-\\$265.94",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 187.63,
+        "week52_high": 265.94
       },
       {
         "date": "2026-08-05",
@@ -2876,8 +3029,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$187.63-\\$265.94",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 187.63,
+        "week52_high": 265.94
       },
       {
         "date": "2026-08-08",
@@ -2889,8 +3043,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$187.63-\\$265.94",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 187.63,
+        "week52_high": 265.94
       },
       {
         "date": "2026-08-13",
@@ -2902,8 +3057,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$187.63-\\$265.94",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 187.63,
+        "week52_high": 265.94
       }
     ]
   },
@@ -2922,8 +3078,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$94.11-\\$438.5",
-        "dividend_yield": "0.35%"
+        "dividend_yield": "0.35%",
+        "week52_low": 94.11,
+        "week52_high": 438.5
       },
       {
         "date": "2026-08-05",
@@ -2937,8 +3094,9 @@
         ],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$94.11-\\$438.5",
-        "dividend_yield": "0.35%"
+        "dividend_yield": "0.35%",
+        "week52_low": 94.11,
+        "week52_high": 438.5
       },
       {
         "date": "2026-08-06",
@@ -2950,8 +3108,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$94.11-\\$438.5",
-        "dividend_yield": "0.35%"
+        "dividend_yield": "0.35%",
+        "week52_low": 94.11,
+        "week52_high": 438.5
       },
       {
         "date": "2026-08-13",
@@ -2963,8 +3122,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$94.11-\\$438.5",
-        "dividend_yield": "0.35%"
+        "dividend_yield": "0.35%",
+        "week52_low": 94.11,
+        "week52_high": 438.5
       },
       {
         "date": "2026-08-18",
@@ -2973,14 +3133,15 @@
         "move_pct": 3.45,
         "move_points": 11.48,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$94.11-$438.5",
-        "dividend_yield": "0.32%"
+        "dividend_yield": "0.32%",
+        "week52_low": 94.11,
+        "week52_high": 438.5
       }
     ]
   },
@@ -2999,8 +3160,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$26.81-\\$50.11",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 26.81,
+        "week52_high": 50.11
       },
       {
         "date": "2026-08-15",
@@ -3013,8 +3175,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$26.81-$50.11",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 26.81,
+        "week52_high": 50.11
       }
     ]
   },
@@ -3035,8 +3198,9 @@
         ],
         "note": "payout ratio ~68%; 17yr dividend history",
         "source_url": "fullratio.com",
-        "pe_trailing": "24.88-35.94",
-        "dividend_yield": "2.96"
+        "dividend_yield": "2.96",
+        "week52_low": 24.88,
+        "week52_high": 35.94
       },
       {
         "date": "2026-08-08",
@@ -3050,8 +3214,9 @@
         ],
         "note": "payout ratio ~68%; 17yr dividend history",
         "source_url": "fullratio.com",
-        "pe_trailing": "24.88-35.94",
-        "dividend_yield": "2.96"
+        "dividend_yield": "2.96",
+        "week52_low": 24.88,
+        "week52_high": 35.94
       },
       {
         "date": "2026-08-14",
@@ -3065,8 +3230,9 @@
         ],
         "note": "payout ratio ~68%; 17yr dividend history",
         "source_url": "fullratio.com",
-        "pe_trailing": "24.88-35.94",
-        "dividend_yield": "2.96"
+        "dividend_yield": "2.96",
+        "week52_low": 24.88,
+        "week52_high": 35.94
       },
       {
         "date": "2026-08-18",
@@ -3075,15 +3241,16 @@
         "move_pct": -3.69,
         "move_points": -1.16,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term",
           "Dividends"
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$24.88-$35.94",
-        "dividend_yield": "2.99%"
+        "dividend_yield": "2.99%",
+        "week52_low": 24.88,
+        "week52_high": 35.94
       }
     ]
   },
@@ -3102,8 +3269,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.305-\\$7.55",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.305,
+        "week52_high": 7.55
       },
       {
         "date": "2026-08-05",
@@ -3115,8 +3283,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.305-\\$7.55",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.305,
+        "week52_high": 7.55
       },
       {
         "date": "2026-08-07",
@@ -3128,8 +3297,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.305-\\$7.55",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.305,
+        "week52_high": 7.55
       },
       {
         "date": "2026-08-08",
@@ -3141,8 +3311,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.305-\\$7.55",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.305,
+        "week52_high": 7.55
       },
       {
         "date": "2026-08-11",
@@ -3154,8 +3325,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.305-\\$7.55",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.305,
+        "week52_high": 7.55
       },
       {
         "date": "2026-08-13",
@@ -3167,8 +3339,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.305-\\$7.55",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.305,
+        "week52_high": 7.55
       },
       {
         "date": "2026-08-15",
@@ -3181,8 +3354,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$0.472-$7.55",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.472,
+        "week52_high": 7.55
       }
     ]
   },
@@ -3201,8 +3375,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$2.87-\\$12.58",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 2.87,
+        "week52_high": 12.58
       },
       {
         "date": "2026-08-06",
@@ -3214,8 +3389,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$2.87-\\$12.58",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 2.87,
+        "week52_high": 12.58
       },
       {
         "date": "2026-08-07",
@@ -3227,8 +3403,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$2.87-\\$12.58",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 2.87,
+        "week52_high": 12.58
       },
       {
         "date": "2026-08-11",
@@ -3240,8 +3417,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$2.87-\\$12.58",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 2.87,
+        "week52_high": 12.58
       },
       {
         "date": "2026-08-12",
@@ -3253,8 +3431,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$2.87-\\$12.58",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 2.87,
+        "week52_high": 12.58
       }
     ]
   },
@@ -3273,8 +3452,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.215-\\$2.97",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.215,
+        "week52_high": 2.97
       },
       {
         "date": "2026-08-06",
@@ -3286,8 +3466,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.215-\\$2.97",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.215,
+        "week52_high": 2.97
       },
       {
         "date": "2026-08-14",
@@ -3299,8 +3480,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.215-\\$2.97",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.215,
+        "week52_high": 2.97
       },
       {
         "date": "2026-08-18",
@@ -3313,8 +3495,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$1.215-$2.97",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.215,
+        "week52_high": 2.97
       }
     ]
   },
@@ -3333,8 +3516,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.632-\\$1.72",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.632,
+        "week52_high": 1.72
       },
       {
         "date": "2026-08-06",
@@ -3346,8 +3530,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.632-\\$1.72",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.632,
+        "week52_high": 1.72
       }
     ]
   },
@@ -3366,8 +3551,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.375-\\$4.93",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.375,
+        "week52_high": 4.93
       },
       {
         "date": "2026-08-05",
@@ -3379,8 +3565,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.375-\\$4.93",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.375,
+        "week52_high": 4.93
       },
       {
         "date": "2026-08-07",
@@ -3392,8 +3579,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.375-\\$4.93",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.375,
+        "week52_high": 4.93
       },
       {
         "date": "2026-08-08",
@@ -3405,8 +3593,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.375-\\$4.93",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.375,
+        "week52_high": 4.93
       },
       {
         "date": "2026-08-13",
@@ -3418,8 +3607,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.375-\\$4.93",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.375,
+        "week52_high": 4.93
       },
       {
         "date": "2026-08-18",
@@ -3432,8 +3622,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$1.375-$4.93",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.375,
+        "week52_high": 4.93
       }
     ]
   },
@@ -3452,8 +3643,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$8.935-\\$17.83",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 8.935,
+        "week52_high": 17.83
       },
       {
         "date": "2026-08-05",
@@ -3465,8 +3657,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$8.935-\\$17.83",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 8.935,
+        "week52_high": 17.83
       },
       {
         "date": "2026-08-06",
@@ -3478,8 +3671,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$8.935-\\$17.83",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 8.935,
+        "week52_high": 17.83
       },
       {
         "date": "2026-08-11",
@@ -3491,8 +3685,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$8.935-\\$17.83",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 8.935,
+        "week52_high": 17.83
       }
     ]
   },
@@ -3511,8 +3706,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$6.04-\\$15.1",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 6.04,
+        "week52_high": 15.1
       },
       {
         "date": "2026-08-05",
@@ -3524,8 +3720,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$6.04-\\$15.1",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 6.04,
+        "week52_high": 15.1
       },
       {
         "date": "2026-08-06",
@@ -3537,8 +3734,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$6.04-\\$15.1",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 6.04,
+        "week52_high": 15.1
       },
       {
         "date": "2026-08-07",
@@ -3550,8 +3748,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$6.04-\\$15.1",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 6.04,
+        "week52_high": 15.1
       },
       {
         "date": "2026-08-14",
@@ -3563,8 +3762,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$6.04-\\$15.1",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 6.04,
+        "week52_high": 15.1
       },
       {
         "date": "2026-08-15",
@@ -3577,8 +3777,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$6.26-$15.1",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 6.26,
+        "week52_high": 15.1
       },
       {
         "date": "2026-08-18",
@@ -3591,8 +3792,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$6.26-$15.1",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 6.26,
+        "week52_high": 15.1
       }
     ]
   },
@@ -3613,8 +3815,9 @@
         ],
         "note": "payout ratio ~95-98%; semi-annual",
         "source_url": "stockanalysis.com; simplywall.st",
-        "pe_trailing": "12.3-25.33",
-        "dividend_yield": "3.42"
+        "dividend_yield": "3.42",
+        "week52_low": 12.3,
+        "week52_high": 25.33
       },
       {
         "date": "2026-08-05",
@@ -3628,8 +3831,9 @@
         ],
         "note": "payout ratio ~95-98%; semi-annual",
         "source_url": "stockanalysis.com; simplywall.st",
-        "pe_trailing": "12.3-25.33",
-        "dividend_yield": "3.42"
+        "dividend_yield": "3.42",
+        "week52_low": 12.3,
+        "week52_high": 25.33
       },
       {
         "date": "2026-08-07",
@@ -3643,8 +3847,9 @@
         ],
         "note": "payout ratio ~95-98%; semi-annual",
         "source_url": "stockanalysis.com; simplywall.st",
-        "pe_trailing": "12.3-25.33",
-        "dividend_yield": "3.42"
+        "dividend_yield": "3.42",
+        "week52_low": 12.3,
+        "week52_high": 25.33
       },
       {
         "date": "2026-08-08",
@@ -3658,8 +3863,9 @@
         ],
         "note": "payout ratio ~95-98%; semi-annual",
         "source_url": "stockanalysis.com; simplywall.st",
-        "pe_trailing": "12.3-25.33",
-        "dividend_yield": "3.42"
+        "dividend_yield": "3.42",
+        "week52_low": 12.3,
+        "week52_high": 25.33
       }
     ]
   },
@@ -3678,8 +3884,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$9.98-\\$20.47",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 9.98,
+        "week52_high": 20.47
       },
       {
         "date": "2026-08-07",
@@ -3691,8 +3898,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$9.98-\\$20.47",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 9.98,
+        "week52_high": 20.47
       },
       {
         "date": "2026-08-18",
@@ -3705,8 +3913,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$9.98-$20.47",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 9.98,
+        "week52_high": 20.47
       }
     ]
   },
@@ -3725,8 +3934,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$2.29-\\$3.97",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 2.29,
+        "week52_high": 3.97
       },
       {
         "date": "2026-08-06",
@@ -3738,8 +3948,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$2.29-\\$3.97",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 2.29,
+        "week52_high": 3.97
       },
       {
         "date": "2026-08-07",
@@ -3751,8 +3962,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$2.29-\\$3.97",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 2.29,
+        "week52_high": 3.97
       },
       {
         "date": "2026-08-08",
@@ -3764,8 +3976,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$2.29-\\$3.97",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 2.29,
+        "week52_high": 3.97
       }
     ]
   },
@@ -3784,8 +3997,9 @@
         "lists": [],
         "note": "payout ratio ~16-18%; semi-annual",
         "source_url": "stockanalysis.com; simplywall.st",
-        "pe_trailing": "4.92-9.48",
-        "dividend_yield": "0.81"
+        "dividend_yield": "0.81",
+        "week52_low": 4.92,
+        "week52_high": 9.48
       },
       {
         "date": "2026-08-05",
@@ -3797,8 +4011,9 @@
         "lists": [],
         "note": "payout ratio ~16-18%; semi-annual",
         "source_url": "stockanalysis.com; simplywall.st",
-        "pe_trailing": "4.92-9.48",
-        "dividend_yield": "0.81"
+        "dividend_yield": "0.81",
+        "week52_low": 4.92,
+        "week52_high": 9.48
       },
       {
         "date": "2026-08-07",
@@ -3810,8 +4025,9 @@
         "lists": [],
         "note": "payout ratio ~16-18%; semi-annual",
         "source_url": "stockanalysis.com; simplywall.st",
-        "pe_trailing": "4.92-9.48",
-        "dividend_yield": "0.81"
+        "dividend_yield": "0.81",
+        "week52_low": 4.92,
+        "week52_high": 9.48
       },
       {
         "date": "2026-08-08",
@@ -3823,8 +4039,9 @@
         "lists": [],
         "note": "payout ratio ~16-18%; semi-annual",
         "source_url": "stockanalysis.com; simplywall.st",
-        "pe_trailing": "4.92-9.48",
-        "dividend_yield": "0.81"
+        "dividend_yield": "0.81",
+        "week52_low": 4.92,
+        "week52_high": 9.48
       }
     ]
   },
@@ -3843,8 +4060,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.36-\\$1.045",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.36,
+        "week52_high": 1.045
       },
       {
         "date": "2026-08-05",
@@ -3856,8 +4074,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.36-\\$1.045",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.36,
+        "week52_high": 1.045
       },
       {
         "date": "2026-08-06",
@@ -3869,8 +4088,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.36-\\$1.045",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.36,
+        "week52_high": 1.045
       },
       {
         "date": "2026-08-07",
@@ -3882,8 +4102,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.36-\\$1.045",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.36,
+        "week52_high": 1.045
       },
       {
         "date": "2026-08-08",
@@ -3895,8 +4116,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.36-\\$1.045",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.36,
+        "week52_high": 1.045
       },
       {
         "date": "2026-08-13",
@@ -3908,8 +4130,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.36-\\$1.045",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.36,
+        "week52_high": 1.045
       }
     ]
   },
@@ -3928,8 +4151,9 @@
         "lists": [],
         "note": "payout ratio ~9%; quarterly CDI of Alcoa",
         "source_url": "stockanalysis.com; tradingview.com",
-        "pe_trailing": "44.27-117.87",
-        "dividend_yield": "0.88"
+        "dividend_yield": "0.88",
+        "week52_low": 44.27,
+        "week52_high": 117.87
       },
       {
         "date": "2026-08-12",
@@ -3941,8 +4165,9 @@
         "lists": [],
         "note": "payout ratio ~9%; quarterly CDI of Alcoa",
         "source_url": "stockanalysis.com; tradingview.com",
-        "pe_trailing": "44.27-117.87",
-        "dividend_yield": "0.88"
+        "dividend_yield": "0.88",
+        "week52_low": 44.27,
+        "week52_high": 117.87
       },
       {
         "date": "2026-08-13",
@@ -3954,8 +4179,9 @@
         "lists": [],
         "note": "payout ratio ~9%; quarterly CDI of Alcoa",
         "source_url": "stockanalysis.com; tradingview.com",
-        "pe_trailing": "44.27-117.87",
-        "dividend_yield": "0.88"
+        "dividend_yield": "0.88",
+        "week52_low": 44.27,
+        "week52_high": 117.87
       },
       {
         "date": "2026-08-14",
@@ -3967,8 +4193,9 @@
         "lists": [],
         "note": "payout ratio ~9%; quarterly CDI of Alcoa",
         "source_url": "stockanalysis.com; tradingview.com",
-        "pe_trailing": "44.27-117.87",
-        "dividend_yield": "0.88"
+        "dividend_yield": "0.88",
+        "week52_low": 44.27,
+        "week52_high": 117.87
       },
       {
         "date": "2026-08-15",
@@ -3981,8 +4208,9 @@
         "lists": [],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$45.255-$117.87",
-        "dividend_yield": "0.79%"
+        "dividend_yield": "0.79%",
+        "week52_low": 45.255,
+        "week52_high": 117.87
       }
     ]
   },
@@ -4001,8 +4229,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.8-\\$2.0",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.8,
+        "week52_high": 2.0
       },
       {
         "date": "2026-08-06",
@@ -4014,8 +4243,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.8-\\$2.0",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.8,
+        "week52_high": 2.0
       },
       {
         "date": "2026-08-07",
@@ -4027,8 +4257,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.8-\\$2.0",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.8,
+        "week52_high": 2.0
       },
       {
         "date": "2026-08-08",
@@ -4040,8 +4271,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$0.8-\\$2.0",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 0.8,
+        "week52_high": 2.0
       }
     ]
   },
@@ -4060,8 +4292,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$10.91-\\$18.22",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 10.91,
+        "week52_high": 18.22
       },
       {
         "date": "2026-08-06",
@@ -4073,8 +4306,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$10.91-\\$18.22",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 10.91,
+        "week52_high": 18.22
       },
       {
         "date": "2026-08-07",
@@ -4086,8 +4320,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$10.91-\\$18.22",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 10.91,
+        "week52_high": 18.22
       }
     ]
   },
@@ -4106,8 +4341,9 @@
         "lists": [],
         "note": "payout ratio ~50%; declining 10yr trend",
         "source_url": "stockanalysis.com; Simply Wall St",
-        "pe_trailing": "21.06-45.28",
-        "dividend_yield": "1.15"
+        "dividend_yield": "1.15",
+        "week52_low": 21.06,
+        "week52_high": 45.28
       },
       {
         "date": "2026-08-12",
@@ -4119,8 +4355,9 @@
         "lists": [],
         "note": "payout ratio ~50%; declining 10yr trend",
         "source_url": "stockanalysis.com; Simply Wall St",
-        "pe_trailing": "21.06-45.28",
-        "dividend_yield": "1.15"
+        "dividend_yield": "1.15",
+        "week52_low": 21.06,
+        "week52_high": 45.28
       }
     ]
   },
@@ -4139,8 +4376,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$12.36-\\$25.6",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 12.36,
+        "week52_high": 25.6
       },
       {
         "date": "2026-08-05",
@@ -4152,8 +4390,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$12.36-\\$25.6",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 12.36,
+        "week52_high": 25.6
       },
       {
         "date": "2026-08-12",
@@ -4165,8 +4404,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$12.36-\\$25.6",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 12.36,
+        "week52_high": 25.6
       }
     ]
   },
@@ -4185,8 +4425,9 @@
         "lists": [],
         "note": "annual div 0.03 AUD paid yearly",
         "source_url": "stockanalysis.com",
-        "pe_trailing": "2.57-8.16",
-        "dividend_yield": "0.60"
+        "dividend_yield": "0.60",
+        "week52_low": 2.57,
+        "week52_high": 8.16
       },
       {
         "date": "2026-08-06",
@@ -4198,8 +4439,9 @@
         "lists": [],
         "note": "annual div 0.03 AUD paid yearly",
         "source_url": "stockanalysis.com",
-        "pe_trailing": "2.57-8.16",
-        "dividend_yield": "0.60"
+        "dividend_yield": "0.60",
+        "week52_low": 2.57,
+        "week52_high": 8.16
       },
       {
         "date": "2026-08-08",
@@ -4211,8 +4453,9 @@
         "lists": [],
         "note": "annual div 0.03 AUD paid yearly",
         "source_url": "stockanalysis.com",
-        "pe_trailing": "2.57-8.16",
-        "dividend_yield": "0.60"
+        "dividend_yield": "0.60",
+        "week52_low": 2.57,
+        "week52_high": 8.16
       }
     ]
   },
@@ -4231,8 +4474,9 @@
         "lists": [],
         "note": "yield ~1.0-1.06% increasing payout",
         "source_url": "stockanalysis.com; Koyfin",
-        "pe_trailing": "96.34-190.91",
-        "dividend_yield": "1.05"
+        "dividend_yield": "1.05",
+        "week52_low": 96.34,
+        "week52_high": 190.91
       },
       {
         "date": "2026-08-06",
@@ -4244,8 +4488,9 @@
         "lists": [],
         "note": "yield ~1.0-1.06% increasing payout",
         "source_url": "stockanalysis.com; Koyfin",
-        "pe_trailing": "96.34-190.91",
-        "dividend_yield": "1.05"
+        "dividend_yield": "1.05",
+        "week52_low": 96.34,
+        "week52_high": 190.91
       },
       {
         "date": "2026-08-11",
@@ -4257,8 +4502,9 @@
         "lists": [],
         "note": "yield ~1.0-1.06% increasing payout",
         "source_url": "stockanalysis.com; Koyfin",
-        "pe_trailing": "96.34-190.91",
-        "dividend_yield": "1.05"
+        "dividend_yield": "1.05",
+        "week52_low": 96.34,
+        "week52_high": 190.91
       },
       {
         "date": "2026-08-13",
@@ -4270,8 +4516,9 @@
         "lists": [],
         "note": "yield ~1.0-1.06% increasing payout",
         "source_url": "stockanalysis.com; Koyfin",
-        "pe_trailing": "96.34-190.91",
-        "dividend_yield": "1.05"
+        "dividend_yield": "1.05",
+        "week52_low": 96.34,
+        "week52_high": 190.91
       }
     ]
   },
@@ -4290,8 +4537,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$3.42-\\$8.11",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 3.42,
+        "week52_high": 8.11
       },
       {
         "date": "2026-08-06",
@@ -4303,8 +4551,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$3.42-\\$8.11",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 3.42,
+        "week52_high": 8.11
       },
       {
         "date": "2026-08-08",
@@ -4316,8 +4565,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$3.42-\\$8.11",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 3.42,
+        "week52_high": 8.11
       }
     ]
   },
@@ -4338,8 +4588,9 @@
         ],
         "note": "payout ratio ~94% high; increasing 10yr",
         "source_url": "Simply Wall St; Gurufocus",
-        "pe_trailing": "1.75-2.25",
-        "dividend_yield": "6.03"
+        "dividend_yield": "6.03",
+        "week52_low": 1.75,
+        "week52_high": 2.25
       }
     ]
   },
@@ -4376,8 +4627,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.615-\\$2.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.615,
+        "week52_high": 2.64
       },
       {
         "date": "2026-08-05",
@@ -4389,8 +4641,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.615-\\$2.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.615,
+        "week52_high": 2.64
       },
       {
         "date": "2026-08-06",
@@ -4402,8 +4655,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.615-\\$2.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.615,
+        "week52_high": 2.64
       },
       {
         "date": "2026-08-12",
@@ -4415,8 +4669,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.615-\\$2.64",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.615,
+        "week52_high": 2.64
       }
     ]
   },
@@ -4435,8 +4690,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.625-\\$6.705",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.625,
+        "week52_high": 6.705
       },
       {
         "date": "2026-08-06",
@@ -4448,8 +4704,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.625-\\$6.705",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.625,
+        "week52_high": 6.705
       },
       {
         "date": "2026-08-07",
@@ -4461,8 +4718,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.625-\\$6.705",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.625,
+        "week52_high": 6.705
       },
       {
         "date": "2026-08-08",
@@ -4474,8 +4732,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$1.625-\\$6.705",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.625,
+        "week52_high": 6.705
       }
     ]
   },
@@ -4537,8 +4796,9 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$90.0-$257.0",
-        "dividend_yield": "2.7%"
+        "dividend_yield": "2.7%",
+        "week52_low": 90.0,
+        "week52_high": 257.0
       }
     ]
   },
@@ -4559,8 +4819,9 @@
         ],
         "note": "Unverified;search hit wrong company",
         "source_url": "Unverified this session",
-        "pe_trailing": "3.77-6.17",
-        "dividend_yield": "4.88"
+        "dividend_yield": "4.88",
+        "week52_low": 3.77,
+        "week52_high": 6.17
       },
       {
         "date": "2026-08-05",
@@ -4574,8 +4835,9 @@
         ],
         "note": "Unverified;search hit wrong company",
         "source_url": "Unverified this session",
-        "pe_trailing": "3.77-6.17",
-        "dividend_yield": "4.88"
+        "dividend_yield": "4.88",
+        "week52_low": 3.77,
+        "week52_high": 6.17
       }
     ]
   },
@@ -4596,8 +4858,9 @@
         ],
         "note": "Elevated payout ~119% of earnings recently",
         "source_url": "GuruFocus payout ratio data",
-        "pe_trailing": "18.26-29.24",
-        "dividend_yield": "4.98"
+        "dividend_yield": "4.98",
+        "week52_low": 18.26,
+        "week52_high": 29.24
       }
     ]
   },
@@ -4616,8 +4879,9 @@
         "lists": [],
         "note": "Payout cut; forward yield ~1.56% Digrin",
         "source_url": "Digrin.com",
-        "pe_trailing": "5.94-9.9",
-        "dividend_yield": "1.42"
+        "dividend_yield": "1.42",
+        "week52_low": 5.94,
+        "week52_high": 9.9
       },
       {
         "date": "2026-08-11",
@@ -4629,8 +4893,9 @@
         "lists": [],
         "note": "Payout cut; forward yield ~1.56% Digrin",
         "source_url": "Digrin.com",
-        "pe_trailing": "5.94-9.9",
-        "dividend_yield": "1.42"
+        "dividend_yield": "1.42",
+        "week52_low": 5.94,
+        "week52_high": 9.9
       }
     ]
   },
@@ -4649,8 +4914,9 @@
         "lists": [],
         "note": "Annualized payout $2.62; payout ratio 57%",
         "source_url": "Finbox.com",
-        "pe_trailing": "131.07-265.98",
-        "dividend_yield": "1.63"
+        "dividend_yield": "1.63",
+        "week52_low": 131.07,
+        "week52_high": 265.98
       },
       {
         "date": "2026-08-06",
@@ -4662,8 +4928,9 @@
         "lists": [],
         "note": "Annualized payout $2.62; payout ratio 57%",
         "source_url": "Finbox.com",
-        "pe_trailing": "131.07-265.98",
-        "dividend_yield": "1.63"
+        "dividend_yield": "1.63",
+        "week52_low": 131.07,
+        "week52_high": 265.98
       }
     ]
   },
@@ -4800,8 +5067,9 @@
         ],
         "note": "payout ratio ~43% consistent history",
         "source_url": "Gurufocus; Investing.com; Kalkine",
-        "pe_trailing": "18.57-25.83",
-        "dividend_yield": "4.4"
+        "dividend_yield": "4.4",
+        "week52_low": 18.57,
+        "week52_high": 25.83
       },
       {
         "date": "2026-08-05",
@@ -4815,8 +5083,9 @@
         ],
         "note": "payout ratio ~43% consistent history",
         "source_url": "Gurufocus; Investing.com; Kalkine",
-        "pe_trailing": "18.57-25.83",
-        "dividend_yield": "4.4"
+        "dividend_yield": "4.4",
+        "week52_low": 18.57,
+        "week52_high": 25.83
       },
       {
         "date": "2026-08-14",
@@ -4830,8 +5099,9 @@
         ],
         "note": "payout ratio ~43% consistent history",
         "source_url": "Gurufocus; Investing.com; Kalkine",
-        "pe_trailing": "18.57-25.83",
-        "dividend_yield": "4.4"
+        "dividend_yield": "4.4",
+        "week52_low": 18.57,
+        "week52_high": 25.83
       }
     ]
   },
@@ -4852,8 +5122,9 @@
         ],
         "note": "volatile payout; likely recent dividend cut",
         "source_url": "Ainvest; Tipranks; StockAnalysis unconfirmed",
-        "pe_trailing": "4.76-9.06",
-        "dividend_yield": "3.35"
+        "dividend_yield": "3.35",
+        "week52_low": 4.76,
+        "week52_high": 9.06
       },
       {
         "date": "2026-08-11",
@@ -4867,8 +5138,9 @@
         ],
         "note": "volatile payout; likely recent dividend cut",
         "source_url": "Ainvest; Tipranks; StockAnalysis unconfirmed",
-        "pe_trailing": "4.76-9.06",
-        "dividend_yield": "3.35"
+        "dividend_yield": "3.35",
+        "week52_low": 4.76,
+        "week52_high": 9.06
       }
     ]
   },
@@ -4887,8 +5159,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$61.45-\\$179.685",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 61.45,
+        "week52_high": 179.685
       },
       {
         "date": "2026-08-14",
@@ -4900,8 +5173,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$61.45-\\$179.685",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 61.45,
+        "week52_high": 179.685
       },
       {
         "date": "2026-08-15",
@@ -4914,8 +5188,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$61.45-$173.44",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 61.45,
+        "week52_high": 173.44
       }
     ]
   },
@@ -4934,8 +5209,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$16.9-\\$55.87",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 16.9,
+        "week52_high": 55.87
       },
       {
         "date": "2026-08-05",
@@ -4947,8 +5223,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$16.9-\\$55.87",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 16.9,
+        "week52_high": 55.87
       },
       {
         "date": "2026-08-06",
@@ -4960,8 +5237,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$16.9-\\$55.87",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 16.9,
+        "week52_high": 55.87
       },
       {
         "date": "2026-08-11",
@@ -4973,8 +5251,9 @@
         "lists": [],
         "note": "No meaningful dividend in trailing 12 months (Yahoo data)",
         "source_url": "Yahoo Finance chart API (free)",
-        "pe_trailing": "\\$16.9-\\$55.87",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 16.9,
+        "week52_high": 55.87
       },
       {
         "date": "2026-08-18",
@@ -4987,8 +5266,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$16.9-$55.87",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 16.9,
+        "week52_high": 55.87
       }
     ]
   },
@@ -5052,8 +5332,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$106.37-$207.52",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 106.37,
+        "week52_high": 207.52
       }
     ]
   },
@@ -5185,15 +5466,16 @@
         "move_pct": -4.39,
         "move_points": -4.55,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term",
           "Dividends"
         ],
         "note": "5 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$76.28-$180.0",
-        "dividend_yield": "3.89%"
+        "dividend_yield": "3.89%",
+        "week52_low": 76.28,
+        "week52_high": 180.0
       }
     ]
   },
@@ -5332,8 +5614,9 @@
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$281.87-$495.0",
-        "dividend_yield": "0.65%"
+        "dividend_yield": "0.65%",
+        "week52_low": 281.87,
+        "week52_high": 495.0
       }
     ]
   },
@@ -5419,8 +5702,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$62.01-$299.86",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 62.01,
+        "week52_high": 299.86
       }
     ]
   },
@@ -5615,14 +5899,15 @@
         "move_pct": -4.11,
         "move_points": -10.08,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$143.39-$257.0",
-        "dividend_yield": "0.71%"
+        "dividend_yield": "0.71%",
+        "week52_low": 143.39,
+        "week52_high": 257.0
       }
     ]
   },
@@ -5896,7 +6181,7 @@
         "currency": "USD",
         "move_pct": -0.18,
         "move_label": "day",
-        "rating": "2-star, Wide moat, NOT_FOUND uncertainty, fair value $410",
+        "rating": "2-star, Wide moat, not available uncertainty, fair value $410",
         "lists": [
           "Long-Term"
         ],
@@ -6003,8 +6288,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$96.79-$193.0",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 96.79,
+        "week52_high": 193.0
       },
       {
         "date": "2026-08-18",
@@ -6017,8 +6303,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$96.79-$193.0",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 96.79,
+        "week52_high": 193.0
       }
     ]
   },
@@ -6107,8 +6394,9 @@
         "lists": [],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$2.87-$4.59",
-        "dividend_yield": "0.73%"
+        "dividend_yield": "0.73%",
+        "week52_low": 2.87,
+        "week52_high": 4.59
       }
     ]
   },
@@ -6208,8 +6496,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$3.33-$8.82",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 3.33,
+        "week52_high": 8.82
       }
     ]
   },
@@ -6280,8 +6569,9 @@
         "lists": [],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$107.75-$321.57",
-        "dividend_yield": "0.32%"
+        "dividend_yield": "0.32%",
+        "week52_low": 107.75,
+        "week52_high": 321.57
       }
     ]
   },
@@ -6345,8 +6635,9 @@
         "lists": [],
         "note": "Only 1 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$0.645-$1.3",
-        "dividend_yield": "0.83%"
+        "dividend_yield": "0.83%",
+        "week52_low": 0.645,
+        "week52_high": 1.3
       },
       {
         "date": "2026-08-18",
@@ -6359,8 +6650,9 @@
         "lists": [],
         "note": "Only 1 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$0.645-$1.3",
-        "dividend_yield": "0.83%"
+        "dividend_yield": "0.83%",
+        "week52_low": 0.645,
+        "week52_high": 1.3
       }
     ]
   },
@@ -6567,8 +6859,9 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$88.74-$304.94",
-        "dividend_yield": "3.05%"
+        "dividend_yield": "3.05%",
+        "week52_low": 88.74,
+        "week52_high": 304.94
       }
     ]
   },
@@ -6771,8 +7064,9 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$13.25-$15.62",
-        "dividend_yield": "4.91%"
+        "dividend_yield": "4.91%",
+        "week52_low": 13.25,
+        "week52_high": 15.62
       }
     ]
   },
@@ -6810,14 +7104,15 @@
         "move_pct": -3.44,
         "move_points": -7.3,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$150.14-$231.8",
-        "dividend_yield": "0.76%"
+        "dividend_yield": "0.76%",
+        "week52_low": 150.14,
+        "week52_high": 231.8
       }
     ]
   },
@@ -6850,7 +7145,7 @@
         "currency": "USD",
         "move_pct": 2.42,
         "move_label": "day",
-        "rating": "3-star, Narrow moat, NOT_FOUND uncertainty, fair value 170",
+        "rating": "3-star, Narrow moat, not available uncertainty, fair value 170",
         "lists": [],
         "note": "Gain diverges from prior fairly-valued view",
         "source_url": ""
@@ -6917,8 +7212,9 @@
         "lists": [],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$252.84-$721.54",
-        "dividend_yield": "1.39%"
+        "dividend_yield": "1.39%",
+        "week52_low": 252.84,
+        "week52_high": 721.54
       }
     ]
   },
@@ -6988,14 +7284,15 @@
         "move_pct": -3.98,
         "move_points": -10.02,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$185.5-$329.09",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 185.5,
+        "week52_high": 329.09
       }
     ]
   },
@@ -7315,8 +7612,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$1.88-$3.31",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.88,
+        "week52_high": 3.31
       }
     ]
   },
@@ -7398,8 +7696,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$4.48-$9.8",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 4.48,
+        "week52_high": 9.8
       }
     ]
   },
@@ -7441,8 +7740,9 @@
         "lists": [],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$13.04-$31.81",
-        "dividend_yield": "1.18%"
+        "dividend_yield": "1.18%",
+        "week52_low": 13.04,
+        "week52_high": 31.81
       }
     ]
   },
@@ -7473,8 +7773,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$1.91-$8.375",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 1.91,
+        "week52_high": 8.375
       }
     ]
   },
@@ -7534,8 +7835,9 @@
         "lists": [],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$24.56-$37.31",
-        "dividend_yield": "0.98%"
+        "dividend_yield": "0.98%",
+        "week52_low": 24.56,
+        "week52_high": 37.31
       }
     ]
   },
@@ -7644,7 +7946,7 @@
         "currency": "USD",
         "move_pct": -1.54,
         "move_label": "day",
-        "rating": "4-star, NOT_FOUND moat, NOT_FOUND uncertainty, fair value NOT_FOUND",
+        "rating": "4-star, not available moat, not available uncertainty, fair value not available",
         "lists": [],
         "note": "Prior undervalued call decline makes it cheaper",
         "source_url": ""
@@ -7751,8 +8053,9 @@
         "lists": [],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$152.5-$1145.0",
-        "dividend_yield": "0.3%"
+        "dividend_yield": "0.3%",
+        "week52_low": 152.5,
+        "week52_high": 1145.0
       }
     ]
   },
@@ -7930,14 +8233,15 @@
         "move_pct": -3.19,
         "move_points": -8.14,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$98.01-$292.72",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 98.01,
+        "week52_high": 292.72
       }
     ]
   },
@@ -8276,8 +8580,9 @@
         "lists": [],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$68.7-$122.03",
-        "dividend_yield": "0.85%"
+        "dividend_yield": "0.85%",
+        "week52_low": 68.7,
+        "week52_high": 122.03
       }
     ]
   },
@@ -8332,8 +8637,9 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$44.3-$64.99",
-        "dividend_yield": "3.74%"
+        "dividend_yield": "3.74%",
+        "week52_low": 44.3,
+        "week52_high": 64.99
       }
     ]
   },
@@ -8494,8 +8800,9 @@
         "lists": [],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$2.86-$4.53",
-        "dividend_yield": "1.48%"
+        "dividend_yield": "1.48%",
+        "week52_low": 2.86,
+        "week52_high": 4.53
       }
     ]
   },
@@ -8624,8 +8931,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$110.36-$249.85",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 110.36,
+        "week52_high": 249.85
       },
       {
         "date": "2026-08-18",
@@ -8634,14 +8942,15 @@
         "move_pct": -3.77,
         "move_points": -7.5,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$110.36-$249.85",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 110.36,
+        "week52_high": 249.85
       }
     ]
   },
@@ -8755,8 +9064,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$518.55-$769.98",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 518.55,
+        "week52_high": 769.98
       }
     ]
   },
@@ -8879,8 +9189,9 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$9.81-$13.73",
-        "dividend_yield": "5.97%"
+        "dividend_yield": "5.97%",
+        "week52_low": 9.81,
+        "week52_high": 13.73
       }
     ]
   },
@@ -8976,8 +9287,9 @@
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$139.57-$398.88",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 139.57,
+        "week52_high": 398.88
       }
     ]
   },
@@ -9079,8 +9391,9 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$21.47-$42.06",
-        "dividend_yield": "2.87%"
+        "dividend_yield": "2.87%",
+        "week52_low": 21.47,
+        "week52_high": 42.06
       }
     ]
   },
@@ -9181,12 +9494,13 @@
         "move_pct": -3.78,
         "move_points": -9.98,
         "move_label": "day",
-        "rating": "3-star analyst consensus, fair value NOT_FOUND",
+        "rating": "3-star analyst consensus, fair value not available",
         "lists": [],
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$190.12-$370.86",
-        "dividend_yield": "0.0%"
+        "dividend_yield": "0.0%",
+        "week52_low": 190.12,
+        "week52_high": 370.86
       }
     ]
   },
@@ -9295,8 +9609,9 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$11.745-$29.84",
-        "dividend_yield": "3.25%"
+        "dividend_yield": "3.25%",
+        "week52_low": 11.745,
+        "week52_high": 29.84
       }
     ]
   },
@@ -9423,7 +9738,7 @@
         "currency": "USD",
         "move_pct": -2.48,
         "move_label": "day",
-        "rating": "3-star, Wide moat, NOT_FOUND uncertainty, fair value $520",
+        "rating": "3-star, Wide moat, not available uncertainty, fair value $520",
         "lists": [
           "Long-Term"
         ],
@@ -9441,8 +9756,9 @@
         "lists": [],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$154.47-$739.67",
-        "dividend_yield": "0.38%"
+        "dividend_yield": "0.38%",
+        "week52_low": 154.47,
+        "week52_high": 739.67
       },
       {
         "date": "2026-08-18",
@@ -9451,14 +9767,15 @@
         "move_pct": 5.55,
         "move_points": 28.13,
         "move_label": "day",
-        "rating": "4-star analyst consensus, fair value NOT_FOUND",
+        "rating": "4-star analyst consensus, fair value not available",
         "lists": [
           "Mid-Term"
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$154.47-$739.67",
-        "dividend_yield": "0.38%"
+        "dividend_yield": "0.38%",
+        "week52_low": 154.47,
+        "week52_high": 739.67
       }
     ]
   },
@@ -9549,8 +9866,9 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$6.39-$9.17",
-        "dividend_yield": "3.84%"
+        "dividend_yield": "3.84%",
+        "week52_low": 6.39,
+        "week52_high": 9.17
       }
     ]
   },
@@ -9594,8 +9912,9 @@
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$1.143-$1.415",
-        "dividend_yield": "7.47%"
+        "dividend_yield": "7.47%",
+        "week52_low": 1.143,
+        "week52_high": 1.415
       }
     ]
   },
@@ -9680,8 +9999,9 @@
         "lists": [],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$20.14-$40.77",
-        "dividend_yield": "1.14%"
+        "dividend_yield": "1.14%",
+        "week52_low": 20.14,
+        "week52_high": 40.77
       }
     ]
   },
@@ -9703,8 +10023,9 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$2.83-$4.01",
-        "dividend_yield": "3.74%"
+        "dividend_yield": "3.74%",
+        "week52_low": 2.83,
+        "week52_high": 4.01
       }
     ]
   },
@@ -9726,8 +10047,9 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$3.67-$4.78",
-        "dividend_yield": "5.84%"
+        "dividend_yield": "5.84%",
+        "week52_low": 3.67,
+        "week52_high": 4.78
       }
     ]
   },
@@ -9749,8 +10071,9 @@
         ],
         "note": "Only 2 payment(s) in trailing 12mo -- irregular",
         "source_url": "Yahoo Finance (free)",
-        "pe_trailing": "$4.42-$5.75",
-        "dividend_yield": "5.05%"
+        "dividend_yield": "5.05%",
+        "week52_low": 4.42,
+        "week52_high": 5.75
       }
     ]
   }
