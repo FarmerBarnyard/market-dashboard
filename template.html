@@ -402,13 +402,14 @@
 <div class="ticker-wrap">
   <div class="ticker-track" id="tickerTrack">
     <!-- SECTION:TICKER_STRIP:START -->
-    <span class="ticker-item">NASDAQ <strong class="live-price" data-live-field="price" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{LEVEL}}</strong> <span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{WEEK_CHANGE_PCT}}</span></span>
-    <span class="ticker-item">ASX 200 <strong class="live-price" data-live-field="price" data-live-index data-live-symbol="^AXJO" data-live-market="ASX">{{LEVEL}}</strong> <span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="^AXJO" data-live-market="ASX">{{WEEK_CHANGE_PCT}}</span></span>
+    <span class="ticker-item">NASDAQ (QQQ proxy) <strong class="live-price" data-live-field="price" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{LEVEL}}</strong> <span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{DAY_CHANGE_PCT}}</span></span>
+    <span class="ticker-item">ASX 200 <strong class="live-price" data-live-field="price" data-live-index data-live-symbol="^AXJO" data-live-market="ASX">{{LEVEL}}</strong> <span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="^AXJO" data-live-market="ASX">{{DAY_CHANGE_PCT}}</span></span>
     <span class="ticker-item"><a class="ticker-link" href="{{TICKER}}/"><span class="ticker-badge">{{B}}</span>{{TICKER}}</a> <span class="up or down">{{MOVE_PCT}}</span></span>
-    <!-- one item per notable mover, same tickers as the Notable Movers list below; keep the move text short (just the headline %, not the full note). Only the two index items are wired for live ticking (data-live-*) -- per-mover items stay static between rebuilds, see render_dashboard.py's ticker-strip loop for the scoping rationale. -->
+    <!-- one item per notable mover, same tickers as the Notable Movers list below; keep the move text short (just the headline %, not the full note). Only the two index items are wired for live ticking (data-live-*) -- per-mover items stay static between rebuilds, see render_dashboard.py's ticker-strip loop for the scoping rationale. The NASDAQ item's "(QQQ proxy)" qualifier is unconditional (see render_index_label) -- QQQ has permanently stood in for the real NASDAQ Composite since 2026-08-01, not just during that week's switch. -->
     <!-- SECTION:TICKER_STRIP:END -->
   </div>
 </div>
+<p class="meta ticker-strip-note">Figures in the strip above and in the driver summary below are a snapshot as of this page's last data refresh. Notable Movers and each ticker's own page (marked with a live dot) tick in near real time during market hours, so the same ticker's % move may read differently there later in the session -- both are today's session move, just captured at different times.</p>
 
 <div class="tab-panel active" data-tab-panel="markets">
 
@@ -417,7 +418,7 @@
 <!-- SECTION:NASDAQ_CARD:START -->
 <div class="card">
   {{OPTIONAL: <span class="flag flag-info">New proxy</span> -- see render_index_badge, only during a genuine QQQ proxy switch}}
-  <div class="card-head"><strong>{{NASDAQ Composite, or "Nasdaq (via QQQ)" during a proxy switch -- see render_index_label}}:</strong> <span class="flag">{{OPTIONAL: WEEK CHANGE UNAVAILABLE -- see render_index_flag, only when there's no prior week on file}}</span> <canvas class="sparkline" id="sparkNasdaq" width="60" height="24"></canvas></div>
+  <div class="card-head"><strong>{{"NASDAQ (QQQ proxy)" any time this index is served via a substitute instrument -- permanently true for NASDAQ since 2026-08-01, not just during that week's switch -- else the plain market label; see render_index_label}}:</strong> <span class="flag">{{OPTIONAL: WEEK CHANGE UNAVAILABLE -- see render_index_flag, only when there's no prior week on file}}</span> <canvas class="sparkline" id="sparkNasdaq" width="60" height="24"></canvas></div>
   <div class="index-level"><span class="live-price" data-live-field="price" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{LEVEL}}</span> <span class="meta index-asof">({{AS_OF}})</span> <span class="live-dot" data-live-field="dot" data-live-symbol="QQQ" data-live-market="NASDAQ" title="Live price"></span></div>
   <div class="index-change"><span class="up or down live-price" data-live-field="change" data-live-index data-live-symbol="QQQ" data-live-market="NASDAQ">{{▲ or ▼}} {{DAY_CHANGE}}</span> today</div>
   {{OPTIONAL: <div class="index-week">Week-to-date: <span class="up or down">{{WEEK_CHANGE_PCT}}</span> ({{WEEK_CHANGE_PTS}} pts)</div> -- omitted when no prior week is comparable}}
@@ -442,7 +443,7 @@
   <span class="mover-rank sortable" data-sort-key="rank">#</span>
   <span class="mover-id sortable" data-sort-key="ticker">Ticker</span>
   <span class="mover-market sortable" data-sort-key="market">Market</span>
-  <span class="mover-move-cell sortable" data-sort-key="move">Move</span>
+  <span class="mover-move-cell sortable" data-sort-key="move">Move (live)</span>
   <span class="mover-note sortable" data-sort-key="note">Note</span>
 </div>
 <!-- SECTION:MOVERS_TABLE:START -->
