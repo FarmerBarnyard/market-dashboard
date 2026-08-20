@@ -1,5 +1,5 @@
 <!--
-  DASHBOARD TEMPLATE v6 — read this fully before touching this file.
+  DASHBOARD TEMPLATE v7 — read this fully before touching this file.
   As of v6, this file is read directly by ClaudeRepo/scripts/render_dashboard.py
   (a fixed Python script, not a per-week AI agent) — see agents.md. The RULES
   section below is now maintainer documentation for that script's author
@@ -7,6 +7,46 @@
   discipline it describes (never remove/rename a SECTION marker, keep
   structure identical week to week) still applies and is what the script
   depends on.
+
+  WHAT CHANGED FROM v6 (site-wide ticker search + honest refresh timestamp,
+  from an end-user-advocate review):
+    p. New site-wide ticker search box (#tickerJumpInput, near the top of
+       the page, outside every tab-panel so it stays visible on every tab)
+       lets a visitor jump straight to any ticker's own page even if it
+       isn't listed as a mover or on a watchlist this run -- previously the
+       only way to reach a ticker's page was clicking a link that happened
+       to be on the current page. Fetches market-dashboard/ticker-index.json
+       ONCE at load (a lightweight {ticker: {name, market}} file generated
+       by render_dashboard.py's build_ticker_index -- NOT the much larger,
+       ever-growing tickers.json, which carries every ticker's full history
+       array) -- no other new network calls, no polling. Reuses the
+       .filter-input class purely for visual consistency (and gets
+       Esc-to-clear for free from the existing keyboard-shortcuts handler,
+       since that handler matches on the class, not a specific element) --
+       it's NOT wired into the existing "/" focus-filter shortcut (which
+       stays scoped to whichever tab/subtab's own local filter box is
+       visible, unchanged) because this box's job (site-wide navigation) is
+       a different action from local filtering, not a variant of it. Gets
+       its own "t" shortcut instead, documented in the hint-bar alongside
+       "/" and Esc. Static-only on this page -- not added to archive/<date>
+       .html (those are deliberately static, no-JS snapshots per rule 4
+       below) or individual ticker pages, to keep this change small and
+       reviewable; the main dashboard is already the site's hub every
+       ticker link ultimately points back to via "&larr; Back to dashboard".
+    q. A second, honest "Data last refreshed: {{DATE}}" line under the
+       existing SECTION:DATE meta line -- specifically to counter the false
+       impression the live-ticking price strip/index cards/live-dots can
+       give that the WHOLE page is real-time, when the underlying movers/
+       ratings/watchlists data is only as fresh as this run. Deliberately a
+       plain calendar date, not a fabricated HH:MM timestamp -- nothing in
+       this pipeline tracks time-of-day (see render_dashboard.py's
+       render_index_html), so inventing one would violate this project's
+       no-fabricated-data rule. Reuses the exact same `date` value already
+       stamped onto the index cards' `as_of` field, not a new source.
+       Complements, doesn't replace, the existing .ticker-strip-note caption
+       further down the page (that one explains strip-vs-movers-list drift
+       specifically; this one is the first, most prominent signal a visitor
+       sees before scrolling at all).
 
   WHAT CHANGED FROM v5 (visual redesign + Signal Scorecard):
     l. Full CSS reskin from the plain default-dark-theme palette to a
@@ -279,6 +319,26 @@
   .filter-input{width:100%;box-sizing:border-box;padding:8px 10px;margin:8px 0;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:3px;font-size:.85rem;font-family:var(--mono);}
   .filter-input::placeholder{color:var(--text-dim);}
   .filter-input:focus{outline:1px solid var(--amber);border-color:var(--amber);}
+  /* "Data last refreshed" line under the main SECTION:DATE meta line --
+     see render_index_html's DATE fill in render_dashboard.py for what
+     sets this and why it's a plain date, not a fabricated time-of-day. */
+  .refreshed-note{margin-top:2px;}
+  /* Site-wide ticker search (#tickerJumpInput) -- lives outside every
+     tab-panel so it's visible regardless of the active tab. Reuses
+     .filter-input above for the input's own look; this just adds the
+     results-dropdown chrome. See the script block near the bottom of this
+     file for the fetch/matching/keyboard-nav logic, and
+     render_dashboard.py's build_ticker_index for what populates
+     ticker-index.json. */
+  .ticker-jump{position:relative;max-width:420px;margin:6px 0 20px;}
+  .ticker-jump-results{list-style:none;margin:0;padding:4px 0;position:absolute;top:calc(100% - 4px);left:0;right:0;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:3px;max-height:260px;overflow-y:auto;
+    z-index:10;box-shadow:0 4px 14px rgba(0,0,0,.4);}
+  .ticker-jump-result{display:flex;align-items:center;gap:6px;padding:6px 10px;cursor:pointer;font-size:.82rem;}
+  .ticker-jump-result strong{color:var(--text-bright);}
+  .ticker-jump-result:hover,.ticker-jump-result.active{background:var(--amber-bg);}
+  .ticker-jump-result:hover strong,.ticker-jump-result.active strong{color:var(--amber);}
+  .ticker-jump-status{margin:4px 2px 0;}
   .tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin:20px 0 0;flex-wrap:wrap;}
   .tab-btn{background:none;border:none;color:var(--text-dim);padding:10px 16px;cursor:pointer;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid transparent;font-family:var(--sans);}
   .tab-btn.active{color:var(--text-bright);border-bottom-color:var(--amber);}
@@ -404,7 +464,18 @@
 <h1>Weekly Market Dashboard</h1>
 <!-- SECTION:DATE:START -->
 <div class="meta">Data for week ending {{DATE}} - NASDAQ + ASX - Analyst cross-reference - Investment watchlists</div>
+<div class="meta refreshed-note">Data last refreshed: {{DATE}} - prices marked with a live dot tick in real time between refreshes.</div>
 <!-- SECTION:DATE:END -->
+
+<!-- Site-wide ticker search -- jumps straight to <TICKER>/index.html even
+when that ticker isn't a mover or on a watchlist this run. Static markup,
+not a SECTION marker (identical every render) -- see the v7 changelog entry
+above and the script block near the bottom of this file. -->
+<div class="ticker-jump" id="tickerJump">
+  <input class="filter-input" type="text" id="tickerJumpInput" placeholder="Jump to any ticker (e.g. AAPL)..." autocomplete="off" aria-label="Jump to ticker" role="combobox" aria-expanded="false" aria-controls="tickerJumpResults" aria-autocomplete="list">
+  <ul class="ticker-jump-results" id="tickerJumpResults" role="listbox" aria-label="Ticker search results" hidden></ul>
+  <p class="meta ticker-jump-status" id="tickerJumpStatus" aria-live="polite" hidden></p>
+</div>
 
 <nav class="tabs">
   <button class="tab-btn active" data-tab="markets">Markets</button>
@@ -585,6 +656,7 @@ this button's click adds .expanded to the <ol>. -->
 
 <div class="hint-bar">
   <span><kbd>/</kbd> focus search</span>
+  <span><kbd>t</kbd> jump to ticker</span>
   <span><kbd>Esc</kbd> clear search</span>
 </div>
 
@@ -853,9 +925,232 @@ this button's click adds .expanded to the <ol>. -->
     renderTrendChart();
   });
 
+  // --- Site-wide ticker search: fetch a lightweight symbol index ONCE at
+  // load and let a visitor jump straight to any ticker's own page, even
+  // one that isn't listed as a mover or on a watchlist this run -- see the
+  // v7 changelog entry near the top of this file and render_dashboard.py's
+  // build_ticker_index (ticker-index.json is {ticker: {name, market}}
+  // only, deliberately NOT the much larger, ever-growing tickers.json).
+  // Entirely best-effort, same philosophy as live-prices.js: a fetch
+  // failure just leaves the box showing an honest "unavailable" status
+  // rather than silently claiming a real ticker doesn't exist. ---
+  var tickerJumpInput = document.getElementById('tickerJumpInput');
+  var tickerJumpResults = document.getElementById('tickerJumpResults');
+  var tickerJumpStatus = document.getElementById('tickerJumpStatus');
+  var tickerIndex = null;       // null until the fetch resolves successfully
+  var tickerIndexFailed = false; // true only on a genuine fetch/parse failure -- distinct from "still loading" or "loaded but no match", so the status message never misrepresents which of those actually happened
+  var tickerJumpActiveIdx = -1;
+
+  function tickerJumpSetStatus(text){
+    if (!tickerJumpStatus) return;
+    var next = text || '';
+    // Reveal before writing (not after) so the text lands in the a11y
+    // tree while the aria-live region is already visible -- writing into
+    // a still-hidden element means the mutation happens outside the
+    // accessibility tree and assistive tech is unlikely to announce it.
+    // Also skip no-op writes so repeated identical status text (e.g.
+    // "Loading ticker list..." on every keystroke while still loading)
+    // doesn't spam re-announcements.
+    if (tickerJumpStatus.textContent === next) return;
+    tickerJumpStatus.hidden = !next;
+    tickerJumpStatus.textContent = next;
+  }
+
+  function closeTickerJumpResults(){
+    if (!tickerJumpResults) return;
+    tickerJumpResults.hidden = true;
+    tickerJumpResults.innerHTML = '';
+    tickerJumpActiveIdx = -1;
+    if (tickerJumpInput) {
+      tickerJumpInput.setAttribute('aria-expanded', 'false');
+      tickerJumpInput.removeAttribute('aria-activedescendant');
+    }
+  }
+
+  function navigateToTicker(symbol){
+    // Same "{{TICKER}}/" shape every other ticker link on this page uses
+    // (see ticker_link() in render_dashboard.py) -- resolves to
+    // <TICKER>/index.html via GitHub Pages' directory-index behavior.
+    window.location.href = symbol + '/';
+  }
+
+  function tickerJumpHighlight(idx){
+    var items = tickerJumpResults.querySelectorAll('.ticker-jump-result');
+    tickerJumpActiveIdx = idx;
+    items.forEach(function(item, i){
+      var isActive = i === idx;
+      item.classList.toggle('active', isActive);
+      item.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+    if (tickerJumpInput) {
+      if (idx > -1 && items[idx]) {
+        tickerJumpInput.setAttribute('aria-activedescendant', items[idx].id);
+        items[idx].scrollIntoView({ block: 'nearest' });
+      } else {
+        tickerJumpInput.removeAttribute('aria-activedescendant');
+      }
+    }
+  }
+
+  function renderTickerJumpMatches(matches){
+    tickerJumpResults.innerHTML = '';
+    matches.forEach(function(symbol, i){
+      var entry = tickerIndex[symbol] || {};
+      var li = document.createElement('li');
+      li.id = 'tickerJumpOpt' + i;
+      li.className = 'ticker-jump-result';
+      li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', 'false');
+      li.dataset.symbol = symbol;
+
+      var badge = document.createElement('span');
+      badge.className = 'ticker-badge';
+      badge.textContent = symbol.slice(0, 2).toUpperCase();
+      li.appendChild(badge);
+
+      var strong = document.createElement('strong');
+      strong.textContent = symbol;
+      li.appendChild(strong);
+
+      // Skip the name span when it's just a duplicate of the ticker
+      // symbol (true for most entries until real company names are
+      // backfilled -- see agents.md) -- showing "MSB MSB ASX" twice
+      // per row adds nothing.
+      if (entry.name && entry.name !== symbol) {
+        var name = document.createElement('span');
+        name.className = 'meta';
+        name.textContent = entry.name;
+        li.appendChild(name);
+      }
+
+      if (entry.market) {
+        var market = document.createElement('span');
+        market.className = 'mover-market';
+        market.textContent = entry.market;
+        li.appendChild(market);
+      }
+
+      // mousedown, not click -- fires before the input's blur handler
+      // below tears the dropdown down, so a click on a result actually
+      // registers instead of getting raced by blur closing it first.
+      li.addEventListener('mousedown', function(e){
+        e.preventDefault();
+        navigateToTicker(symbol);
+      });
+      tickerJumpResults.appendChild(li);
+    });
+    tickerJumpActiveIdx = -1;
+    tickerJumpResults.hidden = matches.length === 0;
+    if (tickerJumpInput) {
+      tickerJumpInput.setAttribute('aria-expanded', matches.length > 0 ? 'true' : 'false');
+      tickerJumpInput.removeAttribute('aria-activedescendant');
+    }
+  }
+
+  function handleTickerJumpQuery(){
+    var query = tickerJumpInput.value.trim().toUpperCase();
+    if (!query) { closeTickerJumpResults(); tickerJumpSetStatus(''); return; }
+    if (tickerIndexFailed) { closeTickerJumpResults(); tickerJumpSetStatus('Ticker search is unavailable right now.'); return; }
+    if (!tickerIndex) { closeTickerJumpResults(); tickerJumpSetStatus('Loading ticker list...'); return; }
+    var symbols = Object.keys(tickerIndex);
+    // Prefix matches first (most likely intent when typing a real symbol),
+    // falling back to substring matches only if nothing starts with the
+    // query -- ticker-index.json has no company-name search, symbols only.
+    var starts = symbols.filter(function(s){ return s.indexOf(query) === 0; });
+    var matches = (starts.length ? starts : symbols.filter(function(s){ return s.indexOf(query) > -1; })).sort().slice(0, 8);
+    if (!matches.length) { closeTickerJumpResults(); tickerJumpSetStatus('No ticker matching "' + query + '" on this dashboard.'); return; }
+    tickerJumpSetStatus('');
+    renderTickerJumpMatches(matches);
+  }
+
+  if (tickerJumpInput && tickerJumpResults) {
+    fetch('ticker-index.json')
+      .then(function(r){ if (!r.ok) throw new Error('bad status'); return r.json(); })
+      .then(function(idx){
+        // An empty/non-object/array response is just as unusable as a
+        // failed fetch (see build_ticker_index/main() in
+        // render_dashboard.py, which now hard-fails rather than writing
+        // an empty index) -- treat it as a genuine failure so the status
+        // message stays honest instead of confidently denying every
+        // real ticker.
+        if (!idx || typeof idx !== 'object' || Array.isArray(idx) || !Object.keys(idx).length) {
+          tickerIndexFailed = true;
+        } else {
+          tickerIndex = idx;
+        }
+        // Only re-run against the input the user is still looking at --
+        // on a slow connection the fetch can settle well after the user
+        // has clicked away, and re-running unconditionally would pop the
+        // results dropdown open over the page with nothing focused (and
+        // no future blur event to close it).
+        if (tickerJumpInput.value.trim()) {
+          if (document.activeElement === tickerJumpInput) handleTickerJumpQuery();
+          else tickerJumpSetStatus(''); // clear stale "Loading..." text left over from before the user clicked away
+        }
+      })
+      .catch(function(){
+        tickerIndexFailed = true;
+        if (tickerJumpInput.value.trim()) {
+          if (document.activeElement === tickerJumpInput) handleTickerJumpQuery();
+          else tickerJumpSetStatus('');
+        }
+      });
+
+    tickerJumpInput.addEventListener('input', handleTickerJumpQuery);
+
+    tickerJumpInput.addEventListener('keydown', function(e){
+      var items = tickerJumpResults.querySelectorAll('.ticker-jump-result');
+      if (e.key === 'ArrowDown' && items.length) {
+        e.preventDefault();
+        tickerJumpHighlight((tickerJumpActiveIdx + 1) % items.length);
+      } else if (e.key === 'ArrowUp' && items.length) {
+        e.preventDefault();
+        tickerJumpHighlight((tickerJumpActiveIdx - 1 + items.length) % items.length);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (tickerJumpActiveIdx > -1 && items[tickerJumpActiveIdx]) {
+          navigateToTicker(items[tickerJumpActiveIdx].dataset.symbol);
+          return;
+        }
+        // Results are showing but nothing's been arrow-selected yet --
+        // standard combobox UX is to go with the top match rather than
+        // require an explicit arrow-down first (and definitely not to
+        // show a "not found" status hidden behind the still-open
+        // dropdown that's rendered on top of it).
+        if (items.length) {
+          navigateToTicker(items[0].dataset.symbol);
+          return;
+        }
+        var query = tickerJumpInput.value.trim().toUpperCase();
+        if (!query) return;
+        // Mirror handleTickerJumpQuery's guard ordering so both code
+        // paths agree on what "not found" actually means -- previously
+        // this fallback skipped straight to "no ticker matching" even
+        // when the index had failed to load or hadn't loaded yet,
+        // producing a false negative for tickers that really exist.
+        if (tickerIndexFailed) { tickerJumpSetStatus('Ticker search is unavailable right now.'); return; }
+        if (!tickerIndex) { tickerJumpSetStatus('Loading ticker list...'); return; }
+        if (tickerIndex[query]) { navigateToTicker(query); return; }
+        tickerJumpSetStatus('No ticker matching "' + query + '" on this dashboard.');
+      }
+    });
+
+    // Small delay so a mousedown-triggered navigation above still fires
+    // before the dropdown is torn down by this blur handler.
+    tickerJumpInput.addEventListener('blur', function(){
+      setTimeout(closeTickerJumpResults, 150);
+    });
+  }
+
   // --- Keyboard shortcuts: "/" focuses the filter-input for whatever's
   // currently visible (scoped to the active subtab-panel when one exists,
-  // otherwise the active tab-panel directly); Esc clears and blurs it. ---
+  // otherwise the active tab-panel directly); "t" focuses the site-wide
+  // ticker-jump box above (a separate shortcut, not folded into "/",
+  // because jumping to any ticker site-wide is a different action from
+  // filtering whatever's currently on screen -- see the v7 changelog entry
+  // near the top of this file); Esc clears and blurs whichever
+  // .filter-input is currently focused (covers both the per-tab filters
+  // and the ticker-jump box, since it shares that class). ---
   document.addEventListener('keydown', function(e){
     if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
       var activePanel = document.querySelector('.tab-panel.active');
@@ -865,6 +1160,10 @@ this button's click adds .expanded to the <ol>. -->
       if (!input) return;
       e.preventDefault();
       input.focus();
+    }
+    if (e.key === 't' && !e.ctrlKey && !e.metaKey && !e.altKey && document.activeElement.tagName !== 'INPUT' && tickerJumpInput) {
+      e.preventDefault();
+      tickerJumpInput.focus();
     }
     if (e.key === 'Escape' && document.activeElement.classList.contains('filter-input')) {
       document.activeElement.value = '';
