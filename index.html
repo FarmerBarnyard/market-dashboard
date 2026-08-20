@@ -167,17 +167,24 @@
      styling (pure CSS/HTML) but drop the scrolling ticker strip,
      sparklines, and all JS interactivity — they're static historical
      records, not live pages.
-  5. data.json lives at the repo root, one JSON array of objects, one object
-     per week, oldest first. Each week's agent APPENDS a new object (does
-     not overwrite prior ones): {date, nasdaq_level, nasdaq_week_pct,
+  5. data.json lives at the repo root, one JSON array of objects, ONE OBJECT
+     PER TRADING DAY THIS PIPELINE HAS RUN ON (Tue-Sat, or Monday's weekly
+     run) — NOT one per week; dashboard_daily_update.py appends to it
+     Mon-Sat, only watchlist_builder.py's own run is weekly. Oldest first.
+     Each run APPENDS a new object (does not overwrite prior ones, except
+     replacing same-day reruns): {date, nasdaq_level, nasdaq_week_pct,
      asx_level, asx_week_pct, midterm_count, longterm_count, dividends_count}
      — pct values are plain numbers (e.g. 2.5 for +2.5%,
      -1.2 for -1.2%), counts are the number of tickers on each watchlist
-     that week. nasdaq_week_pct/
-     asx_week_pct may be omitted for a given week if the prior week's
-     level isn't a comparable instrument (e.g. an index-vs-proxy data
-     source change) — don't compute or display a week-over-week % across
-     an instrument switch.
+     as of that entry. nasdaq_week_pct/asx_week_pct are a genuine
+     week-over-week comparison against the most recent entry from a
+     strictly earlier ISO week (not the immediately-prior row, which is
+     usually just the previous trading day) — see render_dashboard.py's
+     annotate_week_change. Omitted for a given entry if no such prior-week
+     entry exists yet, or if the prior week's level isn't a comparable
+     instrument (e.g. an index-vs-proxy data source change) — don't
+     compute or display a week-over-week % across an instrument switch or
+     against a non-week-boundary entry.
   6. Ticker badge text = the ticker symbol's first 1-2 letters, uppercase
      (e.g. MSFT -> "MS", WTC -> "WT"). Just a visual stand-in for a logo,
      not a lookup against anything.
@@ -212,7 +219,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Market Dashboard - 2026-08-18</title>
+<title>Weekly Market Dashboard - 2026-08-20</title>
 <style>
   :root{
     --bg:#0b0f14; --surface:#12181f; --surface-2:#161d25; --border:#1e2732;
@@ -228,6 +235,13 @@
   h1{font-size:1.4rem;font-weight:800;letter-spacing:-.01em;margin-bottom:4px;color:var(--text-bright);text-transform:uppercase;}
   h2{font-size:.85rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-bright);border-bottom:1px solid var(--border);padding-bottom:6px;margin-top:32px;}
   .meta{color:var(--text-dim);font-size:.85rem;}
+  /* Static-vs-live caption directly under the ticker strip -- inherits
+     .meta's color/size (applied alongside it, class="meta ticker-strip-note")
+     and just adds spacing appropriate to sitting between the strip above
+     and the tab nav below, instead of .meta's usual inline/paragraph
+     spacing. See render_index_html's ticker-strip caption in
+     render_dashboard.py's changelog for what this text is correcting. */
+  .ticker-strip-note{margin:6px 2px 18px;}
   table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:.85rem;}
   th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
   th{background:var(--surface);color:var(--text-dim);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;}
@@ -389,7 +403,7 @@
 
 <h1>Weekly Market Dashboard</h1>
 <!-- SECTION:DATE:START -->
-<div class="meta">Data for week ending 2026-08-18 - NASDAQ + ASX - Analyst cross-reference - Investment watchlists</div>
+<div class="meta">Data for week ending 2026-08-20 - NASDAQ + ASX - Analyst cross-reference - Investment watchlists</div>
 <!-- SECTION:DATE:END -->
 
 <nav class="tabs">
@@ -402,51 +416,59 @@
 <div class="ticker-wrap">
   <div class="ticker-track" id="tickerTrack">
     <!-- SECTION:TICKER_STRIP:START -->
-<span class="ticker-item">NASDAQ <strong class="live-price" data-live-field="price" data-live-symbol="QQQ" data-live-market="NASDAQ" data-live-index>729.87</strong> <span class="down live-price" data-live-field="change" data-live-symbol="QQQ" data-live-market="NASDAQ" data-live-index>-0.16%</span></span>
-    <span class="ticker-item">ASX 200 <strong class="live-price" data-live-field="price" data-live-symbol="^AXJO" data-live-market="ASX" data-live-index>9076.4</strong> <span class="up live-price" data-live-field="change" data-live-symbol="^AXJO" data-live-market="ASX" data-live-index>+0.04%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="SNDK/"><span class="ticker-badge">SN</span>SNDK</a> <span class="up">+8.88%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="TER/"><span class="ticker-badge">TE</span>TER</a> <span class="up">+5.81%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="AMAT/"><span class="ticker-badge">AM</span>AMAT</a> <span class="up">+5.55%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="MRVL/"><span class="ticker-badge">MR</span>MRVL</a> <span class="up">+5.54%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="WDC/"><span class="ticker-badge">WD</span>WDC</a> <span class="up">+5.35%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="MSTR/"><span class="ticker-badge">MS</span>MSTR</a> <span class="up">+4.99%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="LITE/"><span class="ticker-badge">LI</span>LITE</a> <span class="up">+4.62%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="SPCX/"><span class="ticker-badge">SP</span>SPCX</a> <span class="up">+4.45%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="MU/"><span class="ticker-badge">MU</span>MU</a> <span class="up">+4.13%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="LRCX/"><span class="ticker-badge">LR</span>LRCX</a> <span class="up">+3.45%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="TRI/"><span class="ticker-badge">TR</span>TRI</a> <span class="down">-4.39%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="ROST/"><span class="ticker-badge">RO</span>ROST</a> <span class="down">-4.11%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="ADSK/"><span class="ticker-badge">AD</span>ADSK</a> <span class="down">-3.98%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="ADBE/"><span class="ticker-badge">AD</span>ADBE</a> <span class="down">-3.78%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="WDAY/"><span class="ticker-badge">WD</span>WDAY</a> <span class="down">-3.77%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="KDP/"><span class="ticker-badge">KD</span>KDP</a> <span class="down">-3.69%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="SHOP/"><span class="ticker-badge">SH</span>SHOP</a> <span class="down">-3.67%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="META/"><span class="ticker-badge">ME</span>META</a> <span class="down">-3.54%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="BKNG/"><span class="ticker-badge">BK</span>BKNG</a> <span class="down">-3.44%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="DDOG/"><span class="ticker-badge">DD</span>DDOG</a> <span class="down">-3.19%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="RWC/"><span class="ticker-badge">RW</span>RWC</a> <span class="up">+23.82%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="CSL/"><span class="ticker-badge">CS</span>CSL</a> <span class="up">+16.54%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="PME/"><span class="ticker-badge">PM</span>PME</a> <span class="up">+8.57%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="L1G/"><span class="ticker-badge">L1</span>L1G</a> <span class="up">+7.59%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="COH/"><span class="ticker-badge">CO</span>COH</a> <span class="up">+5.78%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="DYL/"><span class="ticker-badge">DY</span>DYL</a> <span class="up">+4.19%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="NXG/"><span class="ticker-badge">NX</span>NXG</a> <span class="up">+3.79%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="PDN/"><span class="ticker-badge">PD</span>PDN</a> <span class="up">+3.65%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="GMG/"><span class="ticker-badge">GM</span>GMG</a> <span class="up">+3.58%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="DRR/"><span class="ticker-badge">DR</span>DRR</a> <span class="up">+3.55%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="SGM/"><span class="ticker-badge">SG</span>SGM</a> <span class="down">-13.09%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="BEN/"><span class="ticker-badge">BE</span>BEN</a> <span class="down">-6.73%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="HUB/"><span class="ticker-badge">HU</span>HUB</a> <span class="down">-5.40%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="LTR/"><span class="ticker-badge">LT</span>LTR</a> <span class="down">-4.62%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="IMD/"><span class="ticker-badge">IM</span>IMD</a> <span class="down">-4.61%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="360/"><span class="ticker-badge">36</span>360</a> <span class="down">-4.49%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="ZIP/"><span class="ticker-badge">ZI</span>ZIP</a> <span class="down">-3.89%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="LNW/"><span class="ticker-badge">LN</span>LNW</a> <span class="down">-3.37%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="PLS/"><span class="ticker-badge">PL</span>PLS</a> <span class="down">-3.24%</span></span>
-    <span class="ticker-item"><a class="ticker-link" href="GPT/"><span class="ticker-badge">GP</span>GPT</a> <span class="down">-3.20%</span></span>
+<span class="ticker-item">Nasdaq-100 (via QQQ ETF price) <strong class="live-price" data-live-field="price" data-live-symbol="QQQ" data-live-market="NASDAQ" data-live-index>716.08</strong> <span class="down live-price" data-live-field="change" data-live-symbol="QQQ" data-live-market="NASDAQ" data-live-index>-0.20%</span></span>
+    <span class="ticker-item">ASX 200 <strong class="live-price" data-live-field="price" data-live-symbol="^AXJO" data-live-market="ASX" data-live-index>9082.4</strong> <span class="up live-price" data-live-field="change" data-live-symbol="^AXJO" data-live-market="ASX" data-live-index>+0.32%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="MSTR/"><span class="ticker-badge">MS</span>MSTR</a> <span class="up">+12.68%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="MRVL/"><span class="ticker-badge">MR</span>MRVL</a> <span class="up">+9.85%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="CPRT/"><span class="ticker-badge">CP</span>CPRT</a> <span class="up">+7.43%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="MELI/"><span class="ticker-badge">ME</span>MELI</a> <span class="up">+7.28%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="ALNY/"><span class="ticker-badge">AL</span>ALNY</a> <span class="up">+6.12%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="HONA/"><span class="ticker-badge">HO</span>HONA</a> <span class="up">+5.98%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="VRTX/"><span class="ticker-badge">VR</span>VRTX</a> <span class="up">+4.52%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="TSLA/"><span class="ticker-badge">TS</span>TSLA</a> <span class="up">+4.23%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="AXON/"><span class="ticker-badge">AX</span>AXON</a> <span class="up">+4.17%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="WDAY/"><span class="ticker-badge">WD</span>WDAY</a> <span class="up">+4.08%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="NBIS/"><span class="ticker-badge">NB</span>NBIS</a> <span class="down">-9.87%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="STX/"><span class="ticker-badge">ST</span>STX</a> <span class="down">-7.87%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="WDC/"><span class="ticker-badge">WD</span>WDC</a> <span class="down">-6.87%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="LRCX/"><span class="ticker-badge">LR</span>LRCX</a> <span class="down">-6.33%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="TER/"><span class="ticker-badge">TE</span>TER</a> <span class="down">-6.09%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="CRWD/"><span class="ticker-badge">CR</span>CRWD</a> <span class="down">-5.30%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="LITE/"><span class="ticker-badge">LI</span>LITE</a> <span class="down">-5.23%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="DDOG/"><span class="ticker-badge">DD</span>DDOG</a> <span class="down">-5.07%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="ALAB/"><span class="ticker-badge">AL</span>ALAB</a> <span class="down">-4.75%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="AVGO/"><span class="ticker-badge">AV</span>AVGO</a> <span class="down">-4.61%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="SUL/"><span class="ticker-badge">SU</span>SUL</a> <span class="up">+17.36%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="ZIP/"><span class="ticker-badge">ZI</span>ZIP</a> <span class="up">+15.31%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="CDA/"><span class="ticker-badge">CD</span>CDA</a> <span class="up">+12.26%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="GGP/"><span class="ticker-badge">GG</span>GGP</a> <span class="up">+10.76%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="RMS/"><span class="ticker-badge">RM</span>RMS</a> <span class="up">+10.75%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="GMD/"><span class="ticker-badge">GM</span>GMD</a> <span class="up">+10.12%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="OBM/"><span class="ticker-badge">OB</span>OBM</a> <span class="up">+10.07%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="RRL/"><span class="ticker-badge">RR</span>RRL</a> <span class="up">+10.04%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="VAU/"><span class="ticker-badge">VA</span>VAU</a> <span class="up">+9.58%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="EVN/"><span class="ticker-badge">EV</span>EVN</a> <span class="up">+8.92%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="DOW/"><span class="ticker-badge">DO</span>DOW</a> <span class="down">-11.68%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="SHL/"><span class="ticker-badge">SH</span>SHL</a> <span class="down">-9.80%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="MPL/"><span class="ticker-badge">MP</span>MPL</a> <span class="down">-7.75%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="EBO/"><span class="ticker-badge">EB</span>EBO</a> <span class="down">-6.21%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="BSL/"><span class="ticker-badge">BS</span>BSL</a> <span class="down">-6.19%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="NHF/"><span class="ticker-badge">NH</span>NHF</a> <span class="down">-3.74%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="IAG/"><span class="ticker-badge">IA</span>IAG</a> <span class="down">-3.32%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="SUN/"><span class="ticker-badge">SU</span>SUN</a> <span class="down">-3.24%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="DXS/"><span class="ticker-badge">DX</span>DXS</a> <span class="down">-3.02%</span></span>
+    <span class="ticker-item"><a class="ticker-link" href="TLC/"><span class="ticker-badge">TL</span>TLC</a> <span class="down">-2.99%</span></span>
     <!-- SECTION:TICKER_STRIP:END -->
   </div>
 </div>
+<!-- Scoped precisely: the two INDEX items above (NASDAQ/ASX) tick live via
+data-live-* -- only the per-ticker MOVER items in the strip, and the
+driver-summary prose in the index cards below, are a render-time snapshot.
+An earlier version of this caption claimed the whole strip was static,
+which was wrong for the index items and read as a contradiction next to
+their own live-dot/live-price wiring -- see render_dashboard.py's
+changelog. -->
+<p class="meta ticker-strip-note">The per-ticker figures in the strip above, and the driver summary below, are a snapshot as of this page's last data refresh (the index level and change tick live). Notable Movers and each ticker's own page (marked with a live dot) tick in near real time during market hours, so the same ticker's % move may read differently there later in the session -- both are today's session move, just captured at different times.</p>
 
 <div class="tab-panel active" data-tab-panel="markets">
 
@@ -454,20 +476,20 @@
 <div class="index-cards">
 <!-- SECTION:NASDAQ_CARD:START -->
 <div class="card">
-  <div class="card-head"><strong>NASDAQ Composite:</strong> <canvas class="sparkline" id="sparkNasdaq" width="60" height="24"></canvas></div>
-  <div class="index-level"><span class="live-price" data-live-field="price" data-live-symbol="QQQ" data-live-market="NASDAQ" data-live-index>729.87</span> <span class="meta index-asof">(2026-08-18)</span> <span class="live-dot" data-live-field="dot" data-live-symbol="QQQ" data-live-market="NASDAQ" title="Live price"></span></div>
-  <div class="index-change"><span class="live-price down" data-live-field="change" data-live-symbol="QQQ" data-live-market="NASDAQ" data-live-index>▼ -0.16%</span> today</div>
-  <div class="index-week">Week-to-date: <span class="up">+0.00%</span> (0.0 pts)</div>
-  <p class="index-summary">Nasdaq-100 (QQQ proxy) finished down 0.16% today; SNDK led gainers (+8.88%) and TRI led losers (-4.39%).</p>
+  <div class="card-head"><strong>Nasdaq-100 (via QQQ ETF price):</strong> <canvas class="sparkline" id="sparkNasdaq" width="60" height="24"></canvas></div>
+  <div class="index-level"><span class="live-price" data-live-field="price" data-live-symbol="QQQ" data-live-market="NASDAQ" data-live-index>716.08</span> <span class="meta index-asof">(2026-08-20)</span> <span class="live-dot" data-live-field="dot" data-live-symbol="QQQ" data-live-market="NASDAQ" title="Live price"></span></div>
+  <div class="index-change"><span class="live-price down" data-live-field="change" data-live-symbol="QQQ" data-live-market="NASDAQ" data-live-index>▼ -0.20%</span> today</div>
+  <div class="index-week">Week-to-date: <span class="down">-2.05%</span> (-14.99 pts)</div>
+  <p class="index-summary">Nasdaq-100 (QQQ proxy) finished down 0.20% today; MSTR led gainers (+12.68%) and NBIS led losers (-9.87%).</p>
 </div>
 <!-- SECTION:NASDAQ_CARD:END -->
 
 <!-- SECTION:ASX_CARD:START -->
 <div class="card">
   <div class="card-head"><strong>S&amp;P/ASX 200:</strong> <canvas class="sparkline" id="sparkAsx" width="60" height="24"></canvas></div>
-  <div class="index-level"><span class="live-price" data-live-field="price" data-live-symbol="^AXJO" data-live-market="ASX" data-live-index>9076.4</span> <span class="meta index-asof">(2026-08-18)</span> <span class="live-dot" data-live-field="dot" data-live-symbol="^AXJO" data-live-market="ASX" title="Live price"></span></div>
-  <div class="index-change"><span class="live-price up" data-live-field="change" data-live-symbol="^AXJO" data-live-market="ASX" data-live-index>▲ +0.04%</span> today</div>
-  <div class="index-week">Week-to-date: <span class="up">+0.00%</span> (0.0 pts)</div>
+  <div class="index-level"><span class="live-price" data-live-field="price" data-live-symbol="^AXJO" data-live-market="ASX" data-live-index>9082.4</span> <span class="meta index-asof">(2026-08-20)</span> <span class="live-dot" data-live-field="dot" data-live-symbol="^AXJO" data-live-market="ASX" title="Live price"></span></div>
+  <div class="index-change"><span class="live-price up" data-live-field="change" data-live-symbol="^AXJO" data-live-market="ASX" data-live-index>▲ +0.32%</span> today</div>
+  <div class="index-week">Week-to-date: <span class="down">-0.36%</span> (-32.8 pts)</div>
   <p class="index-summary">Not available for this market on the current data feed.</p>
 </div>
 <!-- SECTION:ASX_CARD:END -->
@@ -479,330 +501,330 @@
   <span class="mover-rank sortable" data-sort-key="rank">#</span>
   <span class="mover-id sortable" data-sort-key="ticker">Ticker</span>
   <span class="mover-market sortable" data-sort-key="market">Market</span>
-  <span class="mover-move-cell sortable" data-sort-key="move">Move</span>
+  <span class="mover-move-cell sortable" data-sort-key="move">Move (live)</span>
   <span class="mover-note sortable" data-sort-key="note">Note</span>
 </div>
 <!-- SECTION:MOVERS_TABLE:START -->
 <ol class="movers-list" id="movers-list">
-<li class="mover-row" data-filter-row data-ticker="RWC">
+<li class="mover-row" data-filter-row data-ticker="SUL">
   <span class="mover-rank">1</span>
-  <span class="mover-id"><a class="ticker-link" href="RWC/"><span class="ticker-badge">RW</span>RWC</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-id"><a class="ticker-link" href="SUL/"><span class="ticker-badge">SU</span>SUL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:100%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="RWC" data-live-market="ASX">+23.82%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="RWC" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="RWC" data-live-market="ASX">($+0.86)</span></span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:100%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="SUL" data-live-market="ASX">+17.36%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="SUL" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="SUL" data-live-market="ASX">($+2.18)</span></span></span>
   <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>1.48%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>6.58%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
 </li>
-<li class="mover-row" data-filter-row data-ticker="CSL">
+<li class="mover-row" data-filter-row data-ticker="ZIP">
   <span class="mover-rank">2</span>
-  <span class="mover-id"><a class="ticker-link" href="CSL/"><span class="ticker-badge">CS</span>CSL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-id"><a class="ticker-link" href="ZIP/"><span class="ticker-badge">ZI</span>ZIP</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:69%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="CSL" data-live-market="ASX">+16.54%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="CSL" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="CSL" data-live-market="ASX">($+22.26)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>2.7%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="SGM">
-  <span class="mover-rank">3</span>
-  <span class="mover-id"><a class="ticker-link" href="SGM/"><span class="ticker-badge">SG</span>SGM</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:55%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="SGM" data-live-market="ASX">-13.09%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="SGM" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="SGM" data-live-market="ASX">($-3.38)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>1.18%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="SNDK">
-  <span class="mover-rank">4</span>
-  <span class="mover-id"><a class="ticker-link" href="SNDK/"><span class="ticker-badge">SN</span>SNDK</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:37%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="SNDK" data-live-market="NASDAQ">+8.88%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="SNDK" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="SNDK" data-live-market="NASDAQ">($+145.74)</span></span></span>
-  <span class="mover-note">26 buy / 5 hold / 0 sell; move aligns with consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 26 buy / 5 hold / 0 sell; move aligns with consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="PME">
-  <span class="mover-rank">5</span>
-  <span class="mover-id"><a class="ticker-link" href="PME/"><span class="ticker-badge">PM</span>PME</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:36%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="PME" data-live-market="ASX">+8.57%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="PME" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="PME" data-live-market="ASX">($+15.06)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.32%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="L1G">
-  <span class="mover-rank">6</span>
-  <span class="mover-id"><a class="ticker-link" href="L1G/"><span class="ticker-badge">L1</span>L1G</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:32%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="L1G" data-live-market="ASX">+7.59%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="L1G" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="L1G" data-live-market="ASX">($+0.09)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.83%%</b> · Only 1 payment(s) in trailing 12mo -- irregular</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="BEN">
-  <span class="mover-rank">7</span>
-  <span class="mover-id"><a class="ticker-link" href="BEN/"><span class="ticker-badge">BE</span>BEN</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:28%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="BEN" data-live-market="ASX">-6.73%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="BEN" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="BEN" data-live-market="ASX">($-0.75)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>5.97%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="TER">
-  <span class="mover-rank">8</span>
-  <span class="mover-id"><a class="ticker-link" href="TER/"><span class="ticker-badge">TE</span>TER</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:24%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="TER" data-live-market="NASDAQ">+5.81%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="TER" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="TER" data-live-market="NASDAQ">($+24.35)</span></span></span>
-  <span class="mover-note">17 buy / 5 hold / 0 sell; move aligns with consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.12%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 17 buy / 5 hold / 0 sell; move aligns with consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="COH">
-  <span class="mover-rank">9</span>
-  <span class="mover-id"><a class="ticker-link" href="COH/"><span class="ticker-badge">CO</span>COH</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:24%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="COH" data-live-market="ASX">+5.78%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="COH" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="COH" data-live-market="ASX">($+7.59)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>3.05%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="AMAT">
-  <span class="mover-rank">10</span>
-  <span class="mover-id"><a class="ticker-link" href="AMAT/"><span class="ticker-badge">AM</span>AMAT</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:23%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="AMAT" data-live-market="NASDAQ">+5.55%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="AMAT" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="AMAT" data-live-market="NASDAQ">($+28.13)</span></span></span>
-  <span class="mover-note">39 buy / 6 hold / 0 sell; move aligns with consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.38%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 39 buy / 6 hold / 0 sell; move aligns with consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="MRVL">
-  <span class="mover-rank">11</span>
-  <span class="mover-id"><a class="ticker-link" href="MRVL/"><span class="ticker-badge">MR</span>MRVL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:23%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="MRVL" data-live-market="NASDAQ">+5.54%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="MRVL" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="MRVL" data-live-market="NASDAQ">($+12.31)</span></span></span>
-  <span class="mover-note">42 buy / 7 hold / 0 sell; move aligns with consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.11%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 42 buy / 7 hold / 0 sell; move aligns with consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="HUB">
-  <span class="mover-rank">12</span>
-  <span class="mover-id"><a class="ticker-link" href="HUB/"><span class="ticker-badge">HU</span>HUB</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:23%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="HUB" data-live-market="ASX">-5.40%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="HUB" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="HUB" data-live-market="ASX">($-4.65)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.85%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="WDC">
-  <span class="mover-rank">13</span>
-  <span class="mover-id"><a class="ticker-link" href="WDC/"><span class="ticker-badge">WD</span>WDC</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:22%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="WDC" data-live-market="NASDAQ">+5.35%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="WDC" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="WDC" data-live-market="NASDAQ">($+27.21)</span></span></span>
-  <span class="mover-note">25 buy / 5 hold / 0 sell; move aligns with consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.1%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 25 buy / 5 hold / 0 sell; move aligns with consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="MSTR">
-  <span class="mover-rank">14</span>
-  <span class="mover-id"><a class="ticker-link" href="MSTR/"><span class="ticker-badge">MS</span>MSTR</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:21%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="MSTR" data-live-market="NASDAQ">+4.99%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="MSTR" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="MSTR" data-live-market="NASDAQ">($+4.64)</span></span></span>
-  <span class="mover-note">23 buy / 3 hold / 0 sell; move aligns with consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 23 buy / 3 hold / 0 sell; move aligns with consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="LITE">
-  <span class="mover-rank">15</span>
-  <span class="mover-id"><a class="ticker-link" href="LITE/"><span class="ticker-badge">LI</span>LITE</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="LITE" data-live-market="NASDAQ">+4.62%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="LITE" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="LITE" data-live-market="NASDAQ">($+42.76)</span></span></span>
-  <span class="mover-note">28 buy / 5 hold / 0 sell; move aligns with consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 28 buy / 5 hold / 0 sell; move aligns with consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="LTR">
-  <span class="mover-rank">16</span>
-  <span class="mover-id"><a class="ticker-link" href="LTR/"><span class="ticker-badge">LT</span>LTR</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="LTR" data-live-market="ASX">-4.62%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="LTR" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="LTR" data-live-market="ASX">($-0.06)</span></span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:88%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="ZIP" data-live-market="ASX">+15.31%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="ZIP" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="ZIP" data-live-market="ASX">($+0.40)</span></span></span>
   <span class="mover-note"></span>
   <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span></div>
 </li>
-<li class="mover-row" data-filter-row data-ticker="IMD">
-  <span class="mover-rank">17</span>
-  <span class="mover-id"><a class="ticker-link" href="IMD/"><span class="ticker-badge">IM</span>IMD</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+<li class="mover-row" data-filter-row data-ticker="MSTR">
+  <span class="mover-rank">3</span>
+  <span class="mover-id"><a class="ticker-link" href="MSTR/"><span class="ticker-badge">MS</span>MSTR</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:73%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="MSTR" data-live-market="NASDAQ">+12.68%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="MSTR" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="MSTR" data-live-market="NASDAQ">($+11.73)</span></span></span>
+  <span class="mover-note">23 buy / 3 hold / 0 sell; move aligns with consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 23 buy / 3 hold / 0 sell; move aligns with consensus</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="CDA">
+  <span class="mover-rank">4</span>
+  <span class="mover-id"><a class="ticker-link" href="CDA/"><span class="ticker-badge">CD</span>CDA</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
   <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="IMD" data-live-market="ASX">-4.61%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="IMD" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="IMD" data-live-market="ASX">($-0.17)</span></span></span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:71%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="CDA" data-live-market="ASX">+12.26%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="CDA" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="CDA" data-live-market="ASX">($+5.33)</span></span></span>
   <span class="mover-note"></span>
   <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.73%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
 </li>
-<li class="mover-row" data-filter-row data-ticker="360">
+<li class="mover-row" data-filter-row data-ticker="DOW">
+  <span class="mover-rank">5</span>
+  <span class="mover-id"><a class="ticker-link" href="DOW/"><span class="ticker-badge">DO</span>DOW</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:67%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="DOW" data-live-market="ASX">-11.68%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="DOW" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="DOW" data-live-market="ASX">($-0.87)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>4.12%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="GGP">
+  <span class="mover-rank">6</span>
+  <span class="mover-id"><a class="ticker-link" href="GGP/"><span class="ticker-badge">GG</span>GGP</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:62%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="GGP" data-live-market="ASX">+10.76%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="GGP" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="GGP" data-live-market="ASX">($+1.31)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="RMS">
+  <span class="mover-rank">7</span>
+  <span class="mover-id"><a class="ticker-link" href="RMS/"><span class="ticker-badge">RM</span>RMS</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:62%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="RMS" data-live-market="ASX">+10.75%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="RMS" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="RMS" data-live-market="ASX">($+0.38)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>2.02%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="GMD">
+  <span class="mover-rank">8</span>
+  <span class="mover-id"><a class="ticker-link" href="GMD/"><span class="ticker-badge">GM</span>GMD</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:58%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="GMD" data-live-market="ASX">+10.12%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="GMD" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="GMD" data-live-market="ASX">($+0.74)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="OBM">
+  <span class="mover-rank">9</span>
+  <span class="mover-id"><a class="ticker-link" href="OBM/"><span class="ticker-badge">OB</span>OBM</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:58%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="OBM" data-live-market="ASX">+10.07%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="OBM" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="OBM" data-live-market="ASX">($+0.14)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="RRL">
+  <span class="mover-rank">10</span>
+  <span class="mover-id"><a class="ticker-link" href="RRL/"><span class="ticker-badge">RR</span>RRL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:58%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="RRL" data-live-market="ASX">+10.04%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="RRL" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="RRL" data-live-market="ASX">($+0.74)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>2.45%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="NBIS">
+  <span class="mover-rank">11</span>
+  <span class="mover-id"><a class="ticker-link" href="NBIS/"><span class="ticker-badge">NB</span>NBIS</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:57%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="NBIS" data-live-market="NASDAQ">-9.87%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="NBIS" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="NBIS" data-live-market="NASDAQ">($-24.53)</span></span></span>
+  <span class="mover-note">18 buy / 6 hold / 0 sell; move diverges from consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 18 buy / 6 hold / 0 sell; move diverges from consensus</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="MRVL">
+  <span class="mover-rank">12</span>
+  <span class="mover-id"><a class="ticker-link" href="MRVL/"><span class="ticker-badge">MR</span>MRVL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:57%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="MRVL" data-live-market="NASDAQ">+9.85%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="MRVL" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="MRVL" data-live-market="NASDAQ">($+21.27)</span></span></span>
+  <span class="mover-note">42 buy / 7 hold / 0 sell; move aligns with consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.1%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 42 buy / 7 hold / 0 sell; move aligns with consensus</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="SHL">
+  <span class="mover-rank">13</span>
+  <span class="mover-id"><a class="ticker-link" href="SHL/"><span class="ticker-badge">SH</span>SHL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:56%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="SHL" data-live-market="ASX">-9.80%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="SHL" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="SHL" data-live-market="ASX">($-2.31)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>4.96%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="VAU">
+  <span class="mover-rank">14</span>
+  <span class="mover-id"><a class="ticker-link" href="VAU/"><span class="ticker-badge">VA</span>VAU</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:55%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="VAU" data-live-market="ASX">+9.58%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="VAU" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="VAU" data-live-market="ASX">($+0.57)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>1.07%%</b> · Only 1 payment(s) in trailing 12mo -- irregular</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="EVN">
+  <span class="mover-rank">15</span>
+  <span class="mover-id"><a class="ticker-link" href="EVN/"><span class="ticker-badge">EV</span>EVN</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:51%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="EVN" data-live-market="ASX">+8.92%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="EVN" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="EVN" data-live-market="ASX">($+1.22)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>2.23%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="STX">
+  <span class="mover-rank">16</span>
+  <span class="mover-id"><a class="ticker-link" href="STX/"><span class="ticker-badge">ST</span>STX</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:45%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="STX" data-live-market="NASDAQ">-7.87%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="STX" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="STX" data-live-market="NASDAQ">($-71.12)</span></span></span>
+  <span class="mover-note">26 buy / 4 hold / 0 sell; move diverges from consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.35%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 26 buy / 4 hold / 0 sell; move diverges from consensus</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="MPL">
+  <span class="mover-rank">17</span>
+  <span class="mover-id"><a class="ticker-link" href="MPL/"><span class="ticker-badge">MP</span>MPL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:45%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="MPL" data-live-market="ASX">-7.75%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="MPL" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="MPL" data-live-market="ASX">($-0.39)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>4.01%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="CPRT">
   <span class="mover-rank">18</span>
-  <span class="mover-id"><a class="ticker-link" href="360/"><span class="ticker-badge">36</span>360</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="360" data-live-market="ASX">-4.49%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="360" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="360" data-live-market="ASX">($-1.10)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span></div>
+  <span class="mover-id"><a class="ticker-link" href="CPRT/"><span class="ticker-badge">CP</span>CPRT</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:43%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="CPRT" data-live-market="NASDAQ">+7.43%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="CPRT" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="CPRT" data-live-market="NASDAQ">($+2.34)</span></span></span>
+  <span class="mover-note">13 buy / 7 hold / 1 sell; move aligns with consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 13 buy / 7 hold / 1 sell; move aligns with consensus</span></div>
 </li>
-<li class="mover-row" data-filter-row data-ticker="SPCX">
+<li class="mover-row" data-filter-row data-ticker="MELI">
   <span class="mover-rank">19</span>
-  <span class="mover-id"><a class="ticker-link" href="SPCX/"><span class="ticker-badge">SP</span>SPCX</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-id"><a class="ticker-link" href="MELI/"><span class="ticker-badge">ME</span>MELI</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="SPCX" data-live-market="NASDAQ">+4.45%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="SPCX" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="SPCX" data-live-market="NASDAQ">($+6.23)</span></span></span>
-  <span class="mover-note">32 buy / 7 hold / 1 sell; move aligns with consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 32 buy / 7 hold / 1 sell; move aligns with consensus</span></div>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:42%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="MELI" data-live-market="NASDAQ">+7.28%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="MELI" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="MELI" data-live-market="NASDAQ">($+129.51)</span></span></span>
+  <span class="mover-note">25 buy / 5 hold / 0 sell; move aligns with consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 25 buy / 5 hold / 0 sell; move aligns with consensus</span></div>
 </li>
-<li class="mover-row" data-filter-row data-ticker="TRI">
+<li class="mover-row" data-filter-row data-ticker="WDC">
   <span class="mover-rank">20</span>
-  <span class="mover-id"><a class="ticker-link" href="TRI/"><span class="ticker-badge">TR</span>TRI</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-id"><a class="ticker-link" href="WDC/"><span class="ticker-badge">WD</span>WDC</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:18%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="TRI" data-live-market="NASDAQ">-4.39%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="TRI" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="TRI" data-live-market="NASDAQ">($-4.55)</span></span></span>
-  <span class="mover-note">16 buy / 6 hold / 0 sell; move diverges from consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>3.89%%</b> · 5 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 16 buy / 6 hold / 0 sell; move diverges from consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="DYL">
-  <span class="mover-rank">21</span>
-  <span class="mover-id"><a class="ticker-link" href="DYL/"><span class="ticker-badge">DY</span>DYL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:18%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="DYL" data-live-market="ASX">+4.19%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="DYL" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="DYL" data-live-market="ASX">($+0.06)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="MU">
-  <span class="mover-rank">22</span>
-  <span class="mover-id"><a class="ticker-link" href="MU/"><span class="ticker-badge">MU</span>MU</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="MU" data-live-market="NASDAQ">+4.13%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="MU" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="MU" data-live-market="NASDAQ">($+40.09)</span></span></span>
-  <span class="mover-note">51 buy / 4 hold / 1 sell; move aligns with consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.06%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 51 buy / 4 hold / 1 sell; move aligns with consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="ROST">
-  <span class="mover-rank">23</span>
-  <span class="mover-id"><a class="ticker-link" href="ROST/"><span class="ticker-badge">RO</span>ROST</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="ROST" data-live-market="NASDAQ">-4.11%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="ROST" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="ROST" data-live-market="NASDAQ">($-10.08)</span></span></span>
-  <span class="mover-note">19 buy / 7 hold / 0 sell; move diverges from consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.71%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 19 buy / 7 hold / 0 sell; move diverges from consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="ADSK">
-  <span class="mover-rank">24</span>
-  <span class="mover-id"><a class="ticker-link" href="ADSK/"><span class="ticker-badge">AD</span>ADSK</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="ADSK" data-live-market="NASDAQ">-3.98%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="ADSK" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="ADSK" data-live-market="NASDAQ">($-10.02)</span></span></span>
-  <span class="mover-note">37 buy / 5 hold / 0 sell; move diverges from consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 37 buy / 5 hold / 0 sell; move diverges from consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="ZIP">
-  <span class="mover-rank">25</span>
-  <span class="mover-id"><a class="ticker-link" href="ZIP/"><span class="ticker-badge">ZI</span>ZIP</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:16%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="ZIP" data-live-market="ASX">-3.89%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="ZIP" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="ZIP" data-live-market="ASX">($-0.10)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="NXG">
-  <span class="mover-rank">26</span>
-  <span class="mover-id"><a class="ticker-link" href="NXG/"><span class="ticker-badge">NX</span>NXG</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:16%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="NXG" data-live-market="ASX">+3.79%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="NXG" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="NXG" data-live-market="ASX">($+0.56)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="ADBE">
-  <span class="mover-rank">27</span>
-  <span class="mover-id"><a class="ticker-link" href="ADBE/"><span class="ticker-badge">AD</span>ADBE</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:16%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="ADBE" data-live-market="NASDAQ">-3.78%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="ADBE" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="ADBE" data-live-market="NASDAQ">($-9.98)</span></span></span>
-  <span class="mover-note">18 buy / 23 hold / 5 sell; move diverges from consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★☆☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 18 buy / 23 hold / 5 sell; move diverges from consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="WDAY">
-  <span class="mover-rank">28</span>
-  <span class="mover-id"><a class="ticker-link" href="WDAY/"><span class="ticker-badge">WD</span>WDAY</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:16%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="WDAY" data-live-market="NASDAQ">-3.77%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="WDAY" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="WDAY" data-live-market="NASDAQ">($-7.50)</span></span></span>
-  <span class="mover-note">29 buy / 18 hold / 2 sell; move diverges from consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 29 buy / 18 hold / 2 sell; move diverges from consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="KDP">
-  <span class="mover-rank">29</span>
-  <span class="mover-id"><a class="ticker-link" href="KDP/"><span class="ticker-badge">KD</span>KDP</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="KDP" data-live-market="NASDAQ">-3.69%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="KDP" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="KDP" data-live-market="NASDAQ">($-1.16)</span></span></span>
-  <span class="mover-note">14 buy / 9 hold / 0 sell; move diverges from consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>2.99%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 14 buy / 9 hold / 0 sell; move diverges from consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="SHOP">
-  <span class="mover-rank">30</span>
-  <span class="mover-id"><a class="ticker-link" href="SHOP/"><span class="ticker-badge">SH</span>SHOP</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="SHOP" data-live-market="NASDAQ">-3.67%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="SHOP" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="SHOP" data-live-market="NASDAQ">($-5.67)</span></span></span>
-  <span class="mover-note">42 buy / 10 hold / 1 sell; move diverges from consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 42 buy / 10 hold / 1 sell; move diverges from consensus</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="PDN">
-  <span class="mover-rank">31</span>
-  <span class="mover-id"><a class="ticker-link" href="PDN/"><span class="ticker-badge">PD</span>PDN</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="PDN" data-live-market="ASX">+3.65%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="PDN" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="PDN" data-live-market="ASX">($+0.38)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="GMG">
-  <span class="mover-rank">32</span>
-  <span class="mover-id"><a class="ticker-link" href="GMG/"><span class="ticker-badge">GM</span>GMG</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="GMG" data-live-market="ASX">+3.58%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="GMG" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="GMG" data-live-market="ASX">($+1.06)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.98%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="DRR">
-  <span class="mover-rank">33</span>
-  <span class="mover-id"><a class="ticker-link" href="DRR/"><span class="ticker-badge">DR</span>DRR</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="DRR" data-live-market="ASX">+3.55%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="DRR" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="DRR" data-live-market="ASX">($+0.15)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>5.84%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
-</li>
-<li class="mover-row" data-filter-row data-ticker="META">
-  <span class="mover-rank">34</span>
-  <span class="mover-id"><a class="ticker-link" href="META/"><span class="ticker-badge">ME</span>META</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:15%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="META" data-live-market="NASDAQ">-3.54%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="META" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="META" data-live-market="NASDAQ">($-20.88)</span></span></span>
-  <span class="mover-note">62 buy / 9 hold / 0 sell; move diverges from consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.38%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 62 buy / 9 hold / 0 sell; move diverges from consensus</span></div>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:40%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="WDC" data-live-market="NASDAQ">-6.87%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="WDC" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="WDC" data-live-market="NASDAQ">($-34.07)</span></span></span>
+  <span class="mover-note">25 buy / 5 hold / 0 sell; move diverges from consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.11%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 25 buy / 5 hold / 0 sell; move diverges from consensus</span></div>
 </li>
 <li class="mover-row" data-filter-row data-ticker="LRCX">
-  <span class="mover-rank">35</span>
+  <span class="mover-rank">21</span>
   <span class="mover-id"><a class="ticker-link" href="LRCX/"><span class="ticker-badge">LR</span>LRCX</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:14%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="LRCX" data-live-market="NASDAQ">+3.45%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="LRCX" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="LRCX" data-live-market="NASDAQ">($+11.48)</span></span></span>
-  <span class="mover-note">35 buy / 6 hold / 0 sell; move aligns with consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.32%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 35 buy / 6 hold / 0 sell; move aligns with consensus</span></div>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:36%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="LRCX" data-live-market="NASDAQ">-6.33%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="LRCX" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="LRCX" data-live-market="NASDAQ">($-20.75)</span></span></span>
+  <span class="mover-note">35 buy / 6 hold / 0 sell; move diverges from consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.34%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 35 buy / 6 hold / 0 sell; move diverges from consensus</span></div>
 </li>
-<li class="mover-row" data-filter-row data-ticker="BKNG">
-  <span class="mover-rank">36</span>
-  <span class="mover-id"><a class="ticker-link" href="BKNG/"><span class="ticker-badge">BK</span>BKNG</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+<li class="mover-row" data-filter-row data-ticker="EBO">
+  <span class="mover-rank">22</span>
+  <span class="mover-id"><a class="ticker-link" href="EBO/"><span class="ticker-badge">EB</span>EBO</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:36%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="EBO" data-live-market="ASX">-6.21%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="EBO" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="EBO" data-live-market="ASX">($-1.22)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>4.73%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="BSL">
+  <span class="mover-rank">23</span>
+  <span class="mover-id"><a class="ticker-link" href="BSL/"><span class="ticker-badge">BS</span>BSL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:36%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="BSL" data-live-market="ASX">-6.19%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="BSL" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="BSL" data-live-market="ASX">($-1.99)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>6.52%%</b> · 3 payments in trailing 12mo (Yahoo data)</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="ALNY">
+  <span class="mover-rank">24</span>
+  <span class="mover-id"><a class="ticker-link" href="ALNY/"><span class="ticker-badge">AL</span>ALNY</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:14%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="BKNG" data-live-market="NASDAQ">-3.44%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="BKNG" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="BKNG" data-live-market="NASDAQ">($-7.30)</span></span></span>
-  <span class="mover-note">38 buy / 8 hold / 0 sell; move diverges from consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.76%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 38 buy / 8 hold / 0 sell; move diverges from consensus</span></div>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:35%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="ALNY" data-live-market="NASDAQ">+6.12%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="ALNY" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="ALNY" data-live-market="NASDAQ">($+14.00)</span></span></span>
+  <span class="mover-note">29 buy / 8 hold / 0 sell; move aligns with consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 29 buy / 8 hold / 0 sell; move aligns with consensus</span></div>
 </li>
-<li class="mover-row" data-filter-row data-ticker="LNW">
-  <span class="mover-rank">37</span>
-  <span class="mover-id"><a class="ticker-link" href="LNW/"><span class="ticker-badge">LN</span>LNW</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:14%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="LNW" data-live-market="ASX">-3.37%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="LNW" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="LNW" data-live-market="ASX">($-4.65)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span></div>
+<li class="mover-row" data-filter-row data-ticker="TER">
+  <span class="mover-rank">25</span>
+  <span class="mover-id"><a class="ticker-link" href="TER/"><span class="ticker-badge">TE</span>TER</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:35%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="TER" data-live-market="NASDAQ">-6.09%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="TER" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="TER" data-live-market="NASDAQ">($-24.64)</span></span></span>
+  <span class="mover-note">17 buy / 5 hold / 0 sell; move diverges from consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.13%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 17 buy / 5 hold / 0 sell; move diverges from consensus</span></div>
 </li>
-<li class="mover-row" data-filter-row data-ticker="PLS">
-  <span class="mover-rank">38</span>
-  <span class="mover-id"><a class="ticker-link" href="PLS/"><span class="ticker-badge">PL</span>PLS</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:14%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="PLS" data-live-market="ASX">-3.24%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="PLS" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="PLS" data-live-market="ASX">($-0.17)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span></div>
+<li class="mover-row" data-filter-row data-ticker="HONA">
+  <span class="mover-rank">26</span>
+  <span class="mover-id"><a class="ticker-link" href="HONA/"><span class="ticker-badge">HO</span>HONA</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:34%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="HONA" data-live-market="NASDAQ">+5.98%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="HONA" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="HONA" data-live-market="NASDAQ">($+9.61)</span></span></span>
+  <span class="mover-note">10 buy / 11 hold / 0 sell; move aligns with consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 10 buy / 11 hold / 0 sell; move aligns with consensus</span></div>
 </li>
-<li class="mover-row" data-filter-row data-ticker="GPT">
-  <span class="mover-rank">39</span>
-  <span class="mover-id"><a class="ticker-link" href="GPT/"><span class="ticker-badge">GP</span>GPT</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
-  <span class="mover-market">ASX</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:13%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="GPT" data-live-market="ASX">-3.20%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="GPT" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="GPT" data-live-market="ASX">($-0.16)</span></span></span>
-  <span class="mover-note"></span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>5.05%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+<li class="mover-row" data-filter-row data-ticker="CRWD">
+  <span class="mover-rank">27</span>
+  <span class="mover-id"><a class="ticker-link" href="CRWD/"><span class="ticker-badge">CR</span>CRWD</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:31%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="CRWD" data-live-market="NASDAQ">-5.30%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="CRWD" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="CRWD" data-live-market="NASDAQ">($-11.29)</span></span></span>
+  <span class="mover-note">46 buy / 13 hold / 2 sell; move diverges from consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 46 buy / 13 hold / 2 sell; move diverges from consensus</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="LITE">
+  <span class="mover-rank">28</span>
+  <span class="mover-id"><a class="ticker-link" href="LITE/"><span class="ticker-badge">LI</span>LITE</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:30%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="LITE" data-live-market="NASDAQ">-5.23%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="LITE" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="LITE" data-live-market="NASDAQ">($-45.71)</span></span></span>
+  <span class="mover-note">28 buy / 5 hold / 0 sell; move diverges from consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 28 buy / 5 hold / 0 sell; move diverges from consensus</span></div>
 </li>
 <li class="mover-row" data-filter-row data-ticker="DDOG">
-  <span class="mover-rank">40</span>
+  <span class="mover-rank">29</span>
   <span class="mover-id"><a class="ticker-link" href="DDOG/"><span class="ticker-badge">DD</span>DDOG</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
   <span class="mover-market">NASDAQ</span>
-  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:13%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="DDOG" data-live-market="NASDAQ">-3.19%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="DDOG" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="DDOG" data-live-market="NASDAQ">($-8.14)</span></span></span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:29%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="DDOG" data-live-market="NASDAQ">-5.07%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="DDOG" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="DDOG" data-live-market="NASDAQ">($-12.48)</span></span></span>
   <span class="mover-note">51 buy / 4 hold / 1 sell; move diverges from consensus</span>
-  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 51 buy / 4 hold / 1 sell; move diverges from consensus</span></div>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 51 buy / 4 hold / 1 sell; move diverges from consensus</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="ALAB">
+  <span class="mover-rank">30</span>
+  <span class="mover-id"><a class="ticker-link" href="ALAB/"><span class="ticker-badge">AL</span>ALAB</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:27%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="ALAB" data-live-market="NASDAQ">-4.75%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="ALAB" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="ALAB" data-live-market="NASDAQ">($-14.42)</span></span></span>
+  <span class="mover-note">20 buy / 9 hold / 0 sell; move diverges from consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 20 buy / 9 hold / 0 sell; move diverges from consensus</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="AVGO">
+  <span class="mover-rank">31</span>
+  <span class="mover-id"><a class="ticker-link" href="AVGO/"><span class="ticker-badge">AV</span>AVGO</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:27%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="AVGO" data-live-market="NASDAQ">-4.61%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="AVGO" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="AVGO" data-live-market="NASDAQ">($-17.52)</span></span></span>
+  <span class="mover-note">51 buy / 5 hold / 0 sell; move diverges from consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.7%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 51 buy / 5 hold / 0 sell; move diverges from consensus</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="VRTX">
+  <span class="mover-rank">32</span>
+  <span class="mover-id"><a class="ticker-link" href="VRTX/"><span class="ticker-badge">VR</span>VRTX</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:26%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="VRTX" data-live-market="NASDAQ">+4.52%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="VRTX" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="VRTX" data-live-market="NASDAQ">($+23.87)</span></span></span>
+  <span class="mover-note">30 buy / 6 hold / 1 sell; move aligns with consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 30 buy / 6 hold / 1 sell; move aligns with consensus</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="TSLA">
+  <span class="mover-rank">33</span>
+  <span class="mover-id"><a class="ticker-link" href="TSLA/"><span class="ticker-badge">TS</span>TSLA</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:24%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="TSLA" data-live-market="NASDAQ">+4.23%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="TSLA" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="TSLA" data-live-market="NASDAQ">($+14.25)</span></span></span>
+  <span class="mover-note">30 buy / 24 hold / 7 sell; move aligns with consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 30 buy / 24 hold / 7 sell; move aligns with consensus</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="AXON">
+  <span class="mover-rank">34</span>
+  <span class="mover-id"><a class="ticker-link" href="AXON/"><span class="ticker-badge">AX</span>AXON</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:24%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="AXON" data-live-market="NASDAQ">+4.17%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="AXON" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="AXON" data-live-market="NASDAQ">($+25.87)</span></span></span>
+  <span class="mover-note">25 buy / 3 hold / 0 sell; move aligns with consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 25 buy / 3 hold / 0 sell; move aligns with consensus</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="WDAY">
+  <span class="mover-rank">35</span>
+  <span class="mover-id"><a class="ticker-link" href="WDAY/"><span class="ticker-badge">WD</span>WDAY</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">NASDAQ</span>
+  <span class="mover-move-cell up"><span class="mover-bar-bg" style="width:24%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="WDAY" data-live-market="NASDAQ">+4.08%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="WDAY" data-live-market="NASDAQ" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="WDAY" data-live-market="NASDAQ">($+7.79)</span></span></span>
+  <span class="mover-note">29 buy / 18 hold / 2 sell; move aligns with consensus</span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 29 buy / 18 hold / 2 sell; move aligns with consensus</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="NHF">
+  <span class="mover-rank">36</span>
+  <span class="mover-id"><a class="ticker-link" href="NHF/"><span class="ticker-badge">NH</span>NHF</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:22%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="NHF" data-live-market="ASX">-3.74%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="NHF" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="NHF" data-live-market="ASX">($-0.28)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>4.11%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="IAG">
+  <span class="mover-rank">37</span>
+  <span class="mover-id"><a class="ticker-link" href="IAG/"><span class="ticker-badge">IA</span>IAG</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="IAG" data-live-market="ASX">-3.32%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="IAG" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="IAG" data-live-market="ASX">($-0.27)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>3.94%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="SUN">
+  <span class="mover-rank">38</span>
+  <span class="mover-id"><a class="ticker-link" href="SUN/"><span class="ticker-badge">SU</span>SUN</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:19%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="SUN" data-live-market="ASX">-3.24%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="SUN" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="SUN" data-live-market="ASX">($-0.60)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>4.45%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="DXS">
+  <span class="mover-rank">39</span>
+  <span class="mover-id"><a class="ticker-link" href="DXS/"><span class="ticker-badge">DX</span>DXS</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="DXS" data-live-market="ASX">-3.02%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="DXS" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="DXS" data-live-market="ASX">($-0.17)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>6.37%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
+</li>
+<li class="mover-row" data-filter-row data-ticker="TLC">
+  <span class="mover-rank">40</span>
+  <span class="mover-id"><a class="ticker-link" href="TLC/"><span class="ticker-badge">TL</span>TLC</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></span>
+  <span class="mover-market">ASX</span>
+  <span class="mover-move-cell down"><span class="mover-bar-bg" style="width:17%"></span><span class="mover-move-value"><span class="live-price" data-live-field="change_pct" data-live-symbol="TLC" data-live-market="ASX">-2.99%</span> <span class="live-dot" data-live-field="dot" data-live-symbol="TLC" data-live-market="ASX" title="Live price"></span> <span class="mover-move-abs live-price" data-live-field="change_abs" data-live-symbol="TLC" data-live-market="ASX">($-0.16)</span></span></span>
+  <span class="mover-note"></span>
+  <div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>3.14%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div>
 </li>
 </ol>
 <button class="movers-expand-toggle" type="button" data-target="movers-list" data-total="40" data-visible="10" aria-expanded="false">Show all 40 tickers <span class="chevron">&#9662;</span></button>
@@ -811,19 +833,19 @@
 <h2>Analyst Consensus Highlights</h2>
 <!-- SECTION:MORNINGSTAR_HIGHLIGHTS:START -->
 <div class="card">
-<strong>SNDK</strong> - 26 buy / 5 hold / 0 sell; move aligns with consensus.
+<strong>MSTR</strong> - 23 buy / 3 hold / 0 sell; move aligns with consensus.
 </div>
 <div class="card">
-<strong>TER</strong> - 17 buy / 5 hold / 0 sell; move aligns with consensus.
-</div>
-<div class="card">
-<strong>AMAT</strong> - 39 buy / 6 hold / 0 sell; move aligns with consensus.
+<strong>NBIS</strong> - 18 buy / 6 hold / 0 sell; move diverges from consensus.
 </div>
 <div class="card">
 <strong>MRVL</strong> - 42 buy / 7 hold / 0 sell; move aligns with consensus.
 </div>
 <div class="card">
-<strong>WDC</strong> - 25 buy / 5 hold / 0 sell; move aligns with consensus.
+<strong>STX</strong> - 26 buy / 4 hold / 0 sell; move diverges from consensus.
+</div>
+<div class="card">
+<strong>CPRT</strong> - 13 buy / 7 hold / 1 sell; move aligns with consensus.
 </div>
 <div class="card">
 <strong>Data quality note:</strong> Rating and fair-value figures come from Finnhub's free analyst-consensus and price-target endpoints, not Morningstar -- Morningstar's own moat/uncertainty judgments have no free equivalent, so this is a different data source, not a free version of the same one.
@@ -848,25 +870,26 @@
 <table class="sortable" id="midterm-table">
 <thead><tr><th class="sortable">Ticker</th><th class="sortable">Rating</th><th class="sortable">Fair value vs price</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
-<tr><td><a class="ticker-link" href="SNDK/"><span class="ticker-badge">SN</span>SNDK</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 1645.98</td><td>26 buy / 5 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 26 buy / 5 hold / 0 sell; move aligns with consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="TER/"><span class="ticker-badge">TE</span>TER</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 401.45</td><td>17 buy / 5 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.12%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 17 buy / 5 hold / 0 sell; move aligns with consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="AMAT/"><span class="ticker-badge">AM</span>AMAT</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 506.225</td><td>39 buy / 6 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.38%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 39 buy / 6 hold / 0 sell; move aligns with consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="MRVL/"><span class="ticker-badge">MR</span>MRVL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 215.16</td><td>42 buy / 7 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.11%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 42 buy / 7 hold / 0 sell; move aligns with consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="WDC/"><span class="ticker-badge">WD</span>WDC</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 497.33</td><td>25 buy / 5 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.1%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 25 buy / 5 hold / 0 sell; move aligns with consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="MSTR/"><span class="ticker-badge">MS</span>MSTR</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 95.49</td><td>23 buy / 3 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 23 buy / 3 hold / 0 sell; move aligns with consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="LITE/"><span class="ticker-badge">LI</span>LITE</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 879.128</td><td>28 buy / 5 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 28 buy / 5 hold / 0 sell; move aligns with consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="SPCX/"><span class="ticker-badge">SP</span>SPCX</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 142.18</td><td>32 buy / 7 hold / 1 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 32 buy / 7 hold / 1 sell; move aligns with consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="MU/"><span class="ticker-badge">MU</span>MU</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 942.25</td><td>51 buy / 4 hold / 1 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.06%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 51 buy / 4 hold / 1 sell; move aligns with consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="LRCX/"><span class="ticker-badge">LR</span>LRCX</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 321.815</td><td>35 buy / 6 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.32%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 35 buy / 6 hold / 0 sell; move aligns with consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="TRI/"><span class="ticker-badge">TR</span>TRI</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 101.15</td><td>16 buy / 6 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>3.89%%</b> · 5 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 16 buy / 6 hold / 0 sell; move diverges from consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="ROST/"><span class="ticker-badge">RO</span>ROST</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 237.83</td><td>19 buy / 7 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.71%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 19 buy / 7 hold / 0 sell; move diverges from consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="ADSK/"><span class="ticker-badge">AD</span>ADSK</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 248.97</td><td>37 buy / 5 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 37 buy / 5 hold / 0 sell; move diverges from consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="WDAY/"><span class="ticker-badge">WD</span>WDAY</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 193.085</td><td>29 buy / 18 hold / 2 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 29 buy / 18 hold / 2 sell; move diverges from consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="KDP/"><span class="ticker-badge">KD</span>KDP</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 30.745</td><td>14 buy / 9 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>2.99%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 14 buy / 9 hold / 0 sell; move diverges from consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="SHOP/"><span class="ticker-badge">SH</span>SHOP</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 148.035</td><td>42 buy / 10 hold / 1 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 42 buy / 10 hold / 1 sell; move diverges from consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="META/"><span class="ticker-badge">ME</span>META</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 553.833</td><td>62 buy / 9 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.38%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 62 buy / 9 hold / 0 sell; move diverges from consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="BKNG/"><span class="ticker-badge">BK</span>BKNG</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 211.22</td><td>38 buy / 8 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.76%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 38 buy / 8 hold / 0 sell; move diverges from consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="DDOG/"><span class="ticker-badge">DD</span>DDOG</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value NOT_FOUND; verified price 247.69</td><td>51 buy / 4 hold / 1 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 51 buy / 4 hold / 1 sell; move diverges from consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="MSTR/"><span class="ticker-badge">MS</span>MSTR</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 104.25</td><td>23 buy / 3 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 23 buy / 3 hold / 0 sell; move aligns with consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="MRVL/"><span class="ticker-badge">MR</span>MRVL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 237.27</td><td>42 buy / 7 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.1%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 42 buy / 7 hold / 0 sell; move aligns with consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="CPRT/"><span class="ticker-badge">CP</span>CPRT</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 33.85</td><td>13 buy / 7 hold / 1 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 13 buy / 7 hold / 1 sell; move aligns with consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="MELI/"><span class="ticker-badge">ME</span>MELI</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 1908.65</td><td>25 buy / 5 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 25 buy / 5 hold / 0 sell; move aligns with consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="ALNY/"><span class="ticker-badge">AL</span>ALNY</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 242.61</td><td>29 buy / 8 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 29 buy / 8 hold / 0 sell; move aligns with consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="HONA/"><span class="ticker-badge">HO</span>HONA</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 170.37</td><td>10 buy / 11 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 10 buy / 11 hold / 0 sell; move aligns with consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="VRTX/"><span class="ticker-badge">VR</span>VRTX</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 552.06</td><td>30 buy / 6 hold / 1 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 30 buy / 6 hold / 1 sell; move aligns with consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="TSLA/"><span class="ticker-badge">TS</span>TSLA</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 351.12</td><td>30 buy / 24 hold / 7 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 30 buy / 24 hold / 7 sell; move aligns with consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="AXON/"><span class="ticker-badge">AX</span>AXON</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 645.72</td><td>25 buy / 3 hold / 0 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 25 buy / 3 hold / 0 sell; move aligns with consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="WDAY/"><span class="ticker-badge">WD</span>WDAY</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 198.42</td><td>29 buy / 18 hold / 2 sell; move aligns with consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 29 buy / 18 hold / 2 sell; move aligns with consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="NBIS/"><span class="ticker-badge">NB</span>NBIS</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 223.9</td><td>18 buy / 6 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 18 buy / 6 hold / 0 sell; move diverges from consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="STX/"><span class="ticker-badge">ST</span>STX</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 832.56</td><td>26 buy / 4 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.35%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 26 buy / 4 hold / 0 sell; move diverges from consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="WDC/"><span class="ticker-badge">WD</span>WDC</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 462.09</td><td>25 buy / 5 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.11%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 25 buy / 5 hold / 0 sell; move diverges from consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="LRCX/"><span class="ticker-badge">LR</span>LRCX</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 307.17</td><td>35 buy / 6 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.34%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 35 buy / 6 hold / 0 sell; move diverges from consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="TER/"><span class="ticker-badge">TE</span>TER</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 379.65</td><td>17 buy / 5 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.13%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 17 buy / 5 hold / 0 sell; move diverges from consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="CRWD/"><span class="ticker-badge">CR</span>CRWD</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 201.63</td><td>46 buy / 13 hold / 2 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 46 buy / 13 hold / 2 sell; move diverges from consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="LITE/"><span class="ticker-badge">LI</span>LITE</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 827.6</td><td>28 buy / 5 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 28 buy / 5 hold / 0 sell; move diverges from consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="DDOG/"><span class="ticker-badge">DD</span>DDOG</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 233.52</td><td>51 buy / 4 hold / 1 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 51 buy / 4 hold / 1 sell; move diverges from consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="ALAB/"><span class="ticker-badge">AL</span>ALAB</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 289.02</td><td>20 buy / 9 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.0%%</b> · No dividend paid</span><span class="chip">Today vs consensus: 20 buy / 9 hold / 0 sell; move diverges from consensus</span></div></td></tr>
+<tr><td><a class="ticker-link" href="AVGO/"><span class="ticker-badge">AV</span>AVGO</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4★ analyst consensus</td><td>Fair value not available; verified price 362.48</td><td>51 buy / 5 hold / 0 sell; move diverges from consensus<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">No free price-target source available</span><span class="chip">Dividend <b>0.7%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 51 buy / 5 hold / 0 sell; move diverges from consensus</span></div></td></tr>
 </tbody>
 </table>
 <!-- SECTION:WATCHLIST_MIDTERM:END -->
@@ -889,13 +912,20 @@
 <table class="sortable" id="dividends-table">
 <thead><tr><th class="sortable">Ticker</th><th class="sortable">Yield</th><th class="sortable">Payout history</th><th class="sortable">Notes</th></tr></thead>
 <tbody>
-<tr><td><a class="ticker-link" href="TRI/"><span class="ticker-badge">TR</span>TRI</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>3.89%</td><td>5 payments in trailing 12mo (Yahoo data)</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>3.89%%</b> · 5 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 16 buy / 6 hold / 0 sell; move diverges from consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="KDP/"><span class="ticker-badge">KD</span>KDP</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>2.99%</td><td>4 payments in trailing 12mo (Yahoo data)</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip">Analyst consensus <span class="stars">★★★★☆</span></span><span class="chip na">Fair value $NOT_FOUND · price not comparable</span><span class="chip">Dividend <b>2.99%%</b> · 4 payments in trailing 12mo (Yahoo data)</span><span class="chip">Today vs consensus: 14 buy / 9 hold / 0 sell; move diverges from consensus</span></div></td></tr>
-<tr><td><a class="ticker-link" href="CSL/"><span class="ticker-badge">CS</span>CSL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>2.7%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>2.7%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
-<tr><td><a class="ticker-link" href="COH/"><span class="ticker-badge">CO</span>COH</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>3.05%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>3.05%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
-<tr><td><a class="ticker-link" href="DRR/"><span class="ticker-badge">DR</span>DRR</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>5.84%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>5.84%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
-<tr><td><a class="ticker-link" href="BEN/"><span class="ticker-badge">BE</span>BEN</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>5.97%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>5.97%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
-<tr><td><a class="ticker-link" href="GPT/"><span class="ticker-badge">GP</span>GPT</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>5.05%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>5.05%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="SUL/"><span class="ticker-badge">SU</span>SUL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>6.58%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>6.58%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="RMS/"><span class="ticker-badge">RM</span>RMS</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>2.02%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>2.02%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="RRL/"><span class="ticker-badge">RR</span>RRL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>2.45%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>2.45%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="EVN/"><span class="ticker-badge">EV</span>EVN</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>2.23%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>2.23%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="DOW/"><span class="ticker-badge">DO</span>DOW</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4.12%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>4.12%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="SHL/"><span class="ticker-badge">SH</span>SHL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4.96%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>4.96%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="MPL/"><span class="ticker-badge">MP</span>MPL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4.01%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>4.01%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="EBO/"><span class="ticker-badge">EB</span>EBO</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4.73%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>4.73%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="BSL/"><span class="ticker-badge">BS</span>BSL</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>6.52%</td><td>3 payments in trailing 12mo (Yahoo data)</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>6.52%%</b> · 3 payments in trailing 12mo (Yahoo data)</span></div></td></tr>
+<tr><td><a class="ticker-link" href="NHF/"><span class="ticker-badge">NH</span>NHF</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4.11%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>4.11%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="IAG/"><span class="ticker-badge">IA</span>IAG</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>3.94%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>3.94%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="SUN/"><span class="ticker-badge">SU</span>SUN</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>4.45%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>4.45%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="DXS/"><span class="ticker-badge">DX</span>DXS</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>6.37%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>6.37%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
+<tr><td><a class="ticker-link" href="TLC/"><span class="ticker-badge">TL</span>TLC</a> <button class="sig-toggle" type="button">signal <span class="chevron">▾</span></button></td><td>3.14%</td><td>Only 2 payment(s) in trailing 12mo -- irregular</td><td>Verified via Yahoo Finance (free)<div class="scorecard" hidden><span class="scorecard-label">SIGNAL SCORECARD — FACTUAL ONLY, NO RECOMMENDATION</span><span class="chip na">No analyst-consensus coverage this run</span><span class="chip">Dividend <b>3.14%%</b> · Only 2 payment(s) in trailing 12mo -- irregular</span></div></td></tr>
 </tbody>
 </table>
 <!-- SECTION:WATCHLIST_DIVIDENDS:END -->
@@ -915,7 +945,8 @@
 <h2>Past Weeks</h2>
 <!-- SECTION:PAST_WEEKS:START -->
 <ul>
-<li><a href="archive/2026-08-18.html">Week of 2026-08-18</a> (this week)</li>
+<li><a href="archive/2026-08-20.html">Week of 2026-08-20</a> (this week)</li>
+<li><a href="archive/2026-08-18.html">Week of 2026-08-18</a></li>
 <li><a href="archive/2026-08-15.html">Week of 2026-08-15</a></li>
 <li><a href="archive/2026-08-14.html">Week of 2026-08-14</a></li>
 <li><a href="archive/2026-08-13.html">Week of 2026-08-13</a></li>
@@ -1117,7 +1148,18 @@
       ctx.beginPath(); ctx.arc(cssW / 2, cssH / 2, 2, 0, 7); ctx.fill();
       return;
     }
-    var min = Math.min.apply(null, series), max = Math.max.apply(null, series);
+    // Filter to finite numbers before computing min/max -- a missing
+    // week-change key (see data.json's schema rule 5: omitted, not null,
+    // when there's no qualifying prior week) maps through Array#map to
+    // `undefined`, and Math.min/Math.max return NaN if ANY argument is
+    // non-numeric. That NaN silently propagates through `range = (max -
+    // min) || 1` (NaN is falsy, so the `|| 1` fallback never fires) and
+    // every plotted point becomes NaN, which canvas draw calls silently
+    // no-op on -- a fully blank sparkline with no error and no fallback
+    // message, rather than just an odd-looking one.
+    var finiteSeries = series.filter(function(v){ return typeof v === "number" && isFinite(v); });
+    if (!finiteSeries.length) return;
+    var min = Math.min.apply(null, finiteSeries), max = Math.max.apply(null, finiteSeries);
     var range = (max - min) || 1;
     function x(i){ return pad + (i / (series.length - 1)) * (cssW - pad * 2); }
     function y(v){ return cssH - pad - ((v - min) / range) * (cssH - pad * 2); }
@@ -1152,7 +1194,12 @@
     canvas.width = w * devicePixelRatio; canvas.height = h * devicePixelRatio;
     ctx.scale(devicePixelRatio, devicePixelRatio);
     var pad = 36;
-    var all = nasdaq.concat(asx);
+    // Filter to finite numbers before computing min/max -- see
+    // drawSparkline's matching comment above for why a missing week-change
+    // key (mapped through Array#map to `undefined`) would otherwise make
+    // Math.min/Math.max return NaN, silently blanking the whole chart with
+    // no error and no fallback message.
+    var all = nasdaq.concat(asx).filter(function(v){ return typeof v === "number" && isFinite(v); });
     var min = Math.min.apply(null, all.concat([0])), max = Math.max.apply(null, all.concat([0]));
     var range = (max - min) || 1;
     function x(i){ return pad + (i / (data.length - 1)) * (w - pad * 2); }
@@ -1226,7 +1273,7 @@
   <div class="index-cards">...(same NASDAQ_CARD / ASX_CARD content as that
       week's Markets tab, side by side via .index-cards, but WITHOUT the
       sparkline canvas or the card-head wrapper — plain
-      <strong>NASDAQ Composite:</strong> ... text, no JS on archive pages)...</div>
+      <strong>Nasdaq-100 (via QQQ ETF price):</strong> ... text, no JS on archive pages)...</div>
 
   <h2>Notable Movers</h2>
   ...(the same ranked <ol class="movers-list"> / <li class="mover-row">
