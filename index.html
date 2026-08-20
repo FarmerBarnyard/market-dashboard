@@ -458,9 +458,9 @@ when that ticker isn't a mover or on a watchlist this run. Static markup,
 not a SECTION marker (identical every render) -- see template.html's v7
 changelog entry and the script block near the bottom of this file. -->
 <div class="ticker-jump" id="tickerJump">
-  <input class="filter-input" type="text" id="tickerJumpInput" placeholder="Jump to any ticker (e.g. AAPL)..." autocomplete="off" aria-label="Jump to ticker" role="combobox" aria-expanded="false" aria-owns="tickerJumpResults" aria-autocomplete="list">
-  <ul class="ticker-jump-results" id="tickerJumpResults" role="listbox" hidden></ul>
-  <p class="meta ticker-jump-status" id="tickerJumpStatus" hidden></p>
+  <input class="filter-input" type="text" id="tickerJumpInput" placeholder="Jump to any ticker (e.g. AAPL)..." autocomplete="off" aria-label="Jump to ticker" role="combobox" aria-expanded="false" aria-controls="tickerJumpResults" aria-autocomplete="list">
+  <ul class="ticker-jump-results" id="tickerJumpResults" role="listbox" aria-label="Ticker search results" hidden></ul>
+  <p class="meta ticker-jump-status" id="tickerJumpStatus" aria-live="polite" hidden></p>
 </div>
 
 <nav class="tabs">
@@ -1284,7 +1284,10 @@ changelog entry and the script block near the bottom of this file. -->
     tickerJumpResults.hidden = true;
     tickerJumpResults.innerHTML = '';
     tickerJumpActiveIdx = -1;
-    if (tickerJumpInput) tickerJumpInput.setAttribute('aria-expanded', 'false');
+    if (tickerJumpInput) {
+      tickerJumpInput.setAttribute('aria-expanded', 'false');
+      tickerJumpInput.removeAttribute('aria-activedescendant');
+    }
   }
 
   function navigateToTicker(symbol){
@@ -1297,21 +1300,59 @@ changelog entry and the script block near the bottom of this file. -->
   function tickerJumpHighlight(idx){
     var items = tickerJumpResults.querySelectorAll('.ticker-jump-result');
     tickerJumpActiveIdx = idx;
-    items.forEach(function(item, i){ item.classList.toggle('active', i === idx); });
+    items.forEach(function(item, i){
+      var isActive = i === idx;
+      item.classList.toggle('active', isActive);
+      item.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+    if (tickerJumpInput) {
+      if (idx > -1 && items[idx]) {
+        tickerJumpInput.setAttribute('aria-activedescendant', items[idx].id);
+        items[idx].scrollIntoView({ block: 'nearest' });
+      } else {
+        tickerJumpInput.removeAttribute('aria-activedescendant');
+      }
+    }
   }
 
   function renderTickerJumpMatches(matches){
     tickerJumpResults.innerHTML = '';
-    matches.forEach(function(symbol){
+    matches.forEach(function(symbol, i){
       var entry = tickerIndex[symbol] || {};
       var li = document.createElement('li');
+      li.id = 'tickerJumpOpt' + i;
       li.className = 'ticker-jump-result';
       li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', 'false');
       li.dataset.symbol = symbol;
-      li.innerHTML = '<span class="ticker-badge">' + symbol.slice(0, 2).toUpperCase() + '</span>'
-        + '<strong>' + symbol + '</strong>'
-        + (entry.name ? ' <span class="meta">' + entry.name + '</span>' : '')
-        + (entry.market ? ' <span class="mover-market">' + entry.market + '</span>' : '');
+
+      var badge = document.createElement('span');
+      badge.className = 'ticker-badge';
+      badge.textContent = symbol.slice(0, 2).toUpperCase();
+      li.appendChild(badge);
+
+      var strong = document.createElement('strong');
+      strong.textContent = symbol;
+      li.appendChild(strong);
+
+      // Skip the name span when it's just a duplicate of the ticker
+      // symbol (true for most entries until real company names are
+      // backfilled -- see agents.md) -- showing "MSB MSB ASX" twice
+      // per row adds nothing.
+      if (entry.name && entry.name !== symbol) {
+        var name = document.createElement('span');
+        name.className = 'meta';
+        name.textContent = entry.name;
+        li.appendChild(name);
+      }
+
+      if (entry.market) {
+        var market = document.createElement('span');
+        market.className = 'mover-market';
+        market.textContent = entry.market;
+        li.appendChild(market);
+      }
+
       // mousedown, not click -- fires before the input's blur handler
       // below tears the dropdown down, so a click on a result actually
       // registers instead of getting raced by blur closing it first.
@@ -1323,7 +1364,10 @@ changelog entry and the script block near the bottom of this file. -->
     });
     tickerJumpActiveIdx = -1;
     tickerJumpResults.hidden = matches.length === 0;
-    if (tickerJumpInput) tickerJumpInput.setAttribute('aria-expanded', matches.length > 0 ? 'true' : 'false');
+    if (tickerJumpInput) {
+      tickerJumpInput.setAttribute('aria-expanded', matches.length > 0 ? 'true' : 'false');
+      tickerJumpInput.removeAttribute('aria-activedescendant');
+    }
   }
 
   function handleTickerJumpQuery(){
@@ -1337,7 +1381,7 @@ changelog entry and the script block near the bottom of this file. -->
     // query -- ticker-index.json has no company-name search, symbols only.
     var starts = symbols.filter(function(s){ return s.indexOf(query) === 0; });
     var matches = (starts.length ? starts : symbols.filter(function(s){ return s.indexOf(query) > -1; })).sort().slice(0, 8);
-    if (!matches.length) { closeTickerJumpResults(); tickerJumpSetStatus('No ticker found for "' + query + '".'); return; }
+    if (!matches.length) { closeTickerJumpResults(); tickerJumpSetStatus('No ticker matching "' + query + '" on this dashboard.'); return; }
     tickerJumpSetStatus('');
     renderTickerJumpMatches(matches);
   }
@@ -1345,8 +1389,24 @@ changelog entry and the script block near the bottom of this file. -->
   if (tickerJumpInput && tickerJumpResults) {
     fetch('ticker-index.json')
       .then(function(r){ if (!r.ok) throw new Error('bad status'); return r.json(); })
-      .then(function(idx){ tickerIndex = idx || {}; })
-      .catch(function(){ tickerIndexFailed = true; });
+      .then(function(idx){
+        // An empty/non-object/array response is just as unusable as a
+        // failed fetch (see build_ticker_index/main() in
+        // render_dashboard.py, which now hard-fails rather than writing
+        // an empty index) -- treat it as a genuine failure so the status
+        // message stays honest instead of confidently denying every
+        // real ticker.
+        if (!idx || typeof idx !== 'object' || Array.isArray(idx) || !Object.keys(idx).length) {
+          tickerIndexFailed = true;
+        } else {
+          tickerIndex = idx;
+        }
+        if (tickerJumpInput.value.trim()) handleTickerJumpQuery();
+      })
+      .catch(function(){
+        tickerIndexFailed = true;
+        if (tickerJumpInput.value.trim()) handleTickerJumpQuery();
+      });
 
     tickerJumpInput.addEventListener('input', handleTickerJumpQuery);
 
@@ -1364,11 +1424,20 @@ changelog entry and the script block near the bottom of this file. -->
           navigateToTicker(items[tickerJumpActiveIdx].dataset.symbol);
           return;
         }
+        // Results are showing but nothing's been arrow-selected yet --
+        // standard combobox UX is to go with the top match rather than
+        // require an explicit arrow-down first (and definitely not to
+        // show a "not found" status hidden behind the still-open
+        // dropdown that's rendered on top of it).
+        if (items.length) {
+          navigateToTicker(items[0].dataset.symbol);
+          return;
+        }
         var query = tickerJumpInput.value.trim().toUpperCase();
         if (tickerIndex && query && tickerIndex[query]) {
           navigateToTicker(query);
         } else if (query) {
-          tickerJumpSetStatus('No ticker found for "' + query + '".');
+          tickerJumpSetStatus('No ticker matching "' + query + '" on this dashboard.');
         }
       }
     });
@@ -1399,7 +1468,7 @@ changelog entry and the script block near the bottom of this file. -->
       e.preventDefault();
       input.focus();
     }
-    if (e.key === 't' && document.activeElement.tagName !== 'INPUT' && tickerJumpInput) {
+    if (e.key === 't' && !e.ctrlKey && !e.metaKey && !e.altKey && document.activeElement.tagName !== 'INPUT' && tickerJumpInput) {
       e.preventDefault();
       tickerJumpInput.focus();
     }
