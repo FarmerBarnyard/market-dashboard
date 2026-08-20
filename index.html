@@ -1275,8 +1275,17 @@ changelog entry and the script block near the bottom of this file. -->
 
   function tickerJumpSetStatus(text){
     if (!tickerJumpStatus) return;
-    tickerJumpStatus.textContent = text || '';
-    tickerJumpStatus.hidden = !text;
+    var next = text || '';
+    // Reveal before writing (not after) so the text lands in the a11y
+    // tree while the aria-live region is already visible -- writing into
+    // a still-hidden element means the mutation happens outside the
+    // accessibility tree and assistive tech is unlikely to announce it.
+    // Also skip no-op writes so repeated identical status text (e.g.
+    // "Loading ticker list..." on every keystroke while still loading)
+    // doesn't spam re-announcements.
+    if (tickerJumpStatus.textContent === next) return;
+    tickerJumpStatus.hidden = !next;
+    tickerJumpStatus.textContent = next;
   }
 
   function closeTickerJumpResults(){
@@ -1401,11 +1410,22 @@ changelog entry and the script block near the bottom of this file. -->
         } else {
           tickerIndex = idx;
         }
-        if (tickerJumpInput.value.trim()) handleTickerJumpQuery();
+        // Only re-run against the input the user is still looking at --
+        // on a slow connection the fetch can settle well after the user
+        // has clicked away, and re-running unconditionally would pop the
+        // results dropdown open over the page with nothing focused (and
+        // no future blur event to close it).
+        if (tickerJumpInput.value.trim()) {
+          if (document.activeElement === tickerJumpInput) handleTickerJumpQuery();
+          else tickerJumpSetStatus(''); // clear stale "Loading..." text left over from before the user clicked away
+        }
       })
       .catch(function(){
         tickerIndexFailed = true;
-        if (tickerJumpInput.value.trim()) handleTickerJumpQuery();
+        if (tickerJumpInput.value.trim()) {
+          if (document.activeElement === tickerJumpInput) handleTickerJumpQuery();
+          else tickerJumpSetStatus('');
+        }
       });
 
     tickerJumpInput.addEventListener('input', handleTickerJumpQuery);
@@ -1434,11 +1454,16 @@ changelog entry and the script block near the bottom of this file. -->
           return;
         }
         var query = tickerJumpInput.value.trim().toUpperCase();
-        if (tickerIndex && query && tickerIndex[query]) {
-          navigateToTicker(query);
-        } else if (query) {
-          tickerJumpSetStatus('No ticker matching "' + query + '" on this dashboard.');
-        }
+        if (!query) return;
+        // Mirror handleTickerJumpQuery's guard ordering so both code
+        // paths agree on what "not found" actually means -- previously
+        // this fallback skipped straight to "no ticker matching" even
+        // when the index had failed to load or hadn't loaded yet,
+        // producing a false negative for tickers that really exist.
+        if (tickerIndexFailed) { tickerJumpSetStatus('Ticker search is unavailable right now.'); return; }
+        if (!tickerIndex) { tickerJumpSetStatus('Loading ticker list...'); return; }
+        if (tickerIndex[query]) { navigateToTicker(query); return; }
+        tickerJumpSetStatus('No ticker matching "' + query + '" on this dashboard.');
       }
     });
 
