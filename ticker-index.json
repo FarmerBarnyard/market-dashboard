@@ -934,5 +934,57 @@
   "GPT": {
     "name": "GPT",
     "market": "ASX"
+  },
+  "TSLA": {
+    "name": "TSLA",
+    "market": "NASDAQ"
+  },
+  "DOW": {
+    "name": "DOW",
+    "market": "ASX"
+  },
+  "MPL": {
+    "name": "MPL",
+    "market": "ASX"
+  },
+  "BSL": {
+    "name": "BSL",
+    "market": "ASX"
+  },
+  "NHF": {
+    "name": "NHF",
+    "market": "ASX"
+  },
+  "DXS": {
+    "name": "DXS",
+    "market": "ASX"
+  },
+  "TLC": {
+    "name": "TLC",
+    "market": "ASX"
+  },
+  "WMT": {
+    "name": "WMT",
+    "market": "NASDAQ"
+  },
+  "GILD": {
+    "name": "GILD",
+    "market": "NASDAQ"
+  },
+  "TPG": {
+    "name": "TPG",
+    "market": "ASX"
+  },
+  "LLC": {
+    "name": "LLC",
+    "market": "ASX"
+  },
+  "CHC": {
+    "name": "CHC",
+    "market": "ASX"
+  },
+  "RDX": {
+    "name": "RDX",
+    "market": "ASX"
   }
 }

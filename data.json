@@ -133,5 +133,15 @@
     "dividends_count": 14,
     "nasdaq_week_pct": -2.05,
     "asx_week_pct": -0.36
+  },
+  {
+    "date": "2026-08-21",
+    "nasdaq_level": 710.93,
+    "asx_level": 9065.8,
+    "midterm_count": 19,
+    "longterm_count": 0,
+    "dividends_count": 14,
+    "nasdaq_week_pct": -2.75,
+    "asx_week_pct": -0.54
   }
 ]

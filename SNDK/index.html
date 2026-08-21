@@ -1,5 +1,5 @@
 <!--
-  DASHBOARD TEMPLATE v6 — read this fully before touching this file.
+  DASHBOARD TEMPLATE v7 — read this fully before touching this file.
   As of v6, this file is read directly by ClaudeRepo/scripts/render_dashboard.py
   (a fixed Python script, not a per-week AI agent) — see agents.md. The RULES
   section below is now maintainer documentation for that script's author
@@ -7,6 +7,46 @@
   discipline it describes (never remove/rename a SECTION marker, keep
   structure identical week to week) still applies and is what the script
   depends on.
+
+  WHAT CHANGED FROM v6 (site-wide ticker search + honest refresh timestamp,
+  from an end-user-advocate review):
+    p. New site-wide ticker search box (#tickerJumpInput, near the top of
+       the page, outside every tab-panel so it stays visible on every tab)
+       lets a visitor jump straight to any ticker's own page even if it
+       isn't listed as a mover or on a watchlist this run -- previously the
+       only way to reach a ticker's page was clicking a link that happened
+       to be on the current page. Fetches market-dashboard/ticker-index.json
+       ONCE at load (a lightweight {ticker: {name, market}} file generated
+       by render_dashboard.py's build_ticker_index -- NOT the much larger,
+       ever-growing tickers.json, which carries every ticker's full history
+       array) -- no other new network calls, no polling. Reuses the
+       .filter-input class purely for visual consistency (and gets
+       Esc-to-clear for free from the existing keyboard-shortcuts handler,
+       since that handler matches on the class, not a specific element) --
+       it's NOT wired into the existing "/" focus-filter shortcut (which
+       stays scoped to whichever tab/subtab's own local filter box is
+       visible, unchanged) because this box's job (site-wide navigation) is
+       a different action from local filtering, not a variant of it. Gets
+       its own "t" shortcut instead, documented in the hint-bar alongside
+       "/" and Esc. Static-only on this page -- not added to archive/<date>
+       .html (those are deliberately static, no-JS snapshots per rule 4
+       below) or individual ticker pages, to keep this change small and
+       reviewable; the main dashboard is already the site's hub every
+       ticker link ultimately points back to via "&larr; Back to dashboard".
+    q. A second, honest "Data last refreshed: {{DATE}}" line under the
+       existing SECTION:DATE meta line -- specifically to counter the false
+       impression the live-ticking price strip/index cards/live-dots can
+       give that the WHOLE page is real-time, when the underlying movers/
+       ratings/watchlists data is only as fresh as this run. Deliberately a
+       plain calendar date, not a fabricated HH:MM timestamp -- nothing in
+       this pipeline tracks time-of-day (see render_dashboard.py's
+       render_index_html), so inventing one would violate this project's
+       no-fabricated-data rule. Reuses the exact same `date` value already
+       stamped onto the index cards' `as_of` field, not a new source.
+       Complements, doesn't replace, the existing .ticker-strip-note caption
+       further down the page (that one explains strip-vs-movers-list drift
+       specifically; this one is the first, most prominent signal a visitor
+       sees before scrolling at all).
 
   WHAT CHANGED FROM v5 (visual redesign + Signal Scorecard):
     l. Full CSS reskin from the plain default-dark-theme palette to a
@@ -219,7 +259,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Market Dashboard - 2026-08-18</title>
+<title>Weekly Market Dashboard - 2026-08-21</title>
 <style>
   :root{
     --bg:#0b0f14; --surface:#12181f; --surface-2:#161d25; --border:#1e2732;
@@ -279,6 +319,26 @@
   .filter-input{width:100%;box-sizing:border-box;padding:8px 10px;margin:8px 0;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:3px;font-size:.85rem;font-family:var(--mono);}
   .filter-input::placeholder{color:var(--text-dim);}
   .filter-input:focus{outline:1px solid var(--amber);border-color:var(--amber);}
+  /* "Data last refreshed" line under the main SECTION:DATE meta line --
+     see render_index_html's DATE fill in render_dashboard.py for what
+     sets this and why it's a plain date, not a fabricated time-of-day. */
+  .refreshed-note{margin-top:2px;}
+  /* Site-wide ticker search (#tickerJumpInput) -- lives outside every
+     tab-panel so it's visible regardless of the active tab. Reuses
+     .filter-input above for the input's own look; this just adds the
+     results-dropdown chrome. See the script block near the bottom of this
+     file for the fetch/matching/keyboard-nav logic, and
+     render_dashboard.py's build_ticker_index for what populates
+     ticker-index.json. */
+  .ticker-jump{position:relative;max-width:420px;margin:6px 0 20px;}
+  .ticker-jump-results{list-style:none;margin:0;padding:4px 0;position:absolute;top:calc(100% - 4px);left:0;right:0;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:3px;max-height:260px;overflow-y:auto;
+    z-index:10;box-shadow:0 4px 14px rgba(0,0,0,.4);}
+  .ticker-jump-result{display:flex;align-items:center;gap:6px;padding:6px 10px;cursor:pointer;font-size:.82rem;}
+  .ticker-jump-result strong{color:var(--text-bright);}
+  .ticker-jump-result:hover,.ticker-jump-result.active{background:var(--amber-bg);}
+  .ticker-jump-result:hover strong,.ticker-jump-result.active strong{color:var(--amber);}
+  .ticker-jump-status{margin:4px 2px 0;}
   .tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin:20px 0 0;flex-wrap:wrap;}
   .tab-btn{background:none;border:none;color:var(--text-dim);padding:10px 16px;cursor:pointer;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid transparent;font-family:var(--sans);}
   .tab-btn.active{color:var(--text-bright);border-bottom-color:var(--amber);}
@@ -405,14 +465,14 @@
 <h1><span class="ticker-badge">SN</span>SNDK <span class="meta">SNDK - NASDAQ</span></h1>
 
 <h2>About</h2>
-<div class="card">Description not yet recorded for this ticker.</div>
+<div class="card">Sandisk Corp (Technology industry, listed on NASDAQ NMS - GLOBAL MARKET).</div>
 
 <h2>This Week</h2>
 <div class="card">
-    Price: <span class="live-price" data-live-field="price" data-live-symbol="SNDK" data-live-market="NASDAQ">$1645.98</span> (2026-08-18), <span class="up live-price" data-live-field="change" data-live-symbol="SNDK" data-live-market="NASDAQ">+8.88% ($+145.74)</span> (day, live). <span class="live-dot" data-live-field="dot" data-live-symbol="SNDK" data-live-market="NASDAQ" title="Live price"></span><br>
+    Price: <span class="live-price" data-live-field="price" data-live-symbol="SNDK" data-live-market="NASDAQ">$1600.62</span> (2026-08-21), <span class="up live-price" data-live-field="change" data-live-symbol="SNDK" data-live-market="NASDAQ">+2.02% ($+31.75)</span> (day, live). <span class="live-dot" data-live-field="dot" data-live-symbol="SNDK" data-live-market="NASDAQ" title="Live price"></span><br>
     4-star analyst consensus, fair value not available<br>
     Watchlists: Mid-Term.<br>
-    <span class="meta">Snapshot: 52-Wk 43.202 to 2354.39 - Div Yield 0.0%. Sourced from the same page already used for price verification.</span><br>
+    <span class="meta">Snapshot: 52-Wk 45.63 to 2354.39 - Div Yield 0.0%. Sourced from the same page already used for price verification.</span><br>
     <span class="meta">No dividend paid</span><br>
     Source: Yahoo Finance (free)
 </div>
@@ -469,7 +529,7 @@
 
 <script>
 (function(){
-  var bars = [{"date": "2026-05-18", "open": 1431.67, "high": 1440.0, "low": 1277.33, "close": 1333.01}, {"date": "2026-05-19", "open": 1289.75, "high": 1392.86, "low": 1278.11, "close": 1383.29}, {"date": "2026-05-20", "open": 1437.98, "high": 1444.0, "low": 1366.98, "close": 1392.5601}, {"date": "2026-05-21", "open": 1377.47, "high": 1546.09, "low": 1377.47, "close": 1542.24}, {"date": "2026-05-22", "open": 1520.715, "high": 1528.0, "low": 1473.52, "close": 1478.6899}, {"date": "2026-05-26", "open": 1535.21, "high": 1641.74, "low": 1520.0, "close": 1589.55}, {"date": "2026-05-27", "open": 1645.99, "high": 1658.77, "low": 1528.28, "close": 1589.9399}, {"date": "2026-05-28", "open": 1596.3101, "high": 1697.96, "low": 1560.1801, "close": 1641.64}, {"date": "2026-05-29", "open": 1682.0, "high": 1708.825, "low": 1641.08, "close": 1694.98}, {"date": "2026-06-01", "open": 1731.15, "high": 1804.0, "low": 1686.16, "close": 1761.4301}, {"date": "2026-06-02", "open": 1750.0601, "high": 1772.4, "low": 1708.8, "close": 1716.36}, {"date": "2026-06-03", "open": 1736.0, "high": 1861.0, "low": 1708.88, "close": 1831.5}, {"date": "2026-06-04", "open": 1741.3101, "high": 1825.9, "low": 1725.08, "close": 1759.6801}, {"date": "2026-06-05", "open": 1678.88, "high": 1682.0, "low": 1514.36, "close": 1559.3199}, {"date": "2026-06-08", "open": 1634.0, "high": 1694.988, "low": 1602.0, "close": 1642.0}, {"date": "2026-06-09", "open": 1700.5, "high": 1803.0, "low": 1536.0, "close": 1646.54}, {"date": "2026-06-10", "open": 1624.38, "high": 1764.65, "low": 1590.0, "close": 1643.23}, {"date": "2026-06-11", "open": 1672.26, "high": 1895.0, "low": 1665.0, "close": 1881.51}, {"date": "2026-06-12", "open": 1890.98, "high": 2021.65, "low": 1865.11, "close": 1980.1}, {"date": "2026-06-15", "open": 2101.1201, "high": 2119.8999, "low": 2021.11, "close": 2107.8601}, {"date": "2026-06-16", "open": 2134.2, "high": 2167.3301, "low": 1980.1801, "close": 1991.55}, {"date": "2026-06-17", "open": 2074.5901, "high": 2074.5901, "low": 1938.0, "close": 1958.8}, {"date": "2026-06-18", "open": 2044.745, "high": 2191.6899, "low": 2029.0, "close": 2184.75}, {"date": "2026-06-22", "open": 2293.3149, "high": 2354.3899, "low": 2251.2849, "close": 2273.73}, {"date": "2026-06-23", "open": 2007.7, "high": 2060.0, "low": 1949.96, "close": 1963.6}, {"date": "2026-06-24", "open": 1987.53, "high": 2021.5, "low": 1861.01, "close": 1914.46}, {"date": "2026-06-25", "open": 2238.3049, "high": 2347.999, "low": 2092.0801, "close": 2335.0}, {"date": "2026-06-26", "open": 2169.9951, "high": 2256.1101, "low": 2063.0391, "close": 2090.71}, {"date": "2026-06-29", "open": 2090.71, "high": 2090.71, "low": 1895.0, "close": 2050.3899}, {"date": "2026-06-30", "open": 2109.73, "high": 2280.8, "low": 2070.0, "close": 2273.73}, {"date": "2026-07-01", "open": 2085.1699, "high": 2129.98, "low": 2002.05, "close": 2032.22}, {"date": "2026-07-02", "open": 2043.8, "high": 2052.54, "low": 1693.0, "close": 1745.0}, {"date": "2026-07-06", "open": 1828.6801, "high": 1837.77, "low": 1713.2, "close": 1744.4301}, {"date": "2026-07-07", "open": 1619.28, "high": 1638.88, "low": 1485.02, "close": 1617.7}, {"date": "2026-07-08", "open": 1591.8, "high": 1734.6899, "low": 1590.0, "close": 1727.1801}, {"date": "2026-07-09", "open": 1835.613, "high": 1952.59, "low": 1801.0, "close": 1858.27}, {"date": "2026-07-10", "open": 1778.984, "high": 1946.835, "low": 1773.0, "close": 1915.92}, {"date": "2026-07-13", "open": 1792.86, "high": 1800.0, "low": 1646.17, "close": 1673.97}, {"date": "2026-07-14", "open": 1807.0, "high": 1812.54, "low": 1711.47, "close": 1757.8199}, {"date": "2026-07-15", "open": 1717.29, "high": 1729.5, "low": 1478.5, "close": 1615.0}, {"date": "2026-07-16", "open": 1527.49, "high": 1551.629, "low": 1390.04, "close": 1411.08}, {"date": "2026-07-17", "open": 1365.205, "high": 1501.2, "low": 1325.03, "close": 1354.8199}, {"date": "2026-07-20", "open": 1408.78, "high": 1454.99, "low": 1375.61, "close": 1390.95}, {"date": "2026-07-21", "open": 1511.67, "high": 1595.639, "low": 1489.645, "close": 1589.4}, {"date": "2026-07-22", "open": 1526.0, "high": 1628.4, "low": 1516.01, "close": 1599.27}, {"date": "2026-07-23", "open": 1567.6, "high": 1696.37, "low": 1558.61, "close": 1610.33}, {"date": "2026-07-24", "open": 1551.165, "high": 1573.09, "low": 1411.5, "close": 1436.5601}, {"date": "2026-07-27", "open": 1462.99, "high": 1462.99, "low": 1222.01, "close": 1278.23}, {"date": "2026-07-28", "open": 1173.6, "high": 1188.0, "low": 1050.72, "close": 1096.1}, {"date": "2026-07-29", "open": 1119.328, "high": 1124.8, "low": 998.19, "close": 1015.89}, {"date": "2026-07-30", "open": 1135.01, "high": 1285.48, "low": 1124.0, "close": 1279.96}, {"date": "2026-07-31", "open": 1383.6851, "high": 1404.99, "low": 1187.26, "close": 1214.83}, {"date": "2026-08-03", "open": 1159.84, "high": 1316.45, "low": 1121.265, "close": 1288.03}, {"date": "2026-08-04", "open": 1358.21, "high": 1446.623, "low": 1340.0, "close": 1427.62}, {"date": "2026-08-05", "open": 1398.77, "high": 1441.7581, "low": 1345.0, "close": 1350.5}, {"date": "2026-08-06", "open": 1173.26, "high": 1324.0, "low": 1163.09, "close": 1258.58}, {"date": "2026-08-07", "open": 1309.3, "high": 1309.53, "low": 1184.37, "close": 1212.21}, {"date": "2026-08-10", "open": 1203.41, "high": 1278.755, "low": 1194.01, "close": 1237.92}, {"date": "2026-08-11", "open": 1260.5601, "high": 1287.04, "low": 1242.0601, "close": 1271.05}, {"date": "2026-08-12", "open": 1358.22, "high": 1389.28, "low": 1308.531, "close": 1344.29}, {"date": "2026-08-13", "open": 1339.83, "high": 1580.88, "low": 1331.58, "close": 1528.11}, {"date": "2026-08-14", "open": 1646.9301, "high": 1667.1899, "low": 1565.0, "close": 1641.11}, {"date": "2026-08-18", "open": 1677.135, "high": 1724.9899, "low": 1613.0101, "close": 1643.98}];
+  var bars = [{"date": "2026-05-21", "open": 1377.47, "high": 1546.09, "low": 1377.47, "close": 1542.24}, {"date": "2026-05-22", "open": 1520.715, "high": 1528.0, "low": 1473.52, "close": 1478.6899}, {"date": "2026-05-26", "open": 1535.21, "high": 1641.74, "low": 1520.0, "close": 1589.55}, {"date": "2026-05-27", "open": 1645.99, "high": 1658.77, "low": 1528.28, "close": 1589.9399}, {"date": "2026-05-28", "open": 1596.3101, "high": 1697.96, "low": 1560.1801, "close": 1641.64}, {"date": "2026-05-29", "open": 1682.0, "high": 1708.825, "low": 1641.08, "close": 1694.98}, {"date": "2026-06-01", "open": 1731.15, "high": 1804.0, "low": 1686.16, "close": 1761.4301}, {"date": "2026-06-02", "open": 1750.0601, "high": 1772.4, "low": 1708.8, "close": 1716.36}, {"date": "2026-06-03", "open": 1736.0, "high": 1861.0, "low": 1708.88, "close": 1831.5}, {"date": "2026-06-04", "open": 1741.3101, "high": 1825.9, "low": 1725.08, "close": 1759.6801}, {"date": "2026-06-05", "open": 1678.88, "high": 1682.0, "low": 1514.36, "close": 1559.3199}, {"date": "2026-06-08", "open": 1634.0, "high": 1694.988, "low": 1602.0, "close": 1642.0}, {"date": "2026-06-09", "open": 1700.5, "high": 1803.0, "low": 1536.0, "close": 1646.54}, {"date": "2026-06-10", "open": 1624.38, "high": 1764.65, "low": 1590.0, "close": 1643.23}, {"date": "2026-06-11", "open": 1672.26, "high": 1895.0, "low": 1665.0, "close": 1881.51}, {"date": "2026-06-12", "open": 1890.98, "high": 2021.65, "low": 1865.11, "close": 1980.1}, {"date": "2026-06-15", "open": 2101.1201, "high": 2119.8999, "low": 2021.11, "close": 2107.8601}, {"date": "2026-06-16", "open": 2134.2, "high": 2167.3301, "low": 1980.1801, "close": 1991.55}, {"date": "2026-06-17", "open": 2074.5901, "high": 2074.5901, "low": 1938.0, "close": 1958.8}, {"date": "2026-06-18", "open": 2044.745, "high": 2191.6899, "low": 2029.0, "close": 2184.75}, {"date": "2026-06-22", "open": 2293.3149, "high": 2354.3899, "low": 2251.2849, "close": 2273.73}, {"date": "2026-06-23", "open": 2007.7, "high": 2060.0, "low": 1949.96, "close": 1963.6}, {"date": "2026-06-24", "open": 1987.53, "high": 2021.5, "low": 1861.01, "close": 1914.46}, {"date": "2026-06-25", "open": 2238.3049, "high": 2347.999, "low": 2092.0801, "close": 2335.0}, {"date": "2026-06-26", "open": 2169.9951, "high": 2256.1101, "low": 2063.0391, "close": 2090.71}, {"date": "2026-06-29", "open": 2090.71, "high": 2090.71, "low": 1895.0, "close": 2050.3899}, {"date": "2026-06-30", "open": 2109.73, "high": 2280.8, "low": 2070.0, "close": 2273.73}, {"date": "2026-07-01", "open": 2085.1699, "high": 2129.98, "low": 2002.05, "close": 2032.22}, {"date": "2026-07-02", "open": 2043.8, "high": 2052.54, "low": 1693.0, "close": 1745.0}, {"date": "2026-07-06", "open": 1828.6801, "high": 1837.77, "low": 1713.2, "close": 1744.4301}, {"date": "2026-07-07", "open": 1619.28, "high": 1638.88, "low": 1485.02, "close": 1617.7}, {"date": "2026-07-08", "open": 1591.8, "high": 1734.6899, "low": 1590.0, "close": 1727.1801}, {"date": "2026-07-09", "open": 1835.613, "high": 1952.59, "low": 1801.0, "close": 1858.27}, {"date": "2026-07-10", "open": 1778.984, "high": 1946.835, "low": 1773.0, "close": 1915.92}, {"date": "2026-07-13", "open": 1792.86, "high": 1800.0, "low": 1646.17, "close": 1673.97}, {"date": "2026-07-14", "open": 1807.0, "high": 1812.54, "low": 1711.47, "close": 1757.8199}, {"date": "2026-07-15", "open": 1717.29, "high": 1729.5, "low": 1478.5, "close": 1615.0}, {"date": "2026-07-16", "open": 1527.49, "high": 1551.629, "low": 1390.04, "close": 1411.08}, {"date": "2026-07-17", "open": 1365.205, "high": 1501.2, "low": 1325.03, "close": 1354.8199}, {"date": "2026-07-20", "open": 1408.78, "high": 1454.99, "low": 1375.61, "close": 1390.95}, {"date": "2026-07-21", "open": 1511.67, "high": 1595.639, "low": 1489.645, "close": 1589.4}, {"date": "2026-07-22", "open": 1526.0, "high": 1628.4, "low": 1516.01, "close": 1599.27}, {"date": "2026-07-23", "open": 1567.6, "high": 1696.37, "low": 1558.61, "close": 1610.33}, {"date": "2026-07-24", "open": 1551.165, "high": 1573.09, "low": 1411.5, "close": 1436.5601}, {"date": "2026-07-27", "open": 1462.99, "high": 1462.99, "low": 1222.01, "close": 1278.23}, {"date": "2026-07-28", "open": 1173.6, "high": 1188.0, "low": 1050.72, "close": 1096.1}, {"date": "2026-07-29", "open": 1119.328, "high": 1124.8, "low": 998.19, "close": 1015.89}, {"date": "2026-07-30", "open": 1135.01, "high": 1285.48, "low": 1124.0, "close": 1279.96}, {"date": "2026-07-31", "open": 1383.6851, "high": 1404.99, "low": 1187.26, "close": 1214.83}, {"date": "2026-08-03", "open": 1159.84, "high": 1316.45, "low": 1121.265, "close": 1288.03}, {"date": "2026-08-04", "open": 1358.21, "high": 1446.623, "low": 1340.0, "close": 1427.62}, {"date": "2026-08-05", "open": 1398.77, "high": 1441.7581, "low": 1345.0, "close": 1350.5}, {"date": "2026-08-06", "open": 1173.26, "high": 1324.0, "low": 1163.09, "close": 1258.58}, {"date": "2026-08-07", "open": 1309.3, "high": 1309.53, "low": 1184.37, "close": 1212.21}, {"date": "2026-08-10", "open": 1203.41, "high": 1278.755, "low": 1194.01, "close": 1237.92}, {"date": "2026-08-11", "open": 1260.5601, "high": 1287.04, "low": 1242.0601, "close": 1271.05}, {"date": "2026-08-12", "open": 1358.22, "high": 1389.28, "low": 1308.531, "close": 1344.29}, {"date": "2026-08-13", "open": 1339.83, "high": 1580.88, "low": 1331.58, "close": 1528.11}, {"date": "2026-08-14", "open": 1646.9301, "high": 1667.1899, "low": 1565.0, "close": 1641.11}, {"date": "2026-08-17", "open": 1700.745, "high": 1827.99, "low": 1698.0, "close": 1786.85}, {"date": "2026-08-18", "open": 1677.54, "high": 1724.99, "low": 1600.2, "close": 1625.78}, {"date": "2026-08-19", "open": 1682.405, "high": 1699.0, "low": 1542.0, "close": 1568.87}, {"date": "2026-08-20", "open": 1569.0, "high": 1631.4, "low": 1554.0, "close": 1600.62}];
   var canvas = document.getElementById('tickerCandleChart');
   var tooltip = document.getElementById('tickerCandleTooltip');
   if (!canvas) return;
