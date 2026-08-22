@@ -986,5 +986,17 @@
   "RDX": {
     "name": "RDX",
     "market": "ASX"
+  },
+  "XEL": {
+    "name": "XEL",
+    "market": "NASDAQ"
+  },
+  "EXC": {
+    "name": "EXC",
+    "market": "NASDAQ"
+  },
+  "IGO": {
+    "name": "IGO",
+    "market": "ASX"
   }
 }
