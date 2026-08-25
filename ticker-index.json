@@ -998,5 +998,9 @@
   "IGO": {
     "name": "IGO",
     "market": "ASX"
+  },
+  "ANN": {
+    "name": "ANN",
+    "market": "ASX"
   }
 }
