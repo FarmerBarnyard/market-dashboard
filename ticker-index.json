@@ -1002,5 +1002,25 @@
   "ANN": {
     "name": "ANN",
     "market": "ASX"
+  },
+  "MDLZ": {
+    "name": "MDLZ",
+    "market": "NASDAQ"
+  },
+  "PRU": {
+    "name": "PRU",
+    "market": "ASX"
+  },
+  "SFR": {
+    "name": "SFR",
+    "market": "ASX"
+  },
+  "WOW": {
+    "name": "WOW",
+    "market": "ASX"
+  },
+  "WOR": {
+    "name": "WOR",
+    "market": "ASX"
   }
 }
