@@ -1022,5 +1022,25 @@
   "WOR": {
     "name": "WOR",
     "market": "ASX"
+  },
+  "RHC": {
+    "name": "RHC",
+    "market": "ASX"
+  },
+  "SNZ": {
+    "name": "SNZ",
+    "market": "ASX"
+  },
+  "PPT": {
+    "name": "PPT",
+    "market": "ASX"
+  },
+  "SIG": {
+    "name": "SIG",
+    "market": "ASX"
+  },
+  "WES": {
+    "name": "WES",
+    "market": "ASX"
   }
 }
