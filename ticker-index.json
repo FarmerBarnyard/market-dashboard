@@ -1042,5 +1042,17 @@
   "WES": {
     "name": "WES",
     "market": "ASX"
+  },
+  "PCAR": {
+    "name": "PCAR",
+    "market": "NASDAQ"
+  },
+  "WAM": {
+    "name": "WAM",
+    "market": "ASX"
+  },
+  "PXA": {
+    "name": "PXA",
+    "market": "ASX"
   }
 }
