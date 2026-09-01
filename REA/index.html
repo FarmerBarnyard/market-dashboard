@@ -1,5 +1,5 @@
 <!--
-  DASHBOARD TEMPLATE v6 — read this fully before touching this file.
+  DASHBOARD TEMPLATE v7 — read this fully before touching this file.
   As of v6, this file is read directly by ClaudeRepo/scripts/render_dashboard.py
   (a fixed Python script, not a per-week AI agent) — see agents.md. The RULES
   section below is now maintainer documentation for that script's author
@@ -7,6 +7,46 @@
   discipline it describes (never remove/rename a SECTION marker, keep
   structure identical week to week) still applies and is what the script
   depends on.
+
+  WHAT CHANGED FROM v6 (site-wide ticker search + honest refresh timestamp,
+  from an end-user-advocate review):
+    p. New site-wide ticker search box (#tickerJumpInput, near the top of
+       the page, outside every tab-panel so it stays visible on every tab)
+       lets a visitor jump straight to any ticker's own page even if it
+       isn't listed as a mover or on a watchlist this run -- previously the
+       only way to reach a ticker's page was clicking a link that happened
+       to be on the current page. Fetches market-dashboard/ticker-index.json
+       ONCE at load (a lightweight {ticker: {name, market}} file generated
+       by render_dashboard.py's build_ticker_index -- NOT the much larger,
+       ever-growing tickers.json, which carries every ticker's full history
+       array) -- no other new network calls, no polling. Reuses the
+       .filter-input class purely for visual consistency (and gets
+       Esc-to-clear for free from the existing keyboard-shortcuts handler,
+       since that handler matches on the class, not a specific element) --
+       it's NOT wired into the existing "/" focus-filter shortcut (which
+       stays scoped to whichever tab/subtab's own local filter box is
+       visible, unchanged) because this box's job (site-wide navigation) is
+       a different action from local filtering, not a variant of it. Gets
+       its own "t" shortcut instead, documented in the hint-bar alongside
+       "/" and Esc. Static-only on this page -- not added to archive/<date>
+       .html (those are deliberately static, no-JS snapshots per rule 4
+       below) or individual ticker pages, to keep this change small and
+       reviewable; the main dashboard is already the site's hub every
+       ticker link ultimately points back to via "&larr; Back to dashboard".
+    q. A second, honest "Data last refreshed: {{DATE}}" line under the
+       existing SECTION:DATE meta line -- specifically to counter the false
+       impression the live-ticking price strip/index cards/live-dots can
+       give that the WHOLE page is real-time, when the underlying movers/
+       ratings/watchlists data is only as fresh as this run. Deliberately a
+       plain calendar date, not a fabricated HH:MM timestamp -- nothing in
+       this pipeline tracks time-of-day (see render_dashboard.py's
+       render_index_html), so inventing one would violate this project's
+       no-fabricated-data rule. Reuses the exact same `date` value already
+       stamped onto the index cards' `as_of` field, not a new source.
+       Complements, doesn't replace, the existing .ticker-strip-note caption
+       further down the page (that one explains strip-vs-movers-list drift
+       specifically; this one is the first, most prominent signal a visitor
+       sees before scrolling at all).
 
   WHAT CHANGED FROM v5 (visual redesign + Signal Scorecard):
     l. Full CSS reskin from the plain default-dark-theme palette to a
@@ -219,7 +259,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Market Dashboard - 2026-08-06</title>
+<title>Weekly Market Dashboard - 2026-09-01</title>
 <style>
   :root{
     --bg:#0b0f14; --surface:#12181f; --surface-2:#161d25; --border:#1e2732;
@@ -279,6 +319,26 @@
   .filter-input{width:100%;box-sizing:border-box;padding:8px 10px;margin:8px 0;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:3px;font-size:.85rem;font-family:var(--mono);}
   .filter-input::placeholder{color:var(--text-dim);}
   .filter-input:focus{outline:1px solid var(--amber);border-color:var(--amber);}
+  /* "Data last refreshed" line under the main SECTION:DATE meta line --
+     see render_index_html's DATE fill in render_dashboard.py for what
+     sets this and why it's a plain date, not a fabricated time-of-day. */
+  .refreshed-note{margin-top:2px;}
+  /* Site-wide ticker search (#tickerJumpInput) -- lives outside every
+     tab-panel so it's visible regardless of the active tab. Reuses
+     .filter-input above for the input's own look; this just adds the
+     results-dropdown chrome. See the script block near the bottom of this
+     file for the fetch/matching/keyboard-nav logic, and
+     render_dashboard.py's build_ticker_index for what populates
+     ticker-index.json. */
+  .ticker-jump{position:relative;max-width:420px;margin:6px 0 20px;}
+  .ticker-jump-results{list-style:none;margin:0;padding:4px 0;position:absolute;top:calc(100% - 4px);left:0;right:0;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:3px;max-height:260px;overflow-y:auto;
+    z-index:10;box-shadow:0 4px 14px rgba(0,0,0,.4);}
+  .ticker-jump-result{display:flex;align-items:center;gap:6px;padding:6px 10px;cursor:pointer;font-size:.82rem;}
+  .ticker-jump-result strong{color:var(--text-bright);}
+  .ticker-jump-result:hover,.ticker-jump-result.active{background:var(--amber-bg);}
+  .ticker-jump-result:hover strong,.ticker-jump-result.active strong{color:var(--amber);}
+  .ticker-jump-status{margin:4px 2px 0;}
   .tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin:20px 0 0;flex-wrap:wrap;}
   .tab-btn{background:none;border:none;color:var(--text-dim);padding:10px 16px;cursor:pointer;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid transparent;font-family:var(--sans);}
   .tab-btn.active{color:var(--text-bright);border-bottom-color:var(--amber);}
@@ -409,12 +469,12 @@
 
 <h2>This Week</h2>
 <div class="card">
-    Price: <span class="live-price" data-live-field="price" data-live-symbol="REA" data-live-market="ASX">$160.33</span> (2026-08-06), <span class="up live-price" data-live-field="change" data-live-symbol="REA" data-live-market="ASX">+5.07%</span> (day, live). <span class="live-dot" data-live-field="dot" data-live-symbol="REA" data-live-market="ASX" title="Live price"></span><br>
-    No Morningstar coverage found<br>
+    Price: <span class="live-price" data-live-field="price" data-live-symbol="REA" data-live-market="ASX">$170.46</span> (2026-09-01), <span class="down live-price" data-live-field="change" data-live-symbol="REA" data-live-market="ASX">-4.08% ($-7.24)</span> (day, live). <span class="live-dot" data-live-field="dot" data-live-symbol="REA" data-live-market="ASX" title="Live price"></span><br>
+    No analyst-consensus coverage found<br>
     Watchlists: None this week.<br>
-    <span class="meta">Snapshot: 52-Wk 131.07 to 265.98 - Div Yield 1.63. Sourced from the same page already used for price verification.</span><br>
-    <span class="meta">Annualized payout $2.62; payout ratio 57%</span><br>
-    Source: Finbox.com
+    <span class="meta">Snapshot: 52-Wk 131.07 to 247.49 - Div Yield 1.74%. Sourced from the same page already used for price verification.</span><br>
+    <span class="meta">Only 2 payment(s) in trailing 12mo -- irregular</span><br>
+    Source: Yahoo Finance (free)
 </div>
 
 <h2>Trend</h2>
@@ -469,7 +529,7 @@
 
 <script>
 (function(){
-  var bars = [];
+  var bars = [{"date": "2026-06-01", "open": 149.41, "high": 155.9, "low": 149.0, "close": 151.24}, {"date": "2026-06-02", "open": 154.3, "high": 157.99, "low": 151.4, "close": 157.99}, {"date": "2026-06-03", "open": 157.96, "high": 158.525, "low": 153.0, "close": 158.3}, {"date": "2026-06-04", "open": 156.95, "high": 158.44, "low": 155.41, "close": 157.96}, {"date": "2026-06-05", "open": 158.37, "high": 161.41, "low": 158.0, "close": 158.81}, {"date": "2026-06-09", "open": 151.16, "high": 154.7, "low": 148.0, "close": 152.58}, {"date": "2026-06-10", "open": 150.01, "high": 150.95, "low": 147.72, "close": 149.43}, {"date": "2026-06-11", "open": 147.9, "high": 150.08, "low": 146.93, "close": 147.13}, {"date": "2026-06-12", "open": 143.42, "high": 147.13, "low": 140.02, "close": 143.0}, {"date": "2026-06-15", "open": 142.77, "high": 144.96, "low": 142.71, "close": 143.75}, {"date": "2026-06-16", "open": 142.01, "high": 143.86, "low": 140.22, "close": 143.86}, {"date": "2026-06-17", "open": 143.97, "high": 146.53, "low": 143.29, "close": 145.48}, {"date": "2026-06-18", "open": 143.12, "high": 147.84, "low": 142.59, "close": 144.6}, {"date": "2026-06-19", "open": 139.95, "high": 142.11, "low": 139.0, "close": 140.08}, {"date": "2026-06-22", "open": 139.01, "high": 140.47, "low": 135.77, "close": 135.77}, {"date": "2026-06-23", "open": 134.0, "high": 134.8, "low": 131.52, "close": 131.52}, {"date": "2026-06-24", "open": 133.3, "high": 133.8, "low": 131.44, "close": 131.58}, {"date": "2026-06-25", "open": 133.64, "high": 135.17, "low": 131.71, "close": 133.88}, {"date": "2026-06-26", "open": 131.19, "high": 134.54, "low": 131.07, "close": 133.54}, {"date": "2026-06-29", "open": 136.0, "high": 138.64, "low": 135.74, "close": 138.63}, {"date": "2026-06-30", "open": 137.04, "high": 140.42, "low": 137.04, "close": 139.19}, {"date": "2026-07-01", "open": 138.8, "high": 140.56, "low": 137.8, "close": 139.17}, {"date": "2026-07-02", "open": 140.6, "high": 141.11, "low": 138.1, "close": 139.15}, {"date": "2026-07-03", "open": 140.3, "high": 141.91, "low": 139.06, "close": 141.91}, {"date": "2026-07-06", "open": 140.95, "high": 144.66, "low": 140.87, "close": 143.67}, {"date": "2026-07-07", "open": 143.26, "high": 148.1, "low": 143.1, "close": 147.28}, {"date": "2026-07-08", "open": 147.54, "high": 147.91, "low": 144.52, "close": 146.25}, {"date": "2026-07-09", "open": 144.16, "high": 149.1, "low": 142.63, "close": 148.35}, {"date": "2026-07-10", "open": 148.36, "high": 149.92, "low": 147.85, "close": 149.14}, {"date": "2026-07-13", "open": 149.73, "high": 150.4, "low": 147.56, "close": 149.72}, {"date": "2026-07-14", "open": 150.4, "high": 151.475, "low": 148.91, "close": 149.62}, {"date": "2026-07-15", "open": 148.58, "high": 149.7, "low": 147.36, "close": 148.87}, {"date": "2026-07-16", "open": 149.4, "high": 160.19, "low": 148.75, "close": 158.71}, {"date": "2026-07-17", "open": 162.7, "high": 164.12, "low": 160.03, "close": 160.86}, {"date": "2026-07-20", "open": 162.31, "high": 164.32, "low": 159.47, "close": 161.23}, {"date": "2026-07-21", "open": 163.32, "high": 164.07, "low": 161.25, "close": 164.07}, {"date": "2026-07-22", "open": 160.37, "high": 161.775, "low": 158.66, "close": 159.72}, {"date": "2026-07-23", "open": 157.32, "high": 159.09, "low": 156.7, "close": 157.61}, {"date": "2026-07-24", "open": 154.17, "high": 155.01, "low": 150.48, "close": 151.84}, {"date": "2026-07-27", "open": 155.62, "high": 157.57, "low": 153.69, "close": 156.19}, {"date": "2026-07-28", "open": 158.25, "high": 163.99, "low": 156.33, "close": 162.99}, {"date": "2026-07-29", "open": 169.98, "high": 169.98, "low": 164.64, "close": 166.97}, {"date": "2026-07-30", "open": 169.3, "high": 169.3, "low": 165.14, "close": 165.14}, {"date": "2026-07-31", "open": 162.98, "high": 163.92, "low": 159.5, "close": 160.71}, {"date": "2026-08-03", "open": 159.04, "high": 160.88, "low": 158.93, "close": 160.0}, {"date": "2026-08-04", "open": 161.49, "high": 163.56, "low": 159.32, "close": 163.56}, {"date": "2026-08-05", "open": 168.0, "high": 168.15, "low": 164.97, "close": 166.32}, {"date": "2026-08-06", "open": 172.45, "high": 176.385, "low": 166.085, "close": 172.03}, {"date": "2026-08-07", "open": 171.94, "high": 176.9, "low": 170.01, "close": 173.51}, {"date": "2026-08-10", "open": 174.6, "high": 177.55, "low": 172.24, "close": 175.34}, {"date": "2026-08-11", "open": 175.75, "high": 178.53, "low": 174.1, "close": 177.08}, {"date": "2026-08-12", "open": 178.2, "high": 180.56, "low": 176.7, "close": 179.31}, {"date": "2026-08-13", "open": 179.25, "high": 179.66, "low": 175.72, "close": 177.42}, {"date": "2026-08-14", "open": 177.58, "high": 178.16, "low": 176.1, "close": 177.0}, {"date": "2026-08-17", "open": 178.8, "high": 178.8, "low": 175.8, "close": 177.38}, {"date": "2026-08-18", "open": 177.12, "high": 180.82, "low": 176.01, "close": 178.62}, {"date": "2026-08-19", "open": 180.9, "high": 181.88, "low": 178.06, "close": 179.0}, {"date": "2026-08-20", "open": 180.0, "high": 180.81, "low": 177.15, "close": 178.74}, {"date": "2026-08-21", "open": 178.4, "high": 179.07, "low": 175.57, "close": 176.07}, {"date": "2026-08-24", "open": 176.3, "high": 177.39, "low": 174.4, "close": 176.0}, {"date": "2026-08-25", "open": 177.37, "high": 178.88, "low": 174.96, "close": 178.68}, {"date": "2026-08-26", "open": 179.77, "high": 179.77, "low": 176.07, "close": 177.25}, {"date": "2026-08-27", "open": 176.0, "high": 177.4, "low": 172.07, "close": 172.31}, {"date": "2026-08-28", "open": 175.42, "high": 178.96, "low": 174.75, "close": 176.32}, {"date": "2026-08-31", "open": 175.45, "high": 177.24, "low": 174.26, "close": 177.24}, {"date": "2026-09-01", "open": 172.0, "high": 173.75, "low": 168.73, "close": 170.42}];
   var canvas = document.getElementById('tickerCandleChart');
   var tooltip = document.getElementById('tickerCandleTooltip');
   if (!canvas) return;
