@@ -1054,5 +1054,17 @@
   "PXA": {
     "name": "PXA",
     "market": "ASX"
+  },
+  "CPU": {
+    "name": "CPU",
+    "market": "ASX"
+  },
+  "MXT": {
+    "name": "MXT",
+    "market": "ASX"
+  },
+  "CGF": {
+    "name": "CGF",
+    "market": "ASX"
   }
 }
