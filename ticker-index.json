@@ -1066,5 +1066,13 @@
   "CGF": {
     "name": "CGF",
     "market": "ASX"
+  },
+  "PRN": {
+    "name": "PRN",
+    "market": "ASX"
+  },
+  "CTD": {
+    "name": "CTD",
+    "market": "ASX"
   }
 }
