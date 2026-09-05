@@ -1074,5 +1074,9 @@
   "CTD": {
     "name": "CTD",
     "market": "ASX"
+  },
+  "ALD": {
+    "name": "ALD",
+    "market": "ASX"
   }
 }
