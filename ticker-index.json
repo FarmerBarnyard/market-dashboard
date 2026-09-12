@@ -1082,5 +1082,13 @@
   "EVT": {
     "name": "EVT",
     "market": "ASX"
+  },
+  "TXN": {
+    "name": "TXN",
+    "market": "NASDAQ"
+  },
+  "BXB": {
+    "name": "BXB",
+    "market": "ASX"
   }
 }
