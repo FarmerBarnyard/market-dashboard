@@ -1090,5 +1090,9 @@
   "BXB": {
     "name": "BXB",
     "market": "ASX"
+  },
+  "JBH": {
+    "name": "JBH",
+    "market": "ASX"
   }
 }
