@@ -1094,5 +1094,9 @@
   "JBH": {
     "name": "JBH",
     "market": "ASX"
+  },
+  "VCX": {
+    "name": "VCX",
+    "market": "ASX"
   }
 }
