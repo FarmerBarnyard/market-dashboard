@@ -1098,5 +1098,9 @@
   "VCX": {
     "name": "VCX",
     "market": "ASX"
+  },
+  "ROP": {
+    "name": "ROP",
+    "market": "NASDAQ"
   }
 }
