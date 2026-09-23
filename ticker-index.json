@@ -1102,5 +1102,9 @@
   "ROP": {
     "name": "ROP",
     "market": "NASDAQ"
+  },
+  "ALL": {
+    "name": "ALL",
+    "market": "ASX"
   }
 }
