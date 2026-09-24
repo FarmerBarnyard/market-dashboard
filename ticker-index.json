@@ -1106,5 +1106,13 @@
   "ALL": {
     "name": "ALL",
     "market": "ASX"
+  },
+  "SOL": {
+    "name": "SOL",
+    "market": "ASX"
+  },
+  "BRG": {
+    "name": "BRG",
+    "market": "ASX"
   }
 }
