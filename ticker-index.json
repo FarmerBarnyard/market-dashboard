@@ -1114,5 +1114,9 @@
   "BRG": {
     "name": "BRG",
     "market": "ASX"
+  },
+  "ALQ": {
+    "name": "ALQ",
+    "market": "ASX"
   }
 }
