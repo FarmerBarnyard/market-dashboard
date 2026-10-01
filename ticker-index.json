@@ -1122,5 +1122,9 @@
   "MTS": {
     "name": "MTS",
     "market": "ASX"
+  },
+  "AFI": {
+    "name": "AFI",
+    "market": "ASX"
   }
 }
