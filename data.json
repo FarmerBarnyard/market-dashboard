@@ -443,5 +443,15 @@
     "dividends_count": 10,
     "nasdaq_week_pct": 0.68,
     "asx_week_pct": 0.2
+  },
+  {
+    "date": "2026-10-06",
+    "nasdaq_level": 756.2,
+    "asx_level": 8739.7,
+    "midterm_count": 17,
+    "longterm_count": 0,
+    "dividends_count": 11,
+    "nasdaq_week_pct": 0.88,
+    "asx_week_pct": 0.66
   }
 ]

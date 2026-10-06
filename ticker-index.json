@@ -1126,5 +1126,17 @@
   "AFI": {
     "name": "AFI",
     "market": "ASX"
+  },
+  "RGN": {
+    "name": "RGN",
+    "market": "ASX"
+  },
+  "CIP": {
+    "name": "CIP",
+    "market": "ASX"
+  },
+  "SGP": {
+    "name": "SGP",
+    "market": "ASX"
   }
 }
