@@ -30,3 +30,6 @@ The dashboard now sits inside the same app shell as the rest of barnyard.site: l
 - `shell.js` wraps the whole page body in the shell and works out which site it is on from the hostname.
 - The generator reuses the template head for the index, ticker and new archive pages, so they pick up the new look on the next daily run. Archive pages already published keep the old look.
 - No login control is shown in the sidebar here: `auth-gate.js` is not loaded on this origin.
+### Settings follow the signed-in user (2026-10-07)
+
+The copied `themes.js` now also syncs the look-and-feel settings with the signed-in user's profile (Worker `GET/PUT/DELETE /prefs`), so a theme chosen in one browser loads in any other. `shell.js` shows the status in the Settings footer (a **Sign in** link when signed out, **Remove saved profile**). Nothing is sent when signed out. `themes.js`, `shell.js` and `shell.css` are hand-copied unchanged from `barnyard-hub`; do not edit them here.
