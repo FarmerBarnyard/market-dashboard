@@ -460,11 +460,16 @@
   .chip.na{opacity:.6;font-style:italic;}
 
   /* Very wide screens, main dashboard only (its <body data-wide>; archive and ticker pages do not opt in,
-     see /shell.css): the ranked movers sit in two columns instead of one long row, so a large
-     monitor is not left a third empty. The rows keep their size. */
+     see /shell.css). On the Markets tab the index cards and the analyst highlights move into a rail
+     beside the Notable Movers list, so a large monitor is not left a third empty; the movers list
+     keeps its normal single-row layout. Below 1900px the three groups just stack in page order. */
   @media (min-width:1900px){
-    body[data-wide] .movers-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px;}
-    body[data-wide] .movers-list .mover-row-head{grid-column:1 / -1;}
+    body[data-wide] .markets-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,520px);column-gap:44px;align-items:start;}
+    body[data-wide] .markets-grid > .mk-b{grid-column:1;grid-row:1 / span 2;}
+    body[data-wide] .markets-grid > .mk-a{grid-column:2;grid-row:1;}
+    body[data-wide] .markets-grid > .mk-c{grid-column:2;grid-row:2;}
+    body[data-wide] .markets-grid .index-cards{flex-direction:column;}
+    body[data-wide] .markets-grid .index-cards .card{flex:0 0 auto;}
   }
 </style>
 </head>
@@ -513,6 +518,8 @@ changelog. -->
 <p class="meta ticker-strip-note">The per-ticker figures in the strip above, and the driver summary below, are a snapshot as of this page's last data refresh (the index level and change tick live). Notable Movers and each ticker's own page (marked with a live dot) tick in near real time during market hours, so the same ticker's % move may read differently there later in the session -- both are today's session move, just captured at different times.</p>
 
 <div class="tab-panel active" data-tab-panel="markets">
+<div class="markets-grid">
+<div class="mk-a">
 
 <h2>Market Review - NASDAQ and ASX</h2>
 <div class="index-cards">
@@ -537,6 +544,8 @@ changelog. -->
 </div>
 <!-- SECTION:ASX_CARD:END -->
 </div>
+</div>
+<div class="mk-b">
 
 <h2>Notable Movers</h2>
 <input class="filter-input" type="text" placeholder="Filter movers by ticker or text..." data-filter-target="movers-list">
@@ -575,6 +584,8 @@ MOVERS_VISIBLE_COUNT (10) movers -- omit it entirely otherwise, nothing to
 expand. CSS hides li.mover-row:nth-child(n+11) inside #movers-list until
 this button's click adds .expanded to the <ol>. -->
 <!-- SECTION:MOVERS_TABLE:END -->
+</div>
+<div class="mk-c">
 
 <h2>Analyst Consensus Highlights</h2>
 <!-- SECTION:MORNINGSTAR_HIGHLIGHTS:START -->
@@ -586,6 +597,8 @@ this button's click adds .expanded to the <ol>. -->
 <strong>Data quality note:</strong> Rating and fair-value figures come from Finnhub's free analyst-consensus and price-target endpoints, not Morningstar -- Morningstar's own moat/uncertainty judgments have no free equivalent, so this is a different data source, not a free version of the same one.
 </div>
 <!-- SECTION:MORNINGSTAR_HIGHLIGHTS:END -->
+</div>
+</div>
 
 </div>
 
