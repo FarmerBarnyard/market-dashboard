@@ -11,7 +11,11 @@
 var LIVE_PRICE_API = "https://barnyard-live-prices.nathanbarnard29.workers.dev";
 
 (function () {
-  var POLL_INTERVAL_MS = 15000;
+  // Once a minute, and only while the tab is showing. At 15 s a page left open
+  // all day (even in a hidden tab) cost ~5,000 Worker requests a day per
+  // symbol -- most of the free plan's 100,000 -- for prices nobody was looking at.
+  var POLL_INTERVAL_MS = 60000;
+  var lastPollAt = 0;
 
   function fmtIndexLevel(n) {
     return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -68,6 +72,7 @@ var LIVE_PRICE_API = "https://barnyard-live-prices.nathanbarnard29.workers.dev";
   }
 
   function pollAll() {
+    lastPollAt = Date.now();
     var seen = {};
     document.querySelectorAll("[data-live-symbol][data-live-market]").forEach(function (el) {
       var symbol = el.getAttribute("data-live-symbol");
@@ -93,6 +98,10 @@ var LIVE_PRICE_API = "https://barnyard-live-prices.nathanbarnard29.workers.dev";
 
   if (document.querySelector("[data-live-symbol]")) {
     pollAll();
-    setInterval(pollAll, POLL_INTERVAL_MS);
+    setInterval(function () { if (!document.hidden) pollAll(); }, POLL_INTERVAL_MS);
+    // Coming back to the tab: refresh at once if the prices are a while old.
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden && Date.now() - lastPollAt >= POLL_INTERVAL_MS / 2) pollAll();
+    });
   }
 })();
