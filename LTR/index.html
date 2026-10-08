@@ -458,6 +458,14 @@
   .chip b{color:var(--text-bright);}
   .chip .stars{color:var(--amber);font-family:var(--mono);letter-spacing:1px;}
   .chip.na{opacity:.6;font-style:italic;}
+
+  /* Very wide screens, main dashboard only (its <body data-wide>; archive and ticker pages do not opt in,
+     see /shell.css): the ranked movers sit in two columns instead of one long row, so a large
+     monitor is not left a third empty. The rows keep their size. */
+  @media (min-width:1900px){
+    body[data-wide] .movers-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px;}
+    body[data-wide] .movers-list .mover-row-head{grid-column:1 / -1;}
+  }
 </style>
 </head>
 <body>
