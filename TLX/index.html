@@ -460,11 +460,16 @@
   .chip.na{opacity:.6;font-style:italic;}
 
   /* Very wide screens, main dashboard only (its <body data-wide>; archive and ticker pages do not opt in,
-     see /shell.css): the ranked movers sit in two columns instead of one long row, so a large
-     monitor is not left a third empty. The rows keep their size. */
+     see /shell.css). On the Markets tab the index cards and the analyst highlights move into a rail
+     beside the Notable Movers list, so a large monitor is not left a third empty; the movers list
+     keeps its normal single-row layout. Below 1900px the three groups just stack in page order. */
   @media (min-width:1900px){
-    body[data-wide] .movers-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px;}
-    body[data-wide] .movers-list .mover-row-head{grid-column:1 / -1;}
+    body[data-wide] .markets-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,520px);column-gap:44px;align-items:start;}
+    body[data-wide] .markets-grid > .mk-b{grid-column:1;grid-row:1 / span 2;}
+    body[data-wide] .markets-grid > .mk-a{grid-column:2;grid-row:1;}
+    body[data-wide] .markets-grid > .mk-c{grid-column:2;grid-row:2;}
+    body[data-wide] .markets-grid .index-cards{flex-direction:column;}
+    body[data-wide] .markets-grid .index-cards .card{flex:0 0 auto;}
   }
 </style>
 </head>
