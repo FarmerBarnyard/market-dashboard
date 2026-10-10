@@ -259,21 +259,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Market Dashboard - 2026-10-01</title>
+<title>Weekly Market Dashboard - 2026-10-10</title>
+<link rel="stylesheet" href="/shell.css">
+<script src="/themes.js"></script>
+<script src="/shell.js" defer></script>
 <style>
   :root{
-    --bg:#0b0f14; --surface:#12181f; --surface-2:#161d25; --border:#1e2732;
-    --text:#c9d2db; --text-dim:#6b7885; --text-bright:#eef2f6;
-    --amber:#e8a33d; --amber-dim:#8a641f; --amber-bg:rgba(232,163,61,.10);
-    --blue:#5b9fe8; --blue-dim:#2f5c8a; --blue-bg:rgba(91,159,232,.12);
-    --up:#4cc38a; --down:#ff6b5e;
-    --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
-    --sans:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    /* Colours, fonts and themes come from /shell.css and /themes.js (hand-copied from
+       barnyard-hub). These are only the names this page's rules use that the shell does
+       not already define. */
+    --blue:var(--info); --blue-dim:color-mix(in srgb, var(--info) 55%, var(--bg)); --blue-bg:var(--info-soft);
+    --mono:var(--font-mono); --sans:var(--font-body);
   }
   html{overflow-x:hidden;}
-  body{font-family:var(--sans);max-width:1040px;margin:0 auto;padding:16px;line-height:1.5;background:var(--bg);color:var(--text);}
-  h1{font-size:1.4rem;font-weight:800;letter-spacing:-.01em;margin-bottom:4px;color:var(--text-bright);text-transform:uppercase;}
-  h2{font-size:.85rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-bright);border-bottom:1px solid var(--border);padding-bottom:6px;margin-top:32px;}
+  /* body frame, colours and fonts: /shell.css */
+  h1{font:700 30px/1.1 var(--font-display);letter-spacing:-.02em;margin:12px 0 6px;color:var(--text-bright);text-wrap:balance;}
+  h2{font:600 17px/1.3 var(--font-display);letter-spacing:-.005em;color:var(--text-bright);border-bottom:1px solid var(--border);padding-bottom:8px;margin-top:36px;}
   .meta{color:var(--text-dim);font-size:.85rem;}
   /* Static-vs-live caption directly under the ticker strip -- inherits
      .meta's color/size (applied alongside it, class="meta ticker-strip-note")
@@ -284,7 +285,7 @@
   .ticker-strip-note{margin:6px 2px 18px;}
   table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:.85rem;}
   th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
-  th{background:var(--surface);color:var(--text-dim);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;}
+  th{background:var(--surface);color:var(--text-dim);font-size:.78rem;font-weight:500;}
   th.sortable{cursor:pointer;user-select:none;}
   th.sortable:hover{color:var(--amber);}
   th.sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
@@ -457,6 +458,19 @@
   .chip b{color:var(--text-bright);}
   .chip .stars{color:var(--amber);font-family:var(--mono);letter-spacing:1px;}
   .chip.na{opacity:.6;font-style:italic;}
+
+  /* Very wide screens, main dashboard only (its <body data-wide>; archive and ticker pages do not opt in,
+     see /shell.css). On the Markets tab the index cards and the analyst highlights move into a rail
+     beside the Notable Movers list, so a large monitor is not left a third empty; the movers list
+     keeps its normal single-row layout. Below 1900px the three groups just stack in page order. */
+  @media (min-width:1900px){
+    body[data-wide] .markets-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,520px);column-gap:44px;align-items:start;}
+    body[data-wide] .markets-grid > .mk-b{grid-column:1;grid-row:1 / span 2;}
+    body[data-wide] .markets-grid > .mk-a{grid-column:2;grid-row:1;}
+    body[data-wide] .markets-grid > .mk-c{grid-column:2;grid-row:2;}
+    body[data-wide] .markets-grid .index-cards{flex-direction:column;}
+    body[data-wide] .markets-grid .index-cards .card{flex:0 0 auto;}
+  }
 </style>
 </head>
 <body>
@@ -469,10 +483,10 @@
 
 <h2>This Week</h2>
 <div class="card">
-    Price: <span class="live-price" data-live-field="price" data-live-symbol="DDOG" data-live-market="NASDAQ">$273.85</span> (2026-10-01), <span class="up live-price" data-live-field="change" data-live-symbol="DDOG" data-live-market="NASDAQ">+1.97% ($+5.29)</span> (day, live). <span class="live-dot" data-live-field="dot" data-live-symbol="DDOG" data-live-market="NASDAQ" title="Live price"></span><br>
+    Price: <span class="live-price" data-live-field="price" data-live-symbol="DDOG" data-live-market="NASDAQ">$293.26</span> (2026-10-10), <span class="up live-price" data-live-field="change" data-live-symbol="DDOG" data-live-market="NASDAQ">+7.11% ($+19.46)</span> (day, live). <span class="live-dot" data-live-field="dot" data-live-symbol="DDOG" data-live-market="NASDAQ" title="Live price"></span><br>
     4-star analyst consensus, fair value not available<br>
     Watchlists: Mid-Term.<br>
-    <span class="meta">Snapshot: 52-Wk 98.01 to 292.72 - Div Yield 0.0%. Sourced from the same page already used for price verification.</span><br>
+    <span class="meta">Snapshot: 52-Wk 98.01 to 294.0 - Div Yield 0.0%. Sourced from the same page already used for price verification.</span><br>
     <span class="meta">No dividend paid</span><br>
     Source: Yahoo Finance (free)
 </div>
@@ -499,7 +513,7 @@
 <script>
 (function(){
   fetch('../tickers.json').then(function(r){ return r.json(); }).catch(function(){ return {}; }).then(function(data){
-    var entry = data['DDOG'];
+    var entry = data["DDOG"];
     var hist = (entry && entry.history) || [];
     var series = hist.map(function(h){ return h.price; }).filter(function(v){ return typeof v === 'number'; });
     var canvas = document.getElementById('tickerTrendChart');
@@ -529,7 +543,7 @@
 
 <script>
 (function(){
-  var bars = [{"date": "2026-07-01", "open": 268.39, "high": 271.26, "low": 261.5, "close": 264.48}, {"date": "2026-07-02", "open": 261.74, "high": 266.13, "low": 257.285, "close": 260.36}, {"date": "2026-07-06", "open": 249.785, "high": 262.84, "low": 248.01, "close": 255.37}, {"date": "2026-07-07", "open": 257.13, "high": 269.95, "low": 254.87, "close": 256.81}, {"date": "2026-07-08", "open": 252.5, "high": 261.89, "low": 249.74, "close": 261.09}, {"date": "2026-07-09", "open": 258.11, "high": 271.27, "low": 256.0, "close": 269.0}, {"date": "2026-07-10", "open": 270.41, "high": 271.54, "low": 255.39, "close": 257.54}, {"date": "2026-07-13", "open": 256.71, "high": 264.27, "low": 250.14, "close": 260.24}, {"date": "2026-07-14", "open": 255.585, "high": 271.12, "low": 252.02, "close": 270.73}, {"date": "2026-07-15", "open": 274.0, "high": 276.7, "low": 261.225, "close": 264.46}, {"date": "2026-07-16", "open": 264.82, "high": 266.91, "low": 254.54, "close": 262.32}, {"date": "2026-07-17", "open": 255.9, "high": 264.475, "low": 248.61, "close": 258.69}, {"date": "2026-07-20", "open": 258.59, "high": 268.83, "low": 257.075, "close": 263.2}, {"date": "2026-07-21", "open": 258.5, "high": 263.32, "low": 251.83, "close": 254.79}, {"date": "2026-07-22", "open": 251.77, "high": 252.26, "low": 243.62, "close": 245.77}, {"date": "2026-07-23", "open": 246.57, "high": 248.97, "low": 241.96, "close": 244.39}, {"date": "2026-07-24", "open": 248.44, "high": 248.44, "low": 241.18, "close": 246.86}, {"date": "2026-07-27", "open": 254.485, "high": 257.86, "low": 249.0, "close": 251.86}, {"date": "2026-07-28", "open": 255.17, "high": 255.54, "low": 237.67, "close": 250.88}, {"date": "2026-07-29", "open": 252.88, "high": 273.73, "low": 252.5, "close": 264.2}, {"date": "2026-07-30", "open": 263.805, "high": 270.33, "low": 262.61, "close": 268.56}, {"date": "2026-07-31", "open": 271.5, "high": 278.758, "low": 263.78, "close": 267.97}, {"date": "2026-08-03", "open": 272.19, "high": 278.68, "low": 267.5, "close": 273.6}, {"date": "2026-08-04", "open": 272.03, "high": 289.9, "low": 271.6, "close": 288.15}, {"date": "2026-08-05", "open": 291.43, "high": 292.72, "low": 283.0, "close": 283.17}, {"date": "2026-08-06", "open": 227.45, "high": 243.0, "low": 225.26, "close": 229.29}, {"date": "2026-08-07", "open": 234.81, "high": 248.35, "low": 233.2, "close": 233.93}, {"date": "2026-08-10", "open": 231.2, "high": 262.99, "low": 229.76, "close": 260.78}, {"date": "2026-08-11", "open": 256.63, "high": 258.245, "low": 246.33, "close": 246.78}, {"date": "2026-08-12", "open": 240.19, "high": 255.48, "low": 239.34, "close": 240.91}, {"date": "2026-08-13", "open": 241.27, "high": 253.55, "low": 240.82, "close": 252.24}, {"date": "2026-08-14", "open": 252.39, "high": 257.96, "low": 248.39, "close": 255.46}, {"date": "2026-08-17", "open": 250.62, "high": 254.33, "low": 244.48, "close": 247.32}, {"date": "2026-08-18", "open": 248.79, "high": 253.445, "low": 243.0, "close": 246.0}, {"date": "2026-08-19", "open": 246.66, "high": 246.66, "low": 232.16, "close": 233.52}, {"date": "2026-08-20", "open": 233.27, "high": 236.56, "low": 227.11, "close": 232.55}, {"date": "2026-08-21", "open": 235.15, "high": 236.31, "low": 228.76, "close": 235.62}, {"date": "2026-08-24", "open": 234.41, "high": 234.53, "low": 225.67, "close": 225.77}, {"date": "2026-08-25", "open": 226.89, "high": 229.08, "low": 221.31, "close": 222.99}, {"date": "2026-08-26", "open": 220.46, "high": 234.95, "low": 219.0, "close": 227.67}, {"date": "2026-08-27", "open": 237.0, "high": 251.99, "low": 236.0, "close": 242.93}, {"date": "2026-08-28", "open": 240.22, "high": 247.875, "low": 235.725, "close": 236.98}, {"date": "2026-08-31", "open": 233.965, "high": 239.7, "low": 232.3, "close": 237.04}, {"date": "2026-09-01", "open": 232.88, "high": 237.38, "low": 223.02, "close": 223.84}, {"date": "2026-09-02", "open": 219.46, "high": 219.79, "low": 208.22, "close": 209.23}, {"date": "2026-09-03", "open": 220.0, "high": 221.0, "low": 210.544, "close": 214.76}, {"date": "2026-09-04", "open": 212.19, "high": 214.71, "low": 210.95, "close": 212.93}, {"date": "2026-09-08", "open": 207.0, "high": 211.178, "low": 203.24, "close": 210.23}, {"date": "2026-09-09", "open": 209.04, "high": 225.96, "low": 209.04, "close": 225.27}, {"date": "2026-09-10", "open": 221.34, "high": 227.58, "low": 219.31, "close": 221.72}, {"date": "2026-09-11", "open": 221.72, "high": 225.31, "low": 218.27, "close": 221.21}, {"date": "2026-09-14", "open": 225.02, "high": 233.685, "low": 220.72, "close": 230.05}, {"date": "2026-09-15", "open": 224.06, "high": 232.785, "low": 224.06, "close": 230.27}, {"date": "2026-09-16", "open": 229.13, "high": 236.86, "low": 227.0, "close": 230.79}, {"date": "2026-09-17", "open": 229.62, "high": 239.045, "low": 227.365, "close": 236.0}, {"date": "2026-09-18", "open": 238.46, "high": 238.96, "low": 228.6, "close": 229.92}, {"date": "2026-09-21", "open": 229.73, "high": 245.31, "low": 226.833, "close": 245.05}, {"date": "2026-09-22", "open": 245.67, "high": 249.91, "low": 244.13, "close": 247.475}, {"date": "2026-09-23", "open": 251.61, "high": 256.71, "low": 247.6, "close": 251.49}, {"date": "2026-09-24", "open": 249.6, "high": 258.39, "low": 247.269, "close": 256.92}, {"date": "2026-09-25", "open": 263.175, "high": 280.7, "low": 261.0, "close": 268.13}, {"date": "2026-09-28", "open": 257.0, "high": 272.79, "low": 255.5, "close": 268.7}, {"date": "2026-09-29", "open": 267.03, "high": 269.44, "low": 259.26, "close": 268.56}, {"date": "2026-09-30", "open": 270.13, "high": 277.5, "low": 269.79, "close": 273.85}];
+  var bars = [{"date": "2026-07-10", "open": 270.41, "high": 271.54, "low": 255.39, "close": 257.54}, {"date": "2026-07-13", "open": 256.71, "high": 264.27, "low": 250.14, "close": 260.24}, {"date": "2026-07-14", "open": 255.585, "high": 271.12, "low": 252.02, "close": 270.73}, {"date": "2026-07-15", "open": 274.0, "high": 276.7, "low": 261.225, "close": 264.46}, {"date": "2026-07-16", "open": 264.82, "high": 266.91, "low": 254.54, "close": 262.32}, {"date": "2026-07-17", "open": 255.9, "high": 264.475, "low": 248.61, "close": 258.69}, {"date": "2026-07-20", "open": 258.59, "high": 268.83, "low": 257.075, "close": 263.2}, {"date": "2026-07-21", "open": 258.5, "high": 263.32, "low": 251.83, "close": 254.79}, {"date": "2026-07-22", "open": 251.77, "high": 252.26, "low": 243.62, "close": 245.77}, {"date": "2026-07-23", "open": 246.57, "high": 248.97, "low": 241.96, "close": 244.39}, {"date": "2026-07-24", "open": 248.44, "high": 248.44, "low": 241.18, "close": 246.86}, {"date": "2026-07-27", "open": 254.485, "high": 257.86, "low": 249.0, "close": 251.86}, {"date": "2026-07-28", "open": 255.17, "high": 255.54, "low": 237.67, "close": 250.88}, {"date": "2026-07-29", "open": 252.88, "high": 273.73, "low": 252.5, "close": 264.2}, {"date": "2026-07-30", "open": 263.805, "high": 270.33, "low": 262.61, "close": 268.56}, {"date": "2026-07-31", "open": 271.5, "high": 278.758, "low": 263.78, "close": 267.97}, {"date": "2026-08-03", "open": 272.19, "high": 278.68, "low": 267.5, "close": 273.6}, {"date": "2026-08-04", "open": 272.03, "high": 289.9, "low": 271.6, "close": 288.15}, {"date": "2026-08-05", "open": 291.43, "high": 292.72, "low": 283.0, "close": 283.17}, {"date": "2026-08-06", "open": 227.45, "high": 243.0, "low": 225.26, "close": 229.29}, {"date": "2026-08-07", "open": 234.81, "high": 248.35, "low": 233.2, "close": 233.93}, {"date": "2026-08-10", "open": 231.2, "high": 262.99, "low": 229.76, "close": 260.78}, {"date": "2026-08-11", "open": 256.63, "high": 258.245, "low": 246.33, "close": 246.78}, {"date": "2026-08-12", "open": 240.19, "high": 255.48, "low": 239.34, "close": 240.91}, {"date": "2026-08-13", "open": 241.27, "high": 253.55, "low": 240.82, "close": 252.24}, {"date": "2026-08-14", "open": 252.39, "high": 257.96, "low": 248.39, "close": 255.46}, {"date": "2026-08-17", "open": 250.62, "high": 254.33, "low": 244.48, "close": 247.32}, {"date": "2026-08-18", "open": 248.79, "high": 253.445, "low": 243.0, "close": 246.0}, {"date": "2026-08-19", "open": 246.66, "high": 246.66, "low": 232.16, "close": 233.52}, {"date": "2026-08-20", "open": 233.27, "high": 236.56, "low": 227.11, "close": 232.55}, {"date": "2026-08-21", "open": 235.15, "high": 236.31, "low": 228.76, "close": 235.62}, {"date": "2026-08-24", "open": 234.41, "high": 234.53, "low": 225.67, "close": 225.77}, {"date": "2026-08-25", "open": 226.89, "high": 229.08, "low": 221.31, "close": 222.99}, {"date": "2026-08-26", "open": 220.46, "high": 234.95, "low": 219.0, "close": 227.67}, {"date": "2026-08-27", "open": 237.0, "high": 251.99, "low": 236.0, "close": 242.93}, {"date": "2026-08-28", "open": 240.22, "high": 247.875, "low": 235.725, "close": 236.98}, {"date": "2026-08-31", "open": 233.965, "high": 239.7, "low": 232.3, "close": 237.04}, {"date": "2026-09-01", "open": 232.88, "high": 237.38, "low": 223.02, "close": 223.84}, {"date": "2026-09-02", "open": 219.46, "high": 219.79, "low": 208.22, "close": 209.23}, {"date": "2026-09-03", "open": 220.0, "high": 221.0, "low": 210.544, "close": 214.76}, {"date": "2026-09-04", "open": 212.19, "high": 214.71, "low": 210.95, "close": 212.93}, {"date": "2026-09-08", "open": 207.0, "high": 211.178, "low": 203.24, "close": 210.23}, {"date": "2026-09-09", "open": 209.04, "high": 225.96, "low": 209.04, "close": 225.27}, {"date": "2026-09-10", "open": 221.34, "high": 227.58, "low": 219.31, "close": 221.72}, {"date": "2026-09-11", "open": 221.72, "high": 225.31, "low": 218.27, "close": 221.21}, {"date": "2026-09-14", "open": 225.02, "high": 233.685, "low": 220.72, "close": 230.05}, {"date": "2026-09-15", "open": 224.06, "high": 232.785, "low": 224.06, "close": 230.27}, {"date": "2026-09-16", "open": 229.13, "high": 236.86, "low": 227.0, "close": 230.79}, {"date": "2026-09-17", "open": 229.62, "high": 239.045, "low": 227.365, "close": 236.0}, {"date": "2026-09-18", "open": 238.46, "high": 238.96, "low": 228.6, "close": 229.92}, {"date": "2026-09-21", "open": 229.73, "high": 245.31, "low": 226.833, "close": 245.05}, {"date": "2026-09-22", "open": 245.67, "high": 249.91, "low": 244.13, "close": 247.475}, {"date": "2026-09-23", "open": 251.61, "high": 256.71, "low": 247.6, "close": 251.49}, {"date": "2026-09-24", "open": 249.6, "high": 258.39, "low": 247.269, "close": 256.92}, {"date": "2026-09-25", "open": 263.175, "high": 280.7, "low": 261.0, "close": 268.13}, {"date": "2026-09-28", "open": 257.0, "high": 272.79, "low": 255.5, "close": 268.7}, {"date": "2026-09-29", "open": 267.03, "high": 269.44, "low": 259.26, "close": 268.56}, {"date": "2026-09-30", "open": 270.13, "high": 277.5, "low": 269.79, "close": 273.85}, {"date": "2026-10-01", "open": 278.75, "high": 280.05, "low": 271.13, "close": 276.46}, {"date": "2026-10-02", "open": 280.31, "high": 282.0, "low": 274.575, "close": 277.22}, {"date": "2026-10-05", "open": 277.81, "high": 281.85, "low": 275.325, "close": 276.415}, {"date": "2026-10-06", "open": 278.0, "high": 285.68, "low": 276.0, "close": 278.24}, {"date": "2026-10-07", "open": 278.7, "high": 281.25, "low": 270.81, "close": 271.34}, {"date": "2026-10-08", "open": 271.725, "high": 278.898, "low": 269.38, "close": 273.8}, {"date": "2026-10-09", "open": 275.42, "high": 294.0, "low": 274.83, "close": 293.26}];
   var canvas = document.getElementById('tickerCandleChart');
   var tooltip = document.getElementById('tickerCandleTooltip');
   if (!canvas) return;
