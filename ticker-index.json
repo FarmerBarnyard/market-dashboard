@@ -1142,5 +1142,9 @@
   "LSF": {
     "name": "LSF",
     "market": "ASX"
+  },
+  "REH": {
+    "name": "REH",
+    "market": "ASX"
   }
 }
