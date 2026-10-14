@@ -1146,5 +1146,9 @@
   "REH": {
     "name": "REH",
     "market": "ASX"
+  },
+  "ORA": {
+    "name": "ORA",
+    "market": "ASX"
   }
 }
