@@ -1,5 +1,5 @@
 <!--
-  DASHBOARD TEMPLATE v6 — read this fully before touching this file.
+  DASHBOARD TEMPLATE v7 — read this fully before touching this file.
   As of v6, this file is read directly by ClaudeRepo/scripts/render_dashboard.py
   (a fixed Python script, not a per-week AI agent) — see agents.md. The RULES
   section below is now maintainer documentation for that script's author
@@ -7,6 +7,46 @@
   discipline it describes (never remove/rename a SECTION marker, keep
   structure identical week to week) still applies and is what the script
   depends on.
+
+  WHAT CHANGED FROM v6 (site-wide ticker search + honest refresh timestamp,
+  from an end-user-advocate review):
+    p. New site-wide ticker search box (#tickerJumpInput, near the top of
+       the page, outside every tab-panel so it stays visible on every tab)
+       lets a visitor jump straight to any ticker's own page even if it
+       isn't listed as a mover or on a watchlist this run -- previously the
+       only way to reach a ticker's page was clicking a link that happened
+       to be on the current page. Fetches market-dashboard/ticker-index.json
+       ONCE at load (a lightweight {ticker: {name, market}} file generated
+       by render_dashboard.py's build_ticker_index -- NOT the much larger,
+       ever-growing tickers.json, which carries every ticker's full history
+       array) -- no other new network calls, no polling. Reuses the
+       .filter-input class purely for visual consistency (and gets
+       Esc-to-clear for free from the existing keyboard-shortcuts handler,
+       since that handler matches on the class, not a specific element) --
+       it's NOT wired into the existing "/" focus-filter shortcut (which
+       stays scoped to whichever tab/subtab's own local filter box is
+       visible, unchanged) because this box's job (site-wide navigation) is
+       a different action from local filtering, not a variant of it. Gets
+       its own "t" shortcut instead, documented in the hint-bar alongside
+       "/" and Esc. Static-only on this page -- not added to archive/<date>
+       .html (those are deliberately static, no-JS snapshots per rule 4
+       below) or individual ticker pages, to keep this change small and
+       reviewable; the main dashboard is already the site's hub every
+       ticker link ultimately points back to via "&larr; Back to dashboard".
+    q. A second, honest "Data last refreshed: {{DATE}}" line under the
+       existing SECTION:DATE meta line -- specifically to counter the false
+       impression the live-ticking price strip/index cards/live-dots can
+       give that the WHOLE page is real-time, when the underlying movers/
+       ratings/watchlists data is only as fresh as this run. Deliberately a
+       plain calendar date, not a fabricated HH:MM timestamp -- nothing in
+       this pipeline tracks time-of-day (see render_dashboard.py's
+       render_index_html), so inventing one would violate this project's
+       no-fabricated-data rule. Reuses the exact same `date` value already
+       stamped onto the index cards' `as_of` field, not a new source.
+       Complements, doesn't replace, the existing .ticker-strip-note caption
+       further down the page (that one explains strip-vs-movers-list drift
+       specifically; this one is the first, most prominent signal a visitor
+       sees before scrolling at all).
 
   WHAT CHANGED FROM v5 (visual redesign + Signal Scorecard):
     l. Full CSS reskin from the plain default-dark-theme palette to a
@@ -219,21 +259,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Market Dashboard - 2026-08-05</title>
+<title>Weekly Market Dashboard - 2026-10-15</title>
+<link rel="stylesheet" href="/shell.css">
+<script src="/themes.js"></script>
+<script src="/shell.js" defer></script>
 <style>
   :root{
-    --bg:#0b0f14; --surface:#12181f; --surface-2:#161d25; --border:#1e2732;
-    --text:#c9d2db; --text-dim:#6b7885; --text-bright:#eef2f6;
-    --amber:#e8a33d; --amber-dim:#8a641f; --amber-bg:rgba(232,163,61,.10);
-    --blue:#5b9fe8; --blue-dim:#2f5c8a; --blue-bg:rgba(91,159,232,.12);
-    --up:#4cc38a; --down:#ff6b5e;
-    --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
-    --sans:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    /* Colours, fonts and themes come from /shell.css and /themes.js (hand-copied from
+       barnyard-hub). These are only the names this page's rules use that the shell does
+       not already define. */
+    --blue:var(--info); --blue-dim:color-mix(in srgb, var(--info) 55%, var(--bg)); --blue-bg:var(--info-soft);
+    --mono:var(--font-mono); --sans:var(--font-body);
   }
   html{overflow-x:hidden;}
-  body{font-family:var(--sans);max-width:1040px;margin:0 auto;padding:16px;line-height:1.5;background:var(--bg);color:var(--text);}
-  h1{font-size:1.4rem;font-weight:800;letter-spacing:-.01em;margin-bottom:4px;color:var(--text-bright);text-transform:uppercase;}
-  h2{font-size:.85rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-bright);border-bottom:1px solid var(--border);padding-bottom:6px;margin-top:32px;}
+  /* body frame, colours and fonts: /shell.css */
+  h1{font:700 30px/1.1 var(--font-display);letter-spacing:-.02em;margin:12px 0 6px;color:var(--text-bright);text-wrap:balance;}
+  h2{font:600 17px/1.3 var(--font-display);letter-spacing:-.005em;color:var(--text-bright);border-bottom:1px solid var(--border);padding-bottom:8px;margin-top:36px;}
   .meta{color:var(--text-dim);font-size:.85rem;}
   /* Static-vs-live caption directly under the ticker strip -- inherits
      .meta's color/size (applied alongside it, class="meta ticker-strip-note")
@@ -244,7 +285,7 @@
   .ticker-strip-note{margin:6px 2px 18px;}
   table{width:100%;border-collapse:collapse;margin:12px 0 24px;font-size:.85rem;}
   th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
-  th{background:var(--surface);color:var(--text-dim);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;}
+  th{background:var(--surface);color:var(--text-dim);font-size:.78rem;font-weight:500;}
   th.sortable{cursor:pointer;user-select:none;}
   th.sortable:hover{color:var(--amber);}
   th.sortable::after{content:" \21C5";opacity:.4;font-size:.8em;}
@@ -279,6 +320,26 @@
   .filter-input{width:100%;box-sizing:border-box;padding:8px 10px;margin:8px 0;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:3px;font-size:.85rem;font-family:var(--mono);}
   .filter-input::placeholder{color:var(--text-dim);}
   .filter-input:focus{outline:1px solid var(--amber);border-color:var(--amber);}
+  /* "Data last refreshed" line under the main SECTION:DATE meta line --
+     see render_index_html's DATE fill in render_dashboard.py for what
+     sets this and why it's a plain date, not a fabricated time-of-day. */
+  .refreshed-note{margin-top:2px;}
+  /* Site-wide ticker search (#tickerJumpInput) -- lives outside every
+     tab-panel so it's visible regardless of the active tab. Reuses
+     .filter-input above for the input's own look; this just adds the
+     results-dropdown chrome. See the script block near the bottom of this
+     file for the fetch/matching/keyboard-nav logic, and
+     render_dashboard.py's build_ticker_index for what populates
+     ticker-index.json. */
+  .ticker-jump{position:relative;max-width:420px;margin:6px 0 20px;}
+  .ticker-jump-results{list-style:none;margin:0;padding:4px 0;position:absolute;top:calc(100% - 4px);left:0;right:0;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:3px;max-height:260px;overflow-y:auto;
+    z-index:10;box-shadow:0 4px 14px rgba(0,0,0,.4);}
+  .ticker-jump-result{display:flex;align-items:center;gap:6px;padding:6px 10px;cursor:pointer;font-size:.82rem;}
+  .ticker-jump-result strong{color:var(--text-bright);}
+  .ticker-jump-result:hover,.ticker-jump-result.active{background:var(--amber-bg);}
+  .ticker-jump-result:hover strong,.ticker-jump-result.active strong{color:var(--amber);}
+  .ticker-jump-status{margin:4px 2px 0;}
   .tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin:20px 0 0;flex-wrap:wrap;}
   .tab-btn{background:none;border:none;color:var(--text-dim);padding:10px 16px;cursor:pointer;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid transparent;font-family:var(--sans);}
   .tab-btn.active{color:var(--text-bright);border-bottom-color:var(--amber);}
@@ -397,6 +458,19 @@
   .chip b{color:var(--text-bright);}
   .chip .stars{color:var(--amber);font-family:var(--mono);letter-spacing:1px;}
   .chip.na{opacity:.6;font-style:italic;}
+
+  /* Very wide screens, main dashboard only (its <body data-wide>; archive and ticker pages do not opt in,
+     see /shell.css). On the Markets tab the index cards and the analyst highlights move into a rail
+     beside the Notable Movers list, so a large monitor is not left a third empty; the movers list
+     keeps its normal single-row layout. Below 1900px the three groups just stack in page order. */
+  @media (min-width:1900px){
+    body[data-wide] .markets-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,520px);column-gap:44px;align-items:start;}
+    body[data-wide] .markets-grid > .mk-b{grid-column:1;grid-row:1 / span 2;}
+    body[data-wide] .markets-grid > .mk-a{grid-column:2;grid-row:1;}
+    body[data-wide] .markets-grid > .mk-c{grid-column:2;grid-row:2;}
+    body[data-wide] .markets-grid .index-cards{flex-direction:column;}
+    body[data-wide] .markets-grid .index-cards .card{flex:0 0 auto;}
+  }
 </style>
 </head>
 <body>
@@ -409,11 +483,12 @@
 
 <h2>This Week</h2>
 <div class="card">
-    Price: <span class="live-price" data-live-field="price" data-live-symbol="CBA" data-live-market="ASX">price not available</span> (2026-08-05), <span class="down live-price" data-live-field="change" data-live-symbol="CBA" data-live-market="ASX">-2.54%</span> (day, live). <span class="live-dot" data-live-field="dot" data-live-symbol="CBA" data-live-market="ASX" title="Live price"></span><br>
-    No Morningstar coverage found<br>
-    Watchlists: None this week.<br>
-    <span class="meta">No additional context recorded.</span><br>
-    Source: Not recorded
+    Price: <span class="live-price" data-live-field="price" data-live-symbol="CBA" data-live-market="ASX">$155.77</span> (2026-10-15), <span class="up live-price" data-live-field="change" data-live-symbol="CBA" data-live-market="ASX">+3.23% ($+4.88)</span> (day, live). <span class="live-dot" data-live-field="dot" data-live-symbol="CBA" data-live-market="ASX" title="Live price"></span><br>
+    No analyst-consensus coverage found<br>
+    Watchlists: Dividends.<br>
+    <span class="meta">Snapshot: 52-Wk 146.98 to 185.59 - Div Yield 3.24%. Sourced from the same page already used for price verification.</span><br>
+    <span class="meta">Only 2 payment(s) in trailing 12mo -- irregular</span><br>
+    Source: Yahoo Finance (free)
 </div>
 
 <h2>Trend</h2>
@@ -438,7 +513,7 @@
 <script>
 (function(){
   fetch('../tickers.json').then(function(r){ return r.json(); }).catch(function(){ return {}; }).then(function(data){
-    var entry = data['CBA'];
+    var entry = data["CBA"];
     var hist = (entry && entry.history) || [];
     var series = hist.map(function(h){ return h.price; }).filter(function(v){ return typeof v === 'number'; });
     var canvas = document.getElementById('tickerTrendChart');
@@ -468,7 +543,7 @@
 
 <script>
 (function(){
-  var bars = [];
+  var bars = [{"date": "2026-07-15", "open": 169.3, "high": 170.46, "low": 168.22, "close": 170.0}, {"date": "2026-07-16", "open": 170.88, "high": 173.13, "low": 170.26, "close": 173.13}, {"date": "2026-07-17", "open": 173.0, "high": 173.25, "low": 170.06, "close": 171.78}, {"date": "2026-07-20", "open": 171.42, "high": 173.72, "low": 171.2, "close": 171.2}, {"date": "2026-07-21", "open": 170.03, "high": 171.38, "low": 169.24, "close": 170.49}, {"date": "2026-07-22", "open": 170.41, "high": 171.69, "low": 169.65, "close": 171.69}, {"date": "2026-07-23", "open": 173.0, "high": 174.78, "low": 172.3, "close": 172.3}, {"date": "2026-07-24", "open": 172.15, "high": 174.26, "low": 171.04, "close": 174.03}, {"date": "2026-07-27", "open": 174.5, "high": 176.2, "low": 173.98, "close": 176.07}, {"date": "2026-07-28", "open": 175.77, "high": 178.78, "low": 174.3, "close": 178.78}, {"date": "2026-07-29", "open": 178.93, "high": 181.11, "low": 177.7, "close": 178.66}, {"date": "2026-07-30", "open": 178.79, "high": 179.87, "low": 177.64, "close": 178.25}, {"date": "2026-07-31", "open": 179.01, "high": 180.09, "low": 177.53, "close": 177.53}, {"date": "2026-08-03", "open": 177.01, "high": 177.9, "low": 175.2, "close": 177.9}, {"date": "2026-08-04", "open": 178.45, "high": 181.4, "low": 178.24, "close": 180.72}, {"date": "2026-08-05", "open": 180.0, "high": 180.56, "low": 175.24, "close": 178.23}, {"date": "2026-08-06", "open": 176.62, "high": 179.97, "low": 176.62, "close": 179.87}, {"date": "2026-08-07", "open": 178.01, "high": 178.96, "low": 176.64, "close": 178.01}, {"date": "2026-08-10", "open": 176.12, "high": 177.2, "low": 173.05, "close": 174.27}, {"date": "2026-08-11", "open": 173.61, "high": 174.51, "low": 173.5, "close": 173.92}, {"date": "2026-08-12", "open": 174.25, "high": 176.45, "low": 170.11, "close": 172.72}, {"date": "2026-08-13", "open": 170.71, "high": 170.88, "low": 167.35, "close": 169.0}, {"date": "2026-08-14", "open": 169.38, "high": 170.3, "low": 166.75, "close": 167.17}, {"date": "2026-08-17", "open": 166.66, "high": 168.48, "low": 165.0, "close": 165.0}, {"date": "2026-08-18", "open": 163.0, "high": 163.66, "low": 161.8, "close": 162.63}, {"date": "2026-08-19", "open": 160.0, "high": 160.82, "low": 158.24, "close": 160.71}, {"date": "2026-08-20", "open": 158.5, "high": 160.0, "low": 156.12, "close": 156.44}, {"date": "2026-08-21", "open": 156.0, "high": 159.37, "low": 155.24, "close": 157.99}, {"date": "2026-08-24", "open": 155.55, "high": 157.8, "low": 155.0, "close": 156.88}, {"date": "2026-08-25", "open": 156.68, "high": 159.34, "low": 156.45, "close": 157.01}, {"date": "2026-08-26", "open": 156.81, "high": 158.47, "low": 155.0, "close": 155.46}, {"date": "2026-08-27", "open": 155.5, "high": 156.5, "low": 154.38, "close": 154.96}, {"date": "2026-08-28", "open": 155.0, "high": 157.25, "low": 154.4, "close": 157.25}, {"date": "2026-08-31", "open": 158.5, "high": 161.29, "low": 158.0, "close": 159.9}, {"date": "2026-09-01", "open": 159.0, "high": 160.5, "low": 158.445, "close": 159.15}, {"date": "2026-09-02", "open": 158.93, "high": 159.75, "low": 157.44, "close": 159.32}, {"date": "2026-09-03", "open": 159.0, "high": 161.2, "low": 158.72, "close": 160.58}, {"date": "2026-09-04", "open": 161.79, "high": 162.66, "low": 160.06, "close": 160.42}, {"date": "2026-09-07", "open": 160.91, "high": 161.54, "low": 160.43, "close": 161.54}, {"date": "2026-09-08", "open": 161.05, "high": 161.2, "low": 157.94, "close": 158.69}, {"date": "2026-09-09", "open": 157.54, "high": 158.87, "low": 154.45, "close": 155.25}, {"date": "2026-09-10", "open": 154.1, "high": 154.25, "low": 151.03, "close": 153.2}, {"date": "2026-09-11", "open": 153.6, "high": 154.42, "low": 152.55, "close": 154.19}, {"date": "2026-09-14", "open": 154.5, "high": 155.34, "low": 153.7, "close": 154.97}, {"date": "2026-09-15", "open": 154.8, "high": 155.14, "low": 151.55, "close": 152.5}, {"date": "2026-09-16", "open": 152.7, "high": 153.475, "low": 151.45, "close": 151.54}, {"date": "2026-09-17", "open": 153.82, "high": 154.23, "low": 152.12, "close": 154.01}, {"date": "2026-09-18", "open": 154.01, "high": 154.45, "low": 151.5, "close": 152.43}, {"date": "2026-09-21", "open": 151.3, "high": 153.51, "low": 151.02, "close": 152.99}, {"date": "2026-09-22", "open": 153.51, "high": 154.19, "low": 151.85, "close": 152.33}, {"date": "2026-09-23", "open": 152.0, "high": 152.36, "low": 150.0, "close": 151.05}, {"date": "2026-09-24", "open": 150.0, "high": 150.335, "low": 147.41, "close": 149.98}, {"date": "2026-09-25", "open": 149.35, "high": 151.04, "low": 149.12, "close": 150.83}, {"date": "2026-09-28", "open": 151.25, "high": 152.55, "low": 150.29, "close": 151.52}, {"date": "2026-09-29", "open": 151.51, "high": 151.84, "low": 149.67, "close": 150.27}, {"date": "2026-09-30", "open": 149.0, "high": 151.01, "low": 148.87, "close": 151.01}, {"date": "2026-10-01", "open": 149.5, "high": 150.55, "low": 148.52, "close": 149.71}, {"date": "2026-10-02", "open": 150.25, "high": 151.5, "low": 149.71, "close": 151.45}, {"date": "2026-10-04", "open": 151.98, "high": 152.54, "low": 151.22, "close": 151.22}, {"date": "2026-10-05", "open": 152.09, "high": 152.38, "low": 150.5, "close": 152.38}, {"date": "2026-10-06", "open": 151.0, "high": 151.72, "low": 150.27, "close": 150.37}, {"date": "2026-10-07", "open": 150.2, "high": 151.19, "low": 147.8, "close": 148.12}, {"date": "2026-10-08", "open": 149.3, "high": 150.73, "low": 148.67, "close": 149.29}, {"date": "2026-10-11", "open": 149.24, "high": 151.09, "low": 148.67, "close": 151.0}, {"date": "2026-10-12", "open": 151.0, "high": 154.5, "low": 150.8, "close": 154.5}, {"date": "2026-10-13", "open": 152.57, "high": 152.8, "low": 150.16, "close": 151.17}, {"date": "2026-10-15", "open": 152.5, "high": 157.2, "low": 151.7, "close": 155.735}];
   var canvas = document.getElementById('tickerCandleChart');
   var tooltip = document.getElementById('tickerCandleTooltip');
   if (!canvas) return;
