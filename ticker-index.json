@@ -1150,5 +1150,9 @@
   "ORA": {
     "name": "ORA",
     "market": "ASX"
+  },
+  "CNU": {
+    "name": "CNU",
+    "market": "ASX"
   }
 }
