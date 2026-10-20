@@ -752,6 +752,23 @@
         "week52_low": 135.83,
         "week52_high": 487.91,
         "dividend_yield": "0.15%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 335.53,
+        "currency": "USD",
+        "move_pct": 3.24,
+        "move_points": 10.53,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 135.83,
+        "week52_high": 487.91,
+        "dividend_yield": "0.15%"
       }
     ]
   },
@@ -2486,6 +2503,23 @@
         "week52_low": 196.0,
         "week52_high": 287.2,
         "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 262.45,
+        "currency": "USD",
+        "move_pct": 4.98,
+        "move_points": 12.45,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 196.0,
+        "week52_high": 287.2,
+        "dividend_yield": "0.0%"
       }
     ]
   },
@@ -2882,6 +2916,23 @@
         "week52_low": 833.18,
         "week52_high": 1714.09,
         "dividend_yield": "0.61%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 1253.66,
+        "currency": "USD",
+        "move_pct": 3.53,
+        "move_points": 42.8,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 833.18,
+        "week52_high": 1714.09,
+        "dividend_yield": "0.6%"
       }
     ]
   },
@@ -5826,6 +5877,23 @@
         "week52_low": 70.69,
         "week52_high": 329.88,
         "dividend_yield": "0.1%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 237.09,
+        "currency": "USD",
+        "move_pct": 4.06,
+        "move_points": 9.26,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 70.69,
+        "week52_high": 329.88,
+        "dividend_yield": "0.1%"
       }
     ]
   },
@@ -6412,6 +6480,23 @@
         "week52_low": 112.52,
         "week52_high": 799.87,
         "dividend_yield": "0.13%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 352.21,
+        "currency": "USD",
+        "move_pct": 6.09,
+        "move_points": 20.21,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 117.23,
+        "week52_high": 799.87,
+        "dividend_yield": "0.16%"
       }
     ]
   },
@@ -7213,6 +7298,23 @@
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
         "week52_low": 120.96,
+        "week52_high": 2354.39,
+        "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 1371.12,
+        "currency": "USD",
+        "move_pct": 5.53,
+        "move_points": 71.82,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 142.76,
         "week52_high": 2354.39,
         "dividend_yield": "0.0%"
       }
@@ -9342,6 +9444,23 @@
         "week52_low": 21.035,
         "week52_high": 28.09,
         "dividend_yield": "6.76%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 23.17,
+        "currency": "USD",
+        "move_pct": -2.15,
+        "move_points": -0.51,
+        "move_label": "day",
+        "rating": "3-star analyst consensus, fair value not available",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 21.035,
+        "week52_high": 28.09,
+        "dividend_yield": "6.91%"
       }
     ]
   },
@@ -10991,6 +11110,21 @@
         "week52_low": 1.4,
         "week52_high": 7.55,
         "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 3.75,
+        "currency": "AUD",
+        "move_pct": -3.49,
+        "move_points": -0.14,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 1.4,
+        "week52_high": 7.55,
+        "dividend_yield": "0.0%"
       }
     ]
   },
@@ -11640,6 +11774,21 @@
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
         "week52_low": 0.87,
+        "week52_high": 2.97,
+        "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 0.735,
+        "currency": "AUD",
+        "move_pct": -4.29,
+        "move_points": -0.03,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 0.735,
         "week52_high": 2.97,
         "dividend_yield": "0.0%"
       }
@@ -13388,6 +13537,21 @@
         "week52_low": 2.6,
         "week52_high": 5.225,
         "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 4.07,
+        "currency": "AUD",
+        "move_pct": -4.65,
+        "move_points": -0.2,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 2.6,
+        "week52_high": 5.225,
+        "dividend_yield": "0.0%"
       }
     ]
   },
@@ -14164,6 +14328,21 @@
         "currency": "AUD",
         "move_pct": -2.05,
         "move_points": -0.3,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 12.36,
+        "week52_high": 25.6,
+        "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 14.28,
+        "currency": "AUD",
+        "move_pct": 2.72,
+        "move_points": 0.38,
         "move_label": "day",
         "rating": "No analyst-consensus coverage found",
         "lists": [],
@@ -15307,6 +15486,23 @@
         "week52_low": 2.01,
         "week52_high": 3.235,
         "dividend_yield": "4.73%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 2.665,
+        "currency": "AUD",
+        "move_pct": -5.54,
+        "move_points": -0.15,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Only 1 payment(s) in trailing 12mo -- irregular",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 2.01,
+        "week52_high": 3.235,
+        "dividend_yield": "4.69%"
       }
     ]
   },
@@ -16191,6 +16387,23 @@
         "week52_low": 4.76,
         "week52_high": 9.06,
         "dividend_yield": "3.13%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 6.06,
+        "currency": "AUD",
+        "move_pct": -5.33,
+        "move_points": -0.33,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Only 2 payment(s) in trailing 12mo -- irregular",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 4.76,
+        "week52_high": 9.06,
+        "dividend_yield": "3.17%"
       }
     ]
   },
@@ -16886,6 +17099,23 @@
         "currency": "USD",
         "move_pct": -7.22,
         "move_points": -14.47,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 106.37,
+        "week52_high": 212.94,
+        "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 194.15,
+        "currency": "USD",
+        "move_pct": 4.36,
+        "move_points": 8.12,
         "move_label": "day",
         "rating": "4-star analyst consensus, fair value not available",
         "lists": [
@@ -18982,6 +19212,23 @@
         "week52_low": 228.63,
         "week52_high": 412.7,
         "dividend_yield": "0.56%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 263.19,
+        "currency": "USD",
+        "move_pct": -3.01,
+        "move_points": -8.18,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 228.63,
+        "week52_high": 406.043,
+        "dividend_yield": "0.63%"
       }
     ]
   },
@@ -20258,6 +20505,24 @@
         "week52_low": 112.54,
         "week52_high": 140.58,
         "dividend_yield": "2.99%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 124.72,
+        "currency": "USD",
+        "move_pct": -1.9,
+        "move_points": -2.42,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term",
+          "Dividends"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 112.54,
+        "week52_high": 140.58,
+        "dividend_yield": "3.05%"
       }
     ]
   },
@@ -20682,6 +20947,21 @@
         "week52_low": 6.73,
         "week52_high": 15.425,
         "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 9.55,
+        "currency": "AUD",
+        "move_pct": -3.76,
+        "move_points": -0.37,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 6.73,
+        "week52_high": 15.425,
+        "dividend_yield": "0.0%"
       }
     ]
   },
@@ -20876,6 +21156,23 @@
         "week52_low": 2.15,
         "week52_high": 3.615,
         "dividend_yield": "3.03%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 2.44,
+        "currency": "AUD",
+        "move_pct": -2.99,
+        "move_points": -0.07,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Only 1 payment(s) in trailing 12mo -- irregular",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 2.15,
+        "week52_high": 3.615,
+        "dividend_yield": "3.11%"
       }
     ]
   },
@@ -21135,6 +21432,21 @@
         "week52_low": 3.33,
         "week52_high": 8.82,
         "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 4.16,
+        "currency": "AUD",
+        "move_pct": 8.18,
+        "move_points": 0.32,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 3.33,
+        "week52_high": 8.82,
+        "dividend_yield": "0.0%"
       }
     ]
   },
@@ -21239,6 +21551,21 @@
         "week52_low": 0.88,
         "week52_high": 2.015,
         "dividend_yield": "1.13%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 1.7,
+        "currency": "AUD",
+        "move_pct": -3.12,
+        "move_points": -0.05,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [],
+        "note": "Only 1 payment(s) in trailing 12mo -- irregular",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 0.88,
+        "week52_high": 2.015,
+        "dividend_yield": "1.18%"
       }
     ]
   },
@@ -22050,6 +22377,23 @@
         "week52_low": 88.74,
         "week52_high": 296.5,
         "dividend_yield": "2.64%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 138.89,
+        "currency": "AUD",
+        "move_pct": 5.69,
+        "move_points": 7.54,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Only 2 payment(s) in trailing 12mo -- irregular",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 88.74,
+        "week52_high": 296.5,
+        "dividend_yield": "2.48%"
       }
     ]
   },
@@ -22953,6 +23297,23 @@
         "week52_low": 288.0,
         "week52_high": 447.03,
         "dividend_yield": "2.33%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 424.94,
+        "currency": "USD",
+        "move_pct": -1.75,
+        "move_points": -7.55,
+        "move_label": "day",
+        "rating": "3-star analyst consensus, fair value not available",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 288.0,
+        "week52_high": 447.03,
+        "dividend_yield": "2.34%"
       }
     ]
   },
@@ -24159,6 +24520,23 @@
         "week52_low": 149.19,
         "week52_high": 297.5,
         "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 162.49,
+        "currency": "USD",
+        "move_pct": -3.33,
+        "move_points": -5.6,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 149.19,
+        "week52_high": 297.5,
+        "dividend_yield": "0.0%"
       }
     ]
   },
@@ -24889,6 +25267,21 @@
         "note": "No dividend paid",
         "source_url": "Yahoo Finance (free)",
         "week52_low": 1.88,
+        "week52_high": 3.31,
+        "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 1.78,
+        "currency": "AUD",
+        "move_pct": 1.98,
+        "move_points": 0.03,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 1.735,
         "week52_high": 3.31,
         "dividend_yield": "0.0%"
       }
@@ -26200,6 +26593,24 @@
         "week52_low": 147.9,
         "week52_high": 230.54,
         "dividend_yield": "2.59%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 156.09,
+        "currency": "USD",
+        "move_pct": -1.89,
+        "move_points": -3.01,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term",
+          "Dividends"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 147.9,
+        "week52_high": 230.51,
+        "dividend_yield": "2.61%"
       }
     ]
   },
@@ -26700,6 +27111,23 @@
         "week52_low": 209.0,
         "week52_high": 1145.0,
         "dividend_yield": "0.46%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 660.81,
+        "currency": "USD",
+        "move_pct": 3.41,
+        "move_points": 21.8,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 209.0,
+        "week52_high": 1145.0,
+        "dividend_yield": "0.45%"
       }
     ]
   },
@@ -27396,6 +27824,23 @@
         "week52_low": 98.01,
         "week52_high": 300.68,
         "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 260.36,
+        "currency": "USD",
+        "move_pct": 5.36,
+        "move_points": 13.25,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 98.01,
+        "week52_high": 300.68,
+        "dividend_yield": "0.0%"
       }
     ]
   },
@@ -27720,6 +28165,23 @@
         "currency": "USD",
         "move_pct": 2.79,
         "move_points": 11.31,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 339.01,
+        "week52_high": 764.02,
+        "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 383.09,
+        "currency": "USD",
+        "move_pct": -1.84,
+        "move_points": -7.2,
         "move_label": "day",
         "rating": "4-star analyst consensus, fair value not available",
         "lists": [
@@ -28241,6 +28703,21 @@
         "week52_low": 8.26,
         "week52_high": 18.22,
         "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 15.82,
+        "currency": "AUD",
+        "move_pct": 2.73,
+        "move_points": 0.42,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 8.26,
+        "week52_high": 18.22,
+        "dividend_yield": "0.0%"
       }
     ]
   },
@@ -28579,6 +29056,21 @@
         "week52_low": 63.25,
         "week52_high": 122.03,
         "dividend_yield": "1.22%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 67.26,
+        "currency": "AUD",
+        "move_pct": 3.27,
+        "move_points": 2.11,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [],
+        "note": "Only 2 payment(s) in trailing 12mo -- irregular",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 58.71,
+        "week52_high": 122.03,
+        "dividend_yield": "1.16%"
       }
     ]
   },
@@ -28913,6 +29405,23 @@
         "currency": "AUD",
         "move_pct": -1.41,
         "move_points": -0.56,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Only 2 payment(s) in trailing 12mo -- irregular",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 35.48,
+        "week52_high": 49.45,
+        "dividend_yield": "4.34%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 39.16,
+        "currency": "AUD",
+        "move_pct": -3.76,
+        "move_points": -1.5,
         "move_label": "day",
         "rating": "No analyst-consensus coverage found",
         "lists": [
@@ -33947,6 +34456,23 @@
         "week52_low": 2.83,
         "week52_high": 4.22,
         "dividend_yield": "3.6%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 4.055,
+        "currency": "AUD",
+        "move_pct": 2.39,
+        "move_points": 0.1,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Only 2 payment(s) in trailing 12mo -- irregular",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 2.83,
+        "week52_high": 4.22,
+        "dividend_yield": "3.48%"
       }
     ]
   },
@@ -34179,6 +34705,23 @@
         "currency": "USD",
         "move_pct": 4.65,
         "move_points": 16.48,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term"
+        ],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 297.38,
+        "week52_high": 498.83,
+        "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 368.06,
+        "currency": "USD",
+        "move_pct": 3.76,
+        "move_points": 13.34,
         "move_label": "day",
         "rating": "4-star analyst consensus, fair value not available",
         "lists": [
@@ -34673,6 +35216,24 @@
         "week52_low": 114.02,
         "week52_high": 157.29,
         "dividend_yield": "2.12%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 153.07,
+        "currency": "USD",
+        "move_pct": -2.0,
+        "move_points": -3.12,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term",
+          "Dividends"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 114.02,
+        "week52_high": 160.51,
+        "dividend_yield": "2.12%"
       }
     ]
   },
@@ -35108,6 +35669,23 @@
         "week52_low": 39.73,
         "week52_high": 50.65,
         "dividend_yield": "3.82%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 42.41,
+        "currency": "USD",
+        "move_pct": -2.51,
+        "move_points": -1.09,
+        "move_label": "day",
+        "rating": "3-star analyst consensus, fair value not available",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 39.73,
+        "week52_high": 50.65,
+        "dividend_yield": "3.91%"
       }
     ]
   },
@@ -35975,6 +36553,24 @@
         "week52_low": 92.25,
         "week52_high": 139.24,
         "dividend_yield": "2.41%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 108.42,
+        "currency": "USD",
+        "move_pct": -2.17,
+        "move_points": -2.4,
+        "move_label": "day",
+        "rating": "4-star analyst consensus, fair value not available",
+        "lists": [
+          "Mid-Term",
+          "Dividends"
+        ],
+        "note": "5 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 93.86,
+        "week52_high": 139.24,
+        "dividend_yield": "2.55%"
       }
     ]
   },
@@ -36649,6 +37245,21 @@
         "week52_low": 1.97,
         "week52_high": 16.07,
         "dividend_yield": "0.0%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 3.0,
+        "currency": "AUD",
+        "move_pct": 20.16,
+        "move_points": 0.5,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [],
+        "note": "No dividend paid",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 1.97,
+        "week52_high": 16.07,
+        "dividend_yield": "0.0%"
       }
     ]
   },
@@ -36707,6 +37318,23 @@
         "week52_low": 27.575,
         "week52_high": 45.49,
         "dividend_yield": "5.65%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 39.63,
+        "currency": "AUD",
+        "move_pct": -3.98,
+        "move_points": -1.67,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Only 2 payment(s) in trailing 12mo -- irregular",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 27.575,
+        "week52_high": 45.49,
+        "dividend_yield": "6.18%"
       }
     ]
   },
@@ -37237,6 +37865,23 @@
         "week52_low": 3.35,
         "week52_high": 5.09,
         "dividend_yield": "3.22%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 4.45,
+        "currency": "AUD",
+        "move_pct": 2.31,
+        "move_points": 0.1,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "4 payments in trailing 12mo (Yahoo data)",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 3.35,
+        "week52_high": 5.09,
+        "dividend_yield": "3.28%"
       }
     ]
   },
@@ -37300,6 +37945,23 @@
         "week52_low": 1.212,
         "week52_high": 2.43,
         "dividend_yield": "6.72%"
+      },
+      {
+        "date": "2026-10-20",
+        "price": 1.445,
+        "currency": "AUD",
+        "move_pct": 1.94,
+        "move_points": 0.03,
+        "move_label": "day",
+        "rating": "No analyst-consensus coverage found",
+        "lists": [
+          "Dividends"
+        ],
+        "note": "Only 2 payment(s) in trailing 12mo -- irregular",
+        "source_url": "Yahoo Finance (free)",
+        "week52_low": 1.212,
+        "week52_high": 2.43,
+        "dividend_yield": "6.23%"
       }
     ]
   },
