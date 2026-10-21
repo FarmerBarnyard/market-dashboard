@@ -1154,5 +1154,9 @@
   "CNU": {
     "name": "CNU",
     "market": "ASX"
+  },
+  "FBU": {
+    "name": "FBU",
+    "market": "ASX"
   }
 }
