@@ -1158,5 +1158,9 @@
   "FBU": {
     "name": "FBU",
     "market": "ASX"
+  },
+  "HVN": {
+    "name": "HVN",
+    "market": "ASX"
   }
 }
