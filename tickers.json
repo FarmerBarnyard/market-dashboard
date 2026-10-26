@@ -1498,7 +1498,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 0.64,
+        "price": 0.68,
         "currency": "AUD",
         "move_pct": -7.25,
         "move_points": -0.05,
@@ -2151,7 +2151,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 2.62,
+        "price": 2.84,
         "currency": "AUD",
         "move_pct": -8.07,
         "move_points": -0.23,
@@ -2162,7 +2162,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 2.61,
         "week52_high": 6.81,
-        "dividend_yield": "1.91%"
+        "dividend_yield": "1.76%"
       }
     ]
   },
@@ -12741,7 +12741,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 1.11,
+        "price": 1.185,
         "currency": "AUD",
         "move_pct": -16.54,
         "move_points": -0.22,
@@ -13028,7 +13028,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 1.46,
+        "price": 1.62,
         "currency": "AUD",
         "move_pct": -29.47,
         "move_points": -0.61,
@@ -14407,7 +14407,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 3.54,
+        "price": 3.8,
         "currency": "AUD",
         "move_pct": -7.81,
         "move_points": -0.3,
@@ -15281,7 +15281,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 14.01,
+        "price": 13.22,
         "currency": "AUD",
         "move_pct": 7.77,
         "move_points": 1.01,
@@ -16787,7 +16787,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 7.91,
+        "price": 7.87,
         "currency": "AUD",
         "move_pct": 3.4,
         "move_points": 0.26,
@@ -16798,7 +16798,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 6.66,
         "week52_high": 9.9,
-        "dividend_yield": "1.26%"
+        "dividend_yield": "1.27%"
       }
     ]
   },
@@ -17164,7 +17164,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 13.93,
+        "price": 13.78,
         "currency": "AUD",
         "move_pct": 4.19,
         "move_points": 0.56,
@@ -17177,7 +17177,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 10.58,
         "week52_high": 18.74,
-        "dividend_yield": "6.82%"
+        "dividend_yield": "6.89%"
       }
     ]
   },
@@ -20744,7 +20744,7 @@
         ],
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
-        "week52_low": 156.41,
+        "week52_low": 157.39,
         "week52_high": 257.0,
         "dividend_yield": "0.76%"
       }
@@ -22857,7 +22857,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 1.475,
+        "price": 1.44,
         "currency": "AUD",
         "move_pct": -10.88,
         "move_points": -0.18,
@@ -22868,7 +22868,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 0.88,
         "week52_high": 2.015,
-        "dividend_yield": "1.36%"
+        "dividend_yield": "1.39%"
       }
     ]
   },
@@ -23184,7 +23184,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 164.0,
+        "price": 163.2,
         "currency": "AUD",
         "move_pct": 4.35,
         "move_points": 6.83,
@@ -23197,7 +23197,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 146.98,
         "week52_high": 185.59,
-        "dividend_yield": "3.08%"
+        "dividend_yield": "3.09%"
       }
     ]
   },
@@ -23817,7 +23817,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 146.81,
+        "price": 141.82,
         "currency": "AUD",
         "move_pct": 4.42,
         "move_points": 6.22,
@@ -23830,7 +23830,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 88.74,
         "week52_high": 296.5,
-        "dividend_yield": "2.35%"
+        "dividend_yield": "2.43%"
       }
     ]
   },
@@ -26450,7 +26450,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 6.16,
+        "price": 6.38,
         "currency": "AUD",
         "move_pct": -7.78,
         "move_points": -0.52,
@@ -26461,7 +26461,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 4.51,
         "week52_high": 8.84,
-        "dividend_yield": "0.81%"
+        "dividend_yield": "0.78%"
       }
     ]
   },
@@ -27233,7 +27233,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 4.75,
+        "price": 4.94,
         "currency": "AUD",
         "move_pct": -9.18,
         "move_points": -0.48,
@@ -30747,7 +30747,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 12.39,
+        "price": 12.84,
         "currency": "AUD",
         "move_pct": -7.88,
         "move_points": -1.06,
@@ -30758,7 +30758,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 9.41,
         "week52_high": 18.26,
-        "dividend_yield": "0.81%"
+        "dividend_yield": "0.78%"
       }
     ]
   },
@@ -30863,7 +30863,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 35.91,
+        "price": 35.84,
         "currency": "AUD",
         "move_pct": 3.16,
         "move_points": 1.1,
@@ -30873,8 +30873,8 @@
         "note": "4 payments in trailing 12mo (Yahoo data)",
         "source_url": "Yahoo Finance (free)",
         "week52_low": 25.5,
-        "week52_high": 40.96,
-        "dividend_yield": "0.97%"
+        "week52_high": 40.19,
+        "dividend_yield": "0.98%"
       }
     ]
   },
@@ -31394,7 +31394,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 41.31,
+        "price": 41.0,
         "currency": "AUD",
         "move_pct": 3.25,
         "move_points": 1.3,
@@ -31407,7 +31407,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 35.48,
         "week52_high": 49.45,
-        "dividend_yield": "4.12%"
+        "dividend_yield": "4.15%"
       }
     ]
   },
@@ -31509,7 +31509,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 36.79,
+        "price": 36.53,
         "currency": "AUD",
         "move_pct": 3.11,
         "move_points": 1.11,
@@ -31522,7 +31522,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 33.46,
         "week52_high": 43.32,
-        "dividend_yield": "4.19%"
+        "dividend_yield": "4.22%"
       }
     ]
   },
@@ -38220,7 +38220,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 4.77,
+        "price": 4.95,
         "currency": "AUD",
         "move_pct": -7.38,
         "move_points": -0.38,
@@ -38231,7 +38231,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 4.77,
         "week52_high": 10.05,
-        "dividend_yield": "1.05%"
+        "dividend_yield": "1.01%"
       }
     ]
   },
@@ -38966,7 +38966,7 @@
       },
       {
         "date": "2026-10-24",
-        "price": 80.29,
+        "price": 79.03,
         "currency": "AUD",
         "move_pct": 3.76,
         "move_points": 2.91,
@@ -38979,7 +38979,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 70.8,
         "week52_high": 94.7,
-        "dividend_yield": "2.76%"
+        "dividend_yield": "2.81%"
       }
     ]
   },
@@ -40604,7 +40604,7 @@
     "history": [
       {
         "date": "2026-10-24",
-        "price": 4.17,
+        "price": 4.15,
         "currency": "AUD",
         "move_pct": 3.22,
         "move_points": 0.13,
@@ -40617,7 +40617,7 @@
         "source_url": "Yahoo Finance (free)",
         "week52_low": 3.93,
         "week52_high": 7.7,
-        "dividend_yield": "6.59%"
+        "dividend_yield": "6.63%"
       }
     ]
   }
