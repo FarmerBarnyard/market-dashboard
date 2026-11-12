@@ -1166,5 +1166,9 @@
   "FPH": {
     "name": "FPH",
     "market": "ASX"
+  },
+  "ORI": {
+    "name": "ORI",
+    "market": "ASX"
   }
 }
