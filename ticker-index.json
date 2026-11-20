@@ -1170,5 +1170,9 @@
   "ORI": {
     "name": "ORI",
     "market": "ASX"
+  },
+  "SCG": {
+    "name": "SCG",
+    "market": "ASX"
   }
 }
